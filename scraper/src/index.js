@@ -3,9 +3,7 @@ const got = require('got');
 
 const foodieUrl = "https://www.foodie.fi"
 
-const isName = (i, link) => {
-
-}
+const percentageStringToFloat = (string) => parseFloat(string.replace("%","").replace(",","."))
 
 const getDrinkInfos = async (drinkCategoryNumber) => {
 
@@ -39,14 +37,28 @@ const getDrinkInfos = async (drinkCategoryNumber) => {
     const wholeNumberOfPrice = $('.whole-number ').text()
     const decimalsOfPrice = $('.decimal').text()
     const price = Number((`${wholeNumberOfPrice}.${decimalsOfPrice}`))
-    const description = $('[itemprop=description]').text()
+    const description = $('div[id=info] [itemprop=description]').first().text()
+    const imageLink = $('img[class=product-image]').attr("src")
+    let percentage
+    name.split(" ").forEach((part,i) => {
+      if(part.includes("%")){
+        let partToInt = percentageStringToFloat(part)
+        if(Number.isNaN(partToInt)){
+          partToInt = percentageStringToFloat(name.split(" ")[i-1])
+        }
+        percentage = partToInt
+        return
+      }
+    })
     const drinkInfo = {
       name,
       producer,
       ean,
       link: productLink,
       price,
-      description
+      description,
+      percentage,
+      imageLink
     }
     drinkInfos.push(drinkInfo)
   }))
