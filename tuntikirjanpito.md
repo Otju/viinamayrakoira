@@ -2,4 +2,4 @@
  
 | päivä | aloitus | lopetus | kesto |mitä tein |
 | :----:|:--------|:--------|:------|:---------|
-| 12.8. | 20:30   |  20:30  |   3   |projektin aloitus ja eka scraping    (TÄÄ VIELÄ PLACEHOLDER) |
+| 12.8. | 20:30   |  23:10  |   2:40   |projektin aloitus ja foodien scrape |
