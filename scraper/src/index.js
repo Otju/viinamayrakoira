@@ -111,4 +111,14 @@ const foodieCategories = [
     code: 1058
   }
 ]
-getDrinkInfos(1058, "Muut viinit").then(r => console.log(r))
+
+const getFoodie = async () => {
+  const infos = []
+  await Promise.all(foodieCategories.map(async (category) => {
+    const infosForCategory = await getDrinkInfos(category.code, category.name)
+    infos.push(...infosForCategory)
+  }))
+  console.log(infos)
+}
+
+getFoodie()
