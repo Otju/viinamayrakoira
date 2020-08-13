@@ -1,10 +1,12 @@
 const fetch = require("node-fetch")
 const XLSX = require('xlsx')
+const roundTo = require('round-to')
 
 
 const xlsxUrl = "https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xlsx"
 
 const getAlko = async () => {
+  const allDrinks = []
   const alkoData = await fetch(xlsxUrl)
     .then(res => res.buffer())
     .then(buffer => {
@@ -21,12 +23,13 @@ const getAlko = async () => {
         price: data.Hinta,
         description: data.Luonnehdinta,
         percentage: data["Alkoholi-%"],
-        imageLink: `https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${data.Numero}/${data.Nimi.replace(" ", "-")}`,
+        imageLink: `https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${data.Numero}/${data.Nimi.replace(/ /g, "-")}`,
         category: data.Tyyppi,
-        size: parseFloat((data.Litrahinta/data.Hinta).toString()).toFixed(2),
+        size: roundTo((data.Hinta)/data.Litrahinta,2),
         website: "alko"
       }
-      console.log(drinkInfo)
-    });
+      allDrinks.push(drinkInfo)
+    })
+    return allDrinks
 }
 module.exports = getAlko

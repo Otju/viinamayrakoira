@@ -37,6 +37,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const name = $('#product-name').text()
     const producer = $('#product-subname').text()
     const ean = $('[itemprop=sku]').text()
+    const size = Number($('.js-quantity').text().replace(/[^0-9.]/g, ""))
     const wholeNumberOfPrice = $('.whole-number ').text()
     const decimalsOfPrice = $('.decimal').text()
     const price = Number((`${wholeNumberOfPrice}.${decimalsOfPrice}`))
@@ -85,6 +86,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       percentage,
       imageLink,
       category,
+      size,
       website: "foodie"
     }
     drinkInfos.push(drinkInfo)
