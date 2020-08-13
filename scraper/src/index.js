@@ -3,15 +3,15 @@ const got = require('got');
 
 const foodieUrl = "https://www.foodie.fi"
 
-const percentageStringToFloat = (string) => parseFloat(string.replace("%","").replace(",","."))
+const percentageStringToFloat = (string) => parseFloat(string.replace("%", "").replace(",", "."))
 
-const getDrinkInfos = async (drinkCategoryNumber) => {
+const getDrinkInfos = async (categoryNumber, categoryName) => {
 
   const links = []
 
   const getPage = async (page) => {
 
-    const response = await got(foodieUrl + "/products/" + drinkCategoryNumber + "/page/" + page)
+    const response = await got(foodieUrl + "/products/" + categoryNumber + "/page/" + page)
     const $ = cheerio.load(response.body)
     $('.js-link-item').each((i, item) => {
       const link = $(item).attr("href")
@@ -28,6 +28,7 @@ const getDrinkInfos = async (drinkCategoryNumber) => {
   const drinkInfos = []
 
   await Promise.all(links.map(async (link) => {
+    let category = categoryName
     const productLink = foodieUrl + link
     const response = await got(productLink)
     const $ = cheerio.load(response.body)
@@ -40,16 +41,38 @@ const getDrinkInfos = async (drinkCategoryNumber) => {
     const description = $('div[id=info] [itemprop=description]').first().text()
     const imageLink = $('img[class=product-image]').attr("src")
     let percentage
-    name.split(" ").forEach((part,i) => {
-      if(part.includes("%")){
+    name.split(" ").forEach((part, i) => {
+      if (part.includes("%")) {
         let partToInt = percentageStringToFloat(part)
-        if(Number.isNaN(partToInt)){
-          partToInt = percentageStringToFloat(name.split(" ")[i-1])
+        if (Number.isNaN(partToInt)) {
+          partToInt = percentageStringToFloat(name.split(" ")[i - 1])
         }
         percentage = partToInt
         return
       }
     })
+    if (category === "Muut viinit") {
+      const isInNameOrDescription = (words) => {
+        const inName = words.some(word => name.toLowerCase().includes(word))
+        const inDesc = words.some(word => description.toLowerCase().includes(word))
+        return inName || inDesc
+      }
+      if (isInNameOrDescription(["red", "punaviini"])) {
+        category = "Punaviinit"
+      }
+      if (isInNameOrDescription(["kuoh"])) {
+        category = "Kuohuviinit ja Samppanjat"
+      }
+      if (isInNameOrDescription(["valko", "white"])) {
+        category = "Valkoviinit"
+      }
+      if (isInNameOrDescription(["rosé", "rose"])) {
+        category = "Roseeviinit"
+      }
+    }
+    if (percentage <= 1) {
+      category = "Alkoholittomat"
+    }
     const drinkInfo = {
       name,
       producer,
@@ -58,10 +81,34 @@ const getDrinkInfos = async (drinkCategoryNumber) => {
       price,
       description,
       percentage,
-      imageLink
+      imageLink,
+      category
     }
     drinkInfos.push(drinkInfo)
   }))
   return drinkInfos
 }
-getDrinkInfos(14018).then(r => console.log(r))
+
+const foodieCategories = [
+  {
+    name: "Oluet",
+    code: 1041
+  },
+  {
+    name: "Siiderit",
+    code: 1051
+  },
+  {
+    name: "Juomasekoitukset ja lonkerot",
+    code: 1067
+  },
+  {
+    name: "Juomasekoitukset ja lonkerot",
+    code: 14018
+  },
+  {
+    name: "Muut viinit",
+    code: 1058
+  }
+]
+getDrinkInfos(1058, "Muut viinit").then(r => console.log(r))
