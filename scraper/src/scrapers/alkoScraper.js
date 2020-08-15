@@ -12,24 +12,32 @@ const getAlko = async () => {
     .then(buffer => {
       const workbook = XLSX.read(buffer, { type: 'buffer' });
       const sheet = workbook.SheetNames[0];
-      return XLSX.utils.sheet_to_json(workbook.Sheets[sheet],{range:3})
+      return XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { range: 3 })
     })
-    alkoData.forEach(data => {
-      const drinkInfo = {
-        name: data.Nimi,
-        producer: data.Valmistaja,
-        ean: data.EAN,
-        link: `https://www.alko.fi/tuotteet/${data.Numero}/Gaja-Barbaresco-2014/`,
-        price: data.Hinta,
-        description: data.Luonnehdinta,
-        percentage: data["Alkoholi-%"],
-        imageLink: `https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${data.Numero}/${data.Nimi.replace(/ /g, "-")}`,
-        category: data.Tyyppi,
-        size: roundTo((data.Hinta)/data.Litrahinta,2),
-        website: "alko"
-      }
-      allDrinks.push(drinkInfo)
-    })
-    return allDrinks
+  alkoData.forEach(data => {
+    let type = data.Tyyppi
+    if (type === "Jälkiruokaviinit, väkevöidyt ja muut viinit") {
+      type = "Muut viinit"
+    } if (type === "juomasekoitukset") {
+      type = "Juomasekoitukset ja lonkerot"
+    }
+
+
+    const drinkInfo = {
+      name: data.Nimi,
+      producer: data.Valmistaja,
+      ean: data.EAN,
+      link: `https://www.alko.fi/tuotteet/${data.Numero}/Gaja-Barbaresco-2014/`,
+      price: data.Hinta,
+      description: data.Luonnehdinta,
+      percentage: data["Alkoholi-%"],
+      imageLink: `https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${data.Numero}/${data.Nimi.replace(/ /g, "-")}`,
+      category: type,
+      size: roundTo((data.Hinta) / data.Litrahinta, 2),
+      website: "alko"
+    }
+    allDrinks.push(drinkInfo)
+  })
+  return allDrinks
 }
 module.exports = getAlko
