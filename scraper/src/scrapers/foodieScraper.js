@@ -1,9 +1,8 @@
 const cheerio = require('cheerio');
 const got = require('got');
+const percentageStringToFloat = require('../utils')
 
 const foodieUrl = "https://www.foodie.fi"
-
-const percentageStringToFloat = (string) => parseFloat(string.replace("%", "").replace(",", "."))
 
 const getDrinkInfos = async (categoryNumber, categoryName) => {
 

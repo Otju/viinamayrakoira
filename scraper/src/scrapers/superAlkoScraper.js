@@ -1,37 +1,42 @@
 //s-12 l-9 right
-
 const cheerio = require('cheerio');
 const got = require('got');
+const percentageStringToFloat = require('../utils')
 
-const foodieUrl = "https://m.viinarannasta.ee/range-of-products/"
-
-const percentageStringToFloat = (string) => parseFloat(string.replace("%", "").replace(",", "."))
+const superAlkoUrl = "https://m.viinarannasta.ee/"
 
 const getDrinkInfos = async (categoryNumber, categoryName) => {
 
   console.log(`Getting infos for ${categoryName} from SuperAlko`)
 
-  const links = []
+  const categoryLinks = []
 
-  const getPage = async (page) => {
-
-    const response = await got(foodieUrl + categoryNumber)
+  const getCategoryLinks = async () => {
+    const response = await got(superAlkoUrl + "range-of-products/" + categoryNumber)
     const $ = cheerio.load(response.body)
-    $('.js-link-item').each((i, item) => {
+    const div = $('.s-12.l-9.right')
+    const somehint = div.find("div > h4 > span >").each((i, item) => {
       const link = $(item).attr("href")
-      links.push(link)
+      categoryLinks.push(link)
     })
-    const isNotLastPage = $('.js-load-more.btn.btn-default').attr("href")
-    return isNotLastPage
   }
 
-  let isNotLastPage = true
-  for (let i = 1; isNotLastPage; i++) {
-    isNotLastPage = await getPage(i)
-  }
+  await getCategoryLinks()
+
   const drinkInfos = []
-
-  await Promise.all(links.map(async (link) => {
+  await Promise.all(categoryLinks.map(async (link) => {
+    const response = await got(superAlkoUrl + link)
+    const $ = cheerio.load(response.body)
+    $('.row, .row2').each((i, item) => {
+      const nameDiv = $(item).find(".cell.col2")
+      const name = $(nameDiv).text()
+      const link = $(nameDiv).find("> span > a").attr("href")
+      const price = $(item).find(".cell.col4" ).text()
+      if (name && price) {
+        console.log(name, price, link)
+      }
+    })
+    /*
     let category = categoryName
     const productLink = foodieUrl + link
     const response = await got(productLink)
@@ -56,28 +61,6 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
         return
       }
     })
-    if (category === "Muut viinit") {
-      const isInNameOrDescription = (words) => {
-        const inName = words.some(word => name.toLowerCase().includes(word))
-        const inDesc = words.some(word => description.toLowerCase().includes(word))
-        return inName || inDesc
-      }
-      if (isInNameOrDescription(["red", "punaviini"])) {
-        category = "Punaviinit"
-      }
-      if (isInNameOrDescription(["kuoh"])) {
-        category = "Kuohuviinit ja Samppanjat"
-      }
-      if (isInNameOrDescription(["valko", "white"])) {
-        category = "Valkoviinit"
-      }
-      if (isInNameOrDescription(["rosé", "rose"])) {
-        category = "Roseeviinit"
-      }
-    }
-    if (percentage <= 1) {
-      category = "Alkoholittomat"
-    }
     const drinkInfo = {
       name,
       producer,
@@ -89,12 +72,13 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       imageLink,
       category,
       size,
-      website: "foodie"
+      website: "superAlko"
     }
     drinkInfos.push(drinkInfo)
+    */
   }))
-  return drinkInfos
 }
+
 
 const superAlkoCategories = [
   {
@@ -119,7 +103,7 @@ const superAlkoCategories = [
   },
   {
     name: "Rommit",
-    code: 5
+    code: [5]
   },
   {
     name: "Vodkat ja Viinat",
@@ -139,7 +123,7 @@ const superAlkoCategories = [
   },
   {
     name: "Kuohuviinit ja Samppanjat",
-    code: [12,26]
+    code: [12, 26]
   },
   {
     name: "Punaviinit",
@@ -155,17 +139,19 @@ const superAlkoCategories = [
   },
   {
     name: "Muut viinit",
-    code: [24,25,21]
+    code: [24, 25, 21]
   }
 ]
 
 const getSuperAlko = async () => {
   const infos = []
-  await Promise.all(foodieCategories.map(async (category) => {
-    const infosForCategory = await getDrinkInfos(category.code, category.name)
-    infos.push(...infosForCategory)
+  await Promise.all(superAlkoCategories.map(async (category) => {
+    await Promise.all(category.code.map(async (code) => {
+      const infosForCategory = await getDrinkInfos(code, category.name)
+      //infos.push(...infosForCategory)
+    }))
   }))
   return infos
 }
 
-module.exports = getFoodie
+module.exports = getSuperAlko
