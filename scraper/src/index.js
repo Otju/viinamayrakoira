@@ -4,4 +4,4 @@ const getSuperAlko =  require("./scrapers/superAlkoScraper")
 
 //getFoodie().then(res => console.log(res))
 //getAlko().then(res => console.log(res))
- getSuperAlko()//.then(res => console.log(res))
+getSuperAlko().then(res => console.log(res))

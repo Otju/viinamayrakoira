@@ -1,7 +1,6 @@
-//s-12 l-9 right
 const cheerio = require('cheerio');
 const got = require('got');
-const percentageStringToFloat = require('../utils')
+const { turnToNumber, percentageStringToFloat } = require('../utils')
 
 const superAlkoUrl = "https://m.viinarannasta.ee/"
 
@@ -28,55 +27,51 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const response = await got(superAlkoUrl + link)
     const $ = cheerio.load(response.body)
     $('.row, .row2').each((i, item) => {
+      const rawImageLink = $(item).find(".cell.col1.image-stack > a > img").attr("src")
       const nameDiv = $(item).find(".cell.col2")
       const name = $(nameDiv).text()
-      const link = $(nameDiv).find("> span > a").attr("href")
-      const price = $(item).find(".cell.col4" ).text()
-      if (name && price) {
-        console.log(name, price, link)
-      }
-    })
-    /*
-    let category = categoryName
-    const productLink = foodieUrl + link
-    const response = await got(productLink)
-    const $ = cheerio.load(response.body)
-    const name = $('#product-name').text()
-    const producer = $('#product-subname').text()
-    const ean = $('[itemprop=sku]').text()
-    const size = Number($('.js-quantity').text().replace(/[^0-9.]/g, ""))
-    const wholeNumberOfPrice = $('.whole-number ').text()
-    const decimalsOfPrice = $('.decimal').text()
-    const price = Number((`${wholeNumberOfPrice}.${decimalsOfPrice}`))
-    const description = $('div[id=info] [itemprop=description]').first().text()
-    const imageLink = $('img[class=product-image]').attr("src")
-    let percentage
-    name.split(" ").forEach((part, i) => {
-      if (part.includes("%")) {
-        let partToInt = percentageStringToFloat(part)
-        if (Number.isNaN(partToInt)) {
-          partToInt = percentageStringToFloat(name.split(" ")[i - 1])
+      const rawLink = $(nameDiv).find("> span > a").attr("href")
+      const rawPrice = $(item).find(".cell.col4").text()
+      if (name && rawPrice && rawLink) {
+        const imageLink = rawImageLink.replace("-thumb", "")
+        const link = superAlkoUrl + rawLink
+        let category = categoryName
+        const rawLinkParts = rawLink.split("/")
+        const productCode = rawLinkParts[rawLinkParts.length - 1]
+        const price = turnToNumber(rawPrice)
+
+        let size
+        let percentage
+        name.split(" ").forEach((part) => {
+          if (part.includes("%")) {
+            percentage = turnToNumber(part)
+          }
+          if (part.includes("cl")) {
+            if (part.includes("x")) {
+              const partParts = part.split("x")
+              size = turnToNumber(partParts[0]) * turnToNumber(partParts[1])
+            } else {
+              size = turnToNumber(part) / 100
+            }
+          }
+        })
+
+        const drinkInfo = {
+          name,
+          productCode,
+          link,
+          price,
+          percentage,
+          imageLink,
+          category,
+          size,
+          website: "superAlko"
         }
-        percentage = partToInt
-        return
+        drinkInfos.push(drinkInfo)
       }
     })
-    const drinkInfo = {
-      name,
-      producer,
-      ean,
-      link: productLink,
-      price,
-      description,
-      percentage,
-      imageLink,
-      category,
-      size,
-      website: "superAlko"
-    }
-    drinkInfos.push(drinkInfo)
-    */
   }))
+  return drinkInfos
 }
 
 
@@ -148,7 +143,7 @@ const getSuperAlko = async () => {
   await Promise.all(superAlkoCategories.map(async (category) => {
     await Promise.all(category.code.map(async (code) => {
       const infosForCategory = await getDrinkInfos(code, category.name)
-      //infos.push(...infosForCategory)
+      infos.push(...infosForCategory)
     }))
   }))
   return infos

@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const got = require('got');
-const percentageStringToFloat = require('../utils')
+const { turnToNumber } = require('../utils')
 
 const foodieUrl = "https://www.foodie.fi"
 
@@ -36,7 +36,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const name = $('#product-name').text()
     const producer = $('#product-subname').text()
     const ean = $('[itemprop=sku]').text()
-    const size = Number($('.js-quantity').text().replace(/[^0-9.]/g, ""))
+    const size = turnToNumber($('.js-quantity').text())
     const wholeNumberOfPrice = $('.whole-number ').text()
     const decimalsOfPrice = $('.decimal').text()
     const price = Number((`${wholeNumberOfPrice}.${decimalsOfPrice}`))
@@ -45,9 +45,9 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     let percentage
     name.split(" ").forEach((part, i) => {
       if (part.includes("%")) {
-        let partToInt = percentageStringToFloat(part)
+        let partToInt = turnToNumber(part)
         if (Number.isNaN(partToInt)) {
-          partToInt = percentageStringToFloat(name.split(" ")[i - 1])
+          partToInt = turnToNumber(name.split(" ")[i - 1])
         }
         percentage = partToInt
         return

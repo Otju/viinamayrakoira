@@ -1,3 +1,3 @@
-const percentageStringToFloat = (string) => parseFloat(string.replace("%", "").replace(",", "."))
+const turnToNumber = (stringToChange) => Number(stringToChange.replace(",", ".").replace(/[^0-9.]/g, ""))
 
-module.exports = { percentageStringToFloat }
+module.exports = { turnToNumber }
