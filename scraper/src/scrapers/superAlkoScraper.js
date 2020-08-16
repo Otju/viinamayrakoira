@@ -65,7 +65,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
           imageLink,
           category,
           size,
-          website: "superAlko"
+          store: "superAlko"
         }
         drinkInfos.push(drinkInfo)
       }

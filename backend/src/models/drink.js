@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -33,7 +37,7 @@ const schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  website: {
+  store: {
     type: String,
     required: true,
   }

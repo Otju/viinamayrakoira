@@ -43,7 +43,7 @@ const typeDefs = gql`
     imageLink: String
     category: String!
     size: Float!
-    website: String!
+    store: String!
   }
   
   type Query {
@@ -51,7 +51,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    updateAllDrinks(drink: [DrinkInput]): [Drink]
+    updateAllDrinks(drinks: [DrinkInput]): [Drink]
   }
 `
 const resolvers = {
@@ -60,7 +60,15 @@ const resolvers = {
   },
   Mutation: {
     updateAllDrinks: async (root, args) => {
+      const drinksToSave = args.drinks.map(drink => {
 
+        const idNumber = drink.ean ? drink.ean : drink.productCode
+
+        return {
+          _id: idNumber + drink.store
+        }
+      }
+      )
     }
   }
 }

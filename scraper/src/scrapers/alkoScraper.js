@@ -34,7 +34,7 @@ const getAlko = async () => {
       imageLink: `https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${data.Numero}/${data.Nimi.replace(/ /g, "-")}`,
       category: type,
       size: roundTo((data.Hinta) / data.Litrahinta, 2),
-      website: "alko"
+      store: "alko"
     }
     allDrinks.push(drinkInfo)
   })

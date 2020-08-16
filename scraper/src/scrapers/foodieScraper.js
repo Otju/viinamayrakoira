@@ -86,7 +86,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       imageLink,
       category,
       size,
-      website: "foodie"
+      store: "foodie"
     }
     drinkInfos.push(drinkInfo)
   }))
