@@ -1,18 +1,13 @@
 const axios = require('axios')
 const { request, gql } = require('graphql-request')
-
-const getFoodie = require("./scrapers/foodieScraper")
-const getAlko = require("./scrapers/alkoScraper")
-const getSuperAlko = require("./scrapers/superAlkoScraper")
+const scrapers = require('./scrapers')
 
 const setAllDrinks = async () => {
   let allDrinks = []
-  const foodieDrinks = await getFoodie()
-  const alkoDrinks = await getAlko()
-  const superAlkodrinks = await getSuperAlko()
-  allDrinks.push(...alkoDrinks)
-  allDrinks.push(...foodieDrinks)
-  allDrinks.push(...superAlkodrinks)
+  await Promise.all(scrapers.map(async (scraper) => {
+    const drinksForScaper = await scraper()
+    allDrinks.push(...drinksForScaper)
+  }))
 
   const query = `
     mutation updateAllDrinks ($drinks: [DrinkInput]) {
@@ -25,7 +20,9 @@ const setAllDrinks = async () => {
     let hasRequiredFields = true
     requiredFields.forEach(field => {
       if (!drink[field]) {
-        console.log(`${drink.link}} is missing field "${field}"`)
+        if (!field === "percentage") {
+          console.log(`${drink.link}} is missing field "${field}"`)
+        }
         hasRequiredFields = false
       }
     })
