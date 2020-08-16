@@ -61,14 +61,15 @@ const resolvers = {
   Mutation: {
     updateAllDrinks: async (root, args) => {
       const drinksToSave = args.drinks.map(drink => {
-
         const idNumber = drink.ean ? drink.ean : drink.productCode
-
         return {
-          _id: idNumber + drink.store
+          _id: idNumber + drink.store,
+          ...drink
         }
-      }
-      )
+      })
+      await Drink.deleteMany({})
+      const returnedDrinks = await Drink.insertMany(drinksToSave)
+      return returnedDrinks
     }
   }
 }
