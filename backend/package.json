@@ -1,5 +1,5 @@
 {
-  "name": "viinamayrakoira_scraper",
+  "name": "viinamayrakoira-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,14 +10,6 @@
   },
   "author": "Otju",
   "license": "ISC",
-  "dependencies": {
-    "axios": "^0.19.2",
-    "cheerio": "^1.0.0-rc.3",
-    "node-fetch": "^2.6.0",
-    "read-excel-file": "^4.0.7",
-    "round-to": "^4.1.0",
-    "xlsx": "^0.16.6"
-  },
   "devDependencies": {
     "nodemon": "^2.0.4"
   }
