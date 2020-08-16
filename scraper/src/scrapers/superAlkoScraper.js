@@ -6,8 +6,6 @@ const superAlkoUrl = "https://m.viinarannasta.ee/"
 
 const getDrinkInfos = async (categoryNumber, categoryName) => {
 
-  console.log(`Getting infos for ${categoryName} from SuperAlko`)
-
   const categoryLinks = []
 
   const getCategoryLinks = async () => {
@@ -140,12 +138,14 @@ const superAlkoCategories = [
 
 const getSuperAlko = async () => {
   const infos = []
+  console.log("Getting drinks from SuperAlko")
   await Promise.all(superAlkoCategories.map(async (category) => {
     await Promise.all(category.code.map(async (code) => {
       const infosForCategory = await getDrinkInfos(code, category.name)
       infos.push(...infosForCategory)
     }))
   }))
+  console.log("Got drinks from SuperAlko")
   return infos
 }
 

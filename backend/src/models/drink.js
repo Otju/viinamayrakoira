@@ -10,8 +10,7 @@ const schema = new mongoose.Schema({
     required: true,
   },
   producer: {
-    type: String,
-    required: true,
+    type: String
   },
   ean: String,
   productCode: String,

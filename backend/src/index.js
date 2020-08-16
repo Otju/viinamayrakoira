@@ -18,7 +18,7 @@ const typeDefs = gql`
   type Drink {
     id: ID!
     name: String!
-    producer: String!
+    producer: String
     ean: String
     productCode: String
     link: String!
@@ -33,7 +33,7 @@ const typeDefs = gql`
 
   input DrinkInput {
     name: String!
-    producer: String!
+    producer: String
     ean: String
     productCode: String
     link: String!
@@ -60,16 +60,24 @@ const resolvers = {
   },
   Mutation: {
     updateAllDrinks: async (root, args) => {
-      const drinksToSave = args.drinks.map(drink => {
-        const idNumber = drink.ean ? drink.ean : drink.productCode
-        return {
-          _id: idNumber + drink.store,
-          ...drink
-        }
-      })
-      await Drink.deleteMany({})
-      const returnedDrinks = await Drink.insertMany(drinksToSave)
-      return returnedDrinks
+      try {
+        const drinksToSave = args.drinks.map(drink => {
+          const idNumber = drink.productCode ? drink.productCode : drink.ean
+          return {
+            _id: idNumber + drink.store,
+            ...drink
+          }
+        })
+        const deleteRes =  await Drink.deleteMany({})
+        console.log(`deleted ${deleteRes.deletedCount} items from database`)
+        const returnedDrinks = await Drink.insertMany(drinksToSave)
+        console.log(`inserted ${returnedDrinks.length} items to the database`)
+        return returnedDrinks
+      } catch (error) {
+        console.log(error.message)
+        return (error.message)
+      }
+
     }
   }
 }

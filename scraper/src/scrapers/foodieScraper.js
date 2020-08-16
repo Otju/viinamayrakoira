@@ -6,8 +6,6 @@ const foodieUrl = "https://www.foodie.fi"
 
 const getDrinkInfos = async (categoryNumber, categoryName) => {
 
-  console.log(`Getting infos for ${categoryName} from foodie`)
-
   const links = []
 
   const getPage = async (page) => {
@@ -118,10 +116,12 @@ const foodieCategories = [
 
 const getFoodie = async () => {
   const infos = []
+  console.log("Getting drinks from foodie")
   await Promise.all(foodieCategories.map(async (category) => {
     const infosForCategory = await getDrinkInfos(category.code, category.name)
     infos.push(...infosForCategory)
   }))
+  console.log("Got drinks from foodie")
   return infos
 }
 

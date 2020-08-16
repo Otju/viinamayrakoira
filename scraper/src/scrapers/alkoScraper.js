@@ -1,11 +1,13 @@
 const fetch = require("node-fetch")
 const XLSX = require('xlsx')
 const roundTo = require('round-to')
+const { turnToNumber } = require('../utils')
 
 
 const xlsxUrl = "https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xlsx"
 
 const getAlko = async () => {
+  console.log("Getting drinks from Alko")
   const allDrinks = []
   const alkoData = await fetch(xlsxUrl)
     .then(res => res.buffer())
@@ -21,16 +23,23 @@ const getAlko = async () => {
     } if (type === "juomasekoitukset") {
       type = "Juomasekoitukset ja lonkerot"
     }
+    if(type === "lahja- ja juomatarvikkeet"){
+      return 
+    }
+    if(!type) {
+      type = "Ei tietoa"
+    }
 
 
     const drinkInfo = {
       name: data.Nimi,
       producer: data.Valmistaja,
+      productCode: data.Numero,
       ean: data.EAN,
-      link: `https://www.alko.fi/tuotteet/${data.Numero}/Gaja-Barbaresco-2014/`,
-      price: data.Hinta,
+      link: `https://www.alko.fi/tuotteet/${data.Numero}/`,
+      price: turnToNumber(data.Hinta),
       description: data.Luonnehdinta,
-      percentage: data["Alkoholi-%"],
+      percentage: turnToNumber(data["Alkoholi-%"]),
       imageLink: `https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${data.Numero}/${data.Nimi.replace(/ /g, "-")}`,
       category: type,
       size: roundTo((data.Hinta) / data.Litrahinta, 2),
@@ -38,6 +47,7 @@ const getAlko = async () => {
     }
     allDrinks.push(drinkInfo)
   })
+  console.log("Got drinks from Alko")
   return allDrinks
 }
 module.exports = getAlko
