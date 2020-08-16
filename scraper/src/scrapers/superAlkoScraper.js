@@ -52,6 +52,9 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
               size = turnToNumber(part) / 100
             }
           }
+          if (part.includes("1L")){
+            size = 1
+          }
         })
 
         const drinkInfo = {

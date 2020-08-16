@@ -7,10 +7,12 @@ const getSuperAlko = require("./scrapers/superAlkoScraper")
 
 const setAllDrinks = async () => {
   let allDrinks = []
-  //await getFoodie()
+  const foodieDrinks = await getFoodie()
   const alkoDrinks = await getAlko()
-  //getSuperAlko().then(res => allDrinks.push(...res))
+  const superAlkodrinks = await getSuperAlko()
   allDrinks.push(...alkoDrinks)
+  allDrinks.push(...foodieDrinks)
+  allDrinks.push(...superAlkodrinks)
 
   const query = `
     mutation updateAllDrinks ($drinks: [DrinkInput]) {
@@ -19,20 +21,19 @@ const setAllDrinks = async () => {
 `
 
   allDrinks = allDrinks.map(drink => {
-    const requiredFields = ["name", "price", "size", "store", "link", "category"]
+    const requiredFields = ["name", "price", "size", "store", "link", "category", "percentage"]
     let hasRequiredFields = true
     requiredFields.forEach(field => {
       if (!drink[field]) {
-        console.log(`"${drink.productCode}" is missing field "${field}"`)
+        console.log(`${drink.link}} is missing field "${field}"`)
         hasRequiredFields = false
       }
     })
-    if(!drink.ean && !drink.productCode){
-      console.log(`"${drink.productCode}" is missing field EAN and ProductCode`)
+    if (!drink.ean && !drink.productCode) {
+      console.log(`${drink.link} is missing field EAN and ProductCode`)
       hasRequiredFields = false
     }
     if (!hasRequiredFields) {
-      console.log("missing")
       return null
     }
     return drink
