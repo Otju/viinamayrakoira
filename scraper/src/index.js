@@ -39,6 +39,7 @@ const setAllDrinks = async () => {
   const variables = {
     drinks: allDrinks
   };
+  
   try {
     const response = await request("http://localhost:4000/", query, variables)
     console.log(`Added ${response.updateAllDrinks.length} drinks to db`)
