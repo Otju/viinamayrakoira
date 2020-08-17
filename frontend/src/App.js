@@ -1,11 +1,13 @@
-import React from 'react';
+import React from 'react'
+import {} from "react-bootstrap"
+
 
 function App() {
   return (
-    <div>
+    <div class="container">
       
     </div>
   );
 }
 
-export default App;
+export default App
