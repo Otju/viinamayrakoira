@@ -28,7 +28,7 @@ const typeDefs = gql`
     imageLink: String
     category: String!
     size: Float!
-    website: String!
+    store: String!
   }
 
   input DrinkInput {
