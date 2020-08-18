@@ -47,7 +47,9 @@ const typeDefs = gql`
   }
   
   type Query {
-    allDrinks: [Drink!]!
+    allDrinks(
+      first: Int, 
+      offset: Int ): [Drink!]!
   }
 
   type Mutation {
