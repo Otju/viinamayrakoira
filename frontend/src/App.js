@@ -30,16 +30,26 @@ const App = () => {
     <DrinkCard style={{ display: 'inline-block' }} key={drink.id} drink={drink}></DrinkCard>
   )), 3)
 
-  const paginationItems = []
+  let paginationTabs = [1, currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2, maxPage]
 
+  paginationTabs = paginationTabs.filter(page => !(page < 1 || page > maxPage))
 
-  for (let page = 1; page <= maxPage; page++) {
-    paginationItems.push(
+  paginationTabs = [...new Set(paginationTabs)]
+
+  const paginationItems = paginationTabs.map((page, i) => {
+    const prevPage = paginationTabs[i - 1]
+    const nextPage = paginationTabs[i + 1]
+    if (prevPage && nextPage && (page - prevPage > 1 || nextPage - page > 1)) {
+      return <Pagination.Ellipsis key={page} />
+    }
+
+    return (
       <Pagination.Item key={page} active={page === currentPage} onClick={() => setCurrentPage(page)}>
         {page}
-      </Pagination.Item>,
-    );
-  }
+      </Pagination.Item>
+    )
+  })
+
 
   return (
     <div className="container">
@@ -47,7 +57,13 @@ const App = () => {
       {
         groupedDrinks.map(group => <CardGroup key={group[0].key}>{group}</CardGroup>)
       }
-      <Pagination>{paginationItems}</Pagination>
+      <Pagination>
+        <Pagination.First onClick={() => setCurrentPage(1)} />
+        <Pagination.Prev onClick={() => { if (currentPage > 1) { setCurrentPage(currentPage - 1) } }} />
+        {paginationItems}
+        <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} />
+        <Pagination.Last onClick={() => { if (currentPage < maxPage) { setCurrentPage(maxPage + 1) } }} />
+      </Pagination>
     </div>
   );
 }
