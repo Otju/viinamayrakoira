@@ -5,7 +5,7 @@ import DrinkCard from './components/DrinkCard'
 import CardGroup from 'react-bootstrap/CardGroup'
 
 
-function App() {
+const App = () => {
   const result = useQuery(ALL_DRINKS)
   if (!result.data || result.loading) {
     return null
@@ -19,7 +19,7 @@ function App() {
     return result;
   }
 
-  const groupedDrinks = groupByN(drinks.slice(12000, drinks.length).map((drink, i) => (
+  const groupedDrinks = groupByN(drinks.slice(13000, drinks.length).map((drink, i) => (
     <DrinkCard style={{ display: 'inline-block' }} key={drink.id} drink={drink}></DrinkCard>
   )), 3)
 
