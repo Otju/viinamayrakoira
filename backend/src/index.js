@@ -75,7 +75,7 @@ const resolvers = {
   Query: {
     allDrinks: async (root, args) => {
       let search = {}
-      const drinks = await Drink.find(search).limit(args.first)
+      const drinks = await Drink.find(search).skip(args.offset).limit(args.first)
       const count = await Drink.find(search).count()
       return  {drinks, count}
     }

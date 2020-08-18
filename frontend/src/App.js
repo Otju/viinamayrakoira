@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_DRINKS } from './queries'
 import DrinkCard from './components/DrinkCard'
@@ -9,15 +9,16 @@ import Pagination from 'react-bootstrap/Pagination'
 
 const App = () => {
 
-  const [page, setPage] = useState(1)
-  const drinksPerPage = 42
-  const offset = drinksPerPage*(page-1)
+  const [currentPage, setCurrentPage] = useState(1)
+  const drinksPerPage = 30
+  const offset = drinksPerPage * (currentPage - 1)
   const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset } })
   if (!result.data || result.loading) {
     return null
   }
   const drinks = result.data.allDrinks.drinks
   const count = result.data.allDrinks.count
+  const maxPage = Math.ceil(count / drinksPerPage)
 
   const groupByN = (data, n) => {
     let result = []
@@ -29,16 +30,26 @@ const App = () => {
     <DrinkCard style={{ display: 'inline-block' }} key={drink.id} drink={drink}></DrinkCard>
   )), 3)
 
+  const paginationItems = []
+
+
+  for (let page = 1; page <= maxPage; page++) {
+    paginationItems.push(
+      <Pagination.Item key={page} active={page === currentPage} onClick={() => setCurrentPage(page)}>
+        {page}
+      </Pagination.Item>,
+    );
+  }
+
   return (
     <div className="container">
       <h1>Drinks</h1>
       {
         groupedDrinks.map(group => <CardGroup key={group[0].key}>{group}</CardGroup>)
       }
-      
+      <Pagination>{paginationItems}</Pagination>
     </div>
   );
 }
-//<Pagination></Pagination>
 
 export default App
