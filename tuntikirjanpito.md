@@ -9,5 +9,5 @@
 | 16.8.20 | 11:10   |  15:40  | 4:30  |backend, database ja scraper lähettää databaseen |
 | 17.8.20 | 11:00   |  13:00  | 2:00  |frontendin basic setup|
 | 18.8.20 | 11:20   |  14:50  | 3:20  |frontendin kanssa säätäminen|
-| 18.8.20 | 21:20   |  --:--  | -:--  |frontendin kanssa säätäminen|
+| 18.8.20 | 21:20   |  23:10  | 1:50  |pagination|
 | --.8.20 | --:--   |  --:--  | -:--  ||
