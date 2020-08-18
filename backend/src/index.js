@@ -45,11 +45,26 @@ const typeDefs = gql`
     size: Float!
     store: String!
   }
+
+  type allDrinksOutPut {
+    drinks: [Drink!]!,
+    count: Int!
+  }
   
   type Query {
     allDrinks(
-      first: Int, 
-      offset: Int ): [Drink!]!
+      first: Int!, 
+      offset: Int,
+      store: String,
+      name: String,
+      minPrice: Float,
+      maxPrice: Float
+      minPercentage: Float,
+      maxPercentage: Float,
+      minSize: Float,
+      maxSize: Float,
+      category: String
+      ): allDrinksOutPut!
   }
 
   type Mutation {
@@ -58,7 +73,12 @@ const typeDefs = gql`
 `
 const resolvers = {
   Query: {
-    allDrinks: () => Drink.find({})
+    allDrinks: async (root, args) => {
+      let search = {}
+      const drinks = await Drink.find(search).limit(args.first)
+      const count = await Drink.find(search).count()
+      return  {drinks, count}
+    }
   },
   Mutation: {
     updateAllDrinks: async (root, args) => {
@@ -70,7 +90,7 @@ const resolvers = {
             ...drink
           }
         })
-        const deleteRes =  await Drink.deleteMany({})
+        const deleteRes = await Drink.deleteMany({})
         console.log(`deleted ${deleteRes.deletedCount} items from database`)
         const returnedDrinks = await Drink.insertMany(drinksToSave)
         console.log(`inserted ${returnedDrinks.length} items to the database`)

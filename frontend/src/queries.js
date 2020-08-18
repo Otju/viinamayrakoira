@@ -1,8 +1,15 @@
 import { gql } from '@apollo/client'
 
 export const ALL_DRINKS = gql`
-  query {
-    allDrinks{
+  query allDrinks(
+    $first: Int!
+    $offset: Int
+    ){
+    allDrinks(
+      first: $first,
+      offset: $offset
+      ){
+        drinks{
         id
         name
         producer
@@ -16,6 +23,8 @@ export const ALL_DRINKS = gql`
         category
         size
         store
+      }
+      count
     }
   }
 `
