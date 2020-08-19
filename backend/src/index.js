@@ -76,7 +76,7 @@ const resolvers = {
     allDrinks: async (root, args) => {
       let search = {}
       const drinks = await Drink.find(search).skip(args.offset).limit(args.first)
-      const count = await Drink.find(search).count()
+      const count = await Drink.find(search).countDocuments()
       return  {drinks, count}
     }
   },

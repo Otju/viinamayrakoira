@@ -4,6 +4,7 @@ import { ALL_DRINKS } from './queries'
 import DrinkCard from './components/DrinkCard'
 import {CardGroup} from 'react-bootstrap'
 import PaginationMenu from './components/PaginationMenu'
+import SearchVariableMenu from './components/SearchVariableMenu'
 
 const App = () => {
 
@@ -11,7 +12,9 @@ const App = () => {
   const drinksPerPage = 30
   const offset = drinksPerPage * (currentPage - 1)
 
-  const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset } })
+  const [searchVariables, setSearchVariables] = useState({})
+
+  const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...{searchVariables}} })
   if (!result.data || result.loading) {
     return null
   }
@@ -31,6 +34,7 @@ const App = () => {
   return (
     <div className="container">
       <h1>Drinks</h1>
+      <SearchVariableMenu {...{searchVariables, setSearchVariables}}></SearchVariableMenu>
       {
         groupedDrinks.map(group => <CardGroup key={group[0].key}>{group}</CardGroup>)
       }

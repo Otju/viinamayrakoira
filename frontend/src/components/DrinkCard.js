@@ -35,11 +35,11 @@ const DrinkCard = ({ drink }) => {
                 <Card.Subtitle>{capitalizeFirst(drink.category)}</Card.Subtitle>
                 <Card.Img variant="top" src={drink.imageLink} style={{ maxWidth: "50%", maxHeight: "20rem", width: "auto", height: "auto" }} />
                 <Card.Text style={{ display: 'inline-block', padding: "5%" }}>
-                    {drink.price}€<br></br>
-                    {drink.percentage}%<br></br>
-                    {drink.size}l<br></br>
-                    {store}<br></br>
-                    {capitalizeFirst(drink.producer)}
+                    <h5>{drink.price}€</h5>
+                    <h5>{drink.percentage}%</h5>
+                    <h5>{drink.size}l</h5>
+                    <h5>{store}</h5>
+                    <h5>{capitalizeFirst(drink.producer)}</h5>
                 </Card.Text>
             </Card.Body>
         </Card>
