@@ -1,14 +1,8 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
+import { capitalizeFirst } from '../utils'
 
 const DrinkCard = ({ drink }) => {
-
-    const capitalizeFirst = string => {
-        if (!string) {
-            return null
-        }
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
 
     const store = capitalizeFirst(drink.store)
 

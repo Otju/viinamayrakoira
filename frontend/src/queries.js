@@ -4,12 +4,14 @@ export const ALL_DRINKS = gql`
   query allDrinks(
     $first: Int!
     $offset: Int,
-    $name: String
+    $name: String,
+    $store: [String!]
     ){
     allDrinks(
       first: $first,
       offset: $offset,
-      name: $name
+      name: $name,
+      store: $store
       ){
         drinks{
         id

@@ -26,7 +26,19 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     >
       {({ handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
-          <Field type="text" name="name" placeholder="search by name"/>
+
+          <Field type="text" name="name" placeholder="search by name" />
+          <label>
+            <Field type="checkbox" name="store" value="alko"/>
+            Alko
+          </label>
+          <label>
+            <Field type="checkbox" name="store" value="superAlko"/>
+            SuperAlko
+          </label>          <label>
+            <Field type="checkbox" name="store" value="foodie" />
+            Foodie
+          </label>
         </Form>
       )}
     </Formik>

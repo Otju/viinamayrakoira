@@ -55,7 +55,7 @@ const typeDefs = gql`
     allDrinks(
       first: Int!, 
       offset: Int,
-      store: String,
+      store: [String!],
       name: String,
       minPrice: Float,
       maxPrice: Float
@@ -75,15 +75,18 @@ const resolvers = {
   Query: {
     allDrinks: async (root, args) => {
       let search = {}
-      if(args.name){
+      if (args.name) {
         let regex = "^"
-        args.name.split(" ").forEach(part => regex +=`(?=.*${part})`)
+        args.name.split(" ").forEach(part => regex += `(?=.*${part})`)
         regex += ".*$"
-        search.name = { $regex: regex, $options: ["i","x"] }
+        search.name = { $regex: regex, $options: ["i", "x"] }
+      }
+      if (args.store && args.store.length!==0) {
+        search.store = { $in: args.store }
       }
       const drinks = await Drink.find(search).skip(args.offset).limit(args.first)
       const count = await Drink.find(search).countDocuments()
-      return  {drinks, count}
+      return { drinks, count }
     }
   },
   Mutation: {
