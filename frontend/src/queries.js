@@ -3,11 +3,13 @@ import { gql } from '@apollo/client'
 export const ALL_DRINKS = gql`
   query allDrinks(
     $first: Int!
-    $offset: Int
+    $offset: Int,
+    $name: String
     ){
     allDrinks(
       first: $first,
-      offset: $offset
+      offset: $offset,
+      name: $name
       ){
         drinks{
         id

@@ -12,9 +12,9 @@ const App = () => {
   const drinksPerPage = 30
   const offset = drinksPerPage * (currentPage - 1)
 
-  const [searchVariables, setSearchVariables] = useState({})
+  const [searchVariables, setSearchVariables] = useState({name: "cool"})
 
-  const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...{searchVariables}} })
+  const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariables} })
   if (!result.data || result.loading) {
     return null
   }
