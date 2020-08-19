@@ -31,15 +31,21 @@ const DrinkCard = ({ drink }) => {
     return (
         <Card style={{ display: 'inline-block', width: "33%", borderColor: borderColor, borderWidth: "3px" }}>
             <Card.Body>
-                <Card.Title style={{ height: "5rem" }}><a rel="noopener noreferrer" style={{ color: "black" }} target="_blank" href={drink.link}>{drink.name}</a></Card.Title>
+                <Card.Title style={{
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    height: "3rem"
+                }}><a rel="noopener noreferrer" style={{ color: "black" }} target="_blank" href={drink.link}>{drink.name}</a></Card.Title>
                 <Card.Subtitle>{capitalizeFirst(drink.category)}</Card.Subtitle>
                 <Card.Img variant="top" src={drink.imageLink} style={{ maxWidth: "50%", maxHeight: "20rem", width: "auto", height: "auto" }} />
                 <Card.Text style={{ display: 'inline-block', padding: "5%" }}>
-                    <h5>{drink.price}€</h5>
-                    <h5>{drink.percentage}%</h5>
-                    <h5>{drink.size}l</h5>
-                    <h5>{store}</h5>
-                    <h5>{capitalizeFirst(drink.producer)}</h5>
+                    {drink.price}€<br></br>
+                    {drink.percentage}%<br></br>
+                    {drink.size}l<br></br>
+                    {store}<br></br>
+                    {capitalizeFirst(drink.producer)}<br></br>
                 </Card.Text>
             </Card.Body>
         </Card>

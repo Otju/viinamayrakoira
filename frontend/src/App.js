@@ -34,7 +34,7 @@ const App = () => {
   return (
     <div className="container">
       <h1>Drinks</h1>
-      <SearchVariableMenu {...{searchVariables, setSearchVariables}}></SearchVariableMenu>
+      <SearchVariableMenu {...{searchVariables, setSearchVariables}}/>
       {
         groupedDrinks.map(group => <CardGroup key={group[0].key}>{group}</CardGroup>)
       }
