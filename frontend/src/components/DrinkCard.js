@@ -29,10 +29,9 @@ const DrinkCard = ({ drink }) => {
     }
 
     return (
-        <Card style={{ display: 'inline-block', width: "33%", borderColor: borderColor, borderWidth: "3px" }}
-            onClick={ () => window.open(drink.link)}>
+        <Card style={{ display: 'inline-block', width: "33%", borderColor: borderColor, borderWidth: "3px" }}>
             <Card.Body>
-                <Card.Title style={{ height: "5rem" }}>{drink.name}</Card.Title>
+                <Card.Title style={{ height: "5rem" }}><a rel="noopener noreferrer" style={{ color: "black" }} target="_blank" href={drink.link}>{drink.name}</a></Card.Title>
                 <Card.Subtitle>{capitalizeFirst(drink.category)}</Card.Subtitle>
                 <Card.Img variant="top" src={drink.imageLink} style={{ maxWidth: "50%", maxHeight: "20rem", width: "auto", height: "auto" }} />
                 <Card.Text style={{ display: 'inline-block', padding: "5%" }}>

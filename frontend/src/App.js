@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_DRINKS } from './queries'
 import DrinkCard from './components/DrinkCard'
-import CardGroup from 'react-bootstrap/CardGroup'
+import {CardGroup} from 'react-bootstrap'
 import PaginationMenu from './components/PaginationMenu'
-//import Button from 'react-bootstrap/Button'
-
 
 const App = () => {
 

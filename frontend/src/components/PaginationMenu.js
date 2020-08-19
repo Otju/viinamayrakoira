@@ -27,7 +27,7 @@ const PaginationMenu = ({ count, currentPage, drinksPerPage, setCurrentPage }) =
     })
 
     return (
-        <Pagination>
+        <Pagination style={{display: 'flex', justifyContent: 'center'}}>
             <Pagination.First onClick={() => setCurrentPage(1)} />
             <Pagination.Prev onClick={() => { if (currentPage > 1) { setCurrentPage(currentPage - 1) } }} />
             {paginationItems}
