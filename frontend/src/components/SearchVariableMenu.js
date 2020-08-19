@@ -1,23 +1,28 @@
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { capitalizeFirst } from '../utils'
+import Button from 'react-bootstrap/Button'
 
 const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
-  return <div>
+  const stores = ["alko", "foodie", "superAlko"]
+
+  return <div style={{border: "solid", padding: "1rem"}}>
     <Formik
       initialValues={{ name: '' }}
       validate={values => {
-        const errors = {};
+        const errors = {}
         /*
         if (!values.email) {
-          errors.email = 'Required';
+          errors.email = 'Required'
         } else if (
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
         ) {
-          errors.email = 'Invalid email address';
+          errors.email = 'Invalid email address'
         }
          */
-        return errors;
+        return errors
+
       }}
 
       onSubmit={(values) => {
@@ -26,19 +31,14 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     >
       {({ handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
-
           <Field type="text" name="name" placeholder="search by name" />
-          <label>
-            <Field type="checkbox" name="store" value="alko"/>
-            Alko
-          </label>
-          <label>
-            <Field type="checkbox" name="store" value="superAlko"/>
-            SuperAlko
-          </label>          <label>
-            <Field type="checkbox" name="store" value="foodie" />
-            Foodie
-          </label>
+          {stores.map(store => (
+            <label key={store}>
+              <Field type="checkbox" name="store" value={store} />
+              {capitalizeFirst(store)}
+            </label>
+          ))}
+          <Button type="submit" variant="dark">Search</Button>
         </Form>
       )}
     </Formik>

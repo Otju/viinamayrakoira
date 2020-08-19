@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <h1>Drinks</h1>
+      <h1>Viinamayrakoira</h1>
       <SearchVariableMenu {...{ searchVariables, setSearchVariables }} />
       <DrinkCardList searchVariables={searchVariables} />
     </div>

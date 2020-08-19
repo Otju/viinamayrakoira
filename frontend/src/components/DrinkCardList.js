@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_DRINKS } from '../queries'
 import DrinkCard from './DrinkCard'
-import { CardGroup } from 'react-bootstrap'
+import { CardGroup, Spinner } from 'react-bootstrap'
 import PaginationMenu from './PaginationMenu'
 
 const DrinkCardList = ({ searchVariables }) => {
@@ -13,12 +13,12 @@ const DrinkCardList = ({ searchVariables }) => {
 
   const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariables } })
   if (!result.data || result.loading) {
-    return "loading..."
+    return <Spinner animation="border"/>
   }
   const drinks = result.data.allDrinks.drinks
   const count = result.data.allDrinks.count
 
-  if(count===0){
+  if (count === 0) {
     return "no results"
   }
 
