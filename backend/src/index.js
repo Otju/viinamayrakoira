@@ -76,9 +76,11 @@ const resolvers = {
     allDrinks: async (root, args) => {
       let search = {}
       if(args.name){
-        search.name = { $regex: args.name, $options: ["i","x"] }
+        let regex = "^"
+        args.name.split(" ").forEach(part => regex +=`(?=.*${part})`)
+        regex += ".*$"
+        search.name = { $regex: regex, $options: ["i","x"] }
       }
-      console.log(search)
       const drinks = await Drink.find(search).skip(args.offset).limit(args.first)
       const count = await Drink.find(search).countDocuments()
       return  {drinks, count}

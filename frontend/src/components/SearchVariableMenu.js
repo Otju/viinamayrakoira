@@ -25,7 +25,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
       }}
     >
       {({ handleSubmit }) => (
-        <Form onBlur={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <Field type="text" name="name" placeholder="search by name"/>
         </Form>
       )}
