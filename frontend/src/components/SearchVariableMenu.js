@@ -7,7 +7,33 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
   const stores = ["alko", "foodie", "superAlko"]
 
-  return <div style={{border: "solid", padding: "1rem"}}>
+  const categories = ["Punaviinit",
+    "Roseeviinit",
+    "Valkoviinit",
+    "Kuohuviinit ja Samppanjat",
+    "Muut viinit",
+    "Hanapakkaukset",
+    "Oluet",
+    "Siiderit",
+    "Juomasekoitukset ja lonkerot",
+    "Vodkat ja Viinat",
+    "Ginit ja muut viinat",
+    "Rommit",
+    "Konjakit",
+    "Brandyt, Armanjakit ja Calvadosit",
+    "Viskit",
+    "Liköörit ja Katkerot",
+    "Alkoholittomat"
+    ]
+
+  const createCheckboxesFromArray = (array, name) => array.map(item => (
+    <label key={item}>
+      <Field type="checkbox" name={name} value={item} />
+      {capitalizeFirst(item)}
+    </label>
+  ))
+
+  return <div style={{ border: "solid", padding: "1rem" }}>
     <Formik
       initialValues={{ name: '' }}
       validate={values => {
@@ -32,13 +58,9 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
       {({ handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
           <Field type="text" name="name" placeholder="search by name" />
-          {stores.map(store => (
-            <label key={store}>
-              <Field type="checkbox" name="store" value={store} />
-              {capitalizeFirst(store)}
-            </label>
-          ))}
-          <Button type="submit" variant="dark">Search</Button>
+          {createCheckboxesFromArray(stores,"stores")}
+          {createCheckboxesFromArray(categories,"category")}
+          < Button type="submit" variant="dark">Search</Button>
         </Form>
       )}
     </Formik>

@@ -63,7 +63,7 @@ const typeDefs = gql`
       maxPercentage: Float,
       minSize: Float,
       maxSize: Float,
-      category: String
+      category: [String!]
       ): allDrinksOutPut!
   }
 
@@ -83,6 +83,9 @@ const resolvers = {
       }
       if (args.store && args.store.length!==0) {
         search.store = { $in: args.store }
+      }
+      if (args.category && args.category.length!==0) {
+        search.category = { $in: args.category }
       }
       const drinks = await Drink.find(search).skip(args.offset).limit(args.first)
       const count = await Drink.find(search).countDocuments()
