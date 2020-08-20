@@ -58,7 +58,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
       {({ handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
           <Field type="text" name="name" placeholder="search by name" />
-          {createCheckboxesFromArray(stores,"stores")}
+          {createCheckboxesFromArray(stores,"store")}
           {createCheckboxesFromArray(categories,"category")}
           < Button type="submit" variant="dark">Search</Button>
         </Form>

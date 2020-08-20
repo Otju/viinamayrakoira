@@ -1,7 +1,7 @@
 const fetch = require("node-fetch")
 const XLSX = require('xlsx')
 const roundTo = require('round-to')
-const { turnToNumber } = require('../utils')
+const { turnToNumber, capitalizeFirst } = require('../utils')
 
 
 const xlsxUrl = "https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xlsx"
@@ -23,10 +23,10 @@ const getAlko = async () => {
     } if (type === "juomasekoitukset") {
       type = "Juomasekoitukset ja lonkerot"
     }
-    if(type === "lahja- ja juomatarvikkeet"){
-      return 
+    if (type === "lahja- ja juomatarvikkeet") {
+      return
     }
-    if(!type) {
+    if (!type) {
       type = "Ei tietoa"
     }
 

@@ -3,5 +3,11 @@ const turnToNumber = (stringToChange) =>
     Number(stringToChange.replace(",", ".").replace(/[^0-9.]/g, ""))
     : undefined
 
+const capitalizeFirst = string => {
+  if (!string) {
+    return null
+  }
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
-module.exports = { turnToNumber }
+module.exports = { turnToNumber, capitalizeFirst }

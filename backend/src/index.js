@@ -81,13 +81,14 @@ const resolvers = {
         regex += ".*$"
         search.name = { $regex: regex, $options: ["i", "x"] }
       }
-      if (args.store && args.store.length!==0) {
+      if (args.store && args.store.length !== 0) {
         search.store = { $in: args.store }
       }
-      if (args.category && args.category.length!==0) {
+      if (args.category && args.category.length !== 0) {
         search.category = { $in: args.category }
       }
       const drinks = await Drink.find(search).skip(args.offset).limit(args.first)
+      console.log(new Set(drinks.map(drink => drink.category)))
       const count = await Drink.find(search).countDocuments()
       return { drinks, count }
     }
@@ -99,6 +100,7 @@ const resolvers = {
           const idNumber = drink.productCode ? drink.productCode : drink.ean
           return {
             _id: idNumber + drink.store,
+            category: drink.category.toLowerCase(),
             ...drink
           }
         })
