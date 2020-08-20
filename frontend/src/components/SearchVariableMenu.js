@@ -12,7 +12,6 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     "valkoviinit",
     "kuohuviinit ja samppanjat",
     "muut viinit",
-    "hanapakkaukset",
     "oluet",
     "siiderit",
     "juomasekoitukset ja lonkerot",
