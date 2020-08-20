@@ -88,8 +88,6 @@ const resolvers = {
         search.category = { $in: args.category }
       }
       const drinks = await Drink.find(search).skip(args.offset).limit(args.first)
-      console.log(new Set(drinks.map(drink => drink.category)))
-      console.log(new Set(drinks.map(drink => drink.category)).length)
       const count = await Drink.find(search).countDocuments()
       return { drinks, count }
     }
