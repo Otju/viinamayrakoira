@@ -2,6 +2,7 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { capitalizeFirst } from '../utils'
 import Button from 'react-bootstrap/Button'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
@@ -23,14 +24,26 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     "viskit",
     "liköörit ja katkerot",
     "alkoholittomat"
-    ]
+  ]
 
-  const createCheckboxesFromArray = (array, name) => array.map(item => (
-    <label key={item}>
-      <Field type="checkbox" name={name} value={item} />
-      {capitalizeFirst(item)}
-    </label>
-  ))
+  const createCheckboxesFromArray = (array, name) => (
+
+    <Dropdown>
+      <Dropdown.Toggle variant="dark" id="dropdown-basic">
+        {name}
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        {array.map(item => (
+          <Dropdown.ItemText>
+            <label key={item}>
+              <Field type="checkbox" name={name} value={item} />
+              {capitalizeFirst(item)}
+            </label>
+          </Dropdown.ItemText>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown >
+  )
 
   return <div style={{ border: "solid", padding: "1rem" }}>
     <Formik
@@ -57,8 +70,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
       {({ handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
           <Field type="text" name="name" placeholder="search by name" />
-          {createCheckboxesFromArray(stores,"store")}
-          {createCheckboxesFromArray(categories,"category")}
+          {createCheckboxesFromArray(stores, "store")}
+          {createCheckboxesFromArray(categories, "category")}
           < Button type="submit" variant="dark">Search</Button>
         </Form>
       )}
