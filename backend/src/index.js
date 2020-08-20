@@ -89,6 +89,7 @@ const resolvers = {
       }
       const drinks = await Drink.find(search).skip(args.offset).limit(args.first)
       console.log(new Set(drinks.map(drink => drink.category)))
+      console.log(new Set(drinks.map(drink => drink.category)).length)
       const count = await Drink.find(search).countDocuments()
       return { drinks, count }
     }
@@ -100,8 +101,8 @@ const resolvers = {
           const idNumber = drink.productCode ? drink.productCode : drink.ean
           return {
             _id: idNumber + drink.store,
-            category: drink.category.toLowerCase(),
-            ...drink
+            ...drink,
+            category: drink.category.toLowerCase()
           }
         })
         const deleteRes = await Drink.deleteMany({})

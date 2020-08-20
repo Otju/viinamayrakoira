@@ -126,7 +126,7 @@ const superAlkoCategories = [
     code: [13]
   },
   {
-    name: "Roseviinit",
+    name: "Roseeviinit",
     code: [15]
   },
   {

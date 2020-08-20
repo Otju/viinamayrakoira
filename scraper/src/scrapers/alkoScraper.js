@@ -23,6 +23,9 @@ const getAlko = async () => {
     } if (type === "juomasekoitukset") {
       type = "Juomasekoitukset ja lonkerot"
     }
+   if (type === "kuohuviinit & samppanjat") {
+    type = "kuohuviinit ja samppanjat"
+  }
     if (type === "lahja- ja juomatarvikkeet") {
       return
     }

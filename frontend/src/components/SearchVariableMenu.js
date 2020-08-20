@@ -7,23 +7,23 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
   const stores = ["alko", "foodie", "superAlko"]
 
-  const categories = ["Punaviinit",
-    "Roseeviinit",
-    "Valkoviinit",
-    "Kuohuviinit ja Samppanjat",
-    "Muut viinit",
-    "Hanapakkaukset",
-    "Oluet",
-    "Siiderit",
-    "Juomasekoitukset ja lonkerot",
-    "Vodkat ja Viinat",
-    "Ginit ja muut viinat",
-    "Rommit",
-    "Konjakit",
-    "Brandyt, Armanjakit ja Calvadosit",
-    "Viskit",
-    "Liköörit ja Katkerot",
-    "Alkoholittomat"
+  const categories = ["punaviinit",
+    "roseeviinit",
+    "valkoviinit",
+    "kuohuviinit ja samppanjat",
+    "muut viinit",
+    "hanapakkaukset",
+    "oluet",
+    "siiderit",
+    "juomasekoitukset ja lonkerot",
+    "Vvodkat ja viinat",
+    "ginit ja muut viinat",
+    "rommit",
+    "konjakit",
+    "brandyt, armanjakit ja calvadosit",
+    "viskit",
+    "liköörit ja katkerot",
+    "alkoholittomat"
     ]
 
   const createCheckboxesFromArray = (array, name) => array.map(item => (
