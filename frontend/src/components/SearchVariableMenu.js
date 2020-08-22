@@ -29,7 +29,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
   const createCheckboxesFromArray = (array, name) => (
 
-    <Dropdown>
+    <Dropdown drop="right" style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem" }}>
       <Dropdown.Toggle variant="dark" id="dropdown-basic">
         {name}
       </Dropdown.Toggle>
@@ -72,7 +72,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
           <Field type="text" name="name" placeholder="search by name" className="form-control" />
           {createCheckboxesFromArray(stores, "store")}
           {createCheckboxesFromArray(categories, "category")}
-          <Button type="submit" variant="dark">Search</Button>
+          <div><Button type="submit" variant="dark">Search</Button></div>
           <div>
             {Object.entries(searchVariables).map(([key, values]) => {
               if (values) {
@@ -91,7 +91,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
         </Form>
       )}
     </Formik>
-  </div>
+  </div >
 }
 
 export default SearchVariableMenu
