@@ -70,7 +70,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     name.split(" ").forEach((part, i) => {
       if (part.includes("%")) {
         let partToInt = turnToNumber(part)
-        if (Number.isNaN(partToInt)) {
+        if ((!partToInt || Number.isNaN(partToInt)) && partToInt!==0) {
           partToInt = turnToNumber(name.split(" ")[i - 1])
         }
         percentage = partToInt
