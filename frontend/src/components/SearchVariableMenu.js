@@ -34,9 +34,9 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
       </Dropdown.Toggle>
       <Dropdown.Menu>
         {array.map(item => (
-          <Dropdown.ItemText>
-            <label key={item}>
-              <Field type="checkbox" name={name} value={item} />
+          <Dropdown.ItemText key={item}>
+            <label>
+              <Field type="checkbox" name={name} value={item} className="form-check-input" />
               {capitalizeFirst(item)}
             </label>
           </Dropdown.ItemText>
@@ -68,14 +68,21 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
       }}
     >
       {({ handleSubmit }) => (
-        <Form onSubmit={handleSubmit}>
-          <Field type="text" name="name" placeholder="search by name" />
+        <Form onSubmit={handleSubmit} onBlur={handleSubmit} className="form-group">
+          <Field type="text" name="name" placeholder="search by name" className="form-control" />
           {createCheckboxesFromArray(stores, "store")}
           {createCheckboxesFromArray(categories, "category")}
           < Button type="submit" variant="dark">Search</Button>
         </Form>
       )}
     </Formik>
+    <div>
+      {Object.entries(searchVariables).map(([key, values]) => {
+        if (values && values.length > 0) {
+        return values.map(value => <Button variant="danger">{key}: {value}</Button>)
+        }
+      })}
+    </div>
   </div>
 }
 
