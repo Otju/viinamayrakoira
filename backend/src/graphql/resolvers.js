@@ -4,6 +4,8 @@ const roundTo = require('round-to')
 const resolvers = {
   Query: {
     allDrinks: async (root, args) => {
+      const sortByField = args.sortByField ? args.sortByField : "pricePerPortion"
+      const sortDirection = args.sortByDescending ? -1 : 1
       let search = {}
       if (args.name) {
         let regex = "^"
@@ -17,7 +19,7 @@ const resolvers = {
       if (args.category && args.category.length !== 0) {
         search.category = { $in: args.category }
       }
-      const drinks = await Drink.find(search).skip(args.offset).limit(args.first)
+      const drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({[sortByField]: sortDirection})
       const count = await Drink.find(search).countDocuments()
       return { drinks, count }
     }

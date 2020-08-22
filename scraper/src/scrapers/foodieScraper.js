@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const got = require('got');
 const { turnToNumber } = require('../utils')
+const roundTo = require('round-to')
 
 const foodieUrl = "https://www.foodie.fi"
 
@@ -33,14 +34,39 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const $ = cheerio.load(response.body)
     const name = $('#product-name').text()
     const producer = $('#product-subname').text()
+    const rawDeposit = turnToNumber($('.price-deposit').text().replace(/\s/g,"").slice(10))
+    const deposit = !rawDeposit || rawDeposit < 0 || Number.isNaN(rawDeposit) ? 0 : rawDeposit
     const ean = $('[itemprop=sku]').text()
-    const size = turnToNumber($('.js-quantity').text())
+    const sizeRaw = $('.js-details').text()
     const wholeNumberOfPrice = $('.whole-number ').text()
     const decimalsOfPrice = $('.decimal').text()
     const price = Number((`${wholeNumberOfPrice}.${decimalsOfPrice}`))
     const description = $('div[id=info] [itemprop=description]').first().text()
     const imageLink = $('img[class=product-image]').attr("src")
     let percentage
+    let size
+    sizeRaw.replace(/ /g, '').replace(/^[a-zA-Z0-9.,]*$/g, '').split("\n").every(value => {
+      if (!value) {
+        return true
+      }
+      if (value.includes("ml")) {
+        size = turnToNumber(value) / 1000
+        return false
+      }
+      if (value.includes("cl")) {
+        size = turnToNumber(value) / 100
+        return false
+      }
+      if (value.includes("€")) {
+        size = roundTo(((price - deposit) / turnToNumber(value)), 2)
+        return false
+      }
+      if (value.includes("l")) {
+        size = turnToNumber(value)
+        return false
+      }
+      return true
+    })
     name.split(" ").forEach((part, i) => {
       if (part.includes("%")) {
         let partToInt = turnToNumber(part)

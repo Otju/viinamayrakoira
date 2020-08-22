@@ -4,9 +4,9 @@ const scrapers = require('./scrapers')
 
 const setAllDrinks = async () => {
   let allDrinks = []
-  const getOnlyAlko = false //for testing
-  if (getOnlyAlko) {
-    const drinksForScaper = await scrapers[0]()
+  const onlyOneScraper = -1 //for testing
+  if (onlyOneScraper>=0) {
+    const drinksForScaper = await scrapers[onlyOneScraper]()
     allDrinks.push(...drinksForScaper)
   } else {
     await Promise.all(scrapers.map(async (scraper) => {
@@ -26,7 +26,7 @@ const setAllDrinks = async () => {
     let hasRequiredFields = true
     requiredFields.forEach(field => {
       if (!drink[field]) {
-        if (!field === "percentage") {
+        if (field !== "percentage") {
           console.log(`${drink.link}} is missing field "${field}"`)
         }
         hasRequiredFields = false
