@@ -1,6 +1,7 @@
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, Field } from 'formik'
 import { capitalizeFirst } from '../utils'
+import SearchVariableButton from './SearchVariableButton'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
 
@@ -47,7 +48,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
   return <div style={{ border: "solid", padding: "1rem" }}>
     <Formik
-      initialValues={{ name: '' }}
+      initialValues={{ name: "" }}
       validate={values => {
         const errors = {}
         /*
@@ -60,29 +61,36 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
         }
          */
         return errors
-
       }}
 
       onSubmit={(values) => {
         setSearchVariables(values)
       }}
     >
-      {({ handleSubmit }) => (
+      {({ handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit} onBlur={handleSubmit} className="form-group">
           <Field type="text" name="name" placeholder="search by name" className="form-control" />
           {createCheckboxesFromArray(stores, "store")}
           {createCheckboxesFromArray(categories, "category")}
-          < Button type="submit" variant="dark">Search</Button>
+          <Button type="submit" variant="dark">Search</Button>
+          <div>
+            {Object.entries(searchVariables).map(([key, values]) => {
+              if (values) {
+                values = !Array.isArray(values) ? [values] : values
+                if (values.length > 0) {
+                  return values.map(value => <SearchVariableButton searchCategory={key}
+                    setFieldValue={setFieldValue}
+                    searchVariables={searchVariables}
+                    setSearchVariables={setSearchVariables}
+                    key={value} value={value} />)
+                }
+                return null
+              }
+            })}
+          </div>
         </Form>
       )}
     </Formik>
-    <div>
-      {Object.entries(searchVariables).map(([key, values]) => {
-        if (values && values.length > 0) {
-        return values.map(value => <Button variant="danger">{key}: {value}</Button>)
-        }
-      })}
-    </div>
   </div>
 }
 

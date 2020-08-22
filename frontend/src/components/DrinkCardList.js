@@ -10,10 +10,9 @@ const DrinkCardList = ({ searchVariables }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const drinksPerPage = 30
   const offset = drinksPerPage * (currentPage - 1)
-
   const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariables } })
   if (!result.data || result.loading) {
-    return <Spinner animation="border"/>
+    return <Spinner animation="border" />
   }
   const drinks = result.data.allDrinks.drinks
   const count = result.data.allDrinks.count
