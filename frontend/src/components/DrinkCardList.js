@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_DRINKS } from '../queries'
 import DrinkCard from './DrinkCard'
@@ -8,6 +8,11 @@ import PaginationMenu from './PaginationMenu'
 const DrinkCardList = ({ searchVariables }) => {
 
   const [currentPage, setCurrentPage] = useState(1)
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchVariables])
+
   const drinksPerPage = 30
   const offset = drinksPerPage * (currentPage - 1)
   const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariables } })
