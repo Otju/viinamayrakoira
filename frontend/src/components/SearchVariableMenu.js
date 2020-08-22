@@ -84,8 +84,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
                     setSearchVariables={setSearchVariables}
                     key={value} value={value} />)
                 }
-                return null
               }
+              return null
             })}
           </div>
         </Form>
