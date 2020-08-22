@@ -45,8 +45,8 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
             percentage = turnToNumber(part)
           }
           if (part.includes("cl")) {
-            if (part.includes("x")) {
-              const partParts = part.split("x")
+            if (part.toLowerCase().includes("x")) {
+              const partParts = part.toLowerCase().split("x")
               size = turnToNumber(partParts[0]) * turnToNumber(partParts[1]) / 100
             } else {
               size = turnToNumber(part) / 100
@@ -56,6 +56,10 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
             size = 1
           }
         })
+
+        if(productCode==="27938"){  //superAlko had a typo in their infos
+          size=0.33
+        }
 
         const drinkInfo = {
           name,

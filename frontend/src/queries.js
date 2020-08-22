@@ -33,6 +33,9 @@ export const ALL_DRINKS = gql`
         category
         size
         store
+        portionAmount
+        pricePerPortion
+        pricePerLitre
       }
       count
     }

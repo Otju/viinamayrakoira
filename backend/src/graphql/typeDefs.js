@@ -15,6 +15,9 @@ const typeDefs = gql`
     category: String!
     size: Float!
     store: String!
+    portionAmount: Float!
+    pricePerPortion: Float!
+    pricePerLitre: Float!
   }
 
   input DrinkInput {

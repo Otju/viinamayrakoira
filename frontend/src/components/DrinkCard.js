@@ -38,6 +38,9 @@ const DrinkCard = ({ drink }) => {
                     {drink.price}€<br></br>
                     {drink.percentage}%<br></br>
                     {drink.size}l<br></br>
+                    {drink.pricePerLitre}€/l<br></br>
+                    {drink.portionAmount} annosta<br></br>
+                    {drink.pricePerPortion} €/annos<br></br>
                     {store}<br></br>
                     {capitalizeFirst(drink.producer)}<br></br>
                 </Card.Text>
