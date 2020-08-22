@@ -8,11 +8,6 @@ import PaginationMenu from './PaginationMenu'
 const DrinkCardList = ({ searchVariables }) => {
   const [currentPage, setCurrentPage] = useState(1)
 
-  const turnToNumber = (stringToChange) =>
-    stringToChange ?
-      Number(stringToChange.replace(",", ".").replace(/[^0-9.]/g, ""))
-      : undefined
-
   useEffect(() => {
     setCurrentPage(1)
   }, [searchVariables])
