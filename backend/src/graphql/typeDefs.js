@@ -50,6 +50,7 @@ const typeDefs = gql`
       minSize: Float,
       maxSize: Float,
       category: [String!]
+      sortBy: String
       ): allDrinksOutPut!
   }
 

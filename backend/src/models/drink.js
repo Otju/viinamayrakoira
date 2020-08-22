@@ -38,7 +38,19 @@ const schema = new mongoose.Schema({
   },
   store: {
     type: String,
-    required: true,
+    required: true
+  },
+  pricePerLitre: {
+    type: Number,
+    required: true
+  },
+  portionAmount: {
+    type: Number,
+    required: true
+  },
+  pricePerPortion: {
+    type: Number,
+    required: true
   }
 })
 

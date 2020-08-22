@@ -4,10 +4,16 @@ const scrapers = require('./scrapers')
 
 const setAllDrinks = async () => {
   let allDrinks = []
-  await Promise.all(scrapers.map(async (scraper) => {
-    const drinksForScaper = await scraper()
+  const getOnlyAlko = false //for testing
+  if (getOnlyAlko) {
+    const drinksForScaper = await scrapers[0]()
     allDrinks.push(...drinksForScaper)
-  }))
+  } else {
+    await Promise.all(scrapers.map(async (scraper) => {
+      const drinksForScaper = await scraper()
+      allDrinks.push(...drinksForScaper)
+    }))
+  }
 
   const query = `
     mutation updateAllDrinks ($drinks: [DrinkInput]) {
@@ -39,7 +45,7 @@ const setAllDrinks = async () => {
   const variables = {
     drinks: allDrinks
   };
-  
+
   try {
     const response = await request("http://localhost:4000/", query, variables)
     console.log(`Added ${response.updateAllDrinks.length} drinks to db`)

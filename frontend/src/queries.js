@@ -7,13 +7,15 @@ export const ALL_DRINKS = gql`
     $name: String,
     $store: [String!]
     $category: [String!]
+    $sortBy: String
     ){
     allDrinks(
       first: $first,
       offset: $offset,
       name: $name,
       store: $store,
-      category: $category
+      category: $category,
+      sortBy: $sortBy
       ){
         drinks{
         id

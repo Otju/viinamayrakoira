@@ -1,5 +1,5 @@
-
 const Drink = require('../models/drink')
+const roundTo = require('round-to')
 
 const resolvers = {
   Query: {
@@ -27,8 +27,15 @@ const resolvers = {
       try {
         const drinksToSave = args.drinks.map(drink => {
           const idNumber = drink.productCode ? drink.productCode : drink.ean
+          if(drink.percentage===0){
+            return
+          }
+          const portionAmount = (drink.size * ((drink.percentage) / (100))) / 0.015201419
           return {
             _id: idNumber + drink.store,
+            pricePerLitre: roundTo(drink.price / drink.size,2),
+            portionAmount: roundTo(portionAmount,2),
+            pricePerPortion: roundTo(drink.price / portionAmount,2),
             ...drink,
             category: drink.category.toLowerCase()
           }
@@ -46,4 +53,4 @@ const resolvers = {
   }
 }
 
-module.exports =  resolvers
+module.exports = resolvers
