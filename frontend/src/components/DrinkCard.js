@@ -23,7 +23,7 @@ const DrinkCard = ({ drink }) => {
     }
 
     return (
-        <Card style={{ display: 'inline-block', width: "33%", borderColor: borderColor, borderWidth: "3px" }}>
+        <Card style={{borderColor: borderColor, borderWidth: "3px" }}>
             <Card.Body>
                 <Card.Title style={{
                     display: "-webkit-box",

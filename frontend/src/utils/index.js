@@ -1,6 +1,6 @@
-export const capitalizeFirst = string => {
-  if (!string) {
+export const capitalizeFirst = inputString => {
+  if (!inputString || typeof inputString !== "string") {
     return null
   }
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return inputString.charAt(0).toUpperCase() + inputString.slice(1);
 }

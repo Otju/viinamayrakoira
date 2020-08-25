@@ -27,11 +27,11 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     "alkoholittomat"
   ]
 
-  const createCheckboxesFromArray = (array, name) => (
+  const createCheckboxesFromArray = (array, name, displayName) => (
 
     <Dropdown drop="right" style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem" }}>
       <Dropdown.Toggle variant="dark" id="dropdown-basic">
-        {name}
+        {displayName}
       </Dropdown.Toggle>
       <Dropdown.Menu>
         {array.map(item => (
@@ -69,10 +69,10 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     >
       {({ handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit} onBlur={handleSubmit} className="form-group">
-          <Field type="text" name="name" placeholder="search by name" className="form-control" />
-          {createCheckboxesFromArray(stores, "store")}
-          {createCheckboxesFromArray(categories, "category")}
-          <div><Button type="submit" variant="dark">Search</Button></div>
+          <Field type="text" name="name" placeholder="haku nimellä" className="form-control" />
+          {createCheckboxesFromArray(stores, "store", "kauppa")}
+          {createCheckboxesFromArray(categories, "category", "kategoria")}
+          <div><Button type="submit" variant="dark">Haku</Button></div>
           <div>
             {Object.entries(searchVariables).map(([key, values]) => {
               if (values) {
@@ -88,8 +88,10 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
               return null
             })}
           </div>
+          <Field type="number" name="minPrice" className="form-control"/>
+          <Field type="number" name="maxPrice" className="form-control"/>
         </Form>
-      )}
+      )} 
     </Formik>
   </div >
 }
