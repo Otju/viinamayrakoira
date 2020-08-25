@@ -12,7 +12,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const response = await got(superAlkoUrl + "range-of-products/" + categoryNumber)
     const $ = cheerio.load(response.body)
     const div = $('.s-12.l-9.right')
-    const somehint = div.find("div > h4 > span >").each((i, item) => {
+    div.find("div > h4 > span >").each((i, item) => {
       const link = $(item).attr("href")
       categoryLinks.push(link)
     })

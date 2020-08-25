@@ -17,7 +17,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     "oluet",
     "siiderit",
     "juomasekoitukset ja lonkerot",
-    "Vodkat ja viinat",
+    "vodkat ja viinat",
     "ginit ja muut viinat",
     "rommit",
     "konjakit",
