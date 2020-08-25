@@ -29,6 +29,11 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
   const minMaxItems = [
     { name: "price", displayName: "hinta" },
+    { name: "percentage", displayName: "vahvuus" },
+    { name: "size", displayName: "tilavuus" },
+    { name: "pricePerLitre", displayName: "litrahinta" },
+    { name: "portionAmount", displayName: "annosmäärä" },
+    { name: "pricePerPortion", displayName: "annoshinta" }
   ]
 
   const createCheckboxesFromArray = (array, name, displayName) => (

@@ -20,15 +20,26 @@ const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVari
   }
 
   let insidevalue = capitalizeFirst(value)
-
   if (typeof value !== "string") {
     let unit = ""
     switch (searchCategory.slice(3)) {
       case "price":
         unit = "€"
         break;
-      case "price":
-        unit = "€"
+      case "percentage":
+        unit = "%"
+        break;
+      case "size":
+        unit = "l"
+        break;
+      case "pricePerLitre":
+        unit = "€/l"
+        break;
+      case "portionAmount":
+        unit = "annosta"
+        break;
+      case "pricePerPortion":
+        unit = "€/annos"
         break;
       default:
         break;
