@@ -13,8 +13,8 @@
 | 19.8.20 | 08:20   |  09:20  | 1:00  |refactoring and styling|
 | 19.8.20 | 19:00   |  21:30  | 2:30  |refactoring, styling and search|
 | 20.8.20 | 21:50   |  00:40  | 3:30  |styling, fixing categories|
-| 22.8.20 | 11:50   |  18:50  | 7:00  | scraper, frontend and backend bugfixes, styling, sorting, more info for drinks (took a while) |
-| 25.8.20 | 22:00   |  00:00  | 0:00  ||
+| 22.8.20 | 11:50   |  18:50  | 7:00  |scraper, frontend and backend bugfixes, styling, sorting, more info for drinks (took a while) |
+| 25.8.20 | 22:00   |  00:50  | 2:50  |min-max search, styling|
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
