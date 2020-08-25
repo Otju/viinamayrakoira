@@ -17,12 +17,35 @@ const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVari
       setFieldValue(searchCategory, "")
     }
     setSearchVariables(newSearchVariables)
+  }
 
+  let insidevalue = capitalizeFirst(value)
+
+  if (typeof value !== "string") {
+    let unit = ""
+    switch (searchCategory.slice(3)) {
+      case "price":
+        unit = "€"
+        break;
+      case "price":
+        unit = "€"
+        break;
+      default:
+        break;
+    }
+
+    let minxOrMax = "max"
+    if (searchCategory.includes("min")) {
+      minxOrMax = "min"
+    }
+    insidevalue = `${minxOrMax} ${value}${unit}`
   }
 
   return <Alert style={{ display: "inline-block", width: "fit-content", marginTop: "0.5rem", marginRight: "0.5rem" }} variant="danger" onClose={() => handleSearchVariableDeletion(searchCategory, value, setFieldValue)} dismissible>
-    {capitalizeFirst(value)}
+    {insidevalue}
   </Alert>
+
 }
+
 
 export default SearchVariableButton

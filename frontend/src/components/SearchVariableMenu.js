@@ -27,6 +27,10 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     "alkoholittomat"
   ]
 
+  const minMaxItems = [
+    { name: "price", displayName: "hinta" },
+  ]
+
   const createCheckboxesFromArray = (array, name, displayName) => (
 
     <Dropdown drop="right" style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem" }}>
@@ -72,6 +76,23 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
           <Field type="text" name="name" placeholder="haku nimellä" className="form-control" />
           {createCheckboxesFromArray(stores, "store", "kauppa")}
           {createCheckboxesFromArray(categories, "category", "kategoria")}
+          <Dropdown drop="right" style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem", width: "20rem" }}>
+            <Dropdown.Toggle variant="dark" id="dropdown-basic">
+              min/max
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {minMaxItems.map(item => (
+                <Dropdown.ItemText key={item.name}>
+                  <label>
+                    {item.displayName}
+                    <Field type="number" min="0" max={searchVariables[`max${item.name}`] ? searchVariables[`max${item.name}`]-1 : null} name={`min${item.name}`} style={{ display: "inline-block", width: "5rem" }} placeholder="min" className="form-control" />
+                    -
+                    <Field type="number" min={searchVariables[`min${item.name}`] ? searchVariables[`min${item.name}`]+1 : 0} name={`max${item.name}`} style={{ display: "inline-block", width: "5rem" }} placeholder="max" className="form-control" />
+                  </label>
+                </Dropdown.ItemText>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown >
           <div><Button type="submit" variant="dark">Haku</Button></div>
           <div>
             {Object.entries(searchVariables).map(([key, values]) => {
@@ -88,10 +109,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
               return null
             })}
           </div>
-          <Field type="number" name="minPrice" className="form-control"/>
-          <Field type="number" name="maxPrice" className="form-control"/>
         </Form>
-      )} 
+      )}
     </Formik>
   </div >
 }
