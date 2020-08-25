@@ -39,6 +39,12 @@ const typeDefs = gql`
     drinks: [Drink!]!,
     count: Int!
   }
+
+  input minMax {
+    name: String!,
+    min: Int,
+    max: Int
+  }
   
   type Query {
     allDrinks(
@@ -46,12 +52,7 @@ const typeDefs = gql`
       offset: Int,
       store: [String!],
       name: String,
-      minPrice: Float,
-      maxPrice: Float
-      minPercentage: Float,
-      maxPercentage: Float,
-      minSize: Float,
-      maxSize: Float,
+      minMax: [minMax!],
       category: [String!]
       sortByField: String,
       sortByDescending: Boolean

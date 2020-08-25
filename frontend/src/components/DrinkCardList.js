@@ -14,7 +14,31 @@ const DrinkCardList = ({ searchVariables }) => {
 
   const drinksPerPage = 30
   const offset = drinksPerPage * (currentPage - 1)
-  const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariables } })
+  const searchVariablesWithMinMaxFix = {}
+  Object.entries(searchVariables).map(([key, value]) => {
+    if (key.includes("min") || key.includes("max")) {
+      if (typeof value === 'number') {
+        const name = key.slice(3)
+        const minOrMax = key.slice(0, 3)
+        let minMaxObject
+        if (!searchVariablesWithMinMaxFix.minMax) {
+          searchVariablesWithMinMaxFix.minMax = []
+        }
+        minMaxObject = searchVariablesWithMinMaxFix.minMax.find(item => item.name === name)
+        if (minMaxObject) {
+          minMaxObject[minOrMax] = value
+          searchVariablesWithMinMaxFix.minMax.map(item => item.name !== name ? item : minMaxObject)
+        } else {
+          minMaxObject = { name }
+          minMaxObject[minOrMax] = value
+          searchVariablesWithMinMaxFix.minMax.push(minMaxObject)
+        }
+      }
+    } else {
+      searchVariablesWithMinMaxFix[key] = value
+    }
+  })
+  const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariablesWithMinMaxFix } })
   if (!result.data || result.loading) {
     return <Spinner animation="border" />
   }

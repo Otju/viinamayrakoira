@@ -19,7 +19,18 @@ const resolvers = {
       if (args.category && args.category.length !== 0) {
         search.category = { $in: args.category }
       }
-      const drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({[sortByField]: sortDirection})
+      if (args.minMax && args.minMax.length !== 0) {
+        args.minMax.forEach(value => {
+          search[value.name] = {}
+          if (value.min) {
+            search[value.name].$gt = value.min
+          }
+          if (value.max) {
+            search[value.name].$lt = value.max
+          }
+        })
+      }
+      const drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection })
       const count = await Drink.find(search).countDocuments()
       return { drinks, count }
     }
@@ -29,15 +40,15 @@ const resolvers = {
       try {
         const drinksToSave = args.drinks.map(drink => {
           const idNumber = drink.productCode ? drink.productCode : drink.ean
-          if(drink.percentage===0){
+          if (drink.percentage === 0) {
             return
           }
           const portionAmount = (drink.size * ((drink.percentage) / (100))) / 0.015201419
           return {
             _id: idNumber + drink.store,
-            pricePerLitre: roundTo(drink.price / drink.size,2),
-            portionAmount: roundTo(portionAmount,2),
-            pricePerPortion: roundTo(drink.price / portionAmount,2),
+            pricePerLitre: roundTo(drink.price / drink.size, 2),
+            portionAmount: roundTo(portionAmount, 2),
+            pricePerPortion: roundTo(drink.price / portionAmount, 2),
             ...drink,
             category: drink.category.toLowerCase()
           }

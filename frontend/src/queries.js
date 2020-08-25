@@ -9,6 +9,7 @@ export const ALL_DRINKS = gql`
     $category: [String!]
     $sortByField: String
     $sortByDescending: Boolean
+    $minMax: [minMax!]
     ){
     allDrinks(
       first: $first,
@@ -17,7 +18,8 @@ export const ALL_DRINKS = gql`
       store: $store,
       category: $category,
       sortByField: $sortByField,
-      sortByDescending: $sortByDescending
+      sortByDescending: $sortByDescending,
+      minMax: $minMax
       ){
         drinks{
         id
