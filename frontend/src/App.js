@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SearchVariableMenu from './components/SearchVariableMenu'
+import SearchVariableMenu from './components/SearchVariableMenu/'
 import DrinkCardList from './components/DrinkCardList'
 import NavigationBar from './components/NavigationBar'
 

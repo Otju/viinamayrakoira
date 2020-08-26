@@ -15,7 +15,7 @@ const DrinkCardList = ({ searchVariables }) => {
   const drinksPerPage = 30
   const offset = drinksPerPage * (currentPage - 1)
   const searchVariablesWithMinMaxFix = {}
-  Object.entries(searchVariables).map(([key, value]) => {
+  Object.entries(searchVariables).forEach(([key, value]) => {
     if (key.includes("min") || key.includes("max")) {
       if (typeof value === 'number') {
         const name = key.slice(3)
