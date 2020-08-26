@@ -15,7 +15,7 @@
 | 20.8.20 | 21:50   |  00:40  | 3:30  |styling, fixing categories|
 | 22.8.20 | 11:50   |  18:50  | 7:00  |scraper, frontend and backend bugfixes, styling, sorting, more info for drinks (took a while) |
 | 25.8.20 | 22:00   |  00:50  | 2:50  |min-max search, styling|
-| --.-.20 | 00:00   |  00:00  | 0:00  ||
+| 26.8.20 | 16:30   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
