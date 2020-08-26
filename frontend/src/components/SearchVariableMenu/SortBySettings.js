@@ -20,7 +20,7 @@ const SortBySettings = ({ valuetypes, searchVariables, setFieldValue, handleSubm
 
   return (
     <>
-      <Dropdown style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem" }}>
+      <Dropdown style={{ display: "inline-block" }}>
         <Dropdown.Toggle variant="dark" id="dropdown-basic">
           {showName}
         </Dropdown.Toggle>
@@ -35,7 +35,7 @@ const SortBySettings = ({ valuetypes, searchVariables, setFieldValue, handleSubm
           ))}
         </Dropdown.Menu>
       </Dropdown >
-      <Button variant="dark" onClick={() => handleOrderChange()}>{isDescending ? "↑" : "↓"}</Button>
+      <Button variant="dark" style={{ marginRight: "0.5rem" }} onClick={() => handleOrderChange()}>{isDescending ? "↑" : "↓"}</Button>
     </>
   )
 }

@@ -30,7 +30,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
   ]
 
   const createCheckboxesFromArray = (array, name, displayName) => (
-    <Dropdown drop="right" style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem" }}>
+    <Dropdown drop="right" style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
       <Dropdown.Toggle variant="dark" id="dropdown-basic">
         {displayName}
       </Dropdown.Toggle>
@@ -64,7 +64,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
   return <div style={{ border: "solid", padding: "1rem" }}>
     <Formik
-      initialValues={{ name: "",  sortByField:"pricePerPortion", falsesortByDescending: false, ...initialMinMax }}
+      initialValues={{ name: "", sortByField: "pricePerPortion", falsesortByDescending: false, ...initialMinMax }}
       validate={values => {
         const errors = {}
         /*
@@ -89,8 +89,10 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
           {createCheckboxesFromArray(stores, "store", "kauppa")}
           {createCheckboxesFromArray(categories, "category", "kategoria")}
           <MinMaxDropDown searchVariables={searchVariables} valuetypes={valuetypes}></MinMaxDropDown>
-          <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={valuetypes} ></SortBySettings>
-          <div><Button type="submit" variant="dark">Haku</Button></div>
+          <div>
+            <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={valuetypes} ></SortBySettings>
+            <Button type="submit" variant="dark">Haku</Button>
+          </div>
           <div>
             {Object.entries(searchVariables).map(([key, values]) => {
               if (values) {
