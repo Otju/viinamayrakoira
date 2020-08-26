@@ -46,9 +46,24 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     </Dropdown >
   )
 
+  const minMaxItems = [
+    { name: "price", displayName: "hinta" },
+    { name: "percentage", displayName: "vahvuus" },
+    { name: "size", displayName: "tilavuus" },
+    { name: "pricePerLitre", displayName: "litrahinta" },
+    { name: "portionAmount", displayName: "annosmäärä" },
+    { name: "pricePerPortion", displayName: "annoshinta" }
+  ]
+
+  const initialMinMax = {}
+  minMaxItems.forEach(item => {
+    initialMinMax[`min${item.name}`] = ""
+    initialMinMax[`max${item.name}`] = ""
+  })
+
   return <div style={{ border: "solid", padding: "1rem" }}>
     <Formik
-      initialValues={{ name: "" }}
+      initialValues={{ name: "", ...initialMinMax}}
       validate={values => {
         const errors = {}
         /*
@@ -72,7 +87,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
           <Field type="text" name="name" placeholder="haku nimellä" className="form-control" />
           {createCheckboxesFromArray(stores, "store", "kauppa")}
           {createCheckboxesFromArray(categories, "category", "kategoria")}
-          <MinMaxDropDown searchVariables={searchVariables}></MinMaxDropDown>
+          <MinMaxDropDown searchVariables={searchVariables} minMaxItems={minMaxItems}></MinMaxDropDown>
           <div><Button type="submit" variant="dark">Haku</Button></div>
           <div>
             {Object.entries(searchVariables).map(([key, values]) => {

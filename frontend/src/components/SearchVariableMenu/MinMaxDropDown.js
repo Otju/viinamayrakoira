@@ -3,16 +3,7 @@ import React from 'react'
 import { Field } from 'formik'
 
 
-const MinMaxDropDown = ({ searchVariables }) => {
-
-  const minMaxItems = [
-    { name: "price", displayName: "hinta" },
-    { name: "percentage", displayName: "vahvuus" },
-    { name: "size", displayName: "tilavuus" },
-    { name: "pricePerLitre", displayName: "litrahinta" },
-    { name: "portionAmount", displayName: "annosmäärä" },
-    { name: "pricePerPortion", displayName: "annoshinta" }
-  ]
+const MinMaxDropDown = ({ searchVariables, minMaxItems }) => {
 
   return (
     <Dropdown drop="right" style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem", width: "20rem" }}>
