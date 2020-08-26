@@ -19,6 +19,10 @@ const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVari
     setSearchVariables(newSearchVariables)
   }
 
+  if(searchCategory==="sortByField" || searchCategory==="sortByDescending"){
+    return null
+  }
+
   let insidevalue = capitalizeFirst(value)
   if (typeof value !== "string") {
     let unit = ""
@@ -52,7 +56,8 @@ const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVari
     insidevalue = `${minxOrMax} ${value}${unit}`
   }
 
-  return <Alert style={{ display: "inline-block", width: "fit-content", marginTop: "0.5rem", marginRight: "0.5rem" }} variant="danger" onClose={() => handleSearchVariableDeletion(searchCategory, value, setFieldValue)} dismissible>
+  return <Alert style={{ display: "inline-block", width: "fit-content", marginTop: "0.5rem", marginRight: "0.5rem" }} variant="danger" 
+  onClose={() => handleSearchVariableDeletion(searchCategory, value, setFieldValue)} dismissible>
     {insidevalue}
   </Alert>
 

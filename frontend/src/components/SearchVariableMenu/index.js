@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik'
 import { capitalizeFirst } from '../../utils'
 import SearchVariableButton from './SearchVariableButton'
 import MinMaxDropDown from './MinMaxDropDown'
+import SortBySettings from './SortBySettings'
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown'
 
@@ -46,7 +47,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     </Dropdown >
   )
 
-  const minMaxItems = [
+  const valuetypes = [
     { name: "price", displayName: "hinta" },
     { name: "percentage", displayName: "vahvuus" },
     { name: "size", displayName: "tilavuus" },
@@ -56,14 +57,14 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
   ]
 
   const initialMinMax = {}
-  minMaxItems.forEach(item => {
+  valuetypes.forEach(item => {
     initialMinMax[`min${item.name}`] = ""
     initialMinMax[`max${item.name}`] = ""
   })
 
   return <div style={{ border: "solid", padding: "1rem" }}>
     <Formik
-      initialValues={{ name: "", ...initialMinMax}}
+      initialValues={{ name: "",  sortByField:"pricePerPortion", falsesortByDescending: false, ...initialMinMax }}
       validate={values => {
         const errors = {}
         /*
@@ -87,7 +88,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
           <Field type="text" name="name" placeholder="haku nimellä" className="form-control" />
           {createCheckboxesFromArray(stores, "store", "kauppa")}
           {createCheckboxesFromArray(categories, "category", "kategoria")}
-          <MinMaxDropDown searchVariables={searchVariables} minMaxItems={minMaxItems}></MinMaxDropDown>
+          <MinMaxDropDown searchVariables={searchVariables} valuetypes={valuetypes}></MinMaxDropDown>
+          <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={valuetypes} ></SortBySettings>
           <div><Button type="submit" variant="dark">Haku</Button></div>
           <div>
             {Object.entries(searchVariables).map(([key, values]) => {
