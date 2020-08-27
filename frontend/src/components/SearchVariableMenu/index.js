@@ -47,8 +47,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
       {({ handleSubmit, setFieldValue }) => (
         <Form className="form-group">
           <Field type="text" name="name" placeholder="haku nimellä" className="form-control" onBlur={() => handleSubmit()} />
-          <CheckboxDropDown values={stores.map(store => store.name)} name={"store"} displayName={"kauppa"} {...{ setFieldValue, handleSubmit, searchVariables }} />
-          <CheckboxDropDown values={categories.map(category => category.name)} name={"category"} displayName={"kategoria"} {...{ setFieldValue, handleSubmit, searchVariables }} />
+          <CheckboxDropDown values={stores} name={"store"} displayName={"kauppa"} {...{ setFieldValue, handleSubmit, searchVariables }} />
+          <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{ setFieldValue, handleSubmit, searchVariables }} />
           <MinMaxDropDown searchVariables={searchVariables} valuetypes={valuetypes} handleSubmit={handleSubmit}></MinMaxDropDown>
           <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={valuetypes} ></SortBySettings>
           <div>

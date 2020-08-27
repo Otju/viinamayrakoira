@@ -31,7 +31,7 @@ export const categories = [
   },
   {
     name: "valkoviinit",
-    color: "#E9EA81"
+    color: "#eef5c6"
   },
   {
     name: "kuohuviinit ja samppanjat",
@@ -39,11 +39,11 @@ export const categories = [
   },
   {
     name: "muut viinit",
-    color: ""
+    color: "#9E1717"
   },
   {
     name: "oluet",
-    color: ""
+    color: "#6F3D1F"
   },
   {
     name: "siiderit",

@@ -3,6 +3,7 @@
 <g id="Layer_1" data-name="Layer 1"><ellipse cx="117.02" cy="144.18" rx="25.31" ry="69.73"/><ellipse cx="296.98" cy="144.18" rx="25.31" ry="69.73"/>
 <path class="cls-2" d="M249.32,132.81" transform="translate(-15.88 -57.23)"/>
 <!-- 
+Renders lines as black for some reason
 <line class="cls-1" x1="123.21" y1="212.79" x2="291.92" y2="212.79"/>
 <line class="cls-1" x1="123.21" y1="75.57" x2="291.92" y2="75.57"/>
 -->
