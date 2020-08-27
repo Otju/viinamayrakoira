@@ -16,7 +16,7 @@
 | 22.8.20 | 11:50   |  18:50  | 7:00  |scraper, frontend and backend bugfixes, styling, sorting, more info for drinks (took a while) |
 | 25.8.20 | 22:00   |  00:50  | 2:50  |min-max search, styling|
 | 26.8.20 | 16:30   |  18:50  | 2:30  |styling and sort functionality|
-| 27.8.20 | 16:30   |  20:20  | 4:20  |styling, refactoring, bug fixing and interface usability|
+| 27.8.20 | 16:30   |  20:30  | 4:30  |styling, refactoring, bug fixing and interface usability|
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
