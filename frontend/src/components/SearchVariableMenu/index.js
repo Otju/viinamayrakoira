@@ -1,11 +1,9 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
-import { capitalizeFirst } from '../../utils'
 import SearchVariableButton from './SearchVariableButton'
 import MinMaxDropDown from './MinMaxDropDown'
 import SortBySettings from './SortBySettings'
-import Dropdown from 'react-bootstrap/Dropdown'
-import HoverableDropDownText from './HoverableDropDownText'
+import CheckboxDropDown from './CheckboxDropDown'
 
 const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
@@ -28,39 +26,6 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     "liköörit ja katkerot",
     "alkoholittomat"
   ]
-
-  const handleClick = (item, name, setFieldValue, handleSubmit) => {
-    console.log(searchVariables[name])
-    if (searchVariables[name] && searchVariables[name].find(searchVar => searchVar === item)) {
-      console.log(searchVariables[name].filter(searchVar => searchVar !== item))
-      setFieldValue(name, searchVariables[name].filter(searchVar => searchVar !== item))
-    } else {
-      setFieldValue(name, [...searchVariables[name] ?? [], item])
-    }
-    handleSubmit()
-  }
-
-  const createCheckboxesFromArray = (array, name, displayName, setFieldValue, handleSubmit) => (
-    <Dropdown drop="right" style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
-      <Dropdown.Toggle variant="dark" id="dropdown-basic">
-        {displayName}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {array.map(item => {
-          let selected = false
-          if (searchVariables[name] && searchVariables[name].find(searchVar => searchVar === item)){
-            selected = true
-          }
-          return (
-            <Dropdown.ItemText key={item}>
-              <HoverableDropDownText selected={selected} handleClick={() => handleClick(item, name, setFieldValue, handleSubmit)} content={
-                <>{capitalizeFirst(item)}</>} />
-            </Dropdown.ItemText>
-          )
-        })}
-      </Dropdown.Menu>
-    </Dropdown >
-  )
 
   const valuetypes = [
     { name: "price", displayName: "hinta" },
@@ -101,8 +66,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
       {({ handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit} className="form-group">
           <Field type="text" name="name" placeholder="haku nimellä" className="form-control" />
-          {createCheckboxesFromArray(stores, "store", "kauppa", setFieldValue, handleSubmit)}
-          {createCheckboxesFromArray(categories, "category", "kategoria", setFieldValue, handleSubmit)}
+          <CheckboxDropDown values={stores} name={"store"} displayName={"kauppa"} {...{setFieldValue,handleSubmit,searchVariables}}/>
+          <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{setFieldValue,handleSubmit,searchVariables}}/>
           <MinMaxDropDown searchVariables={searchVariables} valuetypes={valuetypes}></MinMaxDropDown>
           <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={valuetypes} ></SortBySettings>
           <div>
