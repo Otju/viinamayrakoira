@@ -4,28 +4,9 @@ import SearchVariableButton from './SearchVariableButton'
 import MinMaxDropDown from './MinMaxDropDown'
 import SortBySettings from './SortBySettings'
 import CheckboxDropDown from './CheckboxDropDown'
+import { categories, stores } from '../../utils'
 
 const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
-
-  const stores = ["alko", "foodie", "superAlko"]
-
-  const categories = ["punaviinit",
-    "roseeviinit",
-    "valkoviinit",
-    "kuohuviinit ja samppanjat",
-    "muut viinit",
-    "oluet",
-    "siiderit",
-    "juomasekoitukset ja lonkerot",
-    "vodkat ja viinat",
-    "ginit ja muut viinat",
-    "rommit",
-    "konjakit",
-    "brandyt, armanjakit ja calvadosit",
-    "viskit",
-    "liköörit ja katkerot",
-    "alkoholittomat"
-  ]
 
   const valuetypes = [
     { name: "price", displayName: "hinta" },
@@ -63,11 +44,11 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
         setSearchVariables(values)
       }}
     >
-      {({ handleSubmit, setFieldValue}) => (
+      {({ handleSubmit, setFieldValue }) => (
         <Form className="form-group">
           <Field type="text" name="name" placeholder="haku nimellä" className="form-control" onBlur={() => handleSubmit()} />
-          <CheckboxDropDown values={stores} name={"store"} displayName={"kauppa"} {...{ setFieldValue, handleSubmit, searchVariables }} />
-          <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{ setFieldValue, handleSubmit, searchVariables }} />
+          <CheckboxDropDown values={stores.map(store => store.name)} name={"store"} displayName={"kauppa"} {...{ setFieldValue, handleSubmit, searchVariables }} />
+          <CheckboxDropDown values={categories.map(category => category.name)} name={"category"} displayName={"kategoria"} {...{ setFieldValue, handleSubmit, searchVariables }} />
           <MinMaxDropDown searchVariables={searchVariables} valuetypes={valuetypes} handleSubmit={handleSubmit}></MinMaxDropDown>
           <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={valuetypes} ></SortBySettings>
           <div>

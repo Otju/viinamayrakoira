@@ -20,4 +20,53 @@ export const stores = [
   },
 ]
 
+export const categories = [
+  {
+    name: "roseeviinit"
+  },
+  {
+    name: "valkoviinit"
+  },
+  {
+    name: "kuohuviinit ja samppanjat"
+  },
+  {
+    name: "muut viinit"
+  },
+  {
+    name: "oluet"
+  },
+  {
+    name: "siiderit"
+  },
+  {
+    name: "juomasekoitukset ja lonkerot"
+  },
+  {
+    name: "vodkat ja viinat"
+  },
+  {
+    name: "ginit ja muut viinat"
+  },
+  {
+    name: "rommit"
+  },
+  {
+    name: "konjakit"
+  },
+  {
+    name: "brandyt, armanjakit ja calvadosit"
+  },
+  {
+    name: "viskit"
+  },
+  {
+    name: "liköörit ja katkerot"
+  },
+  {
+    name: "alkoholittomat"
+  }
+]
+
+
 

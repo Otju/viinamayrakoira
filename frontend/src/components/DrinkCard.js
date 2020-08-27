@@ -4,7 +4,7 @@ import { capitalizeFirst, stores } from '../utils'
 
 const DrinkCard = ({ drink, position }) => {
 
-    const storeColor = stores.find(store => drink.store===store.name).color
+    const storeColor = stores.find(store => drink.store === store.name).color
 
     const margin = {}
     if (position === 2) {
@@ -12,10 +12,9 @@ const DrinkCard = ({ drink, position }) => {
         margin.marginRight = "1rem"
     }
 
-    //WebkitBoxShadow: `inset 0px 0px 0px 0.2rem ${borderColor}`
     return (
-        <Card style={{ ...margin, marginTop: "1rem"}}>
-            <div style={{background: storeColor, height: "0.5rem"}}></div>
+        <Card style={{ ...margin, marginTop: "1rem" }}>
+            <div style={{ background: storeColor, height: "0.5rem" }}></div>
             <Card.Body>
                 <Card.Title style={{
                     display: "-webkit-box",
