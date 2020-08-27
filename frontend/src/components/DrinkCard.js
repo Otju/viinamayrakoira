@@ -1,26 +1,10 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
-import { capitalizeFirst } from '../utils'
+import { capitalizeFirst, stores } from '../utils'
 
 const DrinkCard = ({ drink, position }) => {
 
-    const store = capitalizeFirst(drink.store)
-
-    let storeColor
-    switch (store) {
-        case "Alko":
-            storeColor = "#E3333C"
-            break
-        case "Foodie":
-            storeColor = "#00A651"
-            break
-        case "SuperAlko":
-            storeColor = "#E67817"
-            break
-        default:
-            storeColor = "black"
-            break
-    }
+    const storeColor = stores.find(store => drink.store===store.name).color
 
     const margin = {}
     if (position === 2) {
@@ -49,7 +33,7 @@ const DrinkCard = ({ drink, position }) => {
                     {drink.pricePerLitre}€/l<br></br>
                     {drink.portionAmount} annosta<br></br>
                     {drink.pricePerPortion} €/annos<br></br>
-                    {store}<br></br>
+                    {drink.categorystore}<br></br>
                     {capitalizeFirst(drink.producer)}<br></br>
                 </Card.Text>
             </Card.Body>
