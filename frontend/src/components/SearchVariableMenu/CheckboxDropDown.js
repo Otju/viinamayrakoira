@@ -5,9 +5,8 @@ import { capitalizeFirst } from '../../utils'
 
 const CheckboxDropDown = ({ searchVariables, setFieldValue, handleSubmit, displayName, name, values }) => {
 
-  const handleClick = (item, name, setFieldValue, handleSubmit) => {
-    if (searchVariables[name] && searchVariables[name].find(searchVar => searchVar === item)) {
-      console.log(searchVariables[name].filter(searchVar => searchVar !== item))
+  const handleClick = (item, name,selected) => {
+    if (selected) {
       setFieldValue(name, searchVariables[name].filter(searchVar => searchVar !== item))
     } else {
       setFieldValue(name, [...searchVariables[name] ?? [], item])
@@ -28,7 +27,7 @@ const CheckboxDropDown = ({ searchVariables, setFieldValue, handleSubmit, displa
           }
           return (
             <Dropdown.ItemText key={item}>
-              <HoverableDropDownText selected={selected} handleClick={() => handleClick(item, name, setFieldValue, handleSubmit)} content={
+              <HoverableDropDownText selected={selected} handleClick={() => handleClick(item, name, selected)} content={
                 <>{capitalizeFirst(item)}</>} />
             </Dropdown.ItemText>
           )
