@@ -2,28 +2,36 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 import { capitalizeFirst } from '../utils'
 
-const DrinkCard = ({ drink }) => {
+const DrinkCard = ({ drink, position }) => {
 
     const store = capitalizeFirst(drink.store)
 
-    let borderColor
+    let storeColor
     switch (store) {
         case "Alko":
-            borderColor = "#E3333C"
+            storeColor = "#E3333C"
             break
         case "Foodie":
-            borderColor = "#00A651"
+            storeColor = "#00A651"
             break
         case "SuperAlko":
-            borderColor = "#E67817"
+            storeColor = "#E67817"
             break
         default:
-            borderColor = "black"
+            storeColor = "black"
             break
     }
 
+    const margin = {}
+    if (position === 2) {
+        margin.marginLeft = "1rem"
+        margin.marginRight = "1rem"
+    }
+
+    //WebkitBoxShadow: `inset 0px 0px 0px 0.2rem ${borderColor}`
     return (
-        <Card style={{borderColor: borderColor, borderWidth: "3px" }}>
+        <Card style={{ ...margin, marginTop: "1rem"}}>
+            <div style={{background: storeColor, height: "0.5rem"}}></div>
             <Card.Body>
                 <Card.Title style={{
                     display: "-webkit-box",
@@ -45,7 +53,7 @@ const DrinkCard = ({ drink }) => {
                     {capitalizeFirst(drink.producer)}<br></br>
                 </Card.Text>
             </Card.Body>
-        </Card>
+        </Card >
     )
 }
 

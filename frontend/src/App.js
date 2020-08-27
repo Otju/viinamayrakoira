@@ -8,7 +8,7 @@ const App = () => {
   const [searchVariables, setSearchVariables] = useState({ name: "" })
 
   return (
-    <div className="container">
+    <div className="container" style={{background: "#ede8e8"}}>
       <NavigationBar></NavigationBar>
       <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} />
       <DrinkCardList searchVariables={searchVariables} />

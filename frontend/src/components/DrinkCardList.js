@@ -55,13 +55,15 @@ const DrinkCardList = ({ searchVariables }) => {
     return result;
   }
 
-  const groupedDrinks = groupByN(drinks.map((drink, i) => (
-    <DrinkCard style={{ display: 'inline-block' }} key={drink.id} drink={drink}></DrinkCard>
-  )), 3)
+  const groupedDrinks = groupByN(drinks, 3)
 
   return <div>
     {
-      groupedDrinks.map(group => <CardGroup key={group[0].key}>{group}</CardGroup>)
+      groupedDrinks.map(group => <CardGroup key={group[0].id}>
+        {group.map((drink, i) => (
+          <DrinkCard style={{ display: 'inline-block' }} key={drink.id} drink={drink} position={i+1}/>
+        ))}
+      </CardGroup>)
     }
     <PaginationMenu {...{ currentPage, drinksPerPage, setCurrentPage, count }}></PaginationMenu>
   </div>
