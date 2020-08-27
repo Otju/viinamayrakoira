@@ -6,7 +6,7 @@ import { Field } from 'formik'
 const MinMaxDropDown = ({ searchVariables, valuetypes }) => {
 
   return (
-    <Dropdown drop="right" style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem", width: "20rem" }}>
+    <Dropdown drop="right" style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem", width: "20rem"}}>
       <Dropdown.Toggle variant="dark" id="dropdown-basic">
         min/max
       </Dropdown.Toggle>

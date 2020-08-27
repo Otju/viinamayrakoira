@@ -89,8 +89,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
           {createCheckboxesFromArray(stores, "store", "kauppa")}
           {createCheckboxesFromArray(categories, "category", "kategoria")}
           <MinMaxDropDown searchVariables={searchVariables} valuetypes={valuetypes}></MinMaxDropDown>
+          <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={valuetypes} ></SortBySettings>
           <div>
-            <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={valuetypes} ></SortBySettings>
             <Button type="submit" variant="dark">Haku</Button>
           </div>
           <div>
