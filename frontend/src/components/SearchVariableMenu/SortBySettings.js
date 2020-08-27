@@ -1,9 +1,7 @@
 import Dropdown from 'react-bootstrap/Dropdown'
 import React from 'react'
-import { Field } from 'formik'
 import Button from 'react-bootstrap/Button'
 import HoverableDropDownText from './HoverableDropDownText'
-
 
 const SortBySettings = ({ valuetypes, searchVariables, setFieldValue, handleSubmit }) => {
 
@@ -31,7 +29,7 @@ const SortBySettings = ({ valuetypes, searchVariables, setFieldValue, handleSubm
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {valuetypes.map(item => (
-            <HoverableDropDownText key={item.name} handleClick={() => handleClick(item.name)} content={item.displayName}/>
+            <HoverableDropDownText key={item.name} handleClick={() => handleClick(item.name)} content={item.displayName} />
           ))}
         </Dropdown.Menu>
       </Dropdown >
@@ -39,13 +37,5 @@ const SortBySettings = ({ valuetypes, searchVariables, setFieldValue, handleSubm
     </div >
   )
 }
-
-/*     
-<Button variant="secondary" onClick={() => handleClick(item.name)}>{item.displayName}</Button>
-<label>
-<Field type="radio" name="sortByField" value={item.name} style={{ visibility: "hidden" }} />
-{item.displayName}
-</label>
-*/
 
 export default SortBySettings
