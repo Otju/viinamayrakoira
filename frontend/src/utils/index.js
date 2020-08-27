@@ -22,49 +22,68 @@ export const stores = [
 
 export const categories = [
   {
-    name: "roseeviinit"
+    name: "punaviinit",
+    color: "#550000"
   },
   {
-    name: "valkoviinit"
+    name: "roseeviinit",
+    color: "#CD5E92"
   },
   {
-    name: "kuohuviinit ja samppanjat"
+    name: "valkoviinit",
+    color: "#E9EA81"
   },
   {
-    name: "muut viinit"
+    name: "kuohuviinit ja samppanjat",
+    color: "#D9DA4B"
   },
   {
-    name: "oluet"
+    name: "muut viinit",
+    color: ""
   },
   {
-    name: "siiderit"
+    name: "oluet",
+    color: ""
   },
   {
-    name: "juomasekoitukset ja lonkerot"
+    name: "siiderit",
+    color: ""
   },
   {
-    name: "vodkat ja viinat"
+    name: "juomasekoitukset ja lonkerot",
+    color: ""
   },
   {
-    name: "ginit ja muut viinat"
+    name: "vodkat ja viinat",
+    color: ""
   },
   {
-    name: "rommit"
+    name: "ginit ja muut viinat",
+    color: ""
   },
   {
-    name: "konjakit"
+    name: "rommit",
+    color: ""
   },
   {
-    name: "brandyt, armanjakit ja calvadosit"
+    name: "konjakit",
+    color: ""
   },
   {
-    name: "viskit"
+    name: "brandyt, armanjakit ja calvadosit",
+    color: ""
   },
   {
-    name: "liköörit ja katkerot"
+    name: "viskit",
+    color: ""
   },
   {
-    name: "alkoholittomat"
+    name: "liköörit ja katkerot",
+    color: ""
+  },
+  {
+    name: "alkoholittomat",
+    color: ""
   }
 ]
 

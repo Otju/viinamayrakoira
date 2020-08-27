@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
-import { capitalizeFirst, stores } from '../utils'
+import { capitalizeFirst, stores, categories } from '../utils'
 
 const DrinkCard = ({ drink, position }) => {
 
@@ -15,6 +15,7 @@ const DrinkCard = ({ drink, position }) => {
     return (
         <Card style={{ ...margin, marginTop: "1rem" }}>
             <div style={{ background: storeColor, height: "0.5rem" }}></div>
+            <div style={{ background: categories.find(category => category.name === drink.category).color, height: "0.5rem" }}></div>
             <Card.Body>
                 <Card.Title style={{
                     display: "-webkit-box",
