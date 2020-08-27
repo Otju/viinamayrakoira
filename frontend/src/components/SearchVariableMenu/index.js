@@ -4,21 +4,12 @@ import SearchVariableButton from './SearchVariableButton'
 import MinMaxDropDown from './MinMaxDropDown'
 import SortBySettings from './SortBySettings'
 import CheckboxDropDown from './CheckboxDropDown'
-import { categories, stores } from '../../utils'
+import { categories, stores, searchTypes } from '../../utils'
 
 const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
-  const valuetypes = [
-    { name: "price", displayName: "hinta" },
-    { name: "percentage", displayName: "vahvuus" },
-    { name: "size", displayName: "tilavuus" },
-    { name: "pricePerLitre", displayName: "litrahinta" },
-    { name: "portionAmount", displayName: "annosmäärä" },
-    { name: "pricePerPortion", displayName: "annoshinta" }
-  ]
-
   const initialMinMax = {}
-  valuetypes.forEach(item => {
+  searchTypes.forEach(item => {
     initialMinMax[`min${item.name}`] = ""
     initialMinMax[`max${item.name}`] = ""
   })
@@ -49,8 +40,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
           <Field type="text" name="name" placeholder="haku nimellä" className="form-control" onBlur={() => handleSubmit()} />
           <CheckboxDropDown values={stores} name={"store"} displayName={"kauppa"} {...{ setFieldValue, handleSubmit, searchVariables }} />
           <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{ setFieldValue, handleSubmit, searchVariables }} />
-          <MinMaxDropDown searchVariables={searchVariables} valuetypes={valuetypes} handleSubmit={handleSubmit}></MinMaxDropDown>
-          <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={valuetypes} ></SortBySettings>
+          <MinMaxDropDown searchVariables={searchVariables} valuetypes={searchTypes} handleSubmit={handleSubmit}></MinMaxDropDown>
+          <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} handleSubmit={handleSubmit} valuetypes={searchTypes} ></SortBySettings>
           <div>
             {Object.entries(searchVariables).map(([key, values]) => {
               if (values) {

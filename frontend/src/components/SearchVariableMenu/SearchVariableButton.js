@@ -1,6 +1,6 @@
 import React from 'react'
 import Alert from 'react-bootstrap/Alert'
-import { capitalizeFirst } from '../../utils'
+import { capitalizeFirst, searchTypes } from '../../utils'
 
 const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVariables, setSearchVariables }) => {
 
@@ -25,29 +25,7 @@ const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVari
 
   let insidevalue = capitalizeFirst(value)
   if (typeof value !== "string") {
-    let unit = ""
-    switch (searchCategory.slice(3)) {
-      case "price":
-        unit = "€"
-        break;
-      case "percentage":
-        unit = "%"
-        break;
-      case "size":
-        unit = "l"
-        break;
-      case "pricePerLitre":
-        unit = "€/l"
-        break;
-      case "portionAmount":
-        unit = "annosta"
-        break;
-      case "pricePerPortion":
-        unit = "€/annos"
-        break;
-      default:
-        break;
-    }
+    const unit = searchTypes.find(type => type.name === searchCategory.slice(3)).unit
 
     let minxOrMax = "max"
     if (searchCategory.includes("min")) {

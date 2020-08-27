@@ -87,5 +87,38 @@ export const categories = [
   }
 ]
 
+export const searchTypes = [
+  {
+    name: "price",
+    displayName: "hinta",
+    unit: "€"
+  },
+  {
+    name: "percentage",
+    displayName: "vahvuus",
+    unit: "%"
+  },
+  {
+    name: "size",
+    displayName: "tilavuus",
+    unit: "l"
+  },
+  {
+    name: "pricePerLitre",
+    displayName: "litrahinta",
+    unit: "€/l"
+  },
+  {
+    name: "portionAmount",
+    displayName: "annosmäärä",
+    unit: "annosta"
+  },
+  {
+    name: "pricePerPortion",
+    displayName: "annoshinta",
+    unit: "€/annos"
+  },
+]
+
 
 
