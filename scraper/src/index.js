@@ -15,7 +15,7 @@ const setAllDrinks = async () => {
     case "foodie":
       onlyOneScraper = 2
       break
-    case "vikingLine":
+    case "kmarket":
       onlyOneScraper = 3
       break
     default:

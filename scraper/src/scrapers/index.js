@@ -1,8 +1,8 @@
 const getFoodie = require("./foodieScraper")
 const getAlko = require("./alkoScraper")
 const getSuperAlko = require("./superAlkoScraper")
-const getVikingLine = require("./vikingLineScraper")
+const getKmarket = require("./kmarketScraper")
 
-const scrapers = [getAlko, getSuperAlko, getFoodie,getVikingLine]
+const scrapers = [getAlko, getSuperAlko, getFoodie,getKmarket]
 
 module.exports = scrapers
