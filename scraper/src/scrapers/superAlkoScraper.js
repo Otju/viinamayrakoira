@@ -2,14 +2,12 @@ const cheerio = require('cheerio');
 const got = require('got');
 const { turnToNumber, percentageStringToFloat } = require('../utils')
 
-const superAlkoUrl = "https://m.viinarannasta.ee/"
-
-const getDrinkInfos = async (categoryNumber, categoryName) => {
+const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
 
   const categoryLinks = []
 
   const getCategoryLinks = async () => {
-    const response = await got(superAlkoUrl + "range-of-products/" + categoryNumber)
+    const response = await got(url + "range-of-products/" + categoryNumber)
     const $ = cheerio.load(response.body)
     const div = $('.s-12.l-9.right')
     div.find("div > h4 > span >").each((i, item) => {
@@ -22,7 +20,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
 
   const drinkInfos = []
   await Promise.all(categoryLinks.map(async (link) => {
-    const response = await got(superAlkoUrl + link)
+    const response = await got(url + link)
     const $ = cheerio.load(response.body)
     $('.row, .row2').each((i, item) => {
       const rawImageLink = $(item).find(".cell.col1.image-stack > a > img").attr("src")
@@ -32,7 +30,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       const rawPrice = $(item).find(".cell.col4").text()
       if (name && rawPrice && rawLink) {
         const imageLink = rawImageLink.replace("-thumb", "")
-        const link = superAlkoUrl + rawLink
+        const link = url + rawLink
         let category = categoryName
         const rawLinkParts = rawLink.split("/")
         const productCode = rawLinkParts[rawLinkParts.length - 1]
@@ -70,7 +68,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
           imageLink,
           category,
           size,
-          store: "superAlko"
+          store: `superAlko${country}`
         }
         drinkInfos.push(drinkInfo)
       }
@@ -148,8 +146,9 @@ const getSuperAlko = async () => {
   console.log("Getting drinks from SuperAlko")
   await Promise.all(superAlkoCategories.map(async (category) => {
     await Promise.all(category.code.map(async (code) => {
-      const infosForCategory = await getDrinkInfos(code, category.name)
-      infos.push(...infosForCategory)
+      const infosForCategoryEesti = await getDrinkInfos(code, category.name, "https://m.viinarannasta.ee/", "Eesti")
+      const infosForCategoryLatvia = await getDrinkInfos(code, category.name, "https://www.superalko.lv/", "Latvia" )
+      infos.push(...infosForCategoryEesti, ...infosForCategoryLatvia)
     }))
   }))
   console.log("Got drinks from SuperAlko")

@@ -4,8 +4,8 @@ const scrapers = require('./scrapers')
 
 const setAllDrinks = async () => {
   let allDrinks = []
-  const onlyOneScraper = -1 //for testing
-  if (onlyOneScraper >= 0) {
+  const onlyOneScraper = process.argv[2]
+  if (onlyOneScraper) {
     const drinksForScaper = await scrapers[onlyOneScraper]()
     allDrinks.push(...drinksForScaper)
   } else {
