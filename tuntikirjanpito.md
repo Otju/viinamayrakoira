@@ -17,7 +17,8 @@
 | 25.8.20 | 22:00   |  00:50  | 2:50  |min-max search, styling|
 | 26.8.20 | 16:30   |  18:50  | 2:30  |styling and sort functionality|
 | 27.8.20 | 16:30   |  20:30  | 4:30  |styling, refactoring, bug fixing and interface usability|
-| 29.8.20 | 11:10   |  00:00  | 0:00  ||
+| 29.8.20 | 11:10   |  11:30  | 0:20  |superAlko Latvia Scraping, and some quality of life improvements to scraper|
+| 29.8.20 | 18:00   |  22:10  | 4:10  |Kmarket scraping (tried implementin VikingLine scraper, but their site has blocked bots)|
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
