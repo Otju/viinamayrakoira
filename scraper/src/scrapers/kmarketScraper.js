@@ -1,4 +1,4 @@
-kmaconst puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer')
 const { turnToNumber } = require('../utils')
 const roundTo = require('round-to')
 
@@ -47,13 +47,11 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
       const priceInt = item.querySelector('.price-integer-part').innerText
       const priceDecimal = item.querySelector('.price-fractional-part').innerText
       const price = `${priceInt}.${priceDecimal}`
-      const pricePerLitre = item.querySelector('.reference').innerText
       results.push({
         title,
         link,
         imagelink,
-        price,
-        pricePerLitre
+        price
       })
     })
     return results;
@@ -62,6 +60,20 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
   const rawDrinks = getDrinks
 
   rawDrinks.forEach(rawDrink => {
+
+    let percentage
+    const title = rawDrink.title
+
+    title.split(" ").forEach((part, i) => {
+      if (part.includes("%")) {
+        let partToInt = turnToNumber(part)
+        if ((!partToInt || Number.isNaN(partToInt)) && partToInt !== 0) {
+          partToInt = turnToNumber(title.split(" ")[i - 1])
+        }
+        percentage = partToInt
+      }
+    })
+
     let category = categoryName
 
     if (!category) {
@@ -84,32 +96,43 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
       }
     }
 
+    let size
 
-    const drinkInfo = {
-      name: rawDrink.title,
-      ean: rawDrink.title,
-      link: `https://www.k-ruoka.fi/${rawDrink.link}`,
-      price: turnToNumber(rawDrink.price),
-      percentage: rawDrink.title,
-      imageLink: rawDrink.imageLink,
-      category,
-      size: rawDrink.title,
-      store: "kmarket"
+    const sizeMatchL = title.match(/\d?.?,?\d+l/g)
+    if (sizeMatchL) {
+      size = turnToNumber(sizeMatchL[0])
+    }
+    const sizeMatchCl = title.match(/\d?.?,?\d+cl/g)
+    if (sizeMatchCl) {
+      size = turnToNumber(sizeMatchCl[0]) / 100
     }
 
-    drinkInfos.push(drinkInfo)
+    const ean = rawDrink.link.match(/\b\d{13}\b/g)[0]
+
+    const drinkInfo = {
+      name: title.includes("Vain myymälästä") ? title.slice(0, -17) : title,
+      ean,
+      link: `https://www.k-ruoka.fi${rawDrink.link}`,
+      price: turnToNumber(rawDrink.price),
+      percentage,
+      imageLink: rawDrink.imagelink,
+      category,
+      size,
+      store: "kmarket"
+    }
+    if (!drinkInfos.map(drink => drink.ean).includes(ean)) {
+      drinkInfos.push(drinkInfo)
+    }
   })
   await browser.close()
   return drinkInfos
 }
-
 
 const vikingLineCategories = [
   {
     url: "siiderit",
     name: "Siiderit"
   },
-  /*
   {
     name: "Oluet",
     url: "oluet"
@@ -125,19 +148,18 @@ const vikingLineCategories = [
   {
     url: "viinit",
   }
-  */
 ]
 
 const getFoodie = async () => {
   const infos = []
-  console.log("Getting drinks from vikingLine")
+  console.log("Getting drinks from kmarket")
   await Promise.all(vikingLineCategories.map(async (category) => {
     const infosForCategory = await getDrinkInfos(category.url, category.name)
     infos.push(...infosForCategory)
   }))
-  console.log("Got drinks from vikingLine")
-  console.log(infos)
+  console.log("Got drinks from kmarket")
   return infos
 }
+
 
 module.exports = getFoodie
