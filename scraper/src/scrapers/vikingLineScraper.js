@@ -1,56 +1,111 @@
-const fetch = require("node-fetch")
-const XLSX = require('xlsx')
+const puppeteer = require('puppeteer')
+const { turnToNumber } = require('../utils')
 const roundTo = require('round-to')
-const { turnToNumber, capitalizeFirst } = require('../utils')
 
+const vikingLineUrl = "https://www.vikingline.fi/merella/ostokset/helsinki-tallinna-hinnasto/"
 
-const xlsxUrl = "https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xlsx"
+const getDrinkInfos = async (categoryUrlName, categoryName) => {
 
-const getAlko = async () => {
-  console.log("Getting drinks from Alko")
-  const allDrinks = []
-  const alkoData = await fetch(xlsxUrl)
-    .then(res => res.buffer())
-    .then(buffer => {
-      const workbook = XLSX.read(buffer, { type: 'buffer' });
-      const sheet = workbook.SheetNames[0];
-      return XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { range: 3 })
-    })
-  alkoData.forEach(data => {
-    let type = data.Tyyppi
-    if (type === "Jälkiruokaviinit, väkevöidyt ja muut viinit") {
-      type = "Muut viinit"
-    } if (type === "juomasekoitukset") {
-      type = "Juomasekoitukset ja lonkerot"
+  const drinkInfos = []
+
+  const link = vikingLineUrl + categoryUrlName
+
+  let category = categoryName
+
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  await page.goto(link)
+  await page.screenshot({ path: 'example.png' })
+
+  await browser.close()
+
+  /*
+    console.log(item)
+    const name = $('.taxfree-product-title').text()
+    const producer = $('#product-subname').text()
+    const rawDeposit = turnToNumber($('.price-deposit').text().replace(/\s/g, "").slice(10))
+    const deposit = !rawDeposit || rawDeposit < 0 || Number.isNaN(rawDeposit) ? 0 : rawDeposit
+    const ean = $('[itemprop=sku]').text()
+    const sizeRaw = $('.js-details').text()
+    const wholeNumberOfPrice = $('.whole-number ').text()
+    const decimalsOfPrice = $('.decimal').text()
+    const price = Number((`${wholeNumberOfPrice}.${decimalsOfPrice}`))
+    const description = $('div[id=info] [itemprop=description]').first().text()
+    const imageLink = $('img[class=product-image]').attr("src")
+    let percentage
+    let size
+    if (!category) {
+      /*
+      if (category === "Muut viinit") {
+        if (isInNameOrDescription(["red", "punaviini"])) {
+          category = "Punaviinit"
+        }
+        if (isInNameOrDescription(["kuoh"])) {
+          category = "Kuohuviinit ja Samppanjat"
+        }
+        if (isInNameOrDescription(["valko", "white"])) {
+          category = "Valkoviinit"
+        }
+        if (isInNameOrDescription(["rosé", "rose"])) {
+          category = "Roseeviinit"
+        }
+      }
+      
+      if (percentage <= 1) {
+        category = "Alkoholittomat"
+      }
     }
-   if (type === "kuohuviinit & samppanjat") {
-    type = "kuohuviinit ja samppanjat"
-  }
-    if (type === "lahja- ja juomatarvikkeet") {
-      return
-    }
-    if (!type) {
-      type = "Ei tietoa"
-    }
-
-
     const drinkInfo = {
-      name: data.Nimi,
-      producer: data.Valmistaja,
-      productCode: data.Numero,
-      ean: data.EAN,
-      link: `https://www.alko.fi/tuotteet/${data.Numero}/`,
-      price: turnToNumber(data.Hinta),
-      description: data.Luonnehdinta,
-      percentage: turnToNumber(data["Alkoholi-%"]),
-      imageLink: `https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${data.Numero}/${data.Nimi.replace(/ /g, "-")}`,
-      category: type,
-      size: roundTo((data.Hinta) / data.Litrahinta, 2),
-      store: "alko"
+      name,
+      producer,
+      ean,
+      link,
+      price,
+      description,
+      percentage,
+      imageLink,
+      category,
+      size,
+      store: "vikingLine"
     }
-    allDrinks.push(drinkInfo)
+    drinkInfos.push(drinkInfo)
   })
-  console.log("Got drinks from Alko")
-  return allDrinks
+  */
+  return drinkInfos
 }
-module.exports = getAlko
+
+const vikingLineCategories = [
+  {
+    url: "vakevat-alkoholijuomat"
+  },
+  {
+    url: "keskivahvat-alkoholijuomat",
+  },
+  {
+    url: "oluet-ja-siiderit",
+  },
+  {
+    name: "Juomasekoitukset ja lonkerot",
+    url: "long-drink"
+  },
+  {
+    url: "viinit",
+  },
+  {
+    url: "samppanjat",
+    name: "kuohuviinit ja samppanjat"
+  }
+]
+
+const getFoodie = async () => {
+  const infos = []
+  console.log("Getting drinks from vikingLine")
+  await Promise.all(vikingLineCategories.map(async (category) => {
+    const infosForCategory = await getDrinkInfos(category.url, category.name)
+    infos.push(...infosForCategory)
+  }))
+  console.log("Got drinks from vikingLine")
+  return infos
+}
+
+module.exports = getFoodie
