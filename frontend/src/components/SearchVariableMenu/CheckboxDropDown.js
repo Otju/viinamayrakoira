@@ -26,7 +26,7 @@ const CheckboxDropDown = ({ searchVariables, setFieldValue, handleSubmit, displa
             selected = true
           }
           return (
-            <Dropdown.ItemText key={item.name}>
+            <Dropdown.ItemText key={item.name} style={{ width: "max-content" }}>
               <HoverableDropDownText selected={selected} handleClick={() => handleClick(item.name, name, selected)} content={
                 <>
                   {name === "category" ?

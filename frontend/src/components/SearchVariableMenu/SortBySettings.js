@@ -22,18 +22,22 @@ const SortBySettings = ({ valuetypes, searchVariables, setFieldValue, handleSubm
   valuetypes = valuetypes.filter(item => item.displayName !== showName)
 
   return (
-    <div style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem"}}>
+    <div style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
       <Dropdown drop="right" style={{ display: "inline-block" }}>
         <Dropdown.Toggle variant="dark" id="dropdown-basic">
-          järjestä <i>{showName}</i>
+          järjestys
         </Dropdown.Toggle>
         <Dropdown.Menu>
+          <Dropdown.ItemText style={{ width: "max-content" }}>
+            <b>{showName}</b>
+            <Button variant="dark" style={{ marginLeft: "0.2rem"}} onClick={() => handleOrderChange()}>{isDescending ? "↑" : "↓"}</Button>
+          </Dropdown.ItemText>
+          <Dropdown.Divider />
           {valuetypes.map(item => (
             <HoverableDropDownText key={item.name} handleClick={() => handleClick(item.name)} content={item.displayName} />
           ))}
         </Dropdown.Menu>
       </Dropdown >
-      <Button variant="dark" style={{ marginRight: "0.5rem" }} onClick={() => handleOrderChange()}>{isDescending ? "↑" : "↓"}</Button>
     </div >
   )
 }
