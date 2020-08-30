@@ -34,9 +34,6 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
   await page.goto(pageLink)
   await autoScroll(page)
 
-  // Usage:
-  // optionally change the scope as final parameter too, like ECMA5
-
   let getDrinks = await page.evaluate(() => {
     const items = document.querySelectorAll(".bundle-list-item")
     const results = []
@@ -155,7 +152,7 @@ const vikingLineCategories = [
   }
 ]
 
-const getFoodie = async () => {
+const getKmarket = async () => {
   const infos = []
   console.log("Getting drinks from kmarket")
   await Promise.all(vikingLineCategories.map(async (category) => {
@@ -166,5 +163,4 @@ const getFoodie = async () => {
   return infos
 }
 
-
-module.exports = getFoodie
+module.exports = getKmarket

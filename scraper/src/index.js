@@ -70,7 +70,7 @@ const setAllDrinks = async () => {
     console.log(`Added ${response.updateAllDrinks.length} drinks to db`)
   }
   catch (error) {
-    console.log("error")
+    console.log("ERROR:",error.message.slice(0,500))
   }
 }
 setAllDrinks()

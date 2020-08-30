@@ -63,8 +63,8 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
         }
       })
 
-      if(!productCode && name === "Sierra Nevada Pale Ale 12-pack"){
-        productCode = 37962
+      if (!productCode && name === "Sierra Nevada Pale Ale 12-pack") {
+        productCode = "37962"
       }
 
       const sizeRaw = $('td[data-th=Pakkauskoko]').text()
@@ -80,13 +80,13 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       if (sizeRaw.includes("x")) {
         const parts = sizeRaw.split(" ").map(part => turnToNumber(part))
         const sizeOfOne = parts[2] ? parts[2] : parts[1]
-        size = parts[0] * (sizeOfOne/ unitDivider)
+        size = parts[0] * (sizeOfOne / unitDivider)
       } else {
         size = turnToNumber(sizeRaw) / unitDivider
       }
 
-      if(!size && link.includes("100cl")){
-          size = 1
+      if (!size && link.includes("100cl")) {
+        size = 1
       }
 
       if (percentage <= 1) {
@@ -95,7 +95,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
 
       let percentageIsGuess = false
 
-      if(!percentage){
+      if (!percentage) {
         percentageIsGuess = true
         percentage = 12
       }
@@ -147,10 +147,6 @@ const categories = [
     code: [99]
   },
   {
-    name: "Hanapakkaukset",
-    code: [101]
-  },
-  {
     name: "Roseviinit",
     code: [101]
   },
@@ -189,7 +185,6 @@ const categories = [
   {
     name: "Rommit",
     code: [82]
-
   },
   {
     name: "Ginit ja muut viinat",
@@ -207,7 +202,6 @@ const getEckero = async () => {
     }))
   }))
   console.log("Got drinks from eckeroLine")
-  console.log(infos)
   return infos
 }
 
