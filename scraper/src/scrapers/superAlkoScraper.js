@@ -39,7 +39,7 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
         let size
         let percentage
 
-        const rawPercentage = name.match(/(\d+)?.?,?\d+%/g)
+        const rawPercentage = name.match(/(\d+)?,?\.?\d+%/g)
         if (rawPercentage) {
           percentage = turnToNumber(rawPercentage[0])
         }
