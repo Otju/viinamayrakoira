@@ -22,10 +22,10 @@ const SortBySettings = ({ valuetypes, searchVariables, setFieldValue, handleSubm
   valuetypes = valuetypes.filter(item => item.displayName !== showName)
 
   return (
-    <div style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem", float: "right" }}>
-      <Dropdown style={{ display: "inline-block" }}>
+    <div style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem"}}>
+      <Dropdown drop="right" style={{ display: "inline-block" }}>
         <Dropdown.Toggle variant="dark" id="dropdown-basic">
-          {showName}
+          järjestä <i>{showName}</i>
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {valuetypes.map(item => (

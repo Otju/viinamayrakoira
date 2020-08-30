@@ -2,14 +2,14 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 import { capitalizeFirst, stores, categories } from '../utils'
 
-const DrinkCard = ({ drink, position }) => {
+const DrinkCard = ({ drink, position, hasRightMargin }) => {
 
     const storeColor = stores.find(store => drink.store === store.name).color
 
     const margin = {}
     if (position === 2) {
         margin.marginLeft = "1rem"
-        margin.marginRight = "1rem"
+        margin.marginRight = hasRightMargin ? "1rem" : null
     }
 
     return (
@@ -22,7 +22,7 @@ const DrinkCard = ({ drink, position }) => {
                 </Card.Title>
                 <Card.Subtitle>{capitalizeFirst(drink.category)}</Card.Subtitle>
                 <Card.Img variant="top" src={drink.imageLink} style={{ maxWidth: "50%", maxHeight: "20rem", width: "auto", height: "auto", mixBlendMode: "multiply" }} />
-                <Card.Text style={{ display: 'inline-block', padding: "5%" }}>
+                <Card.Text style={{ display: 'inline-block', padding: "5%", maxWidth: "50%" }}>
                     {drink.price}€<br></br>
                     {drink.percentage}%<br></br>
                     {drink.size}l<br></br>
