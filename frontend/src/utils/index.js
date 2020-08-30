@@ -1,3 +1,5 @@
+import React from "react"
+
 export const capitalizeFirst = inputString => {
   if (!inputString || typeof inputString !== "string") {
     return null
@@ -8,27 +10,33 @@ export const capitalizeFirst = inputString => {
 export const stores = [
   {
     name: "alko",
-    color: "#E3333C"
+    color: "#E3333C",
+    displayName: "Alko"
   },
   {
     name: "foodie",
-    color: "#00A651"
+    color: "#00A651",
+    displayName: "Foodie"
   },
   {
     name: "superAlkoEesti",
-    color: "#E67817"
+    color: "#E67817",
+    displayName: <>SuperAlko<img src={process.env.PUBLIC_URL + '/eestiflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
   },
   {
     name: "superAlkoLatvia",
-    color: "#E67817"
+    color: "#E67817",
+    displayName: <>SuperAlko<img src={process.env.PUBLIC_URL + '/latviaflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
   },
   {
     name: "kmarket",
-    color: "#F86800"
+    color: "#F86800",
+    displayName: "Kmarket"
   },
   {
     name: "eckeroLine",
-    color: "#00549F"
+    color: "#00549F",
+    displayName: "Eckerö Line"
   },
 ]
 

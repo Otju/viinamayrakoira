@@ -15,7 +15,7 @@ const DrinkCard = ({ drink, position }) => {
     return (
         <Card style={{ ...margin, marginTop: "1rem" }}>
             <div style={{ background: storeColor, height: "0.5rem" }}></div>
-            <div style={{ background: categories.find(category => category.name === drink.category), height: "0.5rem" }}></div>
+            <div style={{ background: categories.find(category => category.name === drink.category).color, height: "0.5rem" }}></div>
             <Card.Body>
                 <Card.Title style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "3rem" }}>
                     <a rel="noopener noreferrer" style={{ color: "black" }} target="_blank" href={drink.link}>{drink.name}</a>
@@ -29,7 +29,7 @@ const DrinkCard = ({ drink, position }) => {
                     {drink.pricePerLitre}€/l<br></br>
                     {drink.portionAmount} annosta<br></br>
                     {drink.pricePerPortion} €/annos<br></br>
-                    {drink.categorystore}<br></br>
+                    {stores.find(store => store.name === drink.store).displayName}<br></br>
                     {capitalizeFirst(drink.producer)}<br></br>
                 </Card.Text>
             </Card.Body>

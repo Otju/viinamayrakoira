@@ -89,6 +89,10 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
         size = 1
       }
 
+      if(name==="Vina Sol Torres"){
+        size = 0.75
+      }
+
       if (percentage <= 1) {
         category = "Alkoholittomat"
       }
@@ -97,7 +101,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
 
       if (!percentage) {
         percentageIsGuess = true
-        percentage = 12
+        percentage = 11.5
       }
       const drinkInfo = {
         name,
