@@ -77,6 +77,10 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
     let category = categoryName
 
     if (!category) {
+      const isInName = (words) => {
+        const inName = words.some(word => name.toLowerCase().includes(word))
+        return inName || inDesc
+      }
       if (category === "Muut viinit") {
         if (isInNameOrDescription(["red", "punaviini"])) {
           category = "Punaviinit"
@@ -147,6 +151,7 @@ const vikingLineCategories = [
   },
   {
     url: "viinit",
+    name: "Muut viinit"
   }
 ]
 
