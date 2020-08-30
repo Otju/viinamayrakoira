@@ -15,8 +15,20 @@ export const stores = [
     color: "#00A651"
   },
   {
-    name: "superAlko",
+    name: "superAlkoEesti",
     color: "#E67817"
+  },
+  {
+    name: "superAlkoLatvia",
+    color: "#E67817"
+  },
+  {
+    name: "kmarket",
+    color: "#F86800"
+  },
+  {
+    name: "eckeroLine",
+    color: "#00549F"
   },
 ]
 

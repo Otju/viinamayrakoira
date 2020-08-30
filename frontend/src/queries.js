@@ -38,6 +38,7 @@ export const ALL_DRINKS = gql`
         portionAmount
         pricePerPortion
         pricePerLitre
+        percentageIsGuess
       }
       count
     }

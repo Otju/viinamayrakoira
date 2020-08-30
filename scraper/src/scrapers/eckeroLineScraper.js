@@ -147,7 +147,7 @@ const categories = [
     code: [99]
   },
   {
-    name: "Roseviinit",
+    name: "Roseeviinit",
     code: [101]
   },
   {
