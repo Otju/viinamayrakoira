@@ -84,6 +84,10 @@ export const categories = [
   {
     name: "alkoholittomat",
     color: ""
+  },
+  {
+    name: "hanapakkaukset",
+    color: ""
   }
 ]
 

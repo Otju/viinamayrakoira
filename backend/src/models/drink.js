@@ -27,6 +27,7 @@ const schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  percentageIsguess:Boolean,
   imageLink: String,
   category: {
     type: String,

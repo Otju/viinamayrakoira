@@ -34,7 +34,8 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const $ = cheerio.load(response.body)
     $(".product.photo.product-item-photo").each((i, item) => {
       const link = $(item).attr("href")
-      const imageLink = $(item).find(".product-image-photo").attr("src")
+      let imageLink
+      imageLink = $(item).find(".product-image-photo").attr("src")
       links.push({
         link,
         imageLink
@@ -44,69 +45,78 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
 
   const drinkInfos = []
   await Promise.all(links.map(async (linkObject) => {
-    const link = linkObject.link
-    const imageLink = linkObject.imageLink
-    let category = categoryName
-    const response = await got(link)
-    const $ = cheerio.load(response.body)
-    const name = $('.base').text()
-    let productCode
-    let description
-    $('.value').each((i, item) => {
-      if (i === 1) {
-        description = $(item).text()
+    try {
+      const link = linkObject.link
+      const imageLink = linkObject.imageLink
+      let category = categoryName
+      let $
+      const response = await got(link)
+      $ = cheerio.load(response.body)
+      const name = $('.base').text()
+      let productCode
+      let description
+      $('.value').each((i, item) => {
+        if (i === 1) {
+          description = $(item).text()
+        } else {
+          productCode = $(item).text()
+        }
+      })
+
+      if(!productCode && name === "Sierra Nevada Pale Ale 12-pack"){
+        productCode = 37962
+      }
+
+      const sizeRaw = $('td[data-th=Pakkauskoko]').text()
+      let percentage = turnToNumber($('td[data-th=Alkoholi]').text())
+      const price = roundTo(turnToNumber($(".price").text()) - 0.01, 2)
+
+      let unitDivider = 100
+
+      if (sizeRaw.includes("ml")) {
+        unitDivider = 1000
+      }
+
+      if (sizeRaw.includes("x")) {
+        const parts = sizeRaw.split(" ").map(part => turnToNumber(part))
+        const sizeOfOne = parts[2] ? parts[2] : parts[1]
+        size = parts[0] * (sizeOfOne/ unitDivider)
       } else {
-        productCode = $(item).text()
+        size = turnToNumber(sizeRaw) / unitDivider
       }
-    })
-    const sizeRaw = $('td[data-th=Pakkauskoko]').text()
-    const percentage = turnToNumber($('td[data-th=Alkoholi]').text())
-    const price = roundTo(turnToNumber($(".price").text()-0.01),2)
 
-    if (!sizeRaw.includes("cl")) {
-      console.log("NOT CL")
-    }
-    if (sizeRaw.includes("x")) {
-      const parts = sizeRaw.split(" ").map(part => turnToNumber(part))
-      size = parts[0] * (parts[2] / 100)
-    } else {
-      size = turnToNumber(sizeRaw) / 100
-    }
+      if(!size && link.includes("100cl")){
+          size = 1
+      }
 
-    if (category === "Muut viinit") {
-      const isInName = (words) => {
-        const inName = words.some(word => name.toLowerCase().includes(word))
-        return inName || inDesc
+      if (percentage <= 1) {
+        category = "Alkoholittomat"
       }
-      if (isInNameOrDescription(["red", "punaviini"])) {
-        category = "Punaviinit"
+
+      let percentageIsGuess = false
+
+      if(!percentage){
+        percentageIsGuess = true
+        percentage = 12
       }
-      if (isInNameOrDescription(["kuoh"])) {
-        category = "Kuohuviinit ja Samppanjat"
+      const drinkInfo = {
+        name,
+        productCode,
+        description,
+        link,
+        price,
+        percentage,
+        imageLink,
+        category,
+        size,
+        store: "eckeroLine",
+        percentageIsGuess
       }
-      if (isInNameOrDescription(["valko", "white"])) {
-        category = "Valkoviinit"
-      }
-      if (isInNameOrDescription(["rosé", "rose"])) {
-        category = "Roseeviinit"
-      }
+      drinkInfos.push(drinkInfo)
     }
-    if (percentage <= 1) {
-      category = "Alkoholittomat"
+    catch (e) {
+      console.log(linkObject.link, e.message)
     }
-    const drinkInfo = {
-      name,
-      productCode,
-      description,
-      link,
-      price,
-      percentage,
-      imageLink,
-      category,
-      size,
-      store: "eckeroLine"
-    }
-    drinkInfos.push(drinkInfo)
   }))
   return drinkInfos
 }
@@ -114,37 +124,90 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
 const categories = [
   {
     name: "Oluet",
-    code: 93
+    code: [93]
   },
   {
     name: "Kuohuviinit ja Samppanjat",
-    code: 96
-  },
-  /*
-  {
-    name: "Juomasekoitukset ja lonkerot",
-    code: 1067
+    code: [96]
   },
   {
+    name: "Siiderit",
+    code: [105]
+  },
+  {
     name: "Juomasekoitukset ja lonkerot",
-    code: 14018
+    code: [107]
+  },
+  {
+    name: "Punaviinit",
+    code: [98]
+  },
+  {
+    name: "Valkoviinit",
+    code: [99]
+  },
+  {
+    name: "Hanapakkaukset",
+    code: [101]
+  },
+  {
+    name: "Roseviinit",
+    code: [101]
+  },
+  {
+    name: "Alkoholittomat",
+    code: [109]
   },
   {
     name: "Muut viinit",
-    code: 1058
+    code: [95]
+  },
+  {
+    name: "Liköörit ja Katkerot",
+    code: [88, 89, 90, 114, 85, 86]
+  },
+  {
+    name: "Konjakit",
+    code: [73]
+  },
+  {
+    name: "Brandyt, Armanjakit ja Calvadosit",
+    code: [75]
+  },
+  {
+    name: "Viskit",
+    code: [79]
+  },
+  {
+    name: "Vodkat ja Viinat",
+    code: [80]
+  },
+  {
+    name: "Ginit ja muut viinat",
+    code: [81]
+  },
+  {
+    name: "Rommit",
+    code: [82]
+
+  },
+  {
+    name: "Ginit ja muut viinat",
+    code: [83, 84]
   }
-  */
 ]
 
 const getEckero = async () => {
   const infos = []
   console.log("Getting drinks from eckeroLine")
   await Promise.all(categories.map(async (category) => {
-    const infosForCategory = await getDrinkInfos(category.code, category.name)
-    infos.push(...infosForCategory)
-    console.log(infos)
+    await Promise.all(category.code.map(async (code) => {
+      const infosForCategory = await getDrinkInfos(code, category.name)
+      infos.push(...infosForCategory)
+    }))
   }))
   console.log("Got drinks from eckeroLine")
+  console.log(infos)
   return infos
 }
 

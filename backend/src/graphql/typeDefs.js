@@ -11,6 +11,7 @@ const typeDefs = gql`
     price: Float!
     description: String
     percentage: Float!
+    percentageIsGuess: Boolean
     imageLink: String
     category: String!
     size: Float!
