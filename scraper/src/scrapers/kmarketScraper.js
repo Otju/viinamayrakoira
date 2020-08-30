@@ -116,7 +116,7 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
       link: `https://www.k-ruoka.fi${rawDrink.link}`,
       price: turnToNumber(rawDrink.price),
       percentage,
-      imageLink: rawDrink.imagelink,
+      imageLink: rawDrink.imagelink.replace("&fill=solid&fill-color=ffffff","").replace(/w=\d+&h=\d+/,""),
       category,
       size,
       store: "kmarket"

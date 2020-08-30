@@ -38,25 +38,32 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
 
         let size
         let percentage
+
+        const rawPercentage = name.match(/(\d+)?.?,?\d+%/g)
+        if (rawPercentage) {
+          percentage = turnToNumber(rawPercentage[0])
+        }
         name.split(" ").forEach((part) => {
-          if (part.includes("%")) {
-            percentage = turnToNumber(part)
-          }
           if (part.includes("cl")) {
             if (part.toLowerCase().includes("x")) {
               const partParts = part.toLowerCase().split("x")
               size = turnToNumber(partParts[0]) * turnToNumber(partParts[1]) / 100
-            } else {
+            } else if (part.includes("*")) {
+              const partParts = part.split("*")
+              size = turnToNumber(partParts[1]) * turnToNumber(partParts[0]) / 100
+            }
+            else {
               size = turnToNumber(part) / 100
             }
+
           }
           if (part.includes("1L")) {
             size = 1
           }
         })
 
-        if(productCode==="27938"){  //superAlko had a typo in their infos
-          size=0.33
+        if (productCode === "27938") {  //superAlko had a typo in their infos
+          size = 0.33
         }
 
         const drinkInfo = {
@@ -147,7 +154,7 @@ const getSuperAlko = async () => {
   await Promise.all(superAlkoCategories.map(async (category) => {
     await Promise.all(category.code.map(async (code) => {
       const infosForCategoryEesti = await getDrinkInfos(code, category.name, "https://m.viinarannasta.ee/", "Eesti")
-      const infosForCategoryLatvia = await getDrinkInfos(code, category.name, "https://www.superalko.lv/", "Latvia" )
+      const infosForCategoryLatvia = await getDrinkInfos(code, category.name, "https://www.superalko.lv/", "Latvia")
       infos.push(...infosForCategoryEesti, ...infosForCategoryLatvia)
     }))
   }))
