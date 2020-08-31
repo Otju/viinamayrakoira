@@ -14,17 +14,17 @@ export const stores = [
   {
     name: "superAlkoEesti",
     color: "#E67817",
-    displayName: <>SuperAlko<img src={process.env.PUBLIC_URL + '/eestiflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
+    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/eestiflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
   },
   {
     name: "superAlkoLatvia",
     color: "#E67817",
-    displayName: <>SuperAlko<img src={process.env.PUBLIC_URL + '/latviaflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
+    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/latviaflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
   },
   {
     name: "kmarket",
     color: "#F86800",
-    displayName: "Kmarket"
+    displayName: "K-Market"
   },
   {
     name: "eckeroLine",

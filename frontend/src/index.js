@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client'
+import {BrowserRouter as Router} from "react-router-dom"
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -10,7 +11,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </ApolloProvider>,
   document.getElementById('root')
 )

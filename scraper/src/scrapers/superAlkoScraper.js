@@ -55,7 +55,6 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
             else {
               size = turnToNumber(part) / 100
             }
-
           }
           if (part.includes("1L")) {
             size = 1
