@@ -102,7 +102,7 @@ const superAlkoCategories = [
     code: [7]
   },
   {
-    name: "Ginit ja muut viinat",
+    name: "ginit ja maustetut viinat",
     code: [6, 11, 39]
   },
   {

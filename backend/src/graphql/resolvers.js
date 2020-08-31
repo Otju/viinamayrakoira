@@ -33,6 +33,19 @@ const resolvers = {
       const drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection })
       const count = await Drink.find(search).countDocuments()
       return { drinks, count }
+    },
+    statistics: async () => {
+      const drinkCount = await Drink.find({}).countDocuments()
+      let drinksPerCategory = await Drink.aggregate(
+        [{
+          $group: {
+            _id: '$category',
+            count: { $sum: 1 }
+          }
+        }
+        ])
+      drinksPerCategory = drinksPerCategory.map(item => ({ group: item._id, count: item.count }))
+      return { drinkCount, drinksPerCategory }
     }
   },
   Mutation: {
@@ -68,7 +81,7 @@ const resolvers = {
         console.log(`inserted ${returnedDrinks.length} items to the database`)
         return returnedDrinks
       } catch (error) {
-        console.log(error.message) 
+        console.log(error.message)
         return (error.message)
       }
     }

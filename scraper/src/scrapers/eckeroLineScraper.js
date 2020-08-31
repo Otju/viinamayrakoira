@@ -183,16 +183,12 @@ const categories = [
     code: [80]
   },
   {
-    name: "Ginit ja muut viinat",
-    code: [81]
+    name: "Ginit ja maustetut viinat",
+    code: [81,83, 84]
   },
   {
     name: "Rommit",
     code: [82]
-  },
-  {
-    name: "Ginit ja muut viinat",
-    code: [83, 84]
   }
 ]
 

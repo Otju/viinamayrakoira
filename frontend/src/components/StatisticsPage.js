@@ -8,14 +8,16 @@ const StatisticsPage = () => {
 
   const result = useQuery(STATISTICS)
 
-
   if (!result.data || result.loading) {
     return <Spinner animation="border" />
   }
 
+  const statistics = result.data.statistics
+
+
   return <div>
     <h1>Tilastoja</h1>
-
+    Juomia yhteensä: {statistics.drinkCount}
   </div>
 }
 

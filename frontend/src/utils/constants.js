@@ -71,7 +71,7 @@ export const categories = [
     color: ""
   },
   {
-    name: "ginit ja muut viinat",
+    name: "ginit ja maustetut viinat",
     color: ""
   },
   {

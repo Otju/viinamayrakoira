@@ -37,15 +37,25 @@ const typeDefs = gql`
     store: String!
   }
 
-  type allDrinksOutPut {
-    drinks: [Drink!]!,
+  type groupAndCount {
+    group: String!,
     count: Int!
+  }
+
+  type statisticsOutPut {
+    drinkCount: Int
+    drinksPerCategory: [groupAndCount!]
   }
 
   input minMax {
     name: String!,
     min: Int,
     max: Int
+  }
+
+  type allDrinksOutPut {
+    drinks: [Drink!]!,
+    count: Int!
   }
   
   type Query {
@@ -59,6 +69,8 @@ const typeDefs = gql`
       sortByField: String,
       sortByDescending: Boolean
       ): allDrinksOutPut!
+
+    statistics: statisticsOutPut!
   }
 
   type Mutation {
