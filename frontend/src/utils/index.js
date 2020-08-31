@@ -10,5 +10,11 @@ export const capitalizeFirst = inputString => {
   return inputString.charAt(0).toUpperCase() + inputString.slice(1);
 }
 
+export const groupByN = (data, n) => {
+  let result = []
+  for (let i = 0; i < data.length; i += n) result.push(data.slice(i, i + n))
+  return result;
+}
+
 
 

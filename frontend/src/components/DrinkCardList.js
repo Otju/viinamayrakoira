@@ -4,7 +4,7 @@ import { ALL_DRINKS } from '../queries'
 import DrinkCard from './DrinkCard'
 import { CardGroup, Spinner } from 'react-bootstrap'
 import PaginationMenu from './PaginationMenu'
-import {useWindowDimensions} from '../utils'
+import { useWindowDimensions, groupByN } from '../utils'
 
 const DrinkCardList = ({ searchVariables }) => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -40,7 +40,9 @@ const DrinkCardList = ({ searchVariables }) => {
       searchVariablesWithMinMaxFix[key] = value
     }
   })
+
   const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariablesWithMinMaxFix } })
+
   if (!result.data || result.loading) {
     return <Spinner animation="border" />
   }
@@ -51,13 +53,8 @@ const DrinkCardList = ({ searchVariables }) => {
     return "no results"
   }
 
-  const groupByN = (data, n) => {
-    let result = []
-    for (let i = 0; i < data.length; i += n) result.push(data.slice(i, i + n))
-    return result;
-  }
   let groupSize = width >= 1080 ? 3 : 2
-  if(width<600){
+  if (width < 600) {
     groupSize = 1
   }
 
@@ -67,7 +64,7 @@ const DrinkCardList = ({ searchVariables }) => {
     {
       groupedDrinks.map(group => <CardGroup key={group[0].id}>
         {group.map((drink, i) => (
-          <DrinkCard style={{ display: 'inline-block' }} key={drink.id} drink={drink} position={i + 1} hasRightMargin={groupSize===3}/>
+          <DrinkCard style={{ display: 'inline-block' }} key={drink.id} drink={drink} position={i + 1} hasRightMargin={groupSize === 3} />
         ))}
       </CardGroup>)
     }

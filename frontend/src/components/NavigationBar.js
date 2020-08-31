@@ -15,7 +15,7 @@ const NavigationBar = () => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           <LinkContainer to="/drinks"><Nav.Link>Juomat</Nav.Link></LinkContainer>
-          <LinkContainer to="/statistics"><Nav.Link>Statistiikkaa</Nav.Link></LinkContainer>
+          <LinkContainer to="/statistics"><Nav.Link>Tilastoja</Nav.Link></LinkContainer>
           <LinkContainer to="/bars"><Nav.Link>Baarit</Nav.Link></LinkContainer>
           <LinkContainer to="/moreinfo"><Nav.Link>Lisää infoa</Nav.Link></LinkContainer>
         </Nav>

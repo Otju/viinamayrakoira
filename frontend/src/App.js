@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import SearchVariableMenu from './components/SearchVariableMenu/'
 import DrinkCardList from './components/DrinkCardList'
 import NavigationBar from './components/NavigationBar'
+import StatisticsPage from './components/StatisticsPage'
 import { Switch, Route,Redirect  } from "react-router-dom"
 
 
@@ -14,7 +15,7 @@ const App = () => {
       <NavigationBar></NavigationBar>
       <Switch>
         <Route path="/statistics">
-          <h1>Statistics</h1>
+          <StatisticsPage/>
         </Route>
         <Route path="/bars">
           <h1>Baarit</h1>
