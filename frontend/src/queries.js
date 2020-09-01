@@ -53,6 +53,10 @@ query {
       group
       count
     }
+    drinksPerStore{
+      group
+      count
+    }
   }
 }
 `

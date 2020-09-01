@@ -45,6 +45,7 @@ const typeDefs = gql`
   type statisticsOutPut {
     drinkCount: Int
     drinksPerCategory: [groupAndCount!]
+    drinksPerStore: [groupAndCount!]
   }
 
   input minMax {

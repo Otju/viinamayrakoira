@@ -44,8 +44,19 @@ const resolvers = {
         }
         ])
       drinksPerCategory = drinksPerCategory.map(item => ({ group: item._id, count: item.count }))
-      drinkCount = drinksPerCategory.reduce((acc, curr) => acc + curr.count, 0)
-      return { drinkCount, drinksPerCategory }
+
+      let drinksPerStore = await Drink.aggregate(
+        [{
+          $group: {
+            _id: '$store',
+            count: { $sum: 1 }
+          }
+        }
+        ])
+      drinksPerStore = drinksPerStore.map(item => ({ group: item._id, count: item.count }))
+
+      drinkCount = drinksPerStore.reduce((acc, curr) => acc + curr.count, 0)
+      return { drinkCount, drinksPerCategory,drinksPerStore}
     }
   },
   Mutation: {
