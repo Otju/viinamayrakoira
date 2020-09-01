@@ -1,10 +1,9 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { STATISTICS } from '../queries'
-import { categories, stores } from '../utils'
+import { STATISTICS } from '../../queries'
+import { categories, stores } from '../../utils'
 import Spinner from 'react-bootstrap/Spinner'
 import Chart from './Chart'
-
 
 const StatisticsPage = () => {
 

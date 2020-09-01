@@ -6,7 +6,7 @@ import { LinkContainer } from "react-router-bootstrap"
 const NavigationBar = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <LinkContainer to="/drinks">
+      <LinkContainer to="/best">
         <Navbar.Brand href=" ">
           <img src={process.env.PUBLIC_URL + '/doggo.svg'} style={{ height: "5rem", fill: "red" }} alt="viinamayrakoira.svg" />
         </Navbar.Brand>
@@ -14,6 +14,7 @@ const NavigationBar = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
+        <LinkContainer to="/best"><Nav.Link>Parhaat</Nav.Link></LinkContainer>
           <LinkContainer to="/drinks"><Nav.Link>Juomat</Nav.Link></LinkContainer>
           <LinkContainer to="/statistics"><Nav.Link>Tilastoja</Nav.Link></LinkContainer>
           <LinkContainer to="/bars"><Nav.Link>Baarit</Nav.Link></LinkContainer>

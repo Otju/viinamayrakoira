@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import SearchVariableMenu from './components/SearchVariableMenu/'
+import BestPage from './components/BestPage'
 import DrinkCardList from './components/DrinkCardList'
 import NavigationBar from './components/NavigationBar'
-import StatisticsPage from './components/StatisticsPage'
-import { Switch, Route,Redirect  } from "react-router-dom"
+import StatisticsPage from './components/StatisticsPage/'
+import { Switch, Route, Redirect } from "react-router-dom"
 
 
 const App = () => {
@@ -14,8 +15,11 @@ const App = () => {
     <div className="container" style={{ background: "#ede8e8" }}>
       <NavigationBar></NavigationBar>
       <Switch>
+        <Route path="/best">
+          <BestPage/>
+        </Route>
         <Route path="/statistics">
-          <StatisticsPage/>
+          <StatisticsPage />
         </Route>
         <Route path="/bars">
           <h1>Baarit</h1>
@@ -28,7 +32,7 @@ const App = () => {
           <DrinkCardList searchVariables={searchVariables} />
         </Route>
         <Route path="/">
-          <Redirect to="/drinks"/>
+          <Redirect to="/best" />
         </Route>
       </Switch>
     </div>

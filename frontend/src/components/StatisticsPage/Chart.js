@@ -1,5 +1,5 @@
 import React from 'react'
-import { capitalizeFirst } from '../utils'
+import { capitalizeFirst } from '../../utils'
 import { VictoryPie, VictoryTooltip, VictoryBar } from "victory"
 
 const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) => {
