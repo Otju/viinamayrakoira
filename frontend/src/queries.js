@@ -52,10 +52,16 @@ query {
     drinksPerCategory{
       group
       count
+      avgPrice
+      avgPricePerPortion
+      avgPercentage
     }
     drinksPerStore{
       group
       count
+      avgPrice
+      avgPricePerPortion
+      avgPercentage
     }
   }
 }

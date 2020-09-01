@@ -35,28 +35,32 @@ const resolvers = {
       return { drinks, count }
     },
     statistics: async () => {
-      let drinksPerCategory = await Drink.aggregate(
-        [{
-          $group: {
-            _id: '$category',
-            count: { $sum: 1 }
-          }
-        }
-        ])
-      drinksPerCategory = drinksPerCategory.map(item => ({ group: item._id, count: item.count }))
 
-      let drinksPerStore = await Drink.aggregate(
-        [{
-          $group: {
-            _id: '$store',
-            count: { $sum: 1 }
+      const getValuesAndGroup = async (fieldToGroupBy) => {
+
+        const rawValues = await Drink.aggregate(
+          [{
+            $group: {
+              _id: `$${fieldToGroupBy}`,
+              count: { $sum: 1 },
+              avgPrice: { $avg: "$price" },
+              avgPricePerPortion: { $avg: "$pricePerPortion" },
+              avgPercentage: { $avg: "$percentage" }
+            }
           }
-        }
-        ])
-      drinksPerStore = drinksPerStore.map(item => ({ group: item._id, count: item.count }))
+          ])
+        return rawValues.map(item => {
+          const group = item._id
+          delete item.id
+          return { group, ...item }
+        })
+      }
+
+      const drinksPerCategory = await getValuesAndGroup("category")
+      const drinksPerStore = await getValuesAndGroup("store")
 
       drinkCount = drinksPerStore.reduce((acc, curr) => acc + curr.count, 0)
-      return { drinkCount, drinksPerCategory,drinksPerStore}
+      return { drinkCount, drinksPerCategory, drinksPerStore }
     }
   },
   Mutation: {
