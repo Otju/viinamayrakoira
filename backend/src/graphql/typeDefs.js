@@ -37,8 +37,14 @@ const typeDefs = gql`
     store: String!
   }
 
+  type groups{
+    group1: String!,
+    group2: String!
+  }
+
   type groupStats {
-    group: String!,
+    group: String,
+    groups: groups,
     count: Int!
     avgPrice: Float!
     avgPricePerPortion: Float!
@@ -49,6 +55,7 @@ const typeDefs = gql`
     drinkCount: Int
     drinksPerCategory: [groupStats!]
     drinksPerStore: [groupStats!]
+    drinksPerStoreAndCategory: [groupStats!]
   }
 
   input minMax {

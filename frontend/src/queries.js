@@ -63,6 +63,16 @@ query {
       avgPricePerPortion
       avgPercentage
     }
+    drinksPerStoreAndCategory{
+      groups{
+        group1
+        group2
+      }
+      count
+      avgPrice
+      avgPricePerPortion
+      avgPercentage
+    }
   }
 }
 `

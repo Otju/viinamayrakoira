@@ -2,20 +2,34 @@ import React from 'react'
 import { capitalizeFirst } from '../utils'
 import { VictoryPie, VictoryTooltip, VictoryBar } from "victory"
 
-const Chart = ({ rawData, field, colorObjectArray, name, type }) => {
+const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) => {
+
+  unit = unit ?? ""
+  width = width ?? "30rem"
+
   const data = rawData.concat().sort((a, b) => b[field] - a[field])
     .map(item => {
-      const categoryObject = colorObjectArray.find(category => category.name === item.group)
+      const categoryObject = !item.groups ?
+      colorObjectArray.find(category => category.name === item.group)
+      : colorObjectArray.find(category => item.groups.group1 === category.name)
+
       return {
         x: item.group,
         y: item[field],
-        label: `${capitalizeFirst(item.group).replace(/ /g, "\n")}\n${item[field]}`,
-        color: categoryObject && categoryObject.color ? categoryObject.color : "#7D1713"
+        label: `${capitalizeFirst(item.group).replace(/ /g, "\n")}\n${item[field]}${unit}`,
+        color: categoryObject && categoryObject.color ? categoryObject.color : "black"
       }
     })
 
   const labelComponent = <VictoryTooltip width={500} renderInPortal={true} />
-  const style = { data: { fill: data => data.datum.color } }
+  const style = {
+    data:
+    {
+      fill: data => data.datum.hasBorder ? data.datum.color : data.datum.color,
+      /*stroke: data => data.datum.hasBorder ? data.datum.color[1] : null, 
+      strokeWidth: 1*/
+    }
+  }
   const events = [{
     target: "data",
     eventHandlers: {
@@ -56,7 +70,7 @@ const Chart = ({ rawData, field, colorObjectArray, name, type }) => {
       break;
   }
   return (
-    <div style={{ width: "30rem", display: "inline-block", border: "solid", borderColor: "#c4bcbc", margin: "1rem" }}>
+    <div style={{ width, display: "inline-block", border: "solid", borderColor: "#c4bcbc", margin: "1rem" }}>
       <h4 style={{ textAlign: "center" }}>{name}</h4>
       {chart}
     </div>

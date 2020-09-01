@@ -41,7 +41,7 @@ const resolvers = {
         const rawValues = await Drink.aggregate(
           [{
             $group: {
-              _id: `$${fieldToGroupBy}`,
+              _id: fieldToGroupBy,
               count: { $sum: 1 },
               avgPrice: { $avg: "$price" },
               avgPricePerPortion: { $avg: "$pricePerPortion" },
@@ -50,17 +50,24 @@ const resolvers = {
           }
           ])
         return rawValues.map(item => {
-          const group = item._id
-          delete item.id
-          return { group, ...item }
+          let group
+          let groups = {}
+          if (typeof item._id === "string") {
+            group = item._id
+          }else{
+            groups = item._id
+          }
+          delete item._id
+          Object.entries(item).map(([key, field]) => item[key] = roundTo(field, 2))
+          return { group, groups, ...item }
         })
       }
 
-      const drinksPerCategory = await getValuesAndGroup("category")
-      const drinksPerStore = await getValuesAndGroup("store")
-
+      const drinksPerCategory = await getValuesAndGroup("$category")
+      const drinksPerStore = await getValuesAndGroup("$store")
+      const drinksPerStoreAndCategory = await getValuesAndGroup({ group1: '$store', group2: '$category' })
       drinkCount = drinksPerStore.reduce((acc, curr) => acc + curr.count, 0)
-      return { drinkCount, drinksPerCategory, drinksPerStore }
+      return { drinkCount, drinksPerCategory, drinksPerStore, drinksPerStoreAndCategory }
     }
   },
   Mutation: {
@@ -76,7 +83,6 @@ const resolvers = {
           const portionAmount = (drink.size * ((drink.percentage) / (100))) / 0.015201419
           const id = idNumber + drink.store
           if (drinksToSave.find(drink => drink._id === id)) {
-            //console.log("Didn't add item with duplicate id", drink.link)
             duplicateIDCount++
           } else {
             drinksToSave.push({
