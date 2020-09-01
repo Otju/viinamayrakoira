@@ -49,7 +49,10 @@ export const STATISTICS = gql`
 query {
   statistics{
     drinkCount
-    drinksPerCategory
+    drinksPerCategory{
+      group
+      count
+    }
   }
 }
 `

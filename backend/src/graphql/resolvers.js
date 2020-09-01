@@ -35,7 +35,6 @@ const resolvers = {
       return { drinks, count }
     },
     statistics: async () => {
-      const drinkCount = await Drink.find({}).countDocuments()
       let drinksPerCategory = await Drink.aggregate(
         [{
           $group: {
@@ -45,6 +44,7 @@ const resolvers = {
         }
         ])
       drinksPerCategory = drinksPerCategory.map(item => ({ group: item._id, count: item.count }))
+      drinkCount = drinksPerCategory.reduce((acc, curr) => acc + curr.count, 0)
       return { drinkCount, drinksPerCategory }
     }
   },
