@@ -19,7 +19,7 @@
 | 27.8.20 | 16:30   |  20:30  | 4:30  |styling, refactoring, bug fixing and interface usability|
 | 29.8.20 | 11:10   |  11:30  | 0:20  |superAlko Latvia Scraping, and some quality of life improvements to scraper|
 | 29.8.20 | 18:00   |  22:10  | 4:10  |Kmarket scraping (tried implementin VikingLine scraper, but their site has blocked bots)|
-| 30.8.20 | 11:45   |  00:00  | 0:00  ||
-| 31.8.20 | 20:30   |  00:00  | 0:00  ||
-| 01.8.20 | 9:10   |  00:00  | 0:00  ||
+| 30.8.20 | 11:40   |  17:20  | 5:40  |eckeroLine scraper|
+| 31.8.20 | 20:30   |  21:40  | 1:10  |react-router, statistics and bugfixes|
+| 01.8.20 | 09:10   |  13:40  | 4:30  |statistics page, refactoring, styling and bugfixes|
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
