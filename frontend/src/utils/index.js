@@ -1,7 +1,7 @@
-import { stores, categories, searchTypes } from "./constants"
+import { stores, categories, searchTypes, colors } from "./constants"
 import { useWindowDimensions } from './hooks'
 
-export { stores, categories, searchTypes, useWindowDimensions }
+export { stores, categories, searchTypes, colors, useWindowDimensions }
 
 export const capitalizeFirst = inputString => {
   if (!inputString || typeof inputString !== "string") {

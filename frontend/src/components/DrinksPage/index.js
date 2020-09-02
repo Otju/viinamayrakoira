@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import { ALL_DRINKS } from '../queries'
+import { ALL_DRINKS } from '../../queries'
 import Spinner from 'react-bootstrap/Spinner'
 import PaginationMenu from './PaginationMenu'
-import DrinkCardList from "./DrinkCardList"
-import SearchVariableMenu from './SearchVariableMenu'
+import DrinkCardList from "../DrinkCardList"
+import SearchVariableMenu from '../SearchVariableMenu'
 
 const DrinksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)

@@ -132,3 +132,7 @@ export const searchTypes = [
     unit: "€/annos"
   },
 ]
+
+export const colors = {
+  lightGray: "#c4bcbc"
+}

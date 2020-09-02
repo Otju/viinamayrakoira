@@ -1,5 +1,5 @@
 import React from 'react'
-import { capitalizeFirst } from '../../utils'
+import { capitalizeFirst, colors } from '../../utils'
 import { VictoryPie, VictoryTooltip, VictoryBar } from "victory"
 
 const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) => {
@@ -10,8 +10,8 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) =>
   const data = rawData.concat().sort((a, b) => b[field] - a[field])
     .map(item => {
       const categoryObject = !item.groups ?
-      colorObjectArray.find(category => category.name === item.group)
-      : colorObjectArray.find(category => item.groups.group1 === category.name)
+        colorObjectArray.find(category => category.name === item.group)
+        : colorObjectArray.find(category => item.groups.group1 === category.name)
 
       return {
         x: item.group,
@@ -70,7 +70,7 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) =>
       break;
   }
   return (
-    <div style={{ width, display: "inline-block", border: "solid", borderColor: "#c4bcbc", margin: "1rem" }}>
+    <div style={{ width, display: "inline-block", border: "solid", borderColor: colors.lightGray, margin: "1rem" }}>
       <h4 style={{ textAlign: "center" }}>{name}</h4>
       {chart}
     </div>
