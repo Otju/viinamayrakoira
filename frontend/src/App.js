@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
-import SearchVariableMenu from './components/SearchVariableMenu/'
+import React from 'react'
 import BestPage from './components/BestPage'
-import DrinkCardList from './components/DrinkCardList'
 import NavigationBar from './components/NavigationBar'
 import StatisticsPage from './components/StatisticsPage/'
 import { Switch, Route, Redirect } from "react-router-dom"
+import DrinksPage from './components/DrinksPage'
 
 
 const App = () => {
 
-  const [searchVariables, setSearchVariables] = useState({ name: "" })
 
   return (
     <div className="container" style={{ background: "#ede8e8" }}>
@@ -28,8 +26,7 @@ const App = () => {
           <h1>Lisää infoa</h1>
         </Route>
         <Route path="/drinks">
-          <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} />
-          <DrinkCardList searchVariables={searchVariables} />
+          <DrinksPage/>
         </Route>
         <Route path="/">
           <Redirect to="/best" />
