@@ -19,11 +19,9 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
             <div style={{ background: storeColor, height: "0.5rem" }}></div>
             <div style={{ background: categoryObject ? categoryObject.color : null, height: "0.5rem" }}></div>
             <Card.Body style={{ position: "relative" }}>
-                {drink.sticker ? <div style={{ position: "absolute", top: "-20px", right: "-20px" }}>
-                    <svg id="svgelem" viewBox="0 0 200 200">
-                        <polygon points="100,10 40,180 190,60 10,60 160,180" fill="yellow" />
-                    </svg>
-                    {drink.sticker}
+                {drink.sticker ? <div style={{ position: "absolute", top: "-4.5rem", left: "-3rem", width: "12rem", transform: "rotate(-10deg)" }}>
+                    <img src={process.env.PUBLIC_URL + '/doggoColor.svg'} style={{ fill: "red" }} alt="viinamayrakoira.svg" />
+                    <div style={{ position: "absolute", top: "3rem", textAlign: "center", width: "100%" }}>{drink.sticker}</div>
                 </div>
                     : null}
                 <Card.Title style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "3rem" }}>

@@ -47,7 +47,7 @@ export const ALL_DRINKS = gql`
 
 export const BEST_DRINKS = gql`
   query bestDrinks(
-    $store: String!
+    $store: String
     ){
     bestDrinks(store: $store){
         id

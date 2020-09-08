@@ -5,7 +5,8 @@ import { stores } from '../../utils'
 const BestPage = () => {
 
   return <div>
-    <h1>Top 3 juomaa kaupoittain (annoshinnan mukaan)</h1>
+    <h1>Parhaat juomat</h1>
+    <BestDrinks key="overall" displayName="Kaikki kaupat"></BestDrinks>
     {stores.map(store => <BestDrinks key={store.name} store={store.name} displayName={store.displayName}/>)}
   </div>
 }

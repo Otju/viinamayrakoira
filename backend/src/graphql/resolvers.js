@@ -70,10 +70,10 @@ const resolvers = {
       return { drinkCount, drinksPerCategory, drinksPerStore, drinksPerStoreAndCategory }
     },
     bestDrinks: async (root, args) => {
-      const store = args.store
+      const search = args.store ? { store: args.store } : {}
       const drinks = []
       const getBestDrink = async (category, stickerText) => {
-        let drink = await Drink.find({ store }).limit(1).sort({ [category]: 1 })
+        let drink = await Drink.find(search).limit(1).sort({ [category]: 1 })
         drink = drink[0]
         drink.sticker = stickerText
         drinks.push(drink)

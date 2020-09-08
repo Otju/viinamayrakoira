@@ -20,16 +20,16 @@ const BestDrinks = ({ store, displayName }) => {
       sticker = "Halvin känni"
     }
     if (i === 1) {
-      sticker = "Halvin juoma"
+      sticker = "Paras maku"
     }
     if (i === 2) {
-      sticker = "Halvin litrahinta"
+      sticker = "Paras hinta-laatu"
     }
     return { ...drink, sticker }
   })
 
   return <div style={{ width: "90%", margin: "auto", border: "solid", borderColor: colors.lightGray, padding: "1rem", marginBottom: "2rem" }}>
-    <h3>{displayName}</h3>
+    <h3 style={{ marginBottom: "3rem" }}>{displayName}</h3>
     <DrinkCardList drinks={drinks} />
   </div>
 }
