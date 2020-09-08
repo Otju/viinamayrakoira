@@ -45,6 +45,30 @@ export const ALL_DRINKS = gql`
   }
 `
 
+export const BEST_DRINKS = gql`
+  query bestDrinks(
+    $store: String!
+    ){
+    bestDrinks(store: $store){
+        id
+        name
+        producer
+        link
+        price
+        description
+        percentage
+        imageLink
+        category
+        size
+        store
+        portionAmount
+        pricePerPortion
+        pricePerLitre
+        percentageIsGuess
+    }
+  }
+`
+
 export const STATISTICS = gql`
 query {
   statistics{

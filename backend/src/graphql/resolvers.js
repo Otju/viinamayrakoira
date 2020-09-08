@@ -54,7 +54,7 @@ const resolvers = {
           let groups = {}
           if (typeof item._id === "string") {
             group = item._id
-          }else{
+          } else {
             groups = item._id
           }
           delete item._id
@@ -68,6 +68,20 @@ const resolvers = {
       const drinksPerStoreAndCategory = await getValuesAndGroup({ group1: '$store', group2: '$category' })
       drinkCount = drinksPerStore.reduce((acc, curr) => acc + curr.count, 0)
       return { drinkCount, drinksPerCategory, drinksPerStore, drinksPerStoreAndCategory }
+    },
+    bestDrinks: async (root, args) => {
+      const store = args.store
+      const drinks = []
+      const getBestDrink = async (category, stickerText) => {
+        let drink = await Drink.find({ store }).limit(1).sort({ [category]: 1 })
+        drink = drink[0]
+        drink.sticker = stickerText
+        drinks.push(drink)
+      }
+      await getBestDrink("pricePerPortion", "Halvin känni!")
+      await getBestDrink("price", "Halvin juoma!")
+      await getBestDrink("pricePerLitre", "Halvin litrahinta!")
+      return drinks
     }
   },
   Mutation: {

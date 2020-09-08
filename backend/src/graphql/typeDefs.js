@@ -81,6 +81,7 @@ const typeDefs = gql`
       sortByDescending: Boolean
       ): allDrinksOutPut!
 
+    bestDrinks(store: String!): [Drink!]!
     statistics: statisticsOutPut!
   }
 

@@ -18,7 +18,7 @@ const DrinkCardList = ({ drinks }) => {
     {
       groupedDrinks.map(group => <CardGroup key={group[0].id}>
         {group.map((drink, i) => (
-          <DrinkCard style={{ display: 'inline-block' }} key={drink.id} drink={drink} position={i + 1} hasRightMargin={groupSize === 3} />
+          <DrinkCard style={{ display: 'inline-block' }} key={drink.sticker ? drink.id + drink.sticker : drink.id} drink={drink} position={i + 1} hasRightMargin={groupSize === 3} />
         ))}
       </CardGroup>)
     }

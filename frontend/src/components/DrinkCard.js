@@ -18,7 +18,14 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
         <Card style={{ ...margin, marginTop: "1rem" }}>
             <div style={{ background: storeColor, height: "0.5rem" }}></div>
             <div style={{ background: categoryObject ? categoryObject.color : null, height: "0.5rem" }}></div>
-            <Card.Body>
+            <Card.Body style={{ position: "relative" }}>
+                {drink.sticker ? <div style={{ position: "absolute", top: "-20px", right: "-20px" }}>
+                    <svg id="svgelem" viewBox="0 0 200 200">
+                        <polygon points="100,10 40,180 190,60 10,60 160,180" fill="yellow" />
+                    </svg>
+                    {drink.sticker}
+                </div>
+                    : null}
                 <Card.Title style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "3rem" }}>
                     <a rel="noopener noreferrer" style={{ color: "black" }} target="_blank" href={drink.link}>{drink.name}</a>
                 </Card.Title>
