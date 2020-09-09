@@ -4,6 +4,7 @@ import NavigationBar from './components/NavigationBar'
 import StatisticsPage from './components/StatisticsPage/'
 import { Switch, Route, Redirect } from "react-router-dom"
 import DrinksPage from './components/DrinksPage'
+import SingleDrinkPage from './components/SingleDrinkPage'
 
 
 const App = () => {
@@ -24,6 +25,9 @@ const App = () => {
         </Route>
         <Route path="/moreinfo">
           <h1>Lisää infoa</h1>
+        </Route>
+        <Route path="/drinks/:id">
+          <SingleDrinkPage></SingleDrinkPage>
         </Route>
         <Route path="/drinks">
           <DrinksPage/>
