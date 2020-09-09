@@ -1,14 +1,15 @@
 import Dropdown from 'react-bootstrap/Dropdown'
-import React, { useState } from 'react'
+import React from 'react'
+import Hoverable from '../Hoverable'
 
 
-const HoverableDropDownText = ({ content, handleClick, selected }) => {
-  const [isHover, setIsHover] = useState(false)
-  return <Dropdown.ItemText style={{ fontWeight: selected ? "bold" : "normal", backgroundColor: isHover ? "#acb2bd" : "white" }} onClick={() => handleClick()}
-    onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-    {content}
-    {selected ? <span aria-hidden="true">    &times;</span> : null}
-  </Dropdown.ItemText>
+const HoverableDropDownText = ({ children, handleClick, selected }) => {
+  return <Hoverable handleClick={() => handleClick()} style={{width: "100%"}}>
+    <Dropdown.ItemText style={{ fontWeight: selected ? "bold" : "normal", minWidth: "max-content", background: "white"}}>
+      {children}
+      {selected ? <span aria-hidden="true">    &times;</span> : null}
+    </Dropdown.ItemText>
+  </Hoverable>
 }
 
 export default HoverableDropDownText

@@ -26,15 +26,12 @@ const CheckboxDropDown = ({ searchVariables, setFieldValue, handleSubmit, displa
             selected = true
           }
           return (
-            <Dropdown.ItemText key={item.name} style={{ width: "max-content" }}>
-              <HoverableDropDownText selected={selected} handleClick={() => handleClick(item.name, name, selected)} content={
-                <>
-                  {name === "category" ?
-                    <div style={{ width: "1rem", height: "1rem", display: "inline-block", background: item.color }}></div>
-                    : null}
-                  {` ${capitalizeFirst(item.name)}`}
-                </>} />
-            </Dropdown.ItemText>
+            <HoverableDropDownText key={item.name} selected={selected} handleClick={() => handleClick(item.name, name, selected)}>
+              {name === "category" ?
+                <div style={{ width: "1rem", height: "1rem", display: "inline-block", background: item.color }}></div>
+                : null}
+              {` ${capitalizeFirst(item.name)}`}
+            </HoverableDropDownText>
           )
         })}
       </Dropdown.Menu>

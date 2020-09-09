@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import { capitalizeFirst, stores, categories } from '../utils'
+import Hoverable from './Hoverable'
 
 const DrinkCard = ({ drink, position, hasRightMargin }) => {
 
@@ -11,7 +12,6 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
         margin.marginLeft = "1rem"
         margin.marginRight = hasRightMargin ? "1rem" : null
     }
-
     const categoryObject = categories.find(category => category.name === drink.category)
 
     return (
@@ -19,11 +19,13 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
             <div style={{ background: storeColor, height: "0.5rem" }}></div>
             <div style={{ background: categoryObject ? categoryObject.color : null, height: "0.5rem" }}></div>
             <Card.Body style={{ position: "relative" }}>
-                {drink.sticker ? <div style={{ position: "absolute", top: "-4.5rem", left: "-3rem", width: "12rem", transform: "rotate(-10deg)" }}>
-                    <img src={process.env.PUBLIC_URL + '/doggoColor.svg'} style={{ fill: "red" }} alt="viinamayrakoira.svg" />
-                    <div style={{ position: "absolute", top: "3rem", textAlign: "center", width: "100%" }}>{drink.sticker}</div>
-                </div>
-                    : null}
+                <Hoverable>
+                    {drink.sticker ? <div style={{ position: "absolute", top: "-4.5rem", left: "-3rem", width: "12rem", transform: "rotate(-10deg)" }}>
+                        <img src={process.env.PUBLIC_URL + '/doggoColor.svg'} style={{ fill: "red" }} alt="viinamayrakoira.svg" />
+                        <div style={{ position: "absolute", top: "3rem", textAlign: "center", width: "100%" }}>{drink.sticker}</div>
+                    </div>
+                        : null}
+                </Hoverable>
                 <Card.Title style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "3rem" }}>
                     <a rel="noopener noreferrer" style={{ color: "black" }} target="_blank" href={drink.link}>{drink.name}</a>
                 </Card.Title>
