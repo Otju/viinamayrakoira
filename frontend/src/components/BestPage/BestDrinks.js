@@ -31,7 +31,7 @@ const BestDrinks = ({ store, displayName }) => {
   })
 
   return <div style={{margin: "auto", border: "solid", borderColor: colors.lightGray, padding: "1rem", marginBottom: "2rem" }}>
-    <h3 style={{ marginBottom: "3rem" }}>{displayName}</h3>
+    <h3>{displayName}</h3>
     <DrinkCardList drinks={drinks} bestDrinksStore={store}/>
   </div>
 }
