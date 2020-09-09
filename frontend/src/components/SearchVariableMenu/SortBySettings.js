@@ -34,7 +34,7 @@ const SortBySettings = ({ valuetypes, searchVariables, setFieldValue, handleSubm
           </Dropdown.ItemText>
           <Dropdown.Divider />
           {valuetypes.map(item => (
-            <HoverableDropDownText key={item.name} handleClick={() => handleClick(item.name)} content={item.displayName} />
+            <HoverableDropDownText key={item.name} handleClick={() => handleClick(item.name)}>{item.displayName}</HoverableDropDownText>
           ))}
         </Dropdown.Menu>
       </Dropdown >
