@@ -31,7 +31,7 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
             <HoverableLink zIndex={2} link={`drinks/${drink.id}`}>
                 <Card.Body style={{ background: "white", zIndex: "-1", position: "relative" }}>
                     <Card.Title style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "3rem" }}>
-                        <a rel="noopener noreferrer" style={{ color: "black" }} target="_blank" href={drink.link}>{drink.name}</a>
+                        {drink.name}
                     </Card.Title>
                     <Card.Subtitle>{capitalizeFirst(drink.category)}</Card.Subtitle>
                     <Card.Img variant="top" src={drink.imageLink} style={{ maxWidth: "50%", maxHeight: "20rem", width: "auto", height: "auto", mixBlendMode: "multiply" }} />
@@ -48,7 +48,7 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
                 </Card.Body>
             </HoverableLink>
             <div style={{ position: "absolute", bottom: "1rem", right: "2rem" }}>
-                <Hoverable zIndex="5" handleClick={() => window.open(drink.link, "_blank")}><Button>Kauppaan →</Button></Hoverable>
+                <Hoverable zIndex="5" handleClick={() => window.open(drink.link, "_blank")}><Button variant={drink.store}>Kauppaan →</Button></Hoverable>
             </div>
         </Card >
     )
