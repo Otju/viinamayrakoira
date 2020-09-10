@@ -11,8 +11,11 @@ import { useLocation, useHistory } from "react-router-dom"
 
 const DrinksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const query = new URLSearchParams(useLocation().search)
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
   const history = useHistory()
+
+
 
   const initialMinMax = {}
   searchTypes.forEach(item => {
@@ -22,23 +25,31 @@ const DrinksPage = () => {
 
   const emptySearchVariables = { name: "", sortByField: "pricePerPortion", store: [], category: [], sortByDescending: false, ...initialMinMax }
 
-  const searchVariablesFromQueryStrings = {}
+  const getQueryStrings = () => {
 
-  Object.keys(emptySearchVariables).forEach(key => {
-    const originalValue = emptySearchVariables[key]
+    const queryStrings = {}
 
-    if (Array.isArray(originalValue)) {
-      if (query.get(key)) {
-        searchVariablesFromQueryStrings[key] = [...originalValue, ...query.get(key).split(",")]
+    Object.keys(emptySearchVariables).forEach(key => {
+
+      const originalValue = emptySearchVariables[key]
+
+      if (Array.isArray(originalValue)) {
+        if (query.get(key)) {
+          queryStrings[key] = [...originalValue, ...query.get(key).split(",")]
+        }
+      } else {
+        queryStrings[key] = query.get(key) ?? originalValue
       }
-    } else {
-      searchVariablesFromQueryStrings[key] = query.get(key) ?? originalValue
-    }
-  })
+    })
+    return queryStrings
+  }
+
+  useEffect(() => {
+    setSearchVariablesState(getQueryStrings())
+  }, [location])
 
 
-
-  const [searchVariables, setSearchVariablesState] = useState(searchVariablesFromQueryStrings)
+  const [searchVariables, setSearchVariablesState] = useState(getQueryStrings())
 
   const setSearchVariables = (variables) => {
     console.log(variables)
@@ -46,10 +57,10 @@ const DrinksPage = () => {
     let queryStrings = "?"
     Object.keys(variables).forEach(key => {
       const value = variables[key]
-      if (value && value.length>0 && value!== "pricePerPortion") {
+      if (value && (value.length > 0 || typeof value === "number") && value !== "pricePerPortion") {
         if (Array.isArray(value)) {
           queryStrings += `&${key}=`
-          value.forEach((individualValue,i) => queryStrings += i>0 ? `,${individualValue}` : individualValue)
+          value.forEach((individualValue, i) => queryStrings += i > 0 ? `,${individualValue}` : individualValue)
         } else {
           queryStrings += (`&${key}=${value}`)
         }
@@ -68,7 +79,8 @@ const DrinksPage = () => {
   const searchVariablesWithMinMaxFix = {}
   Object.entries(searchVariables).forEach(([key, value]) => {
     if (key.includes("min") || key.includes("max")) {
-      if (typeof value === 'number') {
+      const valueAsNumber = Number(value)
+      if (valueAsNumber > 0) {
         const name = key.slice(3)
         const minOrMax = key.slice(0, 3)
         let minMaxObject
@@ -77,11 +89,11 @@ const DrinksPage = () => {
         }
         minMaxObject = searchVariablesWithMinMaxFix.minMax.find(item => item.name === name)
         if (minMaxObject) {
-          minMaxObject[minOrMax] = value
+          minMaxObject[minOrMax] = valueAsNumber
           searchVariablesWithMinMaxFix.minMax.map(item => item.name !== name ? item : minMaxObject)
         } else {
           minMaxObject = { name }
-          minMaxObject[minOrMax] = value
+          minMaxObject[minOrMax] = valueAsNumber
           searchVariablesWithMinMaxFix.minMax.push(minMaxObject)
         }
       }
