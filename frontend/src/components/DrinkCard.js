@@ -15,8 +15,23 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
         margin.marginLeft = "1rem"
         margin.marginRight = hasRightMargin ? "1rem" : null
     }
+    margin.marginTop = "1rem"
 
-    margin.marginTop = drink.sticker ?  "4rem" : "1rem"
+    let queryStrings = ""
+    if (drink.sticker) {
+        queryStrings += drink.allStores ? "" : `store=${drink.store}`
+        switch (drink.sticker) {
+            case "Paras maku":
+                queryStrings += "&sortByField=price"
+                break;
+            case "Paras hinta-laatu":
+                queryStrings += "&sortByField=pricerPerLitre"
+                break;
+            default:
+                break;
+        }
+        margin.marginTop = "4rem"
+    }
 
     const categoryObject = categories.find(category => category.name === drink.category)
 
@@ -24,11 +39,11 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
         <Card style={{ ...margin }}>
             <div style={{ background: storeColor, height: "0.5rem" }}></div>
             <div style={{ background: categoryObject ? categoryObject.color : null, height: "0.5rem" }}></div>
-            <HoverableLink zIndex={5} link={`drinks?=searchvariables`}>
+            <HoverableLink zIndex={5} link={`drinks?${queryStrings}`}>
                 {drink.sticker ? <div style={{ position: "absolute", top: "-4.5rem", left: "-3rem", width: "12rem", transform: "rotate(-10deg)" }}>
                     <img src={process.env.PUBLIC_URL + '/doggoColor.svg'} style={{ fill: "red" }} alt="viinamayrakoira.svg" />
                     {drink.sticker.split(" ").map((part, i) =>
-                        <div key={i} style={{ whiteSpace: "pre-wrap", position: "absolute", top: `${i+2.3}rem`, textAlign: "center", width: "100%" }}><b>{part}</b></div>)}
+                        <div key={i} style={{ whiteSpace: "pre-wrap", position: "absolute", top: `${i + 2.3}rem`, textAlign: "center", width: "100%" }}><b>{part}</b></div>)}
                 </div>
                     : null}
             </HoverableLink>

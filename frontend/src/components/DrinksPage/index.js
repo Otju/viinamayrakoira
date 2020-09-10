@@ -6,9 +6,11 @@ import PaginationMenu from './PaginationMenu'
 import DrinkCardList from "../DrinkCardList"
 import SearchVariableMenu from './SearchVariableMenu'
 import { searchTypes } from '../../utils'
+import { useLocation } from "react-router-dom"
 
 const DrinksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
+  const query = new URLSearchParams(useLocation().search)
 
   const initialMinMax = {}
   searchTypes.forEach(item => {
@@ -16,7 +18,23 @@ const DrinksPage = () => {
     initialMinMax[`max${item.name}`] = ""
   })
 
-  const initialSearchVariables = { name: "", sortByField: "pricePerPortion", store: [], category: [], falsesortByDescending: false, ...initialMinMax }
+  let initialSearchVariables = { name: "", sortByField: "pricePerPortion", store: [], category: [], sortByDescending: false, ...initialMinMax }
+
+  Object.keys(initialSearchVariables).forEach(key => {
+    const originalValue = initialSearchVariables[key]
+
+    if (Array.isArray(originalValue)) {
+      if (query.get(key)) {
+        initialSearchVariables[key] = [...originalValue, ...query.get(key).split(",")]
+      }
+    } else {
+      const value = query.get(key)
+      if (value) {
+        initialSearchVariables[key] = key.includes("min") || key.includes("max") ? Number(value) : value
+      }
+    }
+  })
+
   const [searchVariables, setSearchVariables] = useState(initialSearchVariables)
 
   useEffect(() => {

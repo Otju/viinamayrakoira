@@ -27,12 +27,12 @@ const BestDrinks = ({ store, displayName }) => {
     if (i === 2) {
       sticker = "Paras hinta-laatu"
     }
-    return { ...drink, sticker }
+    return { ...drink, sticker, allStores: store!=="all" ? false : true }
   })
 
-  return <div style={{margin: "auto", border: "solid", borderColor: colors.lightGray, padding: "1rem", marginBottom: "2rem" }}>
+  return <div style={{ margin: "auto", border: "solid", borderColor: colors.lightGray, padding: "1rem", marginBottom: "2rem" }}>
     <h3>{displayName}</h3>
-    <DrinkCardList drinks={drinks} bestDrinksStore={store}/>
+    <DrinkCardList drinks={drinks} bestDrinksStore={store} />
   </div>
 }
 
