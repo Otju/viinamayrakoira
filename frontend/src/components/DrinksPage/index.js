@@ -6,11 +6,13 @@ import PaginationMenu from './PaginationMenu'
 import DrinkCardList from "../DrinkCardList"
 import SearchVariableMenu from './SearchVariableMenu'
 import { searchTypes } from '../../utils'
-import { useLocation } from "react-router-dom"
+import { useLocation, useHistory } from "react-router-dom"
+
 
 const DrinksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const query = new URLSearchParams(useLocation().search)
+  const history = useHistory()
 
   const initialMinMax = {}
   searchTypes.forEach(item => {
@@ -18,24 +20,44 @@ const DrinksPage = () => {
     initialMinMax[`max${item.name}`] = ""
   })
 
-  let initialSearchVariables = { name: "", sortByField: "pricePerPortion", store: [], category: [], sortByDescending: false, ...initialMinMax }
+  const emptySearchVariables = { name: "", sortByField: "pricePerPortion", store: [], category: [], sortByDescending: false, ...initialMinMax }
 
-  Object.keys(initialSearchVariables).forEach(key => {
-    const originalValue = initialSearchVariables[key]
+  const searchVariablesFromQueryStrings = {}
+
+  Object.keys(emptySearchVariables).forEach(key => {
+    const originalValue = emptySearchVariables[key]
 
     if (Array.isArray(originalValue)) {
       if (query.get(key)) {
-        initialSearchVariables[key] = [...originalValue, ...query.get(key).split(",")]
+        searchVariablesFromQueryStrings[key] = [...originalValue, ...query.get(key).split(",")]
       }
     } else {
-      const value = query.get(key)
-      if (value) {
-        initialSearchVariables[key] = key.includes("min") || key.includes("max") ? Number(value) : value
-      }
+      searchVariablesFromQueryStrings[key] = query.get(key) ?? originalValue
     }
   })
 
-  const [searchVariables, setSearchVariables] = useState(initialSearchVariables)
+
+
+  const [searchVariables, setSearchVariablesState] = useState(searchVariablesFromQueryStrings)
+
+  const setSearchVariables = (variables) => {
+    console.log(variables)
+    setSearchVariablesState(variables)
+    let queryStrings = "?"
+    Object.keys(variables).forEach(key => {
+      const value = variables[key]
+      if (value && value.length>0 && value!== "pricePerPortion") {
+        if (Array.isArray(value)) {
+          queryStrings += `&${key}=`
+          value.forEach((individualValue,i) => queryStrings += i>0 ? `,${individualValue}` : individualValue)
+        } else {
+          queryStrings += (`&${key}=${value}`)
+        }
+      }
+    })
+    console.log(queryStrings)
+    history.push(`/drinks${queryStrings}`)
+  }
 
   useEffect(() => {
     setCurrentPage(1)
@@ -85,7 +107,7 @@ const DrinksPage = () => {
   }
 
   return <div>
-    <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} initialSearchVariables={initialSearchVariables} />
+    <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} emptySearchVariables={emptySearchVariables} />
     {content}
   </div>
 }

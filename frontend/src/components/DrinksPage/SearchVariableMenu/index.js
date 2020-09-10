@@ -8,7 +8,7 @@ import CheckboxDropDown from './CheckboxDropDown'
 import { categories, stores, colors, searchTypes } from '../../../utils'
 import _ from 'lodash'
 
-const SearchVariableMenu = ({ searchVariables, setSearchVariables, initialSearchVariables }) => {
+const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVariables }) => {
 
   const [name, setName] = useState("")
 
@@ -35,8 +35,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, initialSearch
       <MinMaxDropDown searchVariables={searchVariables} valuetypes={searchTypes} setFieldValue={setFieldValue}></MinMaxDropDown>
       <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} valuetypes={searchTypes} ></SortBySettings>
 
-      {!_.isEqual(searchVariables, initialSearchVariables) ?
-        <Button variant="danger" onClick={() => setSearchVariables(initialSearchVariables)}>nollaa haku</Button> : null
+      {!_.isEqual(searchVariables, emptySearchVariables) ?
+        <Button variant="danger" onClick={() => setSearchVariables(emptySearchVariables)}>nollaa haku</Button> : null
       }
       <div>
         {Object.entries(searchVariables).map(([key, values]) => {

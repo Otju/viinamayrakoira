@@ -19,7 +19,7 @@ const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVari
   }
 
   let insidevalue = capitalizeFirst(value)
-  if (typeof value !== "string") {
+  if (searchCategory.includes("min") || searchCategory.includes("max")) {
     const unit = searchTypes.find(type => type.name === searchCategory.slice(3)).unit
     let minxOrMax = "max"
     if (searchCategory.includes("min")) {
