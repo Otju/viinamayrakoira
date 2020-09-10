@@ -19,8 +19,8 @@ const MinMaxDropDown = ({ searchVariables, valuetypes, handleSubmit }) => {
             -
             <Field onBlur={() => handleSubmit()} type="number" min={searchVariables[`min${item.name}`] ? searchVariables[`min${item.name}`] + 1 : 0}
               name={`max${item.name}`} style={{ display: "inline-block", width: "5rem" }} placeholder="alle" className="form-control" />
-            <div class="input-group-append" style={{ display: "inline-block" }}>
-              <span class="input-group-text">{item.unit}</span>
+            <div className="input-group-append" style={{ display: "inline-block" }}>
+              <span className="input-group-text">{item.unit}</span>
             </div>
           </Dropdown.ItemText>
         ))}

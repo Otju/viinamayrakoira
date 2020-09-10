@@ -5,13 +5,16 @@ import { capitalizeFirst } from '../../utils'
 
 const CheckboxDropDown = ({ searchVariables, setFieldValue, handleSubmit, displayName, name, values }) => {
 
+
   const handleClick = (item, name, selected) => {
+
     if (selected) {
       setFieldValue(name, searchVariables[name].filter(searchVar => searchVar !== item))
     } else {
       setFieldValue(name, [...searchVariables[name] ?? [], item])
     }
     handleSubmit()
+
   }
 
   return (

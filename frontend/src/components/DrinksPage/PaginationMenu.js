@@ -1,5 +1,4 @@
 import React from 'react'
-
 import Pagination from 'react-bootstrap/Pagination'
 
 const PaginationMenu = ({ count, currentPage, drinksPerPage, setCurrentPage }) => {
@@ -27,7 +26,7 @@ const PaginationMenu = ({ count, currentPage, drinksPerPage, setCurrentPage }) =
     })
 
     return (
-        <Pagination style={{display: 'flex', justifyContent: 'center'}}>
+        <Pagination style={{ display: 'flex', justifyContent: 'center'}}>
             <Pagination.First onClick={() => setCurrentPage(1)} />
             <Pagination.Prev onClick={() => { if (currentPage > 1) { setCurrentPage(currentPage - 1) } }} />
             {paginationItems}

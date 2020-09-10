@@ -46,17 +46,18 @@ const DrinksPage = () => {
   if (!result.data || result.loading) {
     return <Spinner animation="border" />
   }
+
   const drinks = result.data.allDrinks.drinks
   const count = result.data.allDrinks.count
 
-  if (count === 0) {
-    return "no results"
-  }
-
   return <div>
     <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} />
-    <DrinkCardList drinks={drinks} />
-    <PaginationMenu {...{ currentPage, drinksPerPage, setCurrentPage, count }} />
+    {count === 0 ? "Haulla ei löytynyt mitään" :
+      <>
+        <DrinkCardList drinks={drinks} />
+        <PaginationMenu {...{ currentPage, drinksPerPage, setCurrentPage, count }} />
+      </>
+    }
   </div>
 }
 

@@ -134,5 +134,6 @@ export const searchTypes = [
 ]
 
 export const colors = {
-  lightGray: "#c4bcbc"
+  lightGray: "#c4bcbc",
+  darkGray: "#343A40"
 }

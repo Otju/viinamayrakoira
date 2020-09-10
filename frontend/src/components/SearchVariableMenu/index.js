@@ -4,7 +4,7 @@ import SearchVariableButton from './SearchVariableButton'
 import MinMaxDropDown from './MinMaxDropDown'
 import SortBySettings from './SortBySettings'
 import CheckboxDropDown from './CheckboxDropDown'
-import { categories, stores, searchTypes } from '../../utils'
+import { categories, stores, searchTypes, colors } from '../../utils'
 
 const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 
@@ -14,9 +14,9 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
     initialMinMax[`max${item.name}`] = ""
   })
 
-  return <div style={{ border: "solid", padding: "1rem" }}>
+  return <div style={{ border: "solid", color: colors.darkGray, padding: "1rem" }}>
     <Formik
-      initialValues={{ name: "", sortByField: "pricePerPortion", store: [], category: [], falsesortByDescending: false, ...initialMinMax }}
+      initialValues={{ name: "", sortByField: "pricePerPortion", store: ["alko"], category: [], falsesortByDescending: false, ...initialMinMax }}
       validate={values => {
         const errors = {}
         return errors

@@ -4,7 +4,7 @@ import Hoverable from '../Hoverable'
 
 
 const HoverableDropDownText = ({ children, handleClick, selected }) => {
-  return <Hoverable handleClick={() => handleClick()} style={{width: "100%"}}>
+  return <Hoverable handleClick={handleClick} style={{width: "100%"}}>
     <Dropdown.ItemText style={{ fontWeight: selected ? "bold" : "normal", minWidth: "max-content", background: "white"}}>
       {children}
       {selected ? <span aria-hidden="true">    &times;</span> : null}
