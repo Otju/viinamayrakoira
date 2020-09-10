@@ -1,5 +1,6 @@
 import React from 'react'
 import SearchVariableButton from './SearchVariableButton'
+import Form from 'react-bootstrap/Form'
 import MinMaxDropDown from './MinMaxDropDown'
 import SortBySettings from './SortBySettings'
 import CheckboxDropDown from './CheckboxDropDown'
@@ -12,13 +13,14 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
   }
 
   /*
-  <Field type="text" name="name" placeholder="haku nimellä" className="form-control"/>
   <MinMaxDropDown searchVariables={searchVariables} valuetypes={searchTypes}></MinMaxDropDown>
   */
 
   return <div style={{ border: "solid", color: colors.darkGray, padding: "1rem" }}>
-    <form className="form-group">
-
+    <Form>
+      <Form.Group>
+        <Form.Control type="text" placeholder="Haku" value={searchVariables.name} onChange={() => setFieldValue("name",this.state.value)}/>
+      </Form.Group>
       <CheckboxDropDown values={stores} name={"store"} displayName={"kauppa"} {...{ setFieldValue, searchVariables }} />
       <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{ setFieldValue, searchVariables }} />
       <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} valuetypes={searchTypes} ></SortBySettings>
@@ -37,7 +39,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
           return null
         })}
       </div>
-    </form>
+    </Form>
   </div>
 }
 

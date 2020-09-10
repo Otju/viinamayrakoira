@@ -1,7 +1,6 @@
 import Dropdown from 'react-bootstrap/Dropdown'
 import React from 'react'
-import { Field } from 'formik'
-
+import Form from 'react-bootstrap/Form'
 
 const MinMaxDropDown = ({ searchVariables, valuetypes, handleSubmit }) => {
 
@@ -14,10 +13,10 @@ const MinMaxDropDown = ({ searchVariables, valuetypes, handleSubmit }) => {
         {valuetypes.map(item => (
           <Dropdown.ItemText key={item.name} style={{ width: "max-content" }}>
             <span style={{ width: "6rem", display: "inline-block" }}>{item.displayName}</span>
-            <Field onBlur={() => handleSubmit()} type="number" min="0" max={searchVariables[`max${item.name}`] ? searchVariables[`max${item.name}`] - 1 : null}
+            <Form.Control onBlur={() => handleSubmit()} type="number" min="0" max={searchVariables[`max${item.name}`] ? searchVariables[`max${item.name}`] - 1 : null}
               name={`min${item.name}`} style={{ display: "inline-block", width: "5rem" }} placeholder="yli" className="form-control" />
             -
-            <Field onBlur={() => handleSubmit()} type="number" min={searchVariables[`min${item.name}`] ? searchVariables[`min${item.name}`] + 1 : 0}
+            <Form.Control onBlur={() => handleSubmit()} type="number" min={searchVariables[`min${item.name}`] ? searchVariables[`min${item.name}`] + 1 : 0}
               name={`max${item.name}`} style={{ display: "inline-block", width: "5rem" }} placeholder="alle" className="form-control" />
             <div className="input-group-append" style={{ display: "inline-block" }}>
               <span className="input-group-text">{item.unit}</span>

@@ -51,21 +51,23 @@ const DrinksPage = () => {
 
   const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariablesWithMinMaxFix } })
 
-  if (!result.data || result.loading) {
-    return <Spinner animation="border" />
-  }
 
-  const drinks = result.data.allDrinks.drinks
-  const count = result.data.allDrinks.count
+  let content
+
+  if (!result.data || result.loading) {
+    content = <Spinner animation="border" />
+  } else if (result.data.allDrinks.count === 0) {
+    content = "Haulla ei löytynyt mitään"
+  } else {
+    content = <>
+      <DrinkCardList drinks={result.data.allDrinks.drinks} />
+      <PaginationMenu {...{ currentPage, drinksPerPage, setCurrentPage }} count={result.data.allDrinks.count} />
+    </>
+  }
 
   return <div>
     <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} />
-    {count === 0 ? "Haulla ei löytynyt mitään" :
-      <>
-        <DrinkCardList drinks={drinks} />
-        <PaginationMenu {...{ currentPage, drinksPerPage, setCurrentPage, count }} />
-      </>
-    }
+    {content}
   </div>
 }
 
