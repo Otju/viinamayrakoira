@@ -22,9 +22,9 @@
 | 30.8.20 | 11:40   |  17:20  | 5:40  |eckeroLine scraper|
 | 31.8.20 | 20:30   |  21:40  | 1:10  |react-router, statistics and bugfixes|
 | 01.8.20 | 09:10   |  13:40  | 4:30  |statistics page, refactoring, styling and bugfixes|
-| 08.9.20 | 23:40   |  00:00  | 0:00  ||
-| --.-.20 | 00:00   |  00:00  | 0:00  ||
-| --.-.20 | 00:00   |  00:00  | 0:00  ||
+| 08.9.20 | 23:40   |  00:20  | 0:40  |stickers to best page|
+| 09.9.20 | 10:20   |  12:50  | 2:30  |styling, bugfixes, refactoring|
+| 10.9.20 | 11:10   |  14:00  | 2:50  |stlyling, usability, refactoring, removed formik and some bugs with it|
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
