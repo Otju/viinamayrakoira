@@ -3,18 +3,16 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import HoverableDropDownText from './HoverableDropDownText'
 
-const SortBySettings = ({ valuetypes, searchVariables, setFieldValue, handleSubmit }) => {
+const SortBySettings = ({ valuetypes, searchVariables, setFieldValue}) => {
 
   const isDescending = searchVariables.sortByDescending ?? false
 
   const handleOrderChange = () => {
     setFieldValue("sortByDescending", !isDescending)
-    handleSubmit()
   }
 
   const handleClick = (name) => {
     setFieldValue("sortByField", name)
-    handleSubmit()
   }
 
   const currentlySelected = valuetypes.find(item => item.name === searchVariables.sortByField)

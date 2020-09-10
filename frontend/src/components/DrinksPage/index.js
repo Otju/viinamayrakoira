@@ -5,10 +5,18 @@ import Spinner from 'react-bootstrap/Spinner'
 import PaginationMenu from './PaginationMenu'
 import DrinkCardList from "../DrinkCardList"
 import SearchVariableMenu from './SearchVariableMenu'
+import { searchTypes } from '../../utils'
 
 const DrinksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [searchVariables, setSearchVariables] = useState({ name: "" })
+
+  const initialMinMax = {}
+  searchTypes.forEach(item => {
+    initialMinMax[`min${item.name}`] = ""
+    initialMinMax[`max${item.name}`] = ""
+  })
+
+  const [searchVariables, setSearchVariables] = useState({ name: "", sortByField: "pricePerPortion", store: [], category: [], falsesortByDescending: false, ...initialMinMax })
 
   useEffect(() => {
     setCurrentPage(1)

@@ -3,7 +3,7 @@ import React from 'react'
 import HoverableDropDownText from './HoverableDropDownText'
 import { capitalizeFirst } from '../../../utils'
 
-const CheckboxDropDown = ({ searchVariables, setFieldValue, handleSubmit, displayName, name, values }) => {
+const CheckboxDropDown = ({ searchVariables, setFieldValue, displayName, name, values }) => {
 
 
   const handleClick = (item, name, selected) => {
@@ -13,8 +13,6 @@ const CheckboxDropDown = ({ searchVariables, setFieldValue, handleSubmit, displa
     } else {
       setFieldValue(name, [...searchVariables[name] ?? [], item])
     }
-    handleSubmit()
-
   }
 
   return (
