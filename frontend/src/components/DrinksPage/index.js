@@ -16,7 +16,8 @@ const DrinksPage = () => {
     initialMinMax[`max${item.name}`] = ""
   })
 
-  const [searchVariables, setSearchVariables] = useState({ name: "", sortByField: "pricePerPortion", store: [], category: [], falsesortByDescending: false, ...initialMinMax })
+  const initialSearchVariables = { name: "", sortByField: "pricePerPortion", store: [], category: [], falsesortByDescending: false, ...initialMinMax }
+  const [searchVariables, setSearchVariables] = useState(initialSearchVariables)
 
   useEffect(() => {
     setCurrentPage(1)
@@ -66,7 +67,7 @@ const DrinksPage = () => {
   }
 
   return <div>
-    <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} />
+    <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} initialSearchVariables={initialSearchVariables} />
     {content}
   </div>
 }
