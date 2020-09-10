@@ -4,7 +4,7 @@ import SearchVariableButton from './SearchVariableButton'
 import MinMaxDropDown from './MinMaxDropDown'
 import SortBySettings from './SortBySettings'
 import CheckboxDropDown from './CheckboxDropDown'
-import { categories, stores, searchTypes, colors } from '../../utils'
+import { categories, stores, searchTypes, colors } from '../../../utils'
 
 const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
 

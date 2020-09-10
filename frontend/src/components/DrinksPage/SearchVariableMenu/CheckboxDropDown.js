@@ -1,7 +1,7 @@
 import Dropdown from 'react-bootstrap/Dropdown'
 import React from 'react'
 import HoverableDropDownText from './HoverableDropDownText'
-import { capitalizeFirst } from '../../utils'
+import { capitalizeFirst } from '../../../utils'
 
 const CheckboxDropDown = ({ searchVariables, setFieldValue, handleSubmit, displayName, name, values }) => {
 

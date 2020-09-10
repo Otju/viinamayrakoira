@@ -1,6 +1,6 @@
 import React from 'react'
 import Alert from 'react-bootstrap/Alert'
-import { capitalizeFirst, searchTypes } from '../../utils'
+import { capitalizeFirst, searchTypes } from '../../../utils'
 
 const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVariables, setSearchVariables }) => {
 
