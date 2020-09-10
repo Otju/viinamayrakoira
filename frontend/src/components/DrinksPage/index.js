@@ -46,13 +46,13 @@ const DrinksPage = () => {
 
   useEffect(() => {
     setSearchVariablesState(getQueryStrings())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
 
   const [searchVariables, setSearchVariablesState] = useState(getQueryStrings())
 
   const setSearchVariables = (variables) => {
-    console.log(variables)
     setSearchVariablesState(variables)
     let queryStrings = "?"
     Object.keys(variables).forEach(key => {
@@ -66,7 +66,6 @@ const DrinksPage = () => {
         }
       }
     })
-    console.log(queryStrings)
     history.push(`/drinks${queryStrings}`)
   }
 
