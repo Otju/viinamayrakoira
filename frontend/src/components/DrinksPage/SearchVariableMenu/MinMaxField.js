@@ -23,14 +23,14 @@ const MinMaxField = ({ searchVariables, setFieldValue, item }) => {
         onBlur={() => setFieldValue(minField, min)}
         onChange={(event) => setMin(Number(event.target.value))}
         type="number" name={minField} value={min} style={{ display: "inline-block", width: "5rem" }} placeholder="yli"
-        min="0" max={searchVariables[maxField] ? searchVariables[maxField] - 1 : null}
+        min="0" max={searchVariables[maxField] ? Number(searchVariables[maxField]) - 1 : null}
       />
             -
       <Form.Control
         onBlur={() => setFieldValue(maxField, max)}
         onChange={(event) => setMax(Number(event.target.value))}
         type="number" name={maxField} value={max} style={{ display: "inline-block", width: "5rem" }} placeholder="alle"
-        min={searchVariables[minField] ? searchVariables[minField] + 1 : 0}
+        min={searchVariables[minField] ? Number(searchVariables[minField]) + 1 : 0}
       />
       <div className="input-group-append" style={{ display: "inline-block" }}>
         <span className="input-group-text">{item.unit}</span>
