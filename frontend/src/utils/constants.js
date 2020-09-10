@@ -9,17 +9,7 @@ export const stores = [
   {
     name: "foodie",
     color: "#00A651",
-    displayName: "Foodie"
-  },
-  {
-    name: "superAlkoEesti",
-    color: "#E67817",
-    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/eestiflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
-  },
-  {
-    name: "superAlkoLatvia",
-    color: "#E67817",
-    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/latviaflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
+    displayName: "S-ryhmä"
   },
   {
     name: "kmarket",
@@ -31,6 +21,16 @@ export const stores = [
     color: "#00549F",
     displayName: "Eckerö Line"
   },
+  {
+    name: "superAlkoEesti",
+    color: "#E67817",
+    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/eestiflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
+  },
+  {
+    name: "superAlkoLatvia",
+    color: "#E67817",
+    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/latviaflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
+  }
 ]
 
 export const categories = [

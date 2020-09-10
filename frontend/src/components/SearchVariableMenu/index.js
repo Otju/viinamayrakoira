@@ -19,15 +19,6 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables }) => {
       initialValues={{ name: "", sortByField: "pricePerPortion", store: [], category: [], falsesortByDescending: false, ...initialMinMax }}
       validate={values => {
         const errors = {}
-        /*
-        if (!values.email) {
-          errors.email = 'Required'
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = 'Invalid email address'
-        }
-         */
         return errors
       }}
 

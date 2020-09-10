@@ -28,9 +28,9 @@ const CheckboxDropDown = ({ searchVariables, setFieldValue, handleSubmit, displa
           return (
             <HoverableDropDownText key={item.name} selected={selected} handleClick={() => handleClick(item.name, name, selected)}>
               {name === "category" ?
-                <div style={{ width: "1rem", height: "1rem", display: "inline-block", background: item.color }}></div>
+                <div style={{ width: "1rem", height: "1rem", display: "inline-block", background: item.color, marginRight: "0.1rem" }}></div>
                 : null}
-              {` ${capitalizeFirst(item.name)}`}
+              {item.displayName ? item.displayName : capitalizeFirst(item.name)}
             </HoverableDropDownText>
           )
         })}
