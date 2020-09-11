@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Hoverable from "./Hoverable"
 
-const DrinkSearchBox = () => {
+const DrinkSearchBox = ({handleClick }) => {
 
   const [name, setName] = useState("")
 
@@ -22,19 +22,22 @@ const DrinkSearchBox = () => {
     const count = result.data.allDrinks.count
     const drinks = result.data.allDrinks.drinks
     const drinksOver = count - drinks.length
+
     content =
       <>
         <ListGroup>
-          {drinks.map((drink, i) => (
-            <Hoverable link={`drinks/${drink.id}`} key={drink.id}>
-              <ListGroup.Item >
-                <div style={{ width: "6rem", display: "inline-block" }}>
-                  <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "4rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
-                </div>
-                {drink.name}
-              </ListGroup.Item>
-            </Hoverable>
-          ))}
+          {drinks.map((drink, i) => {
+            return (
+              <Hoverable link={handleClick ? null : `drinks/${drink.id}`} handleClick={() => handleClick(drink)} key={drink.id}>
+                <ListGroup.Item >
+                  <div style={{ width: "6rem", display: "inline-block" }}>
+                    <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "4rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                  </div>
+                  {drink.name}
+                </ListGroup.Item>
+              </Hoverable>
+            )
+          })}
         </ListGroup>
         { drinksOver > 0 ? <h5 style={{ textAlign: "center" }}>({drinksOver} lisää, tarkenna hakua)</h5> : null}
       </>

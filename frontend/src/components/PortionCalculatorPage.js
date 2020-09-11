@@ -3,8 +3,12 @@ import DrinkSearchBox from './DrinkSearchBox'
 
 const PortionCalculatorPage = () => {
 
+  const handleClick = (drink) => {
+    console.log(drink)
+  }
+
   return <div>
-    <DrinkSearchBox/>
+    <DrinkSearchBox handleClick={handleClick} />
   </div>
 }
 
