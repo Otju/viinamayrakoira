@@ -36,6 +36,8 @@ const DrinksPage = () => {
       if (Array.isArray(originalValue)) {
         if (query.get(key)) {
           queryStrings[key] = [...originalValue, ...query.get(key).split(",")]
+        }else{
+          queryStrings[key] = []
         }
       } else {
         queryStrings[key] = query.get(key) ?? originalValue
