@@ -2,7 +2,6 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import { capitalizeFirst, stores, categories } from '../utils'
-import HoverableLink from './HoverableLink'
 import Hoverable from './Hoverable'
 
 
@@ -39,16 +38,16 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
         <Card style={{ ...margin }}>
             <div style={{ background: storeColor, height: "0.5rem" }}></div>
             <div style={{ background: categoryObject ? categoryObject.color : null, height: "0.5rem" }}></div>
-            <HoverableLink zIndex={5} link={`drinks?${queryStrings}`}>
+            <Hoverable zIndex={5} link={`drinks?${queryStrings}`}>
                 {drink.sticker ? <div style={{ position: "absolute", top: "-4.5rem", left: "-3rem", width: "12rem", transform: "rotate(-10deg)" }}>
                     <img src={process.env.PUBLIC_URL + '/doggoColor.svg'} style={{ fill: "red" }} alt="viinamayrakoira.svg" />
                     {drink.sticker.split(" ").map((part, i) =>
                         <div key={i} style={{ whiteSpace: "pre-wrap", position: "absolute", top: `${i + 2.3}rem`, textAlign: "center", width: "100%" }}><b>{part}</b></div>)}
                 </div>
                     : null}
-            </HoverableLink>
+            </Hoverable>
             <div style={{ height: "100%" }} >
-                <HoverableLink zIndex={2} link={`drinks/${drink.id}`}>
+                <Hoverable zIndex={2} link={`drinks/${drink.id}`}>
                     <Card.Body style={{ background: "white", zIndex: "-1", position: "relative", height: "100%" }}>
                         <Card.Title style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "3rem" }}>
                             {drink.name}
@@ -66,7 +65,7 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
                             {capitalizeFirst(drink.producer)}<br></br>
                         </Card.Text>
                     </Card.Body>
-                </HoverableLink>
+                </Hoverable>
             </div>
             <div style={{ position: "absolute", bottom: "1rem", right: "2rem" }}>
                 <Hoverable zIndex="5" handleClick={() => window.open(drink.link, "_blank")}><Button variant={drink.store}>Kauppaan →</Button></Hoverable>
