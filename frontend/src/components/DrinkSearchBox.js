@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Hoverable from "./Hoverable"
 
-const DrinkSearchBox = ({handleClick }) => {
+const DrinkSearchBox = ({ handleClick }) => {
 
   const [name, setName] = useState("")
 
@@ -28,7 +28,7 @@ const DrinkSearchBox = ({handleClick }) => {
         <ListGroup>
           {drinks.map((drink, i) => {
             return (
-              <Hoverable link={handleClick ? null : `drinks/${drink.id}`} handleClick={() => handleClick(drink)} key={drink.id}>
+              <Hoverable link={handleClick ? null : `drinks/${drink.id}`} handleClick={() => { handleClick(drink); setName("") }} key={drink.id}>
                 <ListGroup.Item >
                   <div style={{ width: "6rem", display: "inline-block" }}>
                     <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "4rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
