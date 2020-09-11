@@ -18,6 +18,7 @@ const NavigationBar = () => {
           <LinkContainer to="/drinks"><Nav.Link>Juomat</Nav.Link></LinkContainer>
           <LinkContainer to="/statistics"><Nav.Link>Tilastoja</Nav.Link></LinkContainer>
           <LinkContainer to="/bars"><Nav.Link>Baarit</Nav.Link></LinkContainer>
+          <LinkContainer to="/portioncalculator"><Nav.Link>Annoslaskuri</Nav.Link></LinkContainer>
           <LinkContainer to="/moreinfo"><Nav.Link>Lisää infoa</Nav.Link></LinkContainer>
         </Nav>
         <Navbar.Brand>Viinamayrakoira.fi</Navbar.Brand>
