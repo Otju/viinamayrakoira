@@ -9,6 +9,7 @@ export const capitalizeFirst = inputString => {
   }
   return inputString.charAt(0).toUpperCase() + inputString.slice(1);
 }
+export const round = (value) => Math.round((value + 0.00001) * 100) / 100
 
 export const groupByN = (data, n) => {
   let result = []

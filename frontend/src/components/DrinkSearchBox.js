@@ -6,11 +6,11 @@ import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Hoverable from "./Hoverable"
 
-const DrinkSearchBox = ({ handleClick }) => {
+const DrinkSearchBox = ({ handleClick, sortByField }) => {
 
   const [name, setName] = useState("")
 
-  const result = useQuery(ALL_DRINKS, { variables: { first: 50, name } })
+  const result = useQuery(ALL_DRINKS, { variables: { first: 50, name, sortByField} })
 
   let content
   if (!name) {
@@ -43,7 +43,7 @@ const DrinkSearchBox = ({ handleClick }) => {
       </>
   }
 
-  return <div style={{ maxHeight: "28rem", width: "50%", marginLeft: "auto", marginRight: "auto", border: "solid", overflowX: "auto" }}>
+  return <div style={{ maxHeight: "28rem", marginLeft: "auto", marginRight: "auto", border: "solid", overflowX: "auto" }}>
     <Form.Control type="text" placeholder="Haku" value={name} onChange={(event) => setName(event.target.value)} />
     {content}
   </div>

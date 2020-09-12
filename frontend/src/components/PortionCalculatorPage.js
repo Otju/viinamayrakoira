@@ -1,62 +1,45 @@
 import React, { useState } from "react"
-import DrinkSearchBox from './DrinkSearchBox'
-import DrinkCardList from './DrinkCardList'
-import Form from 'react-bootstrap/Form'
+import AddPortionDrink from './AddPortionDrink'
+import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import { round } from '../utils'
 
 const PortionCalculatorPage = () => {
 
-  const [drink, setDrink] = useState()
-  const [percentage, setPercentage] = useState(40)
-  const [amount, setAmount] = useState(0.04)
+  const [portionDrinks, setPortionDrinks] = useState([])
 
-  const handleClick = (drink) => {
-    setDrink(drink)
-    setAmount(drink.size)
-    setPercentage(drink.percentage)
-  }
+  const portions = round(portionDrinks.reduce((acc, cur) => acc + cur.portionAmount, 0))
+  const price = round(portionDrinks.reduce((acc, cur) => acc + cur.price, 0))
 
-  const portionAmount = Math.round(((amount * ((percentage) / (100))) / 0.015201419 + 0.00001) * 100) / 100
-
-
-  let drinkPart
-  if (drink) {
-    drinkPart = <div style={{ width: "50%", display: "inline-block", verticalAlign: "top" }}>
-      <DrinkCardList drinks={[drink]}></DrinkCardList>
+  return (
+    <div>
+      <h2>{portions} annosta</h2>
+      <h2>{price}€</h2>
+      <AddPortionDrink setPortionDrinks={setPortionDrinks} portionDrinks={portionDrinks} />
+      <h3>Juomat</h3>
+      <Table responsive style={{ wordWrap: "break-word" }}>
+        <tbody>
+          {portionDrinks.map((drink, i) => (
+            <tr key={drink.name + i}>
+              <td>
+                {drink.amount}<br />
+                {drink.name}
+              </td>
+              <td><div style={{ width: "6rem", display: "inline-block" }}>
+                <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "4rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+              </div></td>
+              <td>
+                <b>{drink.portionAmount} annosta</b><br />
+                {<b>{drink.price}€</b>}
+              </td>
+              <td><Button variant="danger" onClick={() => { setPortionDrinks(portionDrinks.filter((item, i2) => i2 !== i)) }}>Poista</Button></td>
+            </tr>
+          ))
+          }
+        </tbody>
+      </Table>
     </div>
-  }
-
-
-  return <div>
-    <DrinkSearchBox handleClick={handleClick} />
-    <div style={{ width: "50%", display: "inline-block", verticalAlign: "top", marginTop: "1rem" }}>
-      <label>
-        {"prosentit "}
-        <Form.Control type="number" min="0" max="100" step="0.1" style={{ display: "inline-block", width: "5rem" }} value={percentage} onChange={(event) => setPercentage(event.target.value)} />
-        <div className="input-group-append" style={{ display: "inline-block" }}>
-          <span className="input-group-text">{"%"}</span>
-        </div>
-      </label>
-      <br />
-      <label>
-        {"määrä "}
-        <Form.Control step="0.05" min="0" style={{ display: "inline-block", width: "5rem" }} type="number" placeholder="l" value={amount} onChange={(event) => setAmount(event.target.value)} />
-        <div className="input-group-append" style={{ display: "inline-block" }}>
-          <span className="input-group-text">{"l"}</span>
-        </div>
-      </label>
-      <br />
-      <b>{portionAmount} annosta</b>
-      <br/>
-      <Button>Shotti</Button>
-      <Button>Tölkillinen</Button>
-      <Button>Lasillinen</Button>
-      <Button>Tuoppi</Button>
-      <Button>Pint</Button>
-      <Button>Viinilasi</Button>
-    </div>
-    {drinkPart}
-  </div>
+  )
 }
 
 export default PortionCalculatorPage
