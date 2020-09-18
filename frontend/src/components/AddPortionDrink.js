@@ -117,7 +117,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
       </Modal.Header>
       <Modal.Body>
         <div>
-          <DrinkSearchBox handleClick={handleClick} sortByField="size" />
+          <DrinkSearchBox handleClick={handleClick}/>
           tai <Button onClick={handleOwnDrink} variant="dark">Oma juoma</Button>
         </div>
         <div style={{ width: "50%", display: "inline-block", verticalAlign: "top", marginTop: "1rem" }}>

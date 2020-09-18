@@ -3,7 +3,7 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import HoverableDropDownText from './HoverableDropDownText'
 
-const SortBySettings = ({ valuetypes, searchVariables, setFieldValue}) => {
+const SortBySettings = ({ valuetypes, searchVariables, setFieldValue }) => {
 
   const isDescending = searchVariables.sortByDescending ?? false
 
@@ -21,16 +21,20 @@ const SortBySettings = ({ valuetypes, searchVariables, setFieldValue}) => {
 
   return (
     <div style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
-      <Dropdown drop="right" style={{ display: "inline-block" }}>
+      <Dropdown style={{ display: "inline-block" }}>
         <Dropdown.Toggle variant="dark" id="dropdown-basic">
-          järjestys
+          järjestys <b>{showName} {searchVariables.sortByField === "relevance" ? null : isDescending ? "↑" : "↓"}</b>
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.ItemText style={{ width: "max-content" }}>
-            <b>{showName}</b>
-            <Button variant="dark" style={{ marginLeft: "0.2rem"}} onClick={() => handleOrderChange()}>{isDescending ? "↑" : "↓"}</Button>
-          </Dropdown.ItemText>
-          <Dropdown.Divider />
+          {searchVariables.sortByField === "relevance" ? null :
+            <>
+              <Dropdown.ItemText style={{ width: "max-content" }}>
+                <Button variant="dark" style={{ marginLeft: "0.2rem" }} onClick={() => handleOrderChange()}>
+                  {isDescending ? "suurin ensin ↑" : "pienin ensin ↓"}</Button>
+              </Dropdown.ItemText>
+              <Dropdown.Divider />
+            </>
+          }
           {valuetypes.map(item => (
             <HoverableDropDownText key={item.name} handleClick={() => handleClick(item.name)}>{item.displayName}</HoverableDropDownText>
           ))}

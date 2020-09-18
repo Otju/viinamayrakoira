@@ -16,7 +16,7 @@ const CheckboxDropDown = ({ searchVariables, setFieldValue, displayName, name, v
   }
 
   return (
-    <Dropdown drop="right" style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
+    <Dropdown style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
       <Dropdown.Toggle variant="dark" id="dropdown-basic">
         {displayName}
       </Dropdown.Toggle>

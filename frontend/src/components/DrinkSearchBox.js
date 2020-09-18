@@ -6,11 +6,11 @@ import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Hoverable from "./Hoverable"
 
-const DrinkSearchBox = ({ handleClick, sortByField }) => {
+const DrinkSearchBox = ({ handleClick }) => {
 
   const [name, setName] = useState("")
 
-  const result = useQuery(ALL_DRINKS, { variables: { first: 50, name, sortByField} })
+  const result = useQuery(ALL_DRINKS, { variables: { first: 50, name, sortByField: "relevance"} })
 
   let content
   if (!name) {

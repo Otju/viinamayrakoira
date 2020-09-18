@@ -6,7 +6,7 @@ import MinMaxField from './MinMaxField'
 const MinMaxDropDown = ({ searchVariables, valuetypes, setFieldValue }) => {
 
   return (
-    <Dropdown drop="right" style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem" }}>
+    <Dropdown style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem" }}>
       <Dropdown.Toggle variant="dark" id="dropdown-basic">
         yli/alle
       </Dropdown.Toggle>
