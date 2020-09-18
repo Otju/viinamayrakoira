@@ -4,7 +4,9 @@ const allDrinks = async (root, args) => {
   const sortByField = args.sortByField ? args.sortByField : "pricePerPortion"
   const sortDirection = args.sortByDescending ? -1 : 1
   let search = {}
+  let searchText = undefined
   if (args.name) {
+    searchText = args.name
     let regex = "^"
     args.name.split(" ").forEach(part => regex += `(?=.*${part})`)
     regex += ".*$"
@@ -27,8 +29,15 @@ const allDrinks = async (root, args) => {
       }
     })
   }
-  const drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection })
-  const count = await Drink.find(search).countDocuments()
+  let drinks
+  let count
+  if (sortByField === "relevance" && searchText) {
+    drinks = await Drink.fuzzySearch(searchText, search).skip(args.offset).limit(args.first)
+    count = await Drink.fuzzySearch(searchText, search).countDocuments()
+  } else {
+    drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection })
+    count = await Drink.find(search).countDocuments()
+  }
   return { drinks, count }
 }
 

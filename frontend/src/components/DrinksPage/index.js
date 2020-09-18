@@ -36,10 +36,13 @@ const DrinksPage = () => {
       if (Array.isArray(originalValue)) {
         if (query.get(key)) {
           queryStrings[key] = [...originalValue, ...query.get(key).split(",")]
-        }else{
+        } else {
           queryStrings[key] = []
         }
-      } else {
+      } else if (key==="sortByDescending") {
+        queryStrings[key] = query.get(key) === "true"
+      }
+      else {
         queryStrings[key] = query.get(key) ?? originalValue
       }
     })
@@ -59,7 +62,7 @@ const DrinksPage = () => {
     let queryStrings = "?"
     Object.keys(variables).forEach(key => {
       const value = variables[key]
-      if (value && (value.length > 0 || typeof value === "number") && value !== "pricePerPortion") {
+      if (value && (value.length > 0 || typeof value === "number" || typeof value === "boolean") && value !== "pricePerPortion") {
         if (Array.isArray(value)) {
           queryStrings += `&${key}=`
           value.forEach((individualValue, i) => queryStrings += i > 0 ? `,${individualValue}` : individualValue)

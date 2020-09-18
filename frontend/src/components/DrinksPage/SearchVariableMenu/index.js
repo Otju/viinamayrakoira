@@ -33,7 +33,9 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVa
       <CheckboxDropDown values={stores} name={"store"} displayName={"kauppa"} {...{ setFieldValue, searchVariables }} />
       <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{ setFieldValue, searchVariables }} />
       <MinMaxDropDown searchVariables={searchVariables} valuetypes={searchTypes} setFieldValue={setFieldValue}></MinMaxDropDown>
-      <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables} valuetypes={searchTypes} ></SortBySettings>
+      <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables}
+        valuetypes={name ? ([{ name: "relevance", displayName: "osuvuus" }, ...searchTypes]) : searchTypes} >
+      </SortBySettings>
 
       {!_.isEqual(searchVariables, emptySearchVariables) ?
         <Button variant="danger" onClick={() => setSearchVariables(emptySearchVariables)}>nollaa haku</Button> : null
