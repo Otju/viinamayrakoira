@@ -25,8 +25,8 @@
 | 08.9.20 | 23:40   |  00:20  | 0:40  |stickers to best page|
 | 09.9.20 | 10:20   |  12:50  | 2:30  |styling, bugfixes, refactoring|
 | 10.9.20 | 11:10   |  14:00  | 2:50  |stlyling, usability, refactoring, removed formik and some bugs with it|
-| --.-.20 | 00:00   |  00:00  | 0:00  ||
-| --.-.20 | 00:00   |  00:00  | 0:00  ||
-| --.-.20 | 00:00   |  00:00  | 0:00  ||
+| 11.9.20 | 23:40   |  02:40  | 3:00  |refactoring, searchbox|
+| 12.9.20 | 14:00   |  15:30  | 1:30  |portion calculator|
+| 18.9.20 | 22:30   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||

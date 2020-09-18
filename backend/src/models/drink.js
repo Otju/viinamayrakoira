@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
 
 const schema = new mongoose.Schema({
   _id: {
@@ -55,4 +56,6 @@ const schema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Drink', schema)
+schema.plugin(mongoose_fuzzy_searching, { fields: ["name", "ean", "productCode", "producer", "description", "store"] })
+
+module.exports = mongoose.model("Drink", schema)
