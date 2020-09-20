@@ -7,7 +7,7 @@ const addReview = async (root, args) => {
 
   const review = await Review.create({ ...args.review })
 
-  await drink.update({ reviews: [...drink.reviews, review._id] })
+  await drink.updateOne({ reviews: [...drink.reviews, review._id] })
 
   return review
 }

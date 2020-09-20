@@ -39,6 +39,11 @@ export const ALL_DRINKS = gql`
         pricePerPortion
         pricePerLitre
         percentageIsGuess
+        reviews{
+          taste
+          priceQualityRatio
+          comment
+        }
       }
       count
     }
@@ -65,6 +70,11 @@ export const BEST_DRINKS = gql`
         pricePerPortion
         pricePerLitre
         percentageIsGuess
+        reviews{
+          taste
+          priceQualityRatio
+          comment
+        }
     }
   }
 `
