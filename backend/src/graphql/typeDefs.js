@@ -19,6 +19,15 @@ const typeDefs = gql`
     portionAmount: Float!
     pricePerPortion: Float!
     pricePerLitre: Float!
+    reviews: [Review!]!
+  }
+
+  type Review {
+    drink: String!
+    taste: Int
+    priceQualityRatio: Int
+    comment: String,
+    username: String
   }
 
   input DrinkInput {
@@ -68,6 +77,12 @@ const typeDefs = gql`
     drinks: [Drink!]!,
     count: Int!
   }
+
+  type updateAllDrinksOutPut{
+    changed: Int,
+    new: Int,
+    deactivated: Int
+  }
   
   type Query {
     allDrinks(
@@ -86,7 +101,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    updateAllDrinks(drinks: [DrinkInput]): [Drink]
+    updateAllDrinks(drinks: [DrinkInput]): updateAllDrinksOutPut
   }
 `
 

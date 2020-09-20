@@ -43,23 +43,13 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
         if (rawPercentage) {
           percentage = turnToNumber(rawPercentage[0])
         }
-        name.split(" ").forEach((part) => {
-          if (part.includes("cl")) {
-            if (part.toLowerCase().includes("x")) {
-              const partParts = part.toLowerCase().split("x")
-              size = turnToNumber(partParts[0]) * turnToNumber(partParts[1]) / 100
-            } else if (part.includes("*")) {
-              const partParts = part.split("*")
-              size = turnToNumber(partParts[1]) * turnToNumber(partParts[0]) / 100
-            }
-            else {
-              size = turnToNumber(part) / 100
-            }
-          }
-          if (part.includes("1L")) {
-            size = 1
-          }
-        })
+        const rawSize = name.match(/(\d+)?,?\.?\d+cl/g)
+        if (rawSize) {
+          const multiplier = name.match(/\d+x/g) || 1
+          size = (turnToNumber(rawSize[0]) * multiplier) / 100
+        } else if (name.includes("1L")) {
+          size = 1
+        }
 
         if (productCode === "27938") {  //superAlko had a typo in their infos
           size = 0.33

@@ -36,7 +36,7 @@ const setAllDrinks = async () => {
 
   const query = `
     mutation updateAllDrinks ($drinks: [DrinkInput]) {
-      updateAllDrinks(drinks: $drinks) { id }
+      updateAllDrinks(drinks: $drinks) { changed, new, deactivated }
     }
 `
 
@@ -49,6 +49,13 @@ const setAllDrinks = async () => {
           console.log(`${drink.link}} is missing field "${field}"`)
         }
         hasRequiredFields = false
+      } else if (field === "percentage") {
+        const percentage = drink[field]
+        const category = drink.category
+        if (percentage >= 100 || (["Oluet", "Siiderit"].includes(category) && percentage > 15)
+          || (["Punaviinit", "Roseviinit", "Valkoviinit", "Kuohuviinit ja Samppanjat", "Muut viinit", "Hanapakkaukset", "Juomasekoitukset ja lonkerot"].includes(category) && percentage > 25)) {
+          console.log(`${drink.link}} FAULTY PERCENTAGE`)
+        }
       }
     })
     if (!drink.ean && !drink.productCode) {
@@ -63,14 +70,17 @@ const setAllDrinks = async () => {
 
   const variables = {
     drinks: allDrinks
-  };
+  }
 
   try {
     const response = await request("http://localhost:4000/", query, variables)
-    console.log(`Added ${response.updateAllDrinks.length} drinks to db`)
+    console.log(response)
+    console.log(`Changed ${response.updateAllDrinks.changed} drinks`)
+    console.log(`Added ${response.updateAllDrinks.new} new drinks`)
+    console.log(`${response.updateAllDrinks.deactivated} drinks are deactivated`)
   }
   catch (error) {
-    console.log("ERROR:",error.message.slice(0,500))
+    console.log("ERROR:", error.message.slice(0, 500))
   }
 }
 setAllDrinks()

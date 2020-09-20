@@ -1,10 +1,11 @@
-const Drink = require('../../../models/drink')
+const Drink = require('../../../models/Drink')
+const Review = require('../../../models/Review')
 
 const bestDrinks = async (root, args) => {
   const search = args.store ? { store: args.store } : {}
   const drinks = []
   const getBestDrink = async (category, stickerText) => {
-    let drink = await Drink.find(search).limit(1).sort({ [category]: 1 })
+    let drink = await Drink.find({ ...search, isInSelection: true }).limit(1).sort({ [category]: 1 }).populate("reviews")
     drink = drink[0]
     drink.sticker = stickerText
     drinks.push(drink)

@@ -28,7 +28,7 @@ const schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  percentageIsGuess:Boolean,
+  percentageIsGuess: Boolean,
   imageLink: String,
   category: {
     type: String,
@@ -53,7 +53,17 @@ const schema = new mongoose.Schema({
   pricePerPortion: {
     type: Number,
     required: true
-  }
+  },
+  isInSelection: {
+    type: Boolean,
+    required: true
+  },
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review'
+    }
+  ]
 })
 
 schema.plugin(mongoose_fuzzy_searching, { fields: ["name", "ean", "productCode", "producer", "description", "store"] })

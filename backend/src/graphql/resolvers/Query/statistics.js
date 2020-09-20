@@ -1,4 +1,4 @@
-const Drink = require('../../../models/drink')
+const Drink = require('../../../models/Drink')
 const roundTo = require('round-to')
 
 const statistics = async () => {
@@ -7,6 +7,7 @@ const statistics = async () => {
 
     const rawValues = await Drink.aggregate(
       [{
+        isInSelection: true,
         $group: {
           _id: fieldToGroupBy,
           count: { $sum: 1 },

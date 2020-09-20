@@ -31,7 +31,7 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
 
   const browser = await puppeteer.launch({ headless: true })
   const page = await browser.newPage()
-  await page.goto(pageLink)
+  await page.goto(pageLink, {timeout: 0})
   await autoScroll(page)
 
   let getDrinks = await page.evaluate(() => {
@@ -60,22 +60,17 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
 
     let percentage
     const title = rawDrink.title
-
-    title.split(" ").forEach((part, i) => {
-      if (part.includes("%")) {
-        let partToInt = turnToNumber(part)
-        if ((!partToInt || Number.isNaN(partToInt)) && partToInt !== 0) {
-          partToInt = turnToNumber(title.split(" ")[i - 1])
-        }
-        percentage = partToInt
-      }
-    })
+    
+    const rawPercentage = title.match(/(\d+)?,?\.?\d+%/g)
+    if (rawPercentage) {
+      percentage = turnToNumber(rawPercentage[0])
+    }
 
     let category = categoryName
 
     if (!category) {
       const isInName = (words) => {
-        const inName = words.some(word => name.toLowerCase().includes(word))
+        const inName = words.some(word => title.toLowerCase().includes(word))
         return inName || inDesc
       }
       if (category === "Muut viinit") {
@@ -116,7 +111,7 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
       link: `https://www.k-ruoka.fi${rawDrink.link}`,
       price: turnToNumber(rawDrink.price),
       percentage,
-      imageLink: rawDrink.imagelink.replace("&fill=solid&fill-color=ffffff","").replace(/w=\d+&h=\d+/,""),
+      imageLink: rawDrink.imagelink.replace("&fill=solid&fill-color=ffffff", "").replace(/w=\d+&h=\d+/, ""),
       category,
       size,
       store: "kmarket"
@@ -129,7 +124,7 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
   return drinkInfos
 }
 
-const vikingLineCategories = [
+const kmarketCategories = [
   {
     url: "siiderit",
     name: "Siiderit"
@@ -155,7 +150,7 @@ const vikingLineCategories = [
 const getKmarket = async () => {
   const infos = []
   console.log("Getting drinks from kmarket")
-  await Promise.all(vikingLineCategories.map(async (category) => {
+  await Promise.all(kmarketCategories.map(async (category) => {
     const infosForCategory = await getDrinkInfos(category.url, category.name)
     infos.push(...infosForCategory)
   }))

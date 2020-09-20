@@ -28,7 +28,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVa
   return <div style={{ border: "solid", color: colors.darkGray, padding: "1rem" }}>
     <Form onSubmit={handleSubmit}>
       <Form.Group>
-        <Form.Control type="text" placeholder="Haku" value={name} onChange={(event) => setName(event.target.value)} />
+        <Form.Control type="text" placeholder="Haku" value={name} onBlur={handleSubmit} onChange={(event) => setName(event.target.value)} />
       </Form.Group>
       <CheckboxDropDown values={stores} name={"store"} displayName={"kauppa"} {...{ setFieldValue, searchVariables }} />
       <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{ setFieldValue, searchVariables }} />

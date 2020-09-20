@@ -1,9 +1,9 @@
-const Drink = require('../../../models/drink')
+const Drink = require('../../../models/Drink')
 
 const allDrinks = async (root, args) => {
   const sortByField = args.sortByField ? args.sortByField : "pricePerPortion"
   const sortDirection = args.sortByDescending ? -1 : 1
-  let search = {}
+  let search = {isInSelection: true}
   let searchText = undefined
   if (args.name) {
     searchText = args.name
@@ -32,10 +32,10 @@ const allDrinks = async (root, args) => {
   let drinks
   let count
   if (sortByField === "relevance" && searchText) {
-    drinks = await Drink.fuzzySearch(searchText, search).skip(args.offset).limit(args.first)
+    drinks = await Drink.fuzzySearch(searchText, search).skip(args.offset).limit(args.first).populate("reviews")
     count = await Drink.fuzzySearch(searchText, search).countDocuments()
   } else {
-    drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection })
+    drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection }).populate("reviews")
     count = await Drink.find(search).countDocuments()
   }
   return { drinks, count }
