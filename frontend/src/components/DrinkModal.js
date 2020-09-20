@@ -3,10 +3,10 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import ReactStars from "react-rating-stars-component"
 import { capitalizeFirst, stores, average, colors } from '../utils'
-import { useMutation, useApolloClient } from '@apollo/client'
-import { ADD_REVIEW} from '../queries'
+import { useMutation } from '@apollo/client'
+import { ADD_REVIEW } from '../queries'
 
-const DrinkModal = ({ drink, show, setShow, refetch}) => {
+const DrinkModal = ({ drink, show, setShow, refetch }) => {
 
   const handleClose = () => setShow(false)
   const [username, setUsername] = useState("")
@@ -15,13 +15,13 @@ const DrinkModal = ({ drink, show, setShow, refetch}) => {
   const [priceQualityRatio, setPriceQualityRatio] = useState(undefined)
   const [addReview] = useMutation(ADD_REVIEW)
 
-  const client = useApolloClient()
-
   const handleSubmit = (event) => {
     event.preventDefault()
     const review = { drink: drink.id, taste, priceQualityRatio, username, comment }
     addReview({ variables: { review } })
-    refetch()
+    setTimeout(() => {
+      refetch()
+    }, 200) //clearly the best solution
   }
 
   return <Modal size="lg" show={show} onHide={handleClose}>
