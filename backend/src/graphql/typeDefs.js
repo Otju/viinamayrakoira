@@ -23,6 +23,15 @@ const typeDefs = gql`
   }
 
   type Review {
+    id: String!
+    drink: String!
+    taste: Int
+    priceQualityRatio: Int
+    comment: String,
+    username: String
+  }
+
+  input ReviewInput {
     drink: String!
     taste: Int
     priceQualityRatio: Int
@@ -102,6 +111,7 @@ const typeDefs = gql`
 
   type Mutation {
     updateAllDrinks(drinks: [DrinkInput]): updateAllDrinksOutPut
+    addReview(review: ReviewInput): Review
   }
 `
 
