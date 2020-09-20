@@ -6,16 +6,17 @@ const statistics = async () => {
   const getValuesAndGroup = async (fieldToGroupBy) => {
 
     const rawValues = await Drink.aggregate(
-      [{
-        isInSelection: true,
-        $group: {
-          _id: fieldToGroupBy,
-          count: { $sum: 1 },
-          avgPrice: { $avg: "$price" },
-          avgPricePerPortion: { $avg: "$pricePerPortion" },
-          avgPercentage: { $avg: "$percentage" }
+      [
+        { $match: { isInSelection: true } },
+        {
+          $group: {
+            _id: fieldToGroupBy,
+            count: { $sum: 1 },
+            avgPrice: { $avg: "$price" },
+            avgPricePerPortion: { $avg: "$pricePerPortion" },
+            avgPercentage: { $avg: "$percentage" }
+          }
         }
-      }
       ])
     return rawValues.map(item => {
       let group
