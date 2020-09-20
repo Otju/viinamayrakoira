@@ -40,6 +40,8 @@ export const ALL_DRINKS = gql`
         pricePerLitre
         percentageIsGuess
         reviews{
+          id
+          username
           taste
           priceQualityRatio
           comment
@@ -71,6 +73,8 @@ export const BEST_DRINKS = gql`
         pricePerLitre
         percentageIsGuess
         reviews{
+          id
+          username
           taste
           priceQualityRatio
           comment
@@ -110,3 +114,15 @@ query {
   }
 }
 `
+
+export const ADD_REVIEW = gql`
+  mutation addReview($review: ReviewInput) {
+    addReview(review: $review) {
+      id
+      username
+      taste
+      priceQualityRatio
+      comment
+    }
+  }
+`;

@@ -17,5 +17,11 @@ export const groupByN = (data, n) => {
   return result
 }
 
+export const average = (array, field) => {
+  const avg = (array.reduce((acc, cur) => acc + cur[field],0)) / array.length
+  return Number.isNaN(avg) ? 0 : avg
+}
+
+
 
 

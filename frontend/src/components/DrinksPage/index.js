@@ -15,8 +15,6 @@ const DrinksPage = () => {
   const query = new URLSearchParams(location.search)
   const history = useHistory()
 
-
-
   const initialMinMax = {}
   searchTypes.forEach(item => {
     initialMinMax[`min${item.name}`] = ""
@@ -110,6 +108,7 @@ const DrinksPage = () => {
 
 
   let content
+  const refetch = result.refetch
 
   if (!result.data || result.loading) {
     content = <Spinner animation="border" />
@@ -117,7 +116,7 @@ const DrinksPage = () => {
     content = "Haulla ei löytynyt mitään"
   } else {
     content = <>
-      <DrinkCardList drinks={result.data.allDrinks.drinks} />
+      <DrinkCardList drinks={result.data.allDrinks.drinks} refetch={refetch}/>
       <PaginationMenu {...{ currentPage, drinksPerPage, setCurrentPage }} count={result.data.allDrinks.count} />
     </>
   }

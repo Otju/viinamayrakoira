@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import { capitalizeFirst, stores, categories } from '../utils'
+import { capitalizeFirst, stores, categories, average } from '../utils'
 import Hoverable from './Hoverable'
-import ReactStars from "react-rating-stars-component";
-
-
-const DrinkCard = ({ drink, position, hasRightMargin }) => {
+import ReactStars from "react-rating-stars-component"
+import DrinkModal from './DrinkModal'
+const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
 
     const storeColor = stores.find(store => drink.store === store.name).color
+
+    const [show, setShow] = useState(false)
+    const handleShow = () => setShow(true)
 
     const margin = {}
     if (position === 2) {
@@ -49,17 +51,17 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
                 </Hoverable>
                 : null}
             <div style={{ height: "100%" }} >
-                <Hoverable zIndex={2} link={`drinks/${drink.id}`}>
+                <Hoverable zIndex={2} handleClick={handleShow}>
                     <Card.Body style={{ background: "white", zIndex: "-1", position: "relative", height: "100%" }}>
                         <Card.Title style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", height: "3rem" }}>
                             {drink.name}
                         </Card.Title>
                         <Card.Subtitle>{capitalizeFirst(drink.category)}</Card.Subtitle>
-                        <div style={{ display: 'inline-block', width: "50%"}}>
-                            <img src={drink.imageLink} alt={drink.imageLink} 
-                            style={{ maxWidth: "100%", maxHeight: "18rem", width: "auto", height: "auto", mixBlendMode: "multiply", "marginTop": "-22rem" }} />
+                        <div style={{ display: 'inline-block', width: "50%" }}>
+                            <img src={drink.imageLink} alt={drink.imageLink}
+                                style={{ maxWidth: "100%", maxHeight: "18rem", width: "auto", height: "auto", mixBlendMode: "multiply", "marginTop": "-22rem" }} />
                         </div>
-                        <div style={{ display: 'inline-block', padding: "5%", width: "50%", height:"20rem", marginBottom: "auto", marginTop: "auto"}}>
+                        <div style={{ display: 'inline-block', padding: "5%", width: "50%", height: "20rem", marginBottom: "auto", marginTop: "auto" }}>
                             {drink.price}€<br />
                             {drink.percentage}%<br />
                             {drink.size}l<br />
@@ -68,8 +70,8 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
                             {drink.pricePerPortion} €/annos<br />
                             {stores.find(store => store.name === drink.store).displayName}<br />
                             {capitalizeFirst(drink.producer)}<br />
-                            <ReactStars size={25} isHalf={true} value={drink.reviews.reduce((acc, cur) => acc + cur.taste, 0)} edit={false}/>
-                            <ReactStars char="€" size={30} activeColor="green" isHalf={true} value={drink.reviews.reduce((acc, cur) => acc + cur.priceQualityRatio, 0)} edit={false}/>
+                            <ReactStars size={25} isHalf={true} value={average(drink.reviews, "taste") / 2} edit={false} />
+                            <ReactStars char="€" size={30} activeColor="green" isHalf={true} value={average(drink.reviews, "priceQualityRatio") / 2} edit={false} />
                             {drink.reviews.length} arvostelua <br />
                             {drink.reviews.filter(review => review.comment).length} kommenttia
                         </div>
@@ -79,6 +81,7 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
             <div style={{ position: "absolute", bottom: "1.5rem", left: "2rem" }}>
                 <Hoverable zIndex="5" handleClick={() => window.open(drink.link, "_blank")}><Button variant={drink.store}>Kauppaan →</Button></Hoverable>
             </div>
+            <DrinkModal {...{ setShow, show, drink, refetch }} />
         </Card >
     )
 }
