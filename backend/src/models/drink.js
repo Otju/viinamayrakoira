@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
+const { model } = require('./Review')
 
 const schema = new mongoose.Schema({
   _id: {
@@ -57,6 +58,12 @@ const schema = new mongoose.Schema({
   isInSelection: {
     type: Boolean,
     required: true
+  },
+  tasteAverage: {
+    type: Number
+  },
+  priceQualityRatioAverage: {
+    type: Number
   },
   reviews: [
     {

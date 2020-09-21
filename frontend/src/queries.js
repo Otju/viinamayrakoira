@@ -39,6 +39,8 @@ export const ALL_DRINKS = gql`
         pricePerPortion
         pricePerLitre
         percentageIsGuess
+        priceQualityRatioAverage
+        tasteAverage
         reviews{
           id
           username
@@ -72,6 +74,8 @@ export const BEST_DRINKS = gql`
         pricePerPortion
         pricePerLitre
         percentageIsGuess
+        priceQualityRatioAverage
+        tasteAverage
         reviews{
           id
           username

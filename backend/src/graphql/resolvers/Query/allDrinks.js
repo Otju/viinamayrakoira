@@ -35,7 +35,7 @@ const allDrinks = async (root, args) => {
     drinks = await Drink.fuzzySearch(searchText, search).skip(args.offset).limit(args.first).populate("reviews")
     count = await Drink.fuzzySearch(searchText, search).countDocuments()
   } else {
-    drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection }).populate("reviews")
+    drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection }).populate({ path: "reviews", options: { sort: {taste: 1} } })
     count = await Drink.find(search).countDocuments()
   }
   return { drinks, count }

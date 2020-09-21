@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import { capitalizeFirst, stores, categories, average } from '../utils'
+import { capitalizeFirst, stores, categories } from '../utils'
 import Hoverable from './Hoverable'
 import ReactStars from "react-rating-stars-component"
 import DrinkModal from './DrinkModal'
@@ -70,8 +70,8 @@ const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
                             {drink.pricePerPortion} €/annos<br />
                             {stores.find(store => store.name === drink.store).displayName}<br />
                             {capitalizeFirst(drink.producer)}<br />
-                            <ReactStars size={25} isHalf={true} value={average(drink.reviews, "taste") / 2} edit={false} />
-                            <ReactStars char="€" size={30} activeColor="green" isHalf={true} value={average(drink.reviews, "priceQualityRatio") / 2} edit={false} />
+                            <ReactStars size={25} isHalf={true} value={(drink.tasteAverage || 0) / 2} edit={false} />
+                            <ReactStars char="€" size={30} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
                             {drink.reviews.length} arvostelua <br />
                             {drink.reviews.filter(review => review.comment).length} kommenttia
                         </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import ReactStars from "react-rating-stars-component"
-import { capitalizeFirst, stores, average, colors } from '../utils'
+import { capitalizeFirst, stores, colors } from '../utils'
 import { useMutation } from '@apollo/client'
 import { ADD_REVIEW } from '../queries'
 
@@ -43,8 +43,8 @@ const DrinkModal = ({ drink, show, setShow, refetch }) => {
         {drink.pricePerPortion} €/annos<br />
         {stores.find(store => store.name === drink.store).displayName}<br />
         {capitalizeFirst(drink.producer)}<br />
-        <ReactStars size={30} isHalf={true} value={average(drink.reviews, "taste") / 2} edit={false} />
-        <ReactStars char="€" size={45} activeColor="green" isHalf={true} value={average(drink.reviews, "priceQualityRatio") / 2} edit={false} />
+        <ReactStars size={30} isHalf={true} value={(drink.tasteAverage || 0) / 2} edit={false} />
+        <ReactStars char="€" size={45} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
         {drink.reviews.length} arvostelua <br />
       </div>
       <h3>Arvostele</h3>

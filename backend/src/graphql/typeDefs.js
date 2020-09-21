@@ -19,6 +19,8 @@ const typeDefs = gql`
     portionAmount: Float!
     pricePerPortion: Float!
     pricePerLitre: Float!
+    priceQualityRatioAverage: Float
+    tasteAverage: Float
     reviews: [Review!]!
   }
 
