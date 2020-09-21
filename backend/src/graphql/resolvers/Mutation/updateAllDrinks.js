@@ -53,8 +53,20 @@ const updateAllDrinks = async (root, args) => {
 
     console.log("SORTED", getTime())
 
-    await Promise.all(drinksUpdate.map(async drink => {
-      const updatedDrink = await Drink.updateOne({ _id: drink._id }, drink) //Really slow (takes 3min, while other parts combined are less than 6s), but can't figure out a way to optimize
+    let didntChange = 0
+    await Promise.all(drinksUpdate.map(async (drink, i) => {
+      const fieldsToCheck = ["name", "producer", "ean", "productCode", "link", "price", "description", "percentage", "imageLink", "category", "size"]
+      const dontUpdateMatches = fieldsToCheck.map(field => ({ [field]: drink[field] }))
+      let updatedDrink = await Drink.updateOne(
+        {
+          _id: drink._id,
+          $nor: [{ $and: dontUpdateMatches }]    //Slow as shit :C
+        }, drink
+      )
+      if (updatedDrink.n === 0) {
+        updatedDrink = await Drink.updateOne({ _id: drink._id }, { isInSelection: true })
+        didntChange++
+      }
       return updatedDrink
     }))
 
@@ -66,11 +78,11 @@ const updateAllDrinks = async (root, args) => {
 
     const returnValues = {
       new: drinksNew.length,
-      changed: drinksUpdate.length,
+      changed: drinksUpdate.length - didntChange,
       deactivated: allDrinkIds.length - drinksUpdate.length
     }
 
-    console.log("DRINKS UPDATED", returnValues)
+    console.log("DRINKS UPDATED", { ...returnValues, didntChange })
 
     return returnValues
   } catch (error) {
