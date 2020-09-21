@@ -13,7 +13,7 @@ export const stores = [
   },
   {
     name: "kmarket",
-    color: "#F86800",
+    color: "#ff5500",
     displayName: "K-Market"
   },
   {
@@ -23,12 +23,12 @@ export const stores = [
   },
   {
     name: "superAlkoEesti",
-    color: "#E67817",
+    color: "#FF8800",
     displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/eestiflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
   },
   {
     name: "superAlkoLatvia",
-    color: "#E67817",
+    color: "#FF8800",
     displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/latviaflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
   }
 ]
@@ -56,47 +56,47 @@ export const categories = [
   },
   {
     name: "oluet",
-    color: "#6F3D1F"
+    color: "#F4BB3E"
   },
   {
     name: "siiderit",
-    color: ""
+    color: "#6A9D25"
   },
   {
     name: "juomasekoitukset ja lonkerot",
-    color: ""
+    color: "#07a3f7"
   },
   {
     name: "vodkat ja viinat",
-    color: ""
+    color: "#c1eff7"
   },
   {
     name: "ginit ja maustetut viinat",
-    color: ""
+    color: "#89e5f5"
   },
   {
     name: "rommit",
-    color: ""
+    color: "#6b3303"
   },
   {
     name: "konjakit",
-    color: ""
+    color: "#E95D01"
   },
   {
     name: "brandyt, armanjakit ja calvadosit",
-    color: ""
+    color: "#b34c09"
   },
   {
     name: "viskit",
-    color: ""
+    color: "#E77512"
   },
   {
     name: "liköörit ja katkerot",
-    color: ""
+    color: "#19572E"
   },
   {
     name: "alkoholittomat",
-    color: ""
+    color: "#cccac8"
   },
 ]
 

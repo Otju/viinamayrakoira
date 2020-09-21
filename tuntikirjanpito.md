@@ -28,8 +28,8 @@
 | 11.9.20 | 23:40   |  02:40  | 3:00  |refactoring, searchbox|
 | 12.9.20 | 14:00   |  15:30  | 1:30  |portion calculator|
 | 18.9.20 | 22:30   |  00:10  | 2:40  |refactoring, bugfixes, improved sorting|
-| 19.9.20 | 11:20   |  21:50  | 10:30 |refactoring, bugfixes, added review system, styling|
-| --.-.20 | 00:00   |  00:00  | 0:00  ||
+| 20.9.20 | 11:20   |  21:50  | 10:30 |refactoring, bugfixes, added review system, styling|
+| 21.9.20 | 09:30   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
 | --.-.20 | 00:00   |  00:00  | 0:00  ||
