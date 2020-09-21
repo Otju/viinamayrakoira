@@ -131,6 +131,16 @@ export const searchTypes = [
     displayName: "annoshinta",
     unit: "€/annos"
   },
+  {
+    name: "tasteAverage",
+    displayName: "maku",
+    unit: "/5"
+  },
+  {
+    name: "priceQualityRatioAverage",
+    displayName: "hinta-laatu",
+    unit: "/5"
+  },
 ]
 
 export const colors = {
