@@ -6,7 +6,7 @@ import {BrowserRouter as Router} from "react-router-dom"
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new HttpLink({ uri: 'http://localhost:4000' })
+  link: new HttpLink({ uri: 'https://viinamayrakoira-backend.herokuapp.com/'})
 })
 
 ReactDOM.render(
