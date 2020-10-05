@@ -5,6 +5,7 @@ import { capitalizeFirst, stores, categories } from '../utils'
 import Hoverable from './Hoverable'
 import ReactStars from "react-rating-stars-component"
 import DrinkModal from './DrinkModal'
+
 const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
 
     const storeColor = stores.find(store => drink.store === store.name).color
@@ -24,10 +25,10 @@ const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
         queryStrings += drink.allStores ? "" : `store=${drink.store}`
         switch (drink.sticker) {
             case "Paras maku":
-                queryStrings += "&sortByField=price"
+                queryStrings += "&sortByField=tasteAverage&sortByDescending=true"
                 break;
             case "Paras hinta-laatu":
-                queryStrings += "&sortByField=pricerPerLitre"
+                queryStrings += "&sortByField=priceQualityRatioAverage&sortByDescending=true"
                 break;
             default:
                 break;
@@ -72,8 +73,8 @@ const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
                             {capitalizeFirst(drink.producer)}<br />
                             <ReactStars size={25} isHalf={true} value={(drink.tasteAverage || 0) / 2} edit={false} />
                             <ReactStars char="€" size={30} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
-                            {drink.reviews.length} arvostelua <br />
-                            {drink.reviews.filter(review => review.comment).length} kommenttia
+                            {drink.reviews?.length} arvostelua <br />
+                            {drink.reviews?.filter(review => review.comment).length} kommenttia
                         </div>
                     </Card.Body>
                 </Hoverable>

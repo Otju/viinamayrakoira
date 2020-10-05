@@ -45,7 +45,7 @@ const DrinkModal = ({ drink, show, setShow, refetch }) => {
         {capitalizeFirst(drink.producer)}<br />
         <ReactStars size={30} isHalf={true} value={(drink.tasteAverage || 0) / 2} edit={false} />
         <ReactStars char="€" size={45} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
-        {drink.reviews.length} arvostelua <br />
+        {drink.reviews?.length} arvostelua <br />
       </div>
       <h3>Arvostele</h3>
       <div style={{ border: "solid", borderColor: colors.lightGray, padding: "1rem", paddingLeft: "0.3rem" }}>
@@ -60,7 +60,7 @@ const DrinkModal = ({ drink, show, setShow, refetch }) => {
       <h3>Kommentit</h3>
       <div>
         <ul>
-          {drink.reviews.map(review => <li key={review.id}>
+          {drink.reviews?.map(review => <li key={review.id}>
             <h4>{review.username}</h4>
             {review.comment}
             <ReactStars size={25} isHalf={true} value={review.taste / 2} edit={false} />

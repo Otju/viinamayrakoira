@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import DrinkSearchBox from './DrinkSearchBox'
-import DrinkCardList from './DrinkCardList'
+import MiniDrinkCard from './MiniDrinkCard'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -57,6 +57,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
     productCode: "319027",
     size: 0.77,
     store: "alko",
+    reviews: []
   }
 
   const [drink, setDrink] = useState(gambina)
@@ -117,7 +118,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
       </Modal.Header>
       <Modal.Body>
         <div>
-          <DrinkSearchBox handleClick={handleClick}/>
+          <DrinkSearchBox handleClick={handleClick} />
           tai <Button onClick={handleOwnDrink} variant="dark">Oma juoma</Button>
         </div>
         <div style={{ width: "50%", display: "inline-block", verticalAlign: "top", marginTop: "1rem" }}>
@@ -165,7 +166,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
         {drink.name === "Oma juoma" ? null
           :
           <div style={{ width: "50%", display: "inline-block", verticalAlign: "top" }}>
-            <DrinkCardList drinks={[drink]}></DrinkCardList>
+            <MiniDrinkCard drink={drink}/>
           </div>
         }
       </Modal.Body>
