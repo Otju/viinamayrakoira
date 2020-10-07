@@ -47,6 +47,7 @@ const DrinkModal = ({ drink, show, setShow, refetch }) => {
         <ReactStars char="€" size={45} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
         {drink.reviews?.length} arvostelua <br />
       </div>
+      {refetch ? <>
       <h3>Arvostele</h3>
       <div style={{ border: "solid", borderColor: colors.lightGray, padding: "1rem", paddingLeft: "0.3rem" }}>
         <Form onSubmit={handleSubmit}>
@@ -57,6 +58,8 @@ const DrinkModal = ({ drink, show, setShow, refetch }) => {
           <Form.Control type="submit" value="Lähetä"></Form.Control>
         </Form>
       </div>
+      </>
+      : null}
       <h3>Kommentit</h3>
       <div>
         <ul>

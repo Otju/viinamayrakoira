@@ -10,7 +10,7 @@ import { round } from '../utils'
 
 const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
 
-  const amounts = [
+  let amounts = [
     {
       name: "Oma määrä"
     },
@@ -39,35 +39,44 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
       amount: 0.16
     },
   ]
+  /*
+    const gambina = {
+      description: "Punaruskea, makea, vermuttinen, giniarominen, katkeroinen",
+      ean: "6412700240114",
+      id: "319027alko",
+      imageLink: "https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/319027/Gambina-muovipullo",
+      link: "https://www.alko.fi/tuotteet/319027/",
+      name: "Gambina muovipullo",
+      percentage: 21,
+      percentageIsGuess: null,
+      portionAmount: 10.64,
+      price: 9.99,
+      pricePerLitre: 12.97,
+      pricePerPortion: 0.94,
+      producer: "Altia",
+      productCode: "319027",
+      size: 0.77,
+      store: "alko",
+      reviews: []
+    }
+    */
 
-  const gambina = {
-    description: "Punaruskea, makea, vermuttinen, giniarominen, katkeroinen",
-    ean: "6412700240114",
-    id: "319027alko",
-    imageLink: "https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/319027/Gambina-muovipullo",
-    link: "https://www.alko.fi/tuotteet/319027/",
-    name: "Gambina muovipullo",
-    percentage: 21,
-    percentageIsGuess: null,
-    portionAmount: 10.64,
-    price: 9.99,
-    pricePerLitre: 12.97,
-    pricePerPortion: 0.94,
-    producer: "Altia",
-    productCode: "319027",
-    size: 0.77,
-    store: "alko",
-    reviews: []
+  const customDrink = {
+    name: "Oma juoma",
+    imageLink: process.env.PUBLIC_URL + '/beer.svg',
+    store: "alko"
   }
 
-  const [drink, setDrink] = useState(gambina)
+  const [drink, setDrink] = useState(customDrink)
 
-  if (drink) {
+  if (drink.name !== "Oma juoma") {
     amounts.unshift({ name: "Koko juoma", amount: drink.size })
+  } else {
+    amounts = amounts.filter(item => item.name !== "Koko juoma")
   }
 
-  const [percentage, setPercentage] = useState(gambina.percentage)
-  const [amount, setAmount] = useState(gambina.size)
+  const [percentage, setPercentage] = useState("5")
+  const [amount, setAmount] = useState("0.33")
   const [selectedAmount, setSelectedAmount] = useState(amounts[0])
 
   const portionAmount = round((amount * ((percentage) / (100))) / 0.015201419)
@@ -82,11 +91,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
   }
 
   const handleOwnDrink = () => {
-    setDrink({
-      name: "Oma juoma",
-      imageLink: process.env.PUBLIC_URL + '/beer.svg',
-      store: "alko"
-    })
+    setDrink(customDrink)
     setPercentage(0)
     setAmount(0)
     setSelectedAmount({ name: "Oma määrä" })
@@ -166,7 +171,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
         {drink.name === "Oma juoma" ? null
           :
           <div style={{ width: "50%", display: "inline-block", verticalAlign: "top" }}>
-            <MiniDrinkCard drink={drink}/>
+            <MiniDrinkCard drink={drink} />
           </div>
         }
       </Modal.Body>

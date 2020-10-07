@@ -44,7 +44,7 @@ const DrinkSearchBox = ({ handleClick }) => {
   }
 
   return <div style={{ maxHeight: "28rem", marginLeft: "auto", marginRight: "auto", border: "solid", overflowX: "auto" }}>
-    <Form.Control type="text" placeholder="Haku" value={name} onChange={(event) => setName(event.target.value)} />
+    <Form.Control type="text" placeholder="Hae juomaa" value={name} onChange={(event) => setName(event.target.value)} />
     {content}
   </div>
 }
