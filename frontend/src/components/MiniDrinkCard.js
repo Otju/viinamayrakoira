@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Card from 'react-bootstrap/Card'
-import { capitalizeFirst } from '../utils'
 import Hoverable from './Hoverable'
 import DrinkModal from './DrinkModal'
 
@@ -25,7 +24,7 @@ const MiniDrinkCard = ({ drink, refetch }) => {
                     </Card.Body>
                 </Hoverable>
             </div>
-            <DrinkModal {...{ setShow, show, drink, refetch }} />
+            <DrinkModal {...{ setShow, show, drink }} dontShowReviewBox={true}/>
         </Card >
     )
 }
