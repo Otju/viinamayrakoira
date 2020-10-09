@@ -4,11 +4,11 @@ const roundTo = require('round-to')
 
 const url = "https://shopping.tallink.com/fi/tal-hel-bq/category/juomat/"
 
-const getDrinkInfos = async (categoryUrl, categoryName) => {
+const getDrinkInfos = async (categoryUrl, categoryName, number) => {
 
   const drinkInfos = []
 
-  const pageLink = url + categoryUrl + "?page=1"
+  const pageLink = url + categoryUrl + "?page=" + number
 
   const browser = await puppeteer.launch({ headless: true })
   const page = await browser.newPage()
@@ -16,27 +16,40 @@ const getDrinkInfos = async (categoryUrl, categoryName) => {
 
   let getDrinks = await page.evaluate(() => {
     const mainPart = document.querySelector(".main-panel-view")
+    if (!mainPart) {
+      return false
+    }
     const items = mainPart.querySelectorAll(".ng-scope.ng-isolate-scope")
     const results = []
     items.forEach((item) => {
       const title = item.querySelector('.title.ng-binding').innerText
       const link = item.querySelector('.hover-search-icon').getAttribute("href")
+      const producer = item.querySelector('.manufacturer').innerText
       const imagelink = item.querySelector('.image > img').getAttribute("src")
       const price = item.querySelector('.top-price').innerText
+      if(!title || !link || !imagelink || !price){
+        console.log(`MISSING for ${title} ${categoryUrl} `)
+        return
+      }
       results.push({
         title,
         link,
         imagelink,
-        price
+        price,
+        producer
       })
     })
-    return results;
+    return results
   })
-
-  const rawDrinks = getDrinks
+  
+  const rawDrinks = []
+  let result = true
+  for (let i = 1; result; i++) {
+    result = getDrinks
+    rawDrinks.push(result)
+  }
 
   rawDrinks.forEach(rawDrink => {
-    console.log(rawDrink)
 
     const title = rawDrink.title
 
@@ -69,7 +82,7 @@ const getDrinkInfos = async (categoryUrl, categoryName) => {
       }
     }
 
-    const productCode = rawDrink.link.match(/\b\d{5}\b/g)[0] //TÄÄ
+    const productCode = rawDrink.link.match(/\b\d{5,6}\b/g)[0] //TÄÄ
 
     const drinkInfo = {
       name: title,
@@ -80,6 +93,7 @@ const getDrinkInfos = async (categoryUrl, categoryName) => {
       imageLink: `https://shopping.tallink.com${rawDrink.imagelink}`,
       category,
       size,
+      producer: rawDrink.producer,
       store: "tallink"
     }
     drinkInfos.push(drinkInfo)
@@ -161,7 +175,7 @@ const categories = [
 const getTallink = async () => {
   const infos = []
   console.log("Getting drinks from tallink")
-  await Promise.all(categories.slice(13, 14).map(async (category) => {
+  await Promise.all(categories.map(async (category) => {
     const infosForCategory = await getDrinkInfos(category.url, category.name)
     infos.push(...infosForCategory)
   }))
