@@ -21,6 +21,9 @@ const setAllDrinks = async () => {
     case "eckeroLine":
       onlyOneScraper = 4
       break
+    case "tallink":
+      onlyOneScraper = 5
+      break
     default:
       break
   }
