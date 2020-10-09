@@ -70,7 +70,7 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) =>
       break;
   }
   return (
-    <div style={{ width, display: "inline-block", border: "solid", borderColor: colors.lightGray, margin: "1rem" }}>
+    <div style={{ width, display: "inline-block", border: "solid", borderColor: colors.lightGray, margin: "1rem"}}>
       <h4 style={{ textAlign: "center" }}>{name}</h4>
       {chart}
     </div>
