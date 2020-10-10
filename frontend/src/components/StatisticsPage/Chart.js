@@ -1,11 +1,13 @@
 import React from 'react'
-import { capitalizeFirst, colors } from '../../utils'
+import { capitalizeFirst, colors, useWindowDimensions } from '../../utils'
 import { VictoryPie, VictoryTooltip, VictoryBar } from "victory"
 
 const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) => {
 
+  const { customTreshold } = useWindowDimensions(800)
+
   unit = unit ?? ""
-  width = width ?? "30rem"
+  width = customTreshold ? "90%" : "45%"
 
   const data = rawData.concat().sort((a, b) => b[field] - a[field])
     .map(item => {
@@ -70,7 +72,7 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) =>
       break;
   }
   return (
-    <div style={{ width, display: "inline-block", border: "solid", borderColor: colors.lightGray, margin: "1rem"}}>
+    <div style={{ width, display: "inline-block", border: "solid", borderColor: colors.lightGray, marginTop: "1rem", marginLeft: "1.25%", marginRight: "1.25%" }}>
       <h4 style={{ textAlign: "center" }}>{name}</h4>
       {chart}
     </div>
