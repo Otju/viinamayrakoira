@@ -4,6 +4,7 @@ export const stores = [
   {
     name: "alko",
     color: "#E3333C",
+    textColor: "white",
     displayName: "Alko"
   },
   {
@@ -19,7 +20,14 @@ export const stores = [
   {
     name: "eckeroLine",
     color: "#00549F",
+    textColor: "white",
     displayName: "Eckerö Line"
+  },
+  {
+    name: "tallink",
+    color: "#004152",
+    textColor: "white",
+    displayName: "Tallink & Silja Line"
   },
   {
     name: "superAlkoEesti",
