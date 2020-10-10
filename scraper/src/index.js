@@ -57,7 +57,7 @@ const setAllDrinks = async () => {
         const category = drink.category
         if (percentage >= 100 || (["Oluet", "Siiderit"].includes(category) && percentage > 15)
           || (["Punaviinit", "Roseviinit", "Valkoviinit", "Kuohuviinit ja Samppanjat", "Muut viinit", "Hanapakkaukset", "Juomasekoitukset ja lonkerot"].includes(category) && percentage > 25)) {
-          console.log(`${drink.link}} FAULTY PERCENTAGE`)
+          console.log(`${drink.link} FAULTY PERCENTAGE(${percentage})`)
         }
       }
     })

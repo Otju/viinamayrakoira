@@ -4,18 +4,18 @@ const roundTo = require('round-to')
 
 const url = "https://shopping.tallink.com/fi/tal-hel-bq/category/juomat/"
 
-const getDrinkInfos = async (categoryUrl, categoryName, number) => {
+const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
 
   const drinkInfos = []
 
-  const pageLink = url + categoryUrl + "?page=" + number
+  const pageLink = `${url}${categoryUrl}?page=${pageNumber || 1}&countPerPage=120`
 
   const browser = await puppeteer.launch({ headless: true })
   const page = await browser.newPage()
   await page.goto(pageLink, { timeout: 0 })
 
   let getDrinks = await page.evaluate(() => {
-    const mainPart = document.querySelector(".main-panel-view")
+    const mainPart = document.querySelector(".main-view")
     if (!mainPart) {
       return false
     }
@@ -27,10 +27,6 @@ const getDrinkInfos = async (categoryUrl, categoryName, number) => {
       const producer = item.querySelector('.manufacturer').innerText
       const imagelink = item.querySelector('.image > img').getAttribute("src")
       const price = item.querySelector('.top-price').innerText
-      if(!title || !link || !imagelink || !price){
-        console.log(`MISSING for ${title} ${categoryUrl} `)
-        return
-      }
       results.push({
         title,
         link,
@@ -41,21 +37,27 @@ const getDrinkInfos = async (categoryUrl, categoryName, number) => {
     })
     return results
   })
-  
+
   const rawDrinks = []
-  let result = true
-  for (let i = 1; result; i++) {
-    result = getDrinks
-    rawDrinks.push(result)
+  const result = getDrinks
+  if (result) {
+    rawDrinks.push(...result)
+  } else {
+    console.log("NO RESULT", categoryUrl)
   }
 
-  rawDrinks.forEach(rawDrink => {
+  rawDrinks.forEach((rawDrink, i) => {
+
+    if (!rawDrink.title || !rawDrink.link || !rawDrink.imagelink || !rawDrink.price) {
+      console.log(`MISSING for ${i} ${categoryUrl} `)
+      return
+    }
 
     const title = rawDrink.title
 
     const percentage = getPercentage(title)
     const size = getSize(title)
-
+v
     let category = categoryName
 
     if (category === "VIINIT") {
@@ -125,7 +127,8 @@ const categories = [
   },
   {
     name: "VIINIT",
-    url: "miedot-alkoholit/viinit"
+    url: "miedot-alkoholit/viinit",
+    pages: [1, 2, 3]
   },
   {
     name: "Muut viinit",
@@ -149,7 +152,7 @@ const categories = [
   },
   {
     name: "Brandyt, Armanjakit ja Calvadosit",
-    url: "vahvat-alkoholit/brandy"
+    url: "vahvat-alkoholit/calvados"
   },
   {
     name: "Viskit",
@@ -165,6 +168,10 @@ const categories = [
   },
   {
     name: "Ginit ja maustetut viinat",
+    url: "vahvat-alkoholit/muut-vahvat-alkoholit"
+  },
+  {
+    name: "Ginit ja maustetut viinat",
     url: "vahvat-alkoholit/tequila"
   },
   {
@@ -175,10 +182,17 @@ const categories = [
 const getTallink = async () => {
   const infos = []
   console.log("Getting drinks from tallink")
-  await Promise.all(categories.map(async (category) => {
-    const infosForCategory = await getDrinkInfos(category.url, category.name)
-    infos.push(...infosForCategory)
-  }))
+  for (const category of categories) {
+    if (category.pages) {
+      for (const page of category.pages) {
+        const infosForCategory = await getDrinkInfos(category.url, category.name, page)
+        infos.push(...infosForCategory)
+      }
+    } else {
+      const infosForCategory = await getDrinkInfos(category.url, category.name)
+      infos.push(...infosForCategory)
+    }
+  }
   console.log("Got drinks from tallink")
   return infos
 }

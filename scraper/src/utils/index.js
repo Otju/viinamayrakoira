@@ -11,7 +11,7 @@ const capitalizeFirst = string => {
 }
 
 const getPercentage = (string) => {
-  const rawPercentage = string.match(/(\d+)?,?\.?\d+(| )%/g)
+  const rawPercentage = string.match(/(\d+)?,?\.?\d+(|\s+)%/g)
   if (rawPercentage) {
     return percentage = turnToNumber(rawPercentage[0])
   }
@@ -19,15 +19,20 @@ const getPercentage = (string) => {
 }
 
 const getSize = (string) => {
+
   let size
 
-  const sizeMatchL = string.match(/\d?.?,?\d+(| )l/g)
+  const sizeMatchL = string.match(/\d?.?,?\d+(|\s+)l/g)
   if (sizeMatchL) {
     size = turnToNumber(sizeMatchL[0])
   }
-  const sizeMatchCl = string.match(/\d?.?,?\d+(| )cl/g)
+  const sizeMatchCl = string.match(/\d?.?,?\d+(|\s+)cl/g)
   if (sizeMatchCl) {
     size = turnToNumber(sizeMatchCl[0]) / 100
+  }
+  const sizeMatchMl = string.match(/\d?.?,?\d+(|\s+)ml/g)
+  if (sizeMatchMl) {
+    size = turnToNumber(sizeMatchMl[0]) / 1000
   }
 
   return size
