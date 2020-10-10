@@ -5,6 +5,7 @@ import StatisticsPage from './components/StatisticsPage/'
 import { Switch, Route, Redirect } from "react-router-dom"
 import DrinksPage from './components/DrinksPage'
 import PortionCalculatorPage from './components/PortionCalculatorPage'
+import InfoPage from './components/InfoPage'
 
 
 const App = () => {
@@ -24,7 +25,7 @@ const App = () => {
           <h1>Baarit</h1>
         </Route>
         <Route path="/moreinfo">
-          <h1>Lisää infoa</h1>
+          <InfoPage/>
         </Route>
         <Route path="/portioncalculator">
           <PortionCalculatorPage />
