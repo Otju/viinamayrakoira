@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer')
-const { turnToNumber, getSize, getPercentage } = require('../utils')
+const { turnToNumber, getSize, getPercentage, capitalizeFirst } = require('../utils')
 const roundTo = require('round-to')
 
 const url = "https://shopping.tallink.com/fi/tal-hel-bq/category/juomat/"
@@ -53,11 +53,15 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
       return
     }
 
+    if (!rawDrink.link.includes("product/juomat")) {
+      return
+    }
+
     const title = rawDrink.title
 
     const percentage = getPercentage(title)
     const size = getSize(title)
-v
+    v
     let category = categoryName
 
     if (category === "VIINIT") {
@@ -95,7 +99,7 @@ v
       imageLink: `https://shopping.tallink.com${rawDrink.imagelink}`,
       category,
       size,
-      producer: rawDrink.producer,
+      producer: capitalizeFirst(rawDrink.producer.toLowerCase()),
       store: "tallink"
     }
     drinkInfos.push(drinkInfo)
