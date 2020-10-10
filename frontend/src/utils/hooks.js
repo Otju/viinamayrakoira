@@ -22,7 +22,7 @@ export const useWindowDimensions = (treshold) => {
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [treshold])
 
   return windowDimensions
 }
