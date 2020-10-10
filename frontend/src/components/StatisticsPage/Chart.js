@@ -1,6 +1,6 @@
 import React from 'react'
 import { capitalizeFirst, colors, useWindowDimensions } from '../../utils'
-import { VictoryPie, VictoryTooltip, VictoryBar } from "victory"
+import { VictoryPie, VictoryTooltip, VictoryBar, VictoryContainer } from "victory"
 
 const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) => {
 
@@ -60,12 +60,13 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) =>
     }
   }]
   let chart
+  const containerComponent = <VictoryContainer style={{ touchAction: "auto" }} />
   switch (type) {
     case "pie":
-      chart = <VictoryPie {...{ labelComponent, style, events, data }} />
+      chart = <VictoryPie {...{ labelComponent, style, events, data, containerComponent }} />
       break
     case "bar":
-      chart = <VictoryBar barRatio={1} {...{ labelComponent, style, events, data }} />
+      chart = <VictoryBar barRatio={1} {...{ labelComponent, style, events, data, containerComponent }} />
       break
     default:
       console.log("Missing chart type")
