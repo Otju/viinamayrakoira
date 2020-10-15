@@ -91,7 +91,7 @@ export const categories = [
     color: "#E95D01"
   },
   {
-    name: "brandyt, armanjakit ja calvadosit",
+    name: "brandyt armanjakit ja calvadosit",
     color: "#b34c09"
   },
   {

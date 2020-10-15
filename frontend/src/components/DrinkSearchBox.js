@@ -10,19 +10,16 @@ const DrinkSearchBox = ({ handleClick }) => {
 
   const [name, setName] = useState("")
 
-  const result = useQuery(ALL_DRINKS, { variables: { first: 50, name, sortByField: "relevance"} })
+  const result = useQuery(ALL_DRINKS, { variables: { first: 5, name, sortByField: "relevance"} })
 
   let content
   if (!name) {
   } else if (!result.data || result.loading) {
     content = <Spinner animation="border" />
-  } else if (result.data.allDrinks.count === 0) {
+  } else if (result.data.allDrinks.length === 0) {
     content = <>"Haulla ei löytynyt mitään"</>
   } else {
-    const count = result.data.allDrinks.count
-    const drinks = result.data.allDrinks.drinks
-    const drinksOver = count - drinks.length
-
+    const drinks = result.data.allDrinks
     content =
       <>
         <ListGroup>
@@ -39,7 +36,6 @@ const DrinkSearchBox = ({ handleClick }) => {
             )
           })}
         </ListGroup>
-        { drinksOver > 0 ? <h5 style={{ textAlign: "center" }}>({drinksOver} lisää, tarkenna hakua)</h5> : null}
       </>
   }
 
