@@ -84,11 +84,6 @@ const typeDefs = gql`
     max: Int
   }
 
-  type allDrinksOutPut {
-    drinks: [Drink!]!,
-    count: Int!
-  }
-
   type updateAllDrinksOutPut{
     changed: Int,
     new: Int,
@@ -105,7 +100,7 @@ const typeDefs = gql`
       category: [String!]
       sortByField: String,
       sortByDescending: Boolean
-      ): allDrinksOutPut!
+      ): [Drink!]!
 
     bestDrinks(store: String): [Drink!]!
     statistics: statisticsOutPut!

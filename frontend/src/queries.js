@@ -20,8 +20,8 @@ export const ALL_DRINKS = gql`
       sortByField: $sortByField,
       sortByDescending: $sortByDescending,
       minMax: $minMax
-      ){
-        drinks{
+      )
+      {
         id
         name
         producer
@@ -48,8 +48,6 @@ export const ALL_DRINKS = gql`
           priceQualityRatio
           comment
         }
-      }
-      count
     }
   }
 `

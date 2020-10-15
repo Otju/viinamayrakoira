@@ -7,10 +7,11 @@ import DrinkCardList from "../DrinkCardList"
 import SearchVariableMenu from './SearchVariableMenu'
 import { searchTypes } from '../../utils'
 import { useLocation, useHistory } from "react-router-dom"
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 
 const DrinksPage = () => {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [offset, setOffset] = useState(0)
   const location = useLocation()
   const query = new URLSearchParams(location.search)
   const history = useHistory()
@@ -37,7 +38,7 @@ const DrinksPage = () => {
         } else {
           queryStrings[key] = []
         }
-      } else if (key==="sortByDescending") {
+      } else if (key === "sortByDescending") {
         queryStrings[key] = query.get(key) === "true"
       }
       else {
@@ -72,12 +73,7 @@ const DrinksPage = () => {
     history.push(`/drinks${queryStrings}`)
   }
 
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [searchVariables])
-
   const drinksPerPage = 30
-  const offset = drinksPerPage * (currentPage - 1)
   const searchVariablesWithMinMaxFix = {}
   Object.entries(searchVariables).forEach(([key, value]) => {
     if (key.includes("min") || key.includes("max")) {
@@ -104,22 +100,52 @@ const DrinksPage = () => {
     }
   })
 
+  const [drinks, setDrinks] = useState([])
+
   const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariablesWithMinMaxFix } })
 
+  const dataIsLoading = !result.data  || result.loading
+
+  useEffect(() => {
+    setOffset(0)
+    if (!dataIsLoading) {
+      setDrinks(result.data.allDrinks)
+    } else {
+      setDrinks([])
+    }
+  }, [searchVariables])
+
+  useEffect(() => {
+    if (!dataIsLoading) {
+      setDrinks(d => [...d, ...result.data.allDrinks])
+    }
+  }, [result])
+
+  console.log(drinks)
 
   let content
-  const refetch = result.refetch
+  const refetch = result.refetchF
+  const fetchMoreDrinks = () => {
+    setOffset(offset + 30)
+  }
 
-  if (!result.data || result.loading) {
+  if (dataIsLoading) {
     content = <Spinner animation="border" />
   } else if (result.data.allDrinks.count === 0) {
     content = "Haulla ei löytynyt mitään"
   } else {
     content = <>
-      <DrinkCardList drinks={result.data.allDrinks.drinks} refetch={refetch}/>
-      <PaginationMenu {...{ currentPage, drinksPerPage, setCurrentPage }} count={result.data.allDrinks.count} />
+      <InfiniteScroll
+        dataLength={drinks.length}
+        next={() => fetchMoreDrinks()}
+        hasMore={true}
+      >
+        <DrinkCardList drinks={drinks} refetch={refetch} />
+      </InfiniteScroll>
     </>
   }
+
+  //<PaginationMenu {...{ currentPage, drinksPerPage, setCurrentPage }} count={result.data.allDrinks.count} />
 
   return <div>
     <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} emptySearchVariables={emptySearchVariables} />
