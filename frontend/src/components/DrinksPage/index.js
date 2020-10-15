@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_DRINKS } from '../../queries'
 import Spinner from 'react-bootstrap/Spinner'
-import PaginationMenu from './PaginationMenu'
 import DrinkCardList from "../DrinkCardList"
 import SearchVariableMenu from './SearchVariableMenu'
 import { searchTypes } from '../../utils'
@@ -100,52 +99,50 @@ const DrinksPage = () => {
     }
   })
 
-  const [drinks, setDrinks] = useState([])
+  const [drinkChunks, setDrinkChunks] = useState(null)
 
   const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariablesWithMinMaxFix } })
 
-  const dataIsLoading = !result.data  || result.loading
+  const dataIsLoading = !result.data || result.loading
 
   useEffect(() => {
     setOffset(0)
     if (!dataIsLoading) {
-      setDrinks(result.data.allDrinks)
+      setDrinkChunks([result.data.allDrinks])
     } else {
-      setDrinks([])
+      setDrinkChunks(null)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchVariables])
 
   useEffect(() => {
     if (!dataIsLoading) {
-      setDrinks(d => [...d, ...result.data.allDrinks])
+      setDrinkChunks(d => d ? [...d, result.data.allDrinks] : [result.data.allDrinks])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result])
 
-  console.log(drinks)
-
   let content
-  const refetch = result.refetchF
+  const refetch = result.refetch
   const fetchMoreDrinks = () => {
     setOffset(offset + 30)
   }
 
-  if (dataIsLoading) {
+  if (!drinkChunks || drinkChunks[0].length === 0) {
     content = <Spinner animation="border" />
-  } else if (result.data.allDrinks.count === 0) {
-    content = "Haulla ei löytynyt mitään"
   } else {
     content = <>
       <InfiniteScroll
-        dataLength={drinks.length}
+        dataLength={drinkChunks.length}
         next={() => fetchMoreDrinks()}
         hasMore={true}
       >
-        <DrinkCardList drinks={drinks} refetch={refetch} />
+        {drinkChunks.map((chunk, i) => <DrinkCardList drinks={chunk} refetch={refetch} key={i} />)}
       </InfiniteScroll>
+      {dataIsLoading ? <Spinner animation="border" /> : null
+      }
     </>
   }
-
-  //<PaginationMenu {...{ currentPage, drinksPerPage, setCurrentPage }} count={result.data.allDrinks.count} />
 
   return <div>
     <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} emptySearchVariables={emptySearchVariables} />
