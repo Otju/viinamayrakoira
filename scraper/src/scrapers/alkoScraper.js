@@ -22,6 +22,8 @@ const getAlko = async () => {
       type = "Muut viinit"
     } if (type === "juomasekoitukset") {
       type = "Juomasekoitukset ja lonkerot"
+    } if (type === "brandyt, Armanjakit ja Calvadosit") {
+      type = "Brandyt Armanjakit ja Calvadosit"
     }
    if (type === "kuohuviinit & samppanjat") {
     type = "kuohuviinit ja samppanjat"

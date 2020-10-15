@@ -61,7 +61,7 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
 
     const percentage = getPercentage(title)
     const size = getSize(title)
-    v
+    
     let category = categoryName
 
     if (category === "VIINIT") {
@@ -151,11 +151,11 @@ const categories = [
     url: "vahvat-alkoholit/konjakki"
   },
   {
-    name: "Brandyt, Armanjakit ja Calvadosit",
+    name: "Brandyt Armanjakit ja Calvadosit",
     url: "vahvat-alkoholit/brandy"
   },
   {
-    name: "Brandyt, Armanjakit ja Calvadosit",
+    name: "Brandyt Armanjakit ja Calvadosit",
     url: "vahvat-alkoholit/calvados"
   },
   {

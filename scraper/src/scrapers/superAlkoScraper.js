@@ -104,7 +104,7 @@ const superAlkoCategories = [
     code: [4]
   },
   {
-    name: "Brandyt, Armanjakit ja Calvadosit",
+    name: "Brandyt Armanjakit ja Calvadosit",
     code: [8]
   },
   {

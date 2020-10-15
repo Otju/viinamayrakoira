@@ -171,7 +171,7 @@ const categories = [
     code: [73]
   },
   {
-    name: "Brandyt, Armanjakit ja Calvadosit",
+    name: "Brandyt Armanjakit ja Calvadosit",
     code: [75]
   },
   {

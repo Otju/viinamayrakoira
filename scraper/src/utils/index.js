@@ -22,17 +22,23 @@ const getSize = (string) => {
 
   let size
 
-  const sizeMatchL = string.match(/\d?.?,?\d+(|\s+)l/g)
+  const multiplier = string.match(/\d+x/g)
+
+  const sizeMatchL = string.match(/\d?\.?,?\d+(|\s+)l/g)
   if (sizeMatchL) {
     size = turnToNumber(sizeMatchL[0])
   }
-  const sizeMatchCl = string.match(/\d?.?,?\d+(|\s+)cl/g)
+  const sizeMatchCl = string.match(/\d?\.?,?\d+(|\s+)cl/g)
   if (sizeMatchCl) {
     size = turnToNumber(sizeMatchCl[0]) / 100
   }
-  const sizeMatchMl = string.match(/\d?.?,?\d+(|\s+)ml/g)
+  const sizeMatchMl = string.match(/\d?\.?,?\d+(|\s+)ml/g)
   if (sizeMatchMl) {
     size = turnToNumber(sizeMatchMl[0]) / 1000
+  }
+
+  if (multiplier) {
+    size = size * turnToNumber(multiplier[0])
   }
 
   return size
