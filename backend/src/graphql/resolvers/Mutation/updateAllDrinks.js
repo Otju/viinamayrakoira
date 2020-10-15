@@ -2,6 +2,7 @@ const Drink = require('../../../models/Drink')
 const Review = require('../../../models/Review')
 const roundTo = require('round-to')
 const { PerformanceObserver, performance } = require('perf_hooks')
+const { insertMany } = require('../../../models/Drink')
 
 const updateAllDrinks = async (root, args) => {
   const startTime = performance.now()
@@ -26,7 +27,15 @@ const updateAllDrinks = async (root, args) => {
           pricePerPortion: roundTo(drink.price / portionAmount, 2),
           ...drink,
           category: drink.category.toLowerCase(),
-          isInSelection: true
+          isInSelection: true,
+          searchTermString: ["name", "producer", "store", "category"].map(field => drink[field]).join(" ")
+            + [
+              { value: drink.percentage, unit: "%" },
+              { value: drink.price, unit: "€" },
+              { value: drink.size, unit: "l" },
+              { value: drink.size * 100, unit: "cl" },
+              { value: drink.size * 1000, unit: "ml" }
+            ].map(item => `${item.value}${item.unit} ${item.value.toString().replace(".", ",")}${item.unit}`).join(" ")
         })
       }
     })
@@ -55,7 +64,7 @@ const updateAllDrinks = async (root, args) => {
 
     let didntChange = 0
     await Promise.all(drinksUpdate.map(async (drink, i) => {
-      const fieldsToCheck = ["name", "producer", "ean", "productCode", "link", "price", "description", "percentage", "imageLink", "category", "size"]
+      const fieldsToCheck = ["name", "producer", "ean", "productCode", "link", "price", "description", "percentage", "imageLink", "category", "size", "searchTermString"]
       const dontUpdateMatches = fieldsToCheck.map(field => ({ [field]: drink[field] }))
       let updatedDrink = await Drink.updateOne(
         {

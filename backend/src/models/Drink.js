@@ -69,9 +69,13 @@ const schema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Review'
     }
-  ]
+  ],
+  searchTermString: {
+    type: String,
+    required: true
+  }
 })
 
-schema.plugin(mongoose_fuzzy_searching, { fields: ["name", "ean", "productCode", "producer", "description", "store"] })
+//schema.plugin(mongoose_fuzzy_searching, { fields: ["searchTermString"] })
 
 module.exports = mongoose.model("Drink", schema)

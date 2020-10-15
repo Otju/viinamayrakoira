@@ -10,7 +10,7 @@ const allDrinks = async (root, args) => {
     let regex = "^"
     args.name.split(" ").forEach(part => regex += `(?=.*${part})`)
     regex += ".*$"
-    search.name = { $regex: regex, $options: ["i", "x"] }
+    search.searchTermString = { $regex: regex, $options: ["i", "x"] }
   }
   if (args.store && args.store.length !== 0) {
     search.store = { $in: args.store }
@@ -30,12 +30,14 @@ const allDrinks = async (root, args) => {
     })
   }
   let drinks
-  let count
+  /*
   if (sortByField === "relevance" && searchText) {
     drinks = await Drink.fuzzySearch(searchText, search).skip(args.offset).limit(args.first).populate("reviews")
   } else {
-    drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection }).populate({ path: "reviews", options: { sort: { taste: 1 } } })
-  }
+    }
+    */
+  drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection }).populate({ path: "reviews", options: { sort: { taste: 1 } } })
+
   return drinks
 }
 
