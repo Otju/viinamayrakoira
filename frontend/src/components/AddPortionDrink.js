@@ -1,10 +1,11 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import DrinkSearchBox from './DrinkSearchBox'
 import MiniDrinkCard from './MiniDrinkCard'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Alert from 'react-bootstrap/Alert'
 import HoverableDropDownText from './DrinksPage/SearchVariableMenu/HoverableDropDownText'
 import { round } from '../utils'
 
@@ -106,10 +107,35 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
     }
   }
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
+  const [additionNotification, setAdditionNotification] = useState(null)
+
+  const handlePortionDrinkAdd = () => {
+    setPortionDrinks([...portionDrinks,
+    {
+      name: drink.name,
+      imageLink: drink.imageLink,
+      amount: `${selectedAmount.name} (${amount} l)`,
+      portionAmount,
+      price
+    }])
+    setAdditionNotification(
+      <Alert variant="danger">
+        Lisätty:<br />
+        {drink.name}<br />
+        {selectedAmount.name}
+      </Alert>)
+  }
+
+  useEffect(() => {
+    if (additionNotification) {
+      setTimeout(() => setAdditionNotification(null), 1500)
+    }
+  }, [additionNotification])
 
   const price = Number.isNaN(amount * drink.pricePerLitre) ? null : round(amount * drink.pricePerLitre)
 
@@ -123,7 +149,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
       </Modal.Header>
       <Modal.Body>
         <div>
-          <DrinkSearchBox handleClick={handleClick} defaultText="gambina"/>
+          <DrinkSearchBox handleClick={handleClick}/>
           tai <Button onClick={handleOwnDrink} variant="dark">Oma juoma</Button>
         </div>
         <div style={{ width: "50%", display: "inline-block", verticalAlign: "top", marginTop: "1rem" }}>
@@ -167,6 +193,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
           <br />
           <b>{portionAmount} annosta</b><br />
           <b>{price}€</b>
+          {additionNotification ? additionNotification : null}
         </div>
         {drink.name === "Oma juoma" ? null
           :
@@ -176,14 +203,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
         }
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="success" onClick={() => setPortionDrinks([...portionDrinks,
-        {
-          name: drink.name,
-          imageLink: drink.imageLink,
-          amount: `${selectedAmount.name} (${amount} l)`,
-          portionAmount,
-          price
-        }])}>
+        <Button variant="success" onClick={() => handlePortionDrinkAdd()}>
           Lisää
           </Button>
       </Modal.Footer>

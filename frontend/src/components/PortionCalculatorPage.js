@@ -26,13 +26,13 @@ const PortionCalculatorPage = () => {
                 {drink.name}
               </td>
               <td><div style={{ width: "6rem", display: "inline-block" }}>
-                <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "4rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "6rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
               </div></td>
               <td>
                 <b>{drink.portionAmount} annosta</b><br />
-                {<b>{drink.price}€</b>}
+                {<b>{drink.price}€</b>}<br />
+                <Button variant="danger" onClick={() => { setPortionDrinks(portionDrinks.filter((item, i2) => i2 !== i)) }}>Poista</Button>
               </td>
-              <td><Button variant="danger" onClick={() => { setPortionDrinks(portionDrinks.filter((item, i2) => i2 !== i)) }}>Poista</Button></td>
             </tr>
           ))
           }

@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useQuery } from '@apollo/client'
 import { ALL_DRINKS } from '../queries'
+import { capitalizeFirst } from "../utils"
 import Spinner from 'react-bootstrap/Spinner'
 import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -10,7 +11,7 @@ const DrinkSearchBox = ({ handleClick, defaultText }) => {
 
   const [name, setName] = useState(defaultText || "")
 
-  const result = useQuery(ALL_DRINKS, { variables: { first: 5, name, sortByField: "relevance" } })
+  const result = useQuery(ALL_DRINKS, { variables: { first: 50, name, sortByField: "pricePerPortion" } })
 
   let content
   if (!name) {
@@ -24,13 +25,19 @@ const DrinkSearchBox = ({ handleClick, defaultText }) => {
       <>
         <ListGroup>
           {drinks.map((drink, i) => {
+            //const storeColor = stores.find(store => drink.store === store.name).color style={{ border: "solid", borderColor: storeColor, border }}
             return (
               <Hoverable link={handleClick ? null : `drinks/${drink.id}`} handleClick={() => { handleClick(drink); setName("") }} key={drink.id}>
-                <ListGroup.Item >
-                  <div style={{ width: "6rem", display: "inline-block" }}>
-                    <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "4rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                <ListGroup.Item>
+                  <div style={{ width: "8rem", display: "inline-block" }}>
+                    <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "6rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
                   </div>
-                  {drink.name}
+                  <div style={{ display: "inline-block" }}>
+                    {drink.name}<br />
+                    {drink.price}€<br />
+                    {drink.size}l<br />
+                    {capitalizeFirst(drink.store)}
+                  </div>
                 </ListGroup.Item>
               </Hoverable>
             )
@@ -39,7 +46,7 @@ const DrinkSearchBox = ({ handleClick, defaultText }) => {
       </>
   }
 
-  return <div style={{ maxHeight: "28rem", marginLeft: "auto", marginRight: "auto", border: "solid" }}>
+  return <div style={{ maxHeight: "28rem", marginLeft: "auto", marginRight: "auto", border: "solid", overflowY: "scroll" }}>
     <Form.Control type="text" placeholder="Hae juomaa" value={name} onChange={(event) => setName(event.target.value)} />
     {content}
   </div>

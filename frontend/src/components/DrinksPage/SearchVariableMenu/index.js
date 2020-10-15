@@ -34,7 +34,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVa
       <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{ setFieldValue, searchVariables }} />
       <MinMaxDropDown searchVariables={searchVariables} valuetypes={searchTypes} setFieldValue={setFieldValue}></MinMaxDropDown>
       <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables}
-        valuetypes={name ? ([{ name: "relevance", displayName: "osuvuus" }, ...searchTypes]) : searchTypes} >
+        valuetypes={/*name ? ([{ name: "relevance", displayName: "osuvuus" }, ...searchTypes]) : */searchTypes} >
       </SortBySettings>
 
       {!_.isEqual(searchVariables, emptySearchVariables) ?
