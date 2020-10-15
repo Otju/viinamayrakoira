@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import HoverableDropDownText from './HoverableDropDownText'
 import { capitalizeFirst } from '../../../utils'
 
 const CheckboxDropDown = ({ searchVariables, setFieldValue, displayName, name, values }) => {
 
-  const [allSelected, setAllSelected] = useState(false)
+  const allSelected = searchVariables[name].length === values.length
 
   const handleClick = (item, name, selected) => {
 
@@ -17,7 +17,6 @@ const CheckboxDropDown = ({ searchVariables, setFieldValue, displayName, name, v
   }
 
   const handleSelectAll = () => {
-    setAllSelected(!allSelected)
     if (allSelected) {
       setFieldValue(name, [])
     } else {
