@@ -1,10 +1,11 @@
-Cypress.Commands.add("hasDrink", (sortByField, store) => {
+Cypress.Commands.add("hasDrink", (sortByField, store, count) => {
+
   let params = `sortByField: "${sortByField}"`
-  if(store){
+  if (store) {
     params += ` store: "${store}"`
   }
   const query = `query {
-    allDrinks(first: 1, ${params}) 
+    allDrinks(first: ${count || 1}, ${params}) 
       {
         name
         price
@@ -19,9 +20,11 @@ Cypress.Commands.add("hasDrink", (sortByField, store) => {
       body: { query: query },
     }
   ).then((res) => {
-    const drink = res.body.data.allDrinks[0]
-    cy.contains(drink.name)
-    cy.contains(drink.price)
-    cy.contains(drink.pricePerPortion)
+    const drinks = res.body.data.allDrinks
+    drinks.forEach(drink => {
+      cy.contains(drink.name)
+      cy.contains(drink.price)
+      cy.contains(drink.pricePerPortion)
+    })
   })
 })
