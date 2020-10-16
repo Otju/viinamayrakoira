@@ -10,11 +10,15 @@ describe('BestPage ', function () {
   })
   describe('Contains all correct drinks', function () {
     const stores = [null, "alko", "foodie", "kmarket", "superAlkoLatvia", "superAlkoEesti", "tallink", "eckeroLine"]
-    const sortCategories = ["pricePerPortion", "taste", "priceQualityRatio"]
+    const sortCategories = ["pricePerPortion"]//, "taste", "priceQualityRatio"] dont really work yet because of lack of reviews
 
     stores.forEach(store => {
-      it(`Has ${store || "all stores"}`, function () {
-        cy.hasDrink("pricePerPortion", store)
+      describe(`for ${store || "all stores"}`, function () {
+        sortCategories.forEach(category => {
+          it(`for category ${category}`, function () {
+            cy.hasDrink(category, store)
+          })
+        })
       })
     })
   }
