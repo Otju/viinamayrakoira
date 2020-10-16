@@ -31,7 +31,7 @@ const PortionCalculatorPage = () => {
               <td>
                 <b>{drink.portionAmount} annosta</b><br />
                 {<b>{drink.price}€</b>}<br />
-                <Button variant="danger" onClick={() => { setPortionDrinks(portionDrinks.filter((item, i2) => i2 !== i)) }}>Poista</Button>
+                <Button variant="success" onClick={() => { setPortionDrinks(portionDrinks.filter((item, i2) => i2 !== i)) }}>Poista</Button>
               </td>
             </tr>
           ))

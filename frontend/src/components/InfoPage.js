@@ -10,25 +10,24 @@ const InfoPage = () => {
       <Container>
         Palvelin → €<br />
         Sivuston aktiiviseen huoltoon ja ylläpitoon käytetty aika → €€ <br />
-        Juomavalikoimaan tutustuminen täysin ammattimaisessa kontekstissa → €€€
+        Juomavalikoimaan tutustuminen (tietysti vain ammattimaisista syistä) → €€€
       </Container>
       <h5>Tuotot</h5>
       <Container>
-        Mainokset → -       (ei ole)<br />
-        Käyttömaksu → -     (ei ole)
+        Mainokset → -<br />
+        Käyttömaksu → -<br />
+        Lahjoitukset → ?<br />
       </Container>
-      <h5>Lopputulema</h5>
-      <Container>
-        Arvostan jokaista lahjoitusta. Halutessaan lahjoittaa voi tästä <b>LINKKI</b> (1€ lahjoitus auttaa jo paljon!)
-      </Container>
+      <br />
+        Lahjoitukset ovat siis ainoa tapa pitää nettisivua yllä. Halutessaan lahjoittaa voi tästä <b>LINKKI</b> (1€ lahjoitus auttaa jo paljon!)
     </Container>
     <br />
     <h3>Sivut</h3>
     <Container>
       <b>Parhaat</b>-sivulta löydät juomat, joilla on:
       <ul>
-        <li>alin annoshinta (halvin känni)</li> 
-        <li>parhaat maku-arvostelut</li> 
+        <li>alin annoshinta (halvin känni)</li>
+        <li>parhaat maku-arvostelut</li>
         <li>parhaat hinta-laatu-arvostelut </li>
       </ul>
       <p>Yleisesti sekä kauppakohtaisesti. Jos haluat nähdä lisää juomia samalla haulla, <b>paina juoman yläpuolella olevaa kultaista koiraa</b></p>
