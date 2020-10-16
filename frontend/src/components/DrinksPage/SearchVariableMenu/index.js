@@ -30,8 +30,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVa
       <Form.Group>
         <Form.Control type="text" placeholder="Haku" value={name} onBlur={handleSubmit} onChange={(event) => setName(event.target.value)} />
       </Form.Group>
-      <CheckboxDropDown values={stores} name={"store"} displayName={"kauppa"} {...{ setFieldValue, searchVariables }} />
-      <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{ setFieldValue, searchVariables }} />
+      <CheckboxDropDown values={stores} name={"store"} displayName={"kauppa"} {...{ setFieldValue, searchVariables }}/>
+      <CheckboxDropDown values={categories} name={"category"} displayName={"kategoria"} {...{ setFieldValue, searchVariables }}/>
       <MinMaxDropDown searchVariables={searchVariables} valuetypes={searchTypes} setFieldValue={setFieldValue}></MinMaxDropDown>
       <SortBySettings setFieldValue={setFieldValue} searchVariables={searchVariables}
         valuetypes={/*name ? ([{ name: "relevance", displayName: "osuvuus" }, ...searchTypes]) : */searchTypes} >

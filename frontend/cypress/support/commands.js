@@ -1,8 +1,11 @@
-Cypress.Commands.add("hasDrink", (sortByField, store, count) => {
+Cypress.Commands.add("hasDrink", (sortByField, store, count, category) => {
 
   let params = `sortByField: "${sortByField}"`
   if (store) {
     params += ` store: "${store}"`
+  }
+  if (category) {
+    params += ` category: "${category}"`
   }
   const query = `query {
     allDrinks(first: ${count || 1}, ${params}) 
