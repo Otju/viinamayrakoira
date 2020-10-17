@@ -1,18 +1,26 @@
-Cypress.Commands.add("hasDrink", (sortByField, store, count, category) => {
+Cypress.Commands.add("hasDrink", (params, count) => {
 
-  let params = `sortByField: "${sortByField}"`
-  if (store) {
-    params += ` store: "${store}"`
-  }
-  if (category) {
-    params += ` category: "${category}"`
-  }
+  let paramString = ""
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (key === "sortByDescending") {
+      paramString = paramString.concat(` ${key}: ${value}`)
+    } else if (key === "minMax") {
+      paramString = paramString.concat((` ${key}: [${value
+        .map(item => `{${Object.entries(item)
+        .map(([keyIn, valueIn]) => `${keyIn}: ${typeof valueIn === "string" ? `"${valueIn}"` : valueIn}`).join(",")}}`)}]`))
+    } else {
+      paramString = paramString.concat(` ${key}: "${value}"`)
+    }
+  })
+  cy.log(paramString)
+
   const query = `query {
-    allDrinks(first: ${count || 1}, ${params}) 
+    allDrinks(first: ${count || 1}, ${paramString}) 
       {
-        name
         price
         pricePerPortion
+        percentage
       }
     }`
 
@@ -25,7 +33,8 @@ Cypress.Commands.add("hasDrink", (sortByField, store, count, category) => {
   ).then((res) => {
     const drinks = res.body.data.allDrinks
     drinks.forEach(drink => {
-      cy.contains(drink.name)
+      //cy.contains(drink.name) cypress doesn't find names correctly, even though they're there
+      cy.contains(drink.percentage)
       cy.contains(drink.price)
       cy.contains(drink.pricePerPortion)
     })

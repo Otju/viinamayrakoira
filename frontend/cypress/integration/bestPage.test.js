@@ -14,9 +14,9 @@ describe('BestPage ', function () {
 
     stores.forEach(store => {
       describe(`for ${store || "all stores"}`, function () {
-        sortCategories.forEach(category => {
-          it(`for category ${category}`, function () {
-            cy.hasDrink(category, store)
+        sortCategories.forEach(sortByField => {
+          it(`for sortByField ${sortByField}`, function () {
+            cy.hasDrink({ sortByField, store })
           })
         })
       })
