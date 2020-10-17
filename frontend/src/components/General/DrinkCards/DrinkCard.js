@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import { capitalizeFirst, stores, categories } from '../utils'
-import Hoverable from './Hoverable'
+import { capitalizeFirst, stores, categories } from '../../../utils'
+import Hoverable from '../Hoverable'
 import ReactStars from "react-rating-stars-component"
 import DrinkModal from './DrinkModal'
 

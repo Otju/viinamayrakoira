@@ -1,7 +1,7 @@
 import React from 'react'
 import DrinkCard from './DrinkCard'
 import CardGroup from 'react-bootstrap/CardGroup'
-import { groupByN, useWindowDimensions, stores } from '../utils'
+import { groupByN, useWindowDimensions, stores } from '../../../utils'
 
 const DrinkCardList = ({ drinks, bestDrinksStore, refetch }) => {
 

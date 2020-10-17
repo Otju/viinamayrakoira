@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_DRINKS } from '../../queries'
 import Spinner from 'react-bootstrap/Spinner'
-import DrinkCardList from "../DrinkCardList"
+import DrinkCardList from "../General/DrinkCards/DrinkCardList"
 import SearchVariableMenu from './SearchVariableMenu'
 import { searchTypes } from '../../utils'
 import { useLocation, useHistory } from "react-router-dom"

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useQuery } from '@apollo/client'
-import { ALL_DRINKS } from '../queries'
-import { capitalizeFirst } from "../utils"
+import { ALL_DRINKS } from '../../queries'
+import { capitalizeFirst } from "../../utils"
 import Spinner from 'react-bootstrap/Spinner'
 import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import AddPortionDrink from './AddPortionDrink'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-import { round } from '../utils'
+import { round } from '../../utils'
 
 const PortionCalculatorPage = () => {
 

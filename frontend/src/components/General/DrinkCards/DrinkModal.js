@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import ReactStars from "react-rating-stars-component"
-import { capitalizeFirst, stores, colors } from '../utils'
+import { capitalizeFirst, stores, colors } from '../../../utils'
 import { useMutation } from '@apollo/client'
-import { ADD_REVIEW } from '../queries'
+import { ADD_REVIEW } from '../../../queries'
 
 const DrinkModal = ({ drink, show, setShow, refetch }) => {
 

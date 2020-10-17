@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Card from 'react-bootstrap/Card'
-import Hoverable from './Hoverable'
+import Hoverable from '../Hoverable'
 import DrinkModal from './DrinkModal'
 
 const MiniDrinkCard = ({ drink, refetch }) => {

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
-import DrinkSearchBox from './DrinkSearchBox'
-import MiniDrinkCard from './MiniDrinkCard'
+import DrinkSearchBox from '../General/DrinkSearchBox'
+import MiniDrinkCard from '../General/DrinkCards/MiniDrinkCard'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Alert from 'react-bootstrap/Alert'
-import HoverableDropDownText from './DrinksPage/SearchVariableMenu/HoverableDropDownText'
-import { round } from '../utils'
+import HoverableDropDownText from '../DrinksPage/SearchVariableMenu/HoverableDropDownText'
+import { round } from '../../utils'
 
 const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
 
@@ -40,27 +40,6 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
       amount: 0.16
     },
   ]
-  /*
-    const gambina = {
-      description: "Punaruskea, makea, vermuttinen, giniarominen, katkeroinen",
-      ean: "6412700240114",
-      id: "319027alko",
-      imageLink: "https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/319027/Gambina-muovipullo",
-      link: "https://www.alko.fi/tuotteet/319027/",
-      name: "Gambina muovipullo",
-      percentage: 21,
-      percentageIsGuess: null,
-      portionAmount: 10.64,
-      price: 9.99,
-      pricePerLitre: 12.97,
-      pricePerPortion: 0.94,
-      producer: "Altia",
-      productCode: "319027",
-      size: 0.77,
-      store: "alko",
-      reviews: []
-    }
-    */
 
   const customDrink = {
     name: "Oma juoma",
