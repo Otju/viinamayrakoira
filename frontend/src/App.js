@@ -6,7 +6,7 @@ import { Switch, Route, Redirect } from "react-router-dom"
 import DrinksPage from './components/DrinksPage'
 import PortionCalculatorPage from './components/PortionCalculatorPage'
 import InfoPage from './components/InfoPage'
-import SingleDrink from './components/General/DrinkCards/SingleDrink'
+import SingleDrinkPage from './components/SingleDrinkPage'
 
 
 const App = () => {
@@ -35,7 +35,7 @@ const App = () => {
           <DrinksPage />
         </Route>
         <Route path="/drink/:id">
-          <SingleDrink />
+          <SingleDrinkPage />
         </Route>
         <Route path="/">
           <Redirect to="/best"/>

@@ -24,8 +24,7 @@ const SingleDrink = ({ drink, refetch }) => {
 
   return <div>
     <div style={{ display: 'inline-block', width: "50%" }}>
-      <img src={drink.imageLink} alt={drink.imageLink}
-        style={{ maxWidth: "100%", maxHeight: "18rem", width: "auto", height: "auto", mixBlendMode: "multiply", "marginTop": "-22rem" }} />
+      <img src={drink.imageLink} alt={drink.imageLink} style={{ maxWidth: "100%", maxHeight: "18rem", width: "auto", height: "auto", mixBlendMode: "multiply", "marginTop": "-22rem" }} />
     </div>
     <div style={{ display: 'inline-block', width: "50%", height: "20rem", marginBottom: "auto", marginTop: "auto" }}>
       {capitalizeFirst(drink.category)}<br />

@@ -130,7 +130,7 @@ export const ADD_REVIEW = gql`
 `
 
 export const ONE_DRINK = gql`
-  query allDrinks($id: String!){
+  query oneDrink($id: String!){
     oneDrink(id: $id)
       {
         id
