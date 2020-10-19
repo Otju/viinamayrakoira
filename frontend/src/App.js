@@ -6,6 +6,7 @@ import { Switch, Route, Redirect } from "react-router-dom"
 import DrinksPage from './components/DrinksPage'
 import PortionCalculatorPage from './components/PortionCalculatorPage'
 import InfoPage from './components/InfoPage'
+import SingleDrink from './components/General/DrinkCards/SingleDrink'
 
 
 const App = () => {
@@ -15,7 +16,7 @@ const App = () => {
     <div className="container" style={{ background: "#ede8e8" }}>
       <NavigationBar></NavigationBar>
       <Switch>
-        <Route path="/best">
+        <Route path="/best/:id?">
           <BestPage />
         </Route>
         <Route path="/statistics">
@@ -25,16 +26,19 @@ const App = () => {
           <h1>Baarit</h1>
         </Route>
         <Route path="/moreinfo">
-          <InfoPage/>
+          <InfoPage />
         </Route>
-        <Route path="/portioncalculator">
+        <Route path="/portioncalculator/:id?">
           <PortionCalculatorPage />
         </Route>
         <Route path="/drinks">
           <DrinksPage />
         </Route>
+        <Route path="/drink/:id">
+          <SingleDrink />
+        </Route>
         <Route path="/">
-          <Redirect to="/best" />
+          <Redirect to="/best"/>
         </Route>
       </Switch>
     </div>

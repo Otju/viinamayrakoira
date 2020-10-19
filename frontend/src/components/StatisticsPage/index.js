@@ -16,11 +16,6 @@ const StatisticsPage = () => {
   const statistics = result.data.statistics
 
   const withOutUselessCategories = statistics.drinksPerCategory.filter(item => item.group !== "alkoholittomat" && item.group !== "ei tietoa")
-  /*
-  const withConnectedGroups = statistics.drinksPerStoreAndCategory
-    .map(item => ({ ...item, group: `${item.groups.group1}\n${item.groups.group2}` }))
-    .filter(item => !item.group.includes("alkoholittomat") && !item.group.includes("ei tietoa"))
-*/
 
   return <div>
     <h1>Tilastoja</h1>

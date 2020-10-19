@@ -13,7 +13,6 @@ const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
 
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)
-
     const margin = {}
     if (position === 2) {
         margin.marginLeft = "1rem"
@@ -38,6 +37,9 @@ const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
     }
 
     const categoryObject = categories.find(category => category.name === drink.category)
+
+    const reviewCount = drink.reviews?.length
+    const commentCount = drink.reviews?.filter(review => review.comment).length
 
     return (
         <Card style={{ ...margin }}>
@@ -74,14 +76,14 @@ const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
                             {capitalizeFirst(drink.producer)}<br />
                             <ReactStars size={25} isHalf={true} value={(drink.tasteAverage || 0) / 2} edit={false} />
                             <ReactStars char="€" size={30} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
-                            {drink.reviews?.length} arvostelua <br />
-                            {drink.reviews?.filter(review => review.comment).length} kommenttia
+                            {reviewCount} {reviewCount === 1 ? "arvostelu" : "arvostelua"} <br />
+                            {commentCount} {commentCount === 1 ? "kommentti" : "kommenttia"}
                         </div>
                     </Card.Body>
                 </Hoverable>
             </div>
             <div style={{ position: "absolute", bottom: "1.5rem", left: "2rem" }}>
-                <Hoverable zIndex="5" handleClick={() => window.open(drink.link, "_blank")}><Button style={{color: textColor}}variant={drink.store}>Kauppaan →</Button></Hoverable>
+                <Hoverable zIndex="5" handleClick={() => window.open(drink.link, "_blank")}><Button style={{ color: textColor }} variant={drink.store}>Kauppaan →</Button></Hoverable>
             </div>
             <DrinkModal {...{ setShow, show, drink, refetch }} />
         </Card >

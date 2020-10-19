@@ -127,4 +127,38 @@ export const ADD_REVIEW = gql`
       comment
     }
   }
-`;
+`
+
+export const ONE_DRINK = gql`
+  query allDrinks($id: String!){
+    oneDrink(id: $id)
+      {
+        id
+        name
+        producer
+        ean
+        productCode
+        link
+        price
+        description
+        percentage
+        imageLink
+        category
+        size
+        store
+        portionAmount
+        pricePerPortion
+        pricePerLitre
+        percentageIsGuess
+        priceQualityRatioAverage
+        tasteAverage
+        reviews{
+          id
+          username
+          taste
+          priceQualityRatio
+          comment
+        }
+    }
+  }
+`

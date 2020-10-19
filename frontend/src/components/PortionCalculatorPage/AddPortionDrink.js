@@ -103,7 +103,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
       price
     }])
     setAdditionNotification(
-      <Alert variant="danger">
+      <Alert variant="success">
         Lisätty:<br />
         {drink.name}<br />
         {selectedAmount.name}

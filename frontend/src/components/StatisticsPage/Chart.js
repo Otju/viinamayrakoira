@@ -28,8 +28,6 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) =>
     data:
     {
       fill: data => data.datum.hasBorder ? data.datum.color : data.datum.color,
-      /*stroke: data => data.datum.hasBorder ? data.datum.color[1] : null, 
-      strokeWidth: 1*/
     }
   }
   const events = [{

@@ -104,6 +104,7 @@ const typeDefs = gql`
 
     bestDrinks(store: String): [Drink!]!
     statistics: statisticsOutPut!
+    oneDrink(id: String): Drink!
   }
 
   type Mutation {
