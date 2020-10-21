@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'reactn'
 import Form from 'react-bootstrap/Form'
 import CommentList from './CommentList'
 import ReactStars from "react-rating-stars-component"
-import { capitalizeFirst, stores, colors } from '../../../utils'
+import { colors } from '../../../utils'
 import { useMutation, gql, useQuery } from '@apollo/client'
 import { ADD_REVIEW, GET_REVIEWS } from '../../../queries'
 import DrinkInfo from './DrinkInfo'
@@ -15,6 +15,7 @@ const SingleDrink = ({ drink }) => {
   const [priceQualityRatio, setPriceQualityRatio] = useState(undefined)
   const result = useQuery(GET_REVIEWS, { variables: { id: drink.id } })
   const [reviews, setReviews] = useState(null)
+  const [drinkState, setDrinkState] = useState(drink)
   const [addReview] = useMutation(ADD_REVIEW, {
 
     update: (cache, response) => {
@@ -32,6 +33,8 @@ const SingleDrink = ({ drink }) => {
         }`,
         data: { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount }
       })
+
+      setDrinkState({ ...drink, tasteAverage, priceQualityRatioAverage, reviewCount, commentCount  })
     }
   })
 
@@ -48,7 +51,7 @@ const SingleDrink = ({ drink }) => {
   }, [result])
 
   return <div>
-    <DrinkInfo drink={drink} />
+    <DrinkInfo drink={drinkState} />
     <h3>Arvostele</h3>
     <div style={{ border: "solid", borderColor: colors.lightGray, padding: "1rem", paddingLeft: "0.3rem" }}>
       <Form onSubmit={handleSubmit}>

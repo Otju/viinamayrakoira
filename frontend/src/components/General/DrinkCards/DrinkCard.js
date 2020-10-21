@@ -38,9 +38,6 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
 
     const categoryObject = categories.find(category => category.name === drink.category)
 
-    const reviewCount = drink.reviewCount ?? 0
-    const commentCount = drink.commentCount ?? 0
-
     return (
         <Card style={{ ...margin }}>
             <div style={{ background: storeColor, height: "0.5rem" }}></div>
