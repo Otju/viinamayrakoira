@@ -5,6 +5,7 @@ import ReactStars from "react-rating-stars-component"
 import { capitalizeFirst, stores, colors } from '../../../utils'
 import { useMutation, gql, useQuery } from '@apollo/client'
 import { ADD_REVIEW, GET_REVIEWS } from '../../../queries'
+import DrinkInfo from './DrinkInfo'
 
 const SingleDrink = ({ drink }) => {
 
@@ -47,23 +48,7 @@ const SingleDrink = ({ drink }) => {
   }, [result])
 
   return <div>
-    <div style={{ display: 'inline-block', width: "50%" }}>
-      <img src={drink.imageLink} alt={drink.imageLink} style={{ maxWidth: "100%", maxHeight: "18rem", width: "auto", height: "auto", mixBlendMode: "multiply", "marginTop": "-22rem" }} />
-    </div>
-    <div style={{ display: 'inline-block', width: "50%", height: "20rem", marginBottom: "auto", marginTop: "auto" }}>
-      {capitalizeFirst(drink.category)}<br />
-      {drink.price}€<br />
-      {drink.percentage}%<br />
-      {drink.size}l<br />
-      {drink.pricePerLitre}€/l<br />
-      {drink.portionAmount} annosta<br />
-      {drink.pricePerPortion} €/annos<br />
-      {stores.find(store => store.name === drink.store).displayName}<br />
-      {capitalizeFirst(drink.producer)}<br />
-      <ReactStars size={30} isHalf={true} value={(drink.tasteAverage || 0) / 2} edit={false} />
-      <ReactStars char="€" size={45} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
-      {drink.reviews?.length} arvostelua <br />
-    </div>
+    <DrinkInfo drink={drink} />
     <h3>Arvostele</h3>
     <div style={{ border: "solid", borderColor: colors.lightGray, padding: "1rem", paddingLeft: "0.3rem" }}>
       <Form onSubmit={handleSubmit}>
