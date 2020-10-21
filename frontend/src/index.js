@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { setGlobal } from 'reactn'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client'
@@ -10,6 +10,10 @@ const uri = process.env.NODE_ENV === "development" ? "http://localhost:4000/" : 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({ uri })
+})
+
+setGlobal({
+  queries: []
 })
 
 ReactDOM.render(

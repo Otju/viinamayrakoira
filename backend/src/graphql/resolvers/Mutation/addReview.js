@@ -20,10 +20,13 @@ const addReview = async (root, args) => {
 
   const tasteAverage = average("taste")
   const priceQualityRatioAverage = average("priceQualityRatio")
+  const reviewIds = [...reviews.map(review => review._id)]
+  const reviewCount = reviewIds.length
+  const commentCount = reviews.filter(review => review.comment).length
 
-  await drink.updateOne({ tasteAverage, priceQualityRatioAverage, reviews: [...drink.reviews.map(review => review._id), review._id] })
+  await drink.updateOne({ tasteAverage, priceQualityRatioAverage, reviewCount, commentCount, reviews: reviewIds })
 
-  return review
+  return { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount, review }
 }
 
 module.exports = addReview

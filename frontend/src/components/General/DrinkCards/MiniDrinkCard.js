@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'
 import Hoverable from '../Hoverable'
 import DrinkModal from './DrinkModal'
 
-const MiniDrinkCard = ({ drink, refetch }) => {
+const MiniDrinkCard = ({ drink }) => {
 
     const [show, setShow] = useState(false)
     const handleShow = () => setShow(true)

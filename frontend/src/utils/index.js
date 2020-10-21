@@ -1,7 +1,7 @@
 import { stores, categories, searchTypes, colors } from "./constants"
 import { useWindowDimensions } from './hooks'
 
-export { stores, categories, searchTypes, colors, useWindowDimensions }
+export { stores, categories, searchTypes, colors, useWindowDimensions}
 
 export const capitalizeFirst = inputString => {
   if (!inputString || typeof inputString !== "string") {
@@ -18,7 +18,7 @@ export const groupByN = (data, n) => {
 }
 
 export const average = (array, field) => {
-  const avg = (array.reduce((acc, cur) => acc + cur[field],0)) / array.length
+  const avg = (array.reduce((acc, cur) => acc + cur[field], 0)) / array.length
   return Number.isNaN(avg) ? 0 : avg
 }
 

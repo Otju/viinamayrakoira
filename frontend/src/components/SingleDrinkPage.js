@@ -15,7 +15,6 @@ const SingleDrinkPage = () => {
   if (!id || !result || result.loading) {
     return null
   }
-  console.log(result)
   drink = result.data.oneDrink
 
   return <DrinkModal show={true} drink={drink} standalone={true} />

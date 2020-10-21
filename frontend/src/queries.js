@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 
+
 export const ALL_DRINKS = gql`
   query allDrinks(
     $first: Int!
@@ -41,21 +42,15 @@ export const ALL_DRINKS = gql`
         percentageIsGuess
         priceQualityRatioAverage
         tasteAverage
-        reviews{
-          id
-          username
-          taste
-          priceQualityRatio
-          comment
-        }
+        reviewCount
+        commentCount
     }
   }
 `
 
 export const BEST_DRINKS = gql`
   query bestDrinks(
-    $store: String
-    ){
+    $store: String){
     bestDrinks(store: $store){
         id
         name
@@ -74,13 +69,8 @@ export const BEST_DRINKS = gql`
         percentageIsGuess
         priceQualityRatioAverage
         tasteAverage
-        reviews{
-          id
-          username
-          taste
-          priceQualityRatio
-          comment
-        }
+        reviewCount
+        commentCount
     }
   }
 `
@@ -117,14 +107,33 @@ query {
 }
 `
 
+export const GET_REVIEWS = gql`
+  query getReviews($id: String!) {
+    getReviews(id: $id) {
+       id
+       drink
+       username
+       taste
+       priceQualityRatio
+       comment
+    }
+  }`
+
 export const ADD_REVIEW = gql`
   mutation addReview($review: ReviewInput) {
     addReview(review: $review) {
-      id
-      username
-      taste
-      priceQualityRatio
-      comment
+      review{
+        id
+        drink
+        username
+        taste
+        priceQualityRatio
+        comment
+      }
+      tasteAverage
+      priceQualityRatioAverage
+      reviewCount
+      commentCount
     }
   }
 `
@@ -153,6 +162,7 @@ export const ONE_DRINK = gql`
         priceQualityRatioAverage
         tasteAverage
         reviews{
+          drink
           id
           username
           taste

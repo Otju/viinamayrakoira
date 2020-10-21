@@ -123,7 +123,6 @@ const DrinksPage = () => {
   }, [result])
 
   let content
-  const refetch = result.refetch
   const fetchMoreDrinks = () => {
     setOffset(offset + 30)
   }
@@ -137,7 +136,7 @@ const DrinksPage = () => {
         next={() => fetchMoreDrinks()}
         hasMore={true}
       >
-        {drinkChunks.map((chunk, i) => <DrinkCardList drinks={chunk} refetch={refetch} key={i} />)}
+        {drinkChunks.map((chunk, i) => <DrinkCardList drinks={chunk} key={i} />)}
       </InfiniteScroll>
       {dataIsLoading ? <Spinner animation="border" /> : null
       }

@@ -71,8 +71,13 @@ const schema = new mongoose.Schema({
     }
   ],
   searchTermString: {
-    type: String,
-    required: true
+    type: Number
+  },
+  reviewCount: {
+    type: Number
+  },
+  commentCount: {
+    type: Number
   }
 })
 

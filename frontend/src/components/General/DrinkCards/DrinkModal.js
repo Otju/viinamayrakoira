@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import { Link, useHistory } from "react-router-dom"
 import SingleDrink from './SingleDrink'
 
-const DrinkModal = ({ drink, show, setShow, refetch, standalone }) => {
+const DrinkModal = ({ drink, show, setShow, standalone }) => {
 
   const history = useHistory()
 
@@ -21,7 +21,7 @@ const DrinkModal = ({ drink, show, setShow, refetch, standalone }) => {
     </Modal.Header>
     <Modal.Body>
       {standalone ? null : <Link to={`drink/${drink.id}`}>viinamayrakoira.fi/drink/{drink.id}</Link>}
-      <SingleDrink drink={drink} refetch={refetch} />
+      <SingleDrink drink={drink}/>
     </Modal.Body>
   </Modal>
 }

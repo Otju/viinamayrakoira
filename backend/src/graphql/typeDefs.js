@@ -21,6 +21,8 @@ const typeDefs = gql`
     pricePerLitre: Float!
     priceQualityRatioAverage: Float
     tasteAverage: Float
+    commentCount: Int
+    reviewCount: Int
     reviews: [Review!]!
   }
 
@@ -89,6 +91,14 @@ const typeDefs = gql`
     new: Int,
     deactivated: Int
   }
+
+  type addReviewOutPut{
+    review: Review!
+    tasteAverage: Float!,
+    priceQualityRatioAverage: Float!,
+    reviewCount: Int!,
+    commentCount: Int!
+  }
   
   type Query {
     allDrinks(
@@ -105,11 +115,12 @@ const typeDefs = gql`
     bestDrinks(store: String): [Drink!]!
     statistics: statisticsOutPut!
     oneDrink(id: String): Drink!
+    getReviews(id: String): [Review!]!
   }
 
   type Mutation {
     updateAllDrinks(drinks: [DrinkInput]): updateAllDrinksOutPut
-    addReview(review: ReviewInput): Review
+    addReview(review: ReviewInput): addReviewOutPut
   }
 `
 

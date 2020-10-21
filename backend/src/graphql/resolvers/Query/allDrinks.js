@@ -36,7 +36,7 @@ const allDrinks = async (root, args) => {
   } else {
     }
     */
-  drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection }).populate({ path: "reviews", options: { sort: { taste: 1 } } })
+  drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection })
 
   return drinks
 }

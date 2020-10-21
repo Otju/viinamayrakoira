@@ -3,7 +3,7 @@ import DrinkCard from './DrinkCard'
 import CardGroup from 'react-bootstrap/CardGroup'
 import { groupByN, useWindowDimensions, stores } from '../../../utils'
 
-const DrinkCardList = ({ drinks, bestDrinksStore, refetch }) => {
+const DrinkCardList = ({ drinks, bestDrinksStore }) => {
 
   const { width } = useWindowDimensions()
 
@@ -35,7 +35,7 @@ const DrinkCardList = ({ drinks, bestDrinksStore, refetch }) => {
       groupedDrinks.map(group => <CardGroup key={group[0].key}>
         {group.map((drink, i) => {
           return <DrinkCard style={{ display: 'inline-block' }} key={drink.key}
-            drink={drink} position={i + 1} hasRightMargin={groupSize === 3} refetch={refetch}/>
+            drink={drink} position={i + 1} hasRightMargin={groupSize === 3}/>
         })}
       </CardGroup>)
     }

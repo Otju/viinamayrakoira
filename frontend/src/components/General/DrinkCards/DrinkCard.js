@@ -6,7 +6,7 @@ import Hoverable from '../Hoverable'
 import ReactStars from "react-rating-stars-component"
 import DrinkModal from './DrinkModal'
 
-const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
+const DrinkCard = ({ drink, position, hasRightMargin }) => {
 
     const storeColor = stores.find(store => drink.store === store.name).color
     const textColor = stores.find(store => drink.store === store.name).textColor || "black"
@@ -38,8 +38,8 @@ const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
 
     const categoryObject = categories.find(category => category.name === drink.category)
 
-    const reviewCount = drink.reviews?.length
-    const commentCount = drink.reviews?.filter(review => review.comment).length
+    const reviewCount = drink.reviewCount ?? 0
+    const commentCount = drink.commentCount ?? 0
 
     return (
         <Card style={{ ...margin }}>
@@ -85,7 +85,7 @@ const DrinkCard = ({ drink, position, hasRightMargin, refetch }) => {
             <div style={{ position: "absolute", bottom: "1.5rem", left: "2rem" }}>
                 <Hoverable zIndex="5" handleClick={() => window.open(drink.link, "_blank")}><Button style={{ color: textColor }} variant={drink.store}>Kauppaan →</Button></Hoverable>
             </div>
-            <DrinkModal {...{ setShow, show, drink, refetch }} />
+            <DrinkModal {...{ setShow, show, drink }} />
         </Card >
     )
 }
