@@ -6,7 +6,7 @@ import { searchTypes } from '../../utils'
 import { useLocation, useHistory } from "react-router-dom"
 
 
-const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked }) => {
+const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked, dontSearchEmpty, expandable, drinksPerPage}) => {
   const location = useLocation()
   const query = new URLSearchParams(location.search)
   const history = useHistory()
@@ -65,10 +65,10 @@ const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked }) => {
         }
       }
     })
-    history.push(`/drinks${queryStrings}`)
+    history.push(`${window.location.pathname}${queryStrings}`)
   }
 
-  const drinksPerPage = 30
+  drinksPerPage = drinksPerPage || 30
   const searchVariablesWithMinMaxFix = {}
   Object.entries(searchVariables).forEach(([key, value]) => {
     if (key.includes("min") || key.includes("max")) {
@@ -95,10 +95,11 @@ const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked }) => {
     }
   })
 
+  const hasSearch = Boolean(searchVariables.name)
 
-  const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariablesWithMinMaxFix } })
+  const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariablesWithMinMaxFix }, skip: (!hasSearch && dontSearchEmpty) })
 
-  const dataIsLoading = !result.data || result.loading
+  const dataIsLoading = !result || !result.data || result.loading
 
   useEffect(() => {
     setOffset(0)
@@ -121,7 +122,8 @@ const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result])
 
-  return <SearchVariableMenu searchVariables={searchVariables} setSearchVariables={setSearchVariables} emptySearchVariables={emptySearchVariables} />
+
+  return <SearchVariableMenu expandable={expandable} searchVariables={searchVariables} setSearchVariables={setSearchVariables} emptySearchVariables={emptySearchVariables} />
 }
 
 export default SearchVariableUnit
