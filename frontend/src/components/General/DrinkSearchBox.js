@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useQuery } from '@apollo/client'
 import { ALL_DRINKS } from '../../queries'
 import { capitalizeFirst } from "../../utils"
@@ -6,24 +6,52 @@ import Spinner from 'react-bootstrap/Spinner'
 import Form from 'react-bootstrap/Form'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Hoverable from "./Hoverable"
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 const DrinkSearchBox = ({ handleClick, defaultText }) => {
 
   const [name, setName] = useState(defaultText || "")
+  const [offset, setOffset] = useState(0)
+  const [drinks, setDrinks] = useState([])
 
-  const result = useQuery(ALL_DRINKS, { variables: { first: 50, name, sortByField: "pricePerPortion" } })
+  const result = useQuery(ALL_DRINKS, { variables: { first: 10, offset, name, sortByField: "pricePerPortion" } })
+
+  const dataIsLoading = !result.data || result.loading
+
+  useEffect(() => {
+    setOffset(0)
+    if (!dataIsLoading) {
+      setDrinks(result.data.allDrinks)
+    } else {
+      setDrinks(null)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name])
+
+  useEffect(() => {
+    if (!dataIsLoading) {
+      setDrinks(d => d ? [...d, ...result.data.allDrinks] : result.data.allDrinks)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result])
 
   let content
   if (!name) {
-  } else if (!result.data || result.loading) {
-    content = <Spinner animation="border" />
-  } else if (result.data.allDrinks.length === 0) {
-    content = <>"Haulla ei löytynyt mitään"</>
+  } else if (!drinks || drinks.length === 0) {
+    if (dataIsLoading) {
+      content = <Spinner animation="border" />
+    } else {
+      content = <>"Haulla ei löytynyt mitään"</>
+    }
   } else {
-    const drinks = result.data.allDrinks
     content =
-      <>
-        <ListGroup>
+      <ListGroup>
+        <InfiniteScroll
+          dataLength={drinks.length}
+          next={() => setOffset(offset + 10)}
+          hasMore={true}
+          scrollableTarget="scrollDiv"
+          >
           {drinks.map((drink, i) => {
             //const storeColor = stores.find(store => drink.store === store.name).color style={{ border: "solid", borderColor: storeColor, border }}
             return (
@@ -42,11 +70,11 @@ const DrinkSearchBox = ({ handleClick, defaultText }) => {
               </Hoverable>
             )
           })}
-        </ListGroup>
-      </>
+        </InfiniteScroll >
+      </ListGroup >
   }
 
-  return <div style={{ maxHeight: "28rem", marginLeft: "auto", marginRight: "auto", border: "solid", overflowY: "scroll" }}>
+  return <div id="scrollDiv" style={{ marginLeft: "auto", marginRight: "auto", border: "solid", maxHeight: "28rem", overflowY: "scroll" }}>
     <Form.Control type="text" placeholder="Hae juomaa" value={name} onChange={(event) => setName(event.target.value)} />
     {content}
   </div>
