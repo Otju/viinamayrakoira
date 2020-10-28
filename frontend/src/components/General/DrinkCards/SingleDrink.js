@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'reactn'
+import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import CommentList from './CommentList'
 import ReactStars from "react-rating-stars-component"
