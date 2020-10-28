@@ -7,6 +7,7 @@ import DrinksPage from './components/DrinksPage'
 import PortionCalculatorPage from './components/PortionCalculatorPage'
 import InfoPage from './components/InfoPage'
 import SingleDrinkPage from './components/SingleDrinkPage'
+import ComparisonPage from './components/ComparisonPage'
 
 
 const App = () => {
@@ -36,6 +37,9 @@ const App = () => {
         </Route>
         <Route path="/drink/:id">
           <SingleDrinkPage />
+        </Route>
+        <Route path="/compare">
+          <ComparisonPage />
         </Route>
         <Route path="/">
           <Redirect to="/best"/>

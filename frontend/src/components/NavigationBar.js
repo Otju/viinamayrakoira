@@ -19,6 +19,7 @@ const NavigationBar = () => {
           <LinkContainer to="/best"><Nav.Link>Parhaat</Nav.Link></LinkContainer>
           <LinkContainer to="/drinks"><Nav.Link>Juomat</Nav.Link></LinkContainer>
           <OverlayTrigger overlay={<Tooltip>Vielä työn alla</Tooltip>}><div><LinkContainer to="/bars"><Nav.Link disabled>Baarit</Nav.Link></LinkContainer></div></OverlayTrigger>
+          <LinkContainer to="/compare"><Nav.Link>Vertaa</Nav.Link></LinkContainer>
           <LinkContainer to="/portioncalculator"><Nav.Link>Annoslaskuri</Nav.Link></LinkContainer>
           <LinkContainer to="/statistics"><Nav.Link>Tilastot</Nav.Link></LinkContainer>
           <LinkContainer to="/moreinfo"><Nav.Link>Tietoa</Nav.Link></LinkContainer>
