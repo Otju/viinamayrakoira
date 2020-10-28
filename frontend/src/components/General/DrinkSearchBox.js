@@ -57,11 +57,11 @@ const DrinkSearchBox = ({ handleClick, defaultText }) => {
             return (
               <Hoverable link={handleClick ? null : `drinks/${drink.id}`} handleClick={() => { handleClick(drink); setName("") }} key={drink.id}>
                 <ListGroup.Item>
-                  <div style={{ width: "8rem", display: "inline-block" }}>
+                  <div style={{ width: "40%", display: "inline-block" }}>
                     <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "6rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
                   </div>
-                  <div style={{ display: "inline-block" }}>
-                    {drink.name}<br />
+                  <div style={{ display: "inline-block", width: "60%" }}>
+                    <div style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden"}}>{drink.name}</div>
                     {drink.price}€<br />
                     {drink.size}l<br />
                     {capitalizeFirst(drink.store)}
