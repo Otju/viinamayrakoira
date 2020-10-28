@@ -71,7 +71,7 @@ const schema = new mongoose.Schema({
     }
   ],
   searchTermString: {
-    type: Number
+    type: String
   },
   reviewCount: {
     type: Number
@@ -80,7 +80,5 @@ const schema = new mongoose.Schema({
     type: Number
   }
 })
-
-//schema.plugin(mongoose_fuzzy_searching, { fields: ["searchTermString"] })
 
 module.exports = mongoose.model("Drink", schema)

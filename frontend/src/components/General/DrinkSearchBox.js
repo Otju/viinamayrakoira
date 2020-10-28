@@ -13,6 +13,7 @@ const DrinkSearchBox = ({ handleClick, defaultText }) => {
 
   const result = useQuery(ALL_DRINKS, { variables: { first: 50, name, sortByField: "pricePerPortion" } })
 
+  console.log(result)
   let content
   if (!name) {
   } else if (!result.data || result.loading) {

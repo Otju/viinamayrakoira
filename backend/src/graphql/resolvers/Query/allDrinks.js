@@ -30,14 +30,7 @@ const allDrinks = async (root, args) => {
     })
   }
   let drinks
-  /*
-  if (sortByField === "relevance" && searchText) {
-    drinks = await Drink.fuzzySearch(searchText, search).skip(args.offset).limit(args.first).populate("reviews")
-  } else {
-    }
-    */
   drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection })
-
   return drinks
 }
 
