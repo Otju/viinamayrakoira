@@ -8,6 +8,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Hoverable from "./Hoverable"
 import InfiniteScroll from 'react-infinite-scroll-component'
 
+
 const DrinkSearchBox = ({ handleClick, defaultText }) => {
 
   const [name, setName] = useState(defaultText || "")
