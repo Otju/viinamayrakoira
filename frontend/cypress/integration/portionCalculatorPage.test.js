@@ -18,6 +18,7 @@ describe('PortionCalculatorPage ', function () {
   it('searchin and adding 2 drinks works, and deleting works', function () {
     cy.get(".btn-success").click()
     cy.get("input").eq(0).type("original long drink")
+    cy.get("#scrollDiv").scrollTo('bottom')
     cy.get('.list-group-item:contains("Original Long Drink Strong tölkki")').click()
     cy.contains("Original Long Drink Strong tölkki")
     cy.contains("3.19€")
