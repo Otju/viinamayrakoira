@@ -1,11 +1,20 @@
 const Drink = require('../../../models/Drink')
 const Review = require('../../../models/Review')
 const roundTo = require('round-to')
-const { PerformanceObserver, performance } = require('perf_hooks')
-const { insertMany } = require('../../../models/Drink')
+const { performance } = require('perf_hooks')
 
 const updateAllDrinks = async (root, args) => {
   const startTime = performance.now()
+
+  const storeNames = {
+    alko: "Alko",
+    foodie: "Smarket S-market S-ryhmä",
+    kmarket: "Kmarket K-market K-ryhmä Kesko",
+    eckeroLine: "Eckerö Line",
+    tallink: "Tallink & Silja Line",
+    superAlkoEesti: "Super Eesti Viro",
+    superAlkoLatvia: "Super Latvia"
+  }
 
   try {
     const drinksToSave = []
@@ -36,6 +45,7 @@ const updateAllDrinks = async (root, args) => {
               { value: drink.size * 100, unit: "cl" },
               { value: drink.size * 1000, unit: "ml" }
             ].map(item => `${item.value}${item.unit} ${item.value.toString().replace(".", ",")}${item.unit}`).join(" ")
+            + storeNames[drink.store]
         })
       }
     })

@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Hoverable from "./Hoverable"
 import InfiniteScroll from 'react-infinite-scroll-component'
 import SearchVariableUnit from '../DrinksPage/SearchVariableUnit'
-import { useLocation, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 const DrinkSearchBox = ({ handleClick, defaultText }) => {
 
