@@ -13,6 +13,10 @@ describe('Drinkpage ', function () {
     cy.hasDrink({ sortByField: "pricePerPortion" }, 60)
   })
   describe('Search tests ', function () {
+    it('text search works', function () {
+      cy.get('input').eq(0).type("original long drink{enter}").click()
+      cy.hasDrink({ sortByField: "pricePerPortion", name: "original long drink" }, 30)
+    })
     it('store search works (foodie)', function () {
       cy.get('.dropdown').eq(0).click()
       cy.get('.dropdown-item-text').eq(2).click()

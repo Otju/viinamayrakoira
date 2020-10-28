@@ -13,7 +13,6 @@ Cypress.Commands.add("hasDrink", (params, count) => {
       paramString = paramString.concat(` ${key}: "${value}"`)
     }
   })
-  cy.log(paramString)
 
   const query = `query {
     allDrinks(first: ${count || 1}, ${paramString}) 
