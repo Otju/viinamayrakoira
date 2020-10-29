@@ -33,10 +33,7 @@ const DrinkCardList = ({ drinks, bestDrinksStore }) => {
     ))}
     {
       groupedDrinks.map(group => <CardGroup key={group[0].key}>
-        {group.map((drink, i) => {
-          return <DrinkCard style={{ display: 'inline-block' }} key={drink.key}
-            drink={drink} position={i + 1} hasRightMargin={groupSize === 3}/>
-        })}
+        {group.map((drink, i) => <DrinkCard key={drink.key} drink={drink} position={i + 1} hasRightMargin={groupSize === 3} />)}
       </CardGroup>)
     }
   </div>

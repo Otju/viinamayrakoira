@@ -4,9 +4,10 @@ import { ALL_DRINKS } from '../../queries'
 import SearchVariableMenu from './SearchVariableMenu'
 import { searchTypes } from '../../utils'
 import { useLocation, useHistory } from "react-router-dom"
+import _ from "lodash"
 
 
-const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked, dontSearchEmpty, expandable, drinksPerPage}) => {
+const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked, dontSearchEmpty, expandable, drinksPerPage }) => {
   const location = useLocation()
   const query = new URLSearchParams(location.search)
   const history = useHistory()
@@ -95,7 +96,7 @@ const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked, dontSearc
     }
   })
 
-  const hasSearch = Boolean(searchVariables.name)
+  const hasSearch = Boolean(!_.isEqual(searchVariables, emptySearchVariables))
 
   const result = useQuery(ALL_DRINKS, { variables: { first: drinksPerPage, offset, ...searchVariablesWithMinMaxFix }, skip: (!hasSearch && dontSearchEmpty) })
 
@@ -116,7 +117,7 @@ const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked, dontSearc
       if (isChunked) {
         setDrinks(d => d ? [...d, result.data.allDrinks] : [result.data.allDrinks])
       } else {
-        setDrinks(d => d ? [...d, ...result.data.allDrinks] : result.data.allDrinks)
+        setDrinks(d => d ? d.concat(result.data.allDrinks) : result.data.allDrinks)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
