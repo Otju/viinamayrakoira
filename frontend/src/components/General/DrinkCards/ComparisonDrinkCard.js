@@ -4,6 +4,7 @@ import React from 'react'
 import DrinkCard from './DrinkCard'
 import DrinkSearchBox from '../DrinkSearchBox'
 import { round } from "../../../utils"
+import Button from 'react-bootstrap/Button'
 
 const ComparisonDrinkCard = ({ drinkId, drinks, index, setDrinks }) => {
 
@@ -19,9 +20,6 @@ const ComparisonDrinkCard = ({ drinkId, drinks, index, setDrinks }) => {
     
         */
 
-    if (index === 1 && !drinks[0]) {
-        return null
-    }
     if (drink) {
         let comparisonDrink = { ...drink }
         let drinkToCompareTo = index === 0 ? drinks[1] : drinks[0]
@@ -36,7 +34,14 @@ const ComparisonDrinkCard = ({ drinkId, drinks, index, setDrinks }) => {
                 }
             })
         }
-        return <DrinkCard drink={comparisonDrink} />
+        return <>
+            <div style={{ position: "absolute", right: "16px", top: "16px", zIndex: 9000 }}>
+                <Button variant="danger" onClick={() => setDrinks(d => d.map((item, i) => index === i ? null : item))}>×</Button>
+            </div>
+            <DrinkCard drink={comparisonDrink} />
+        </>
+    } else if (index === 1 && !drinks[0]) {
+        return null
     }
     else {
         return <DrinkSearchBox keyPart={index} handleClick={(drink) => setDrinks(d => d.map((item, i) => index === i ? drink : item))} />
