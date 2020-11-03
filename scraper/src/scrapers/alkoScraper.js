@@ -1,7 +1,7 @@
 const fetch = require("node-fetch")
 const XLSX = require('xlsx')
 const roundTo = require('round-to')
-const { turnToNumber, capitalizeFirst } = require('../utils')
+const { turnToNumber } = require('../utils')
 
 
 const xlsxUrl = "https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xlsx"

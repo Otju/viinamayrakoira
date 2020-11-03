@@ -21,8 +21,9 @@ const getPercentage = (string) => {
 const getSize = (string) => {
 
   let size
+  string = string.toLowerCase()
 
-  const multiplier = string.match(/\d+x/g)
+  const multiplier = string.match(/\d+x/g) || string.match(/\d+-pack/g)
 
   const sizeMatchL = string.match(/\d?\.?,?\d+(|\s+)l/g)
   if (sizeMatchL) {

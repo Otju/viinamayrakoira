@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer')
-const { turnToNumber } = require('../utils')
+const { turnToNumber, getSize, getPercentage } = require('../utils')
 const roundTo = require('round-to')
 
 const kmarketUrl = "https://www.k-ruoka.fi/kauppa/tuotehaku/juomat/"
@@ -31,7 +31,7 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
 
   const browser = await puppeteer.launch({ headless: true })
   const page = await browser.newPage()
-  await page.goto(pageLink, {timeout: 0})
+  await page.goto(pageLink, { timeout: 0 })
   await autoScroll(page)
 
   let getDrinks = await page.evaluate(() => {
@@ -58,13 +58,21 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
 
   rawDrinks.forEach(rawDrink => {
 
-    let percentage
     const title = rawDrink.title
-    
-    const rawPercentage = title.match(/(\d+)?,?\.?\d+%/g)
-    if (rawPercentage) {
-      percentage = turnToNumber(rawPercentage[0])
+    const percentage = getPercentage(title)
+    let size = getSize(title)
+    if (!size) {
+      if (title.includes("0,5")) {
+        size = 0.5
+      }
+      if (title.includes("0,33")) {
+        size = 0.33
+      }
+      if (title.includes("0,35")) {
+        size = 0.35
+      }
     }
+    const ean = rawDrink.link.match(/\b\d{13}\b/g)[0]
 
     let category = categoryName
 
@@ -74,16 +82,16 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
         return inName || inDesc
       }
       if (category === "Muut viinit") {
-        if (isInNameOrDescription(["red", "punaviini"])) {
+        if (isInName(["red", "punaviini"])) {
           category = "Punaviinit"
         }
-        if (isInNameOrDescription(["kuoh"])) {
+        if (isInName(["kuoh"])) {
           category = "Kuohuviinit ja Samppanjat"
         }
-        if (isInNameOrDescription(["valko", "white"])) {
+        if (isInName(["valko", "white"])) {
           category = "Valkoviinit"
         }
-        if (isInNameOrDescription(["rosé", "rose"])) {
+        if (isInName(["rosé", "rose"])) {
           category = "Roseeviinit"
         }
       }
@@ -91,19 +99,6 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
         category = "Alkoholittomat"
       }
     }
-
-    let size
-
-    const sizeMatchL = title.match(/\d?.?,?\d+l/g)
-    if (sizeMatchL) {
-      size = turnToNumber(sizeMatchL[0])
-    }
-    const sizeMatchCl = title.match(/\d?.?,?\d+cl/g)
-    if (sizeMatchCl) {
-      size = turnToNumber(sizeMatchCl[0]) / 100
-    }
-
-    const ean = rawDrink.link.match(/\b\d{13}\b/g)[0]
 
     const drinkInfo = {
       name: title.includes("Vain myymälästä") ? title.slice(0, -17) : title,

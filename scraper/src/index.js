@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { request, gql } = require('graphql-request')
+const { request } = require('graphql-request')
 const scrapers = require('./scrapers')
 
 const setAllDrinks = async () => {
@@ -48,7 +48,7 @@ const setAllDrinks = async () => {
     let hasRequiredFields = true
     requiredFields.forEach(field => {
       if (!drink[field]) {
-        if (field !== "percentage" || !(drink.name.includes("alk")) || !(drink.name.includes("non-alc"))) {
+        if (field !== "percentage" && (!(drink.name.includes("alk")) || drink.category!=="alkoholittomat" || !(drink.name.includes("non-alc")))) {
           console.log(`${drink.link}} is missing field "${field}"`)
         }
         hasRequiredFields = false

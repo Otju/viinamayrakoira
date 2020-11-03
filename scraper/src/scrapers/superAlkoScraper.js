@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const got = require('got');
-const { turnToNumber, percentageStringToFloat } = require('../utils')
+const { turnToNumber, getSize, getPercentage } = require('../utils')
 
 const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
 
@@ -36,20 +36,8 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
         const productCode = rawLinkParts[rawLinkParts.length - 1]
         const price = turnToNumber(rawPrice)
 
-        let size
-        let percentage
-
-        const rawPercentage = name.match(/(\d+)?,?\.?\d+%/g)
-        if (rawPercentage) {
-          percentage = turnToNumber(rawPercentage[0])
-        }
-        const rawSize = name.match(/(\d+)?,?\.?\d+cl/g)
-        if (rawSize) {
-          const multiplier = name.match(/\d+x/g) || 1
-          size = (turnToNumber(rawSize[0]) * multiplier) / 100
-        } else if (name.includes("1L")) {
-          size = 1
-        }
+        let size = getSize(name)
+        const percentage = getPercentage(name)
 
         if (productCode === "27938") {  //superAlko had a typo in their infos
           size = 0.33

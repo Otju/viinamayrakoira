@@ -43,7 +43,7 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
   if (result) {
     rawDrinks.push(...result)
   } else {
-    console.log("NO RESULT", categoryUrl)
+    console.log("NO RESULT FOR A SINGLE DRINK", categoryUrl)
   }
 
   rawDrinks.forEach((rawDrink, i) => {
