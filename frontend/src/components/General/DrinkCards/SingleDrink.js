@@ -51,7 +51,7 @@ const SingleDrink = ({ drink }) => {
   }, [result])
 
   return <div>
-    <DrinkInfo drink={drinkState} />
+    <DrinkInfo drink={drinkState} showStoreButton={true}/>
     <h3>Arvostele</h3>
     <div style={{ border: "solid", borderColor: colors.lightGray, padding: "1rem", paddingLeft: "0.3rem" }}>
       <Form onSubmit={handleSubmit}>
