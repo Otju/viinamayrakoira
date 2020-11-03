@@ -13,10 +13,12 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('connected to MongoDB')
   })
-
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  playground: {
+    endpoint: "/dev/graphql"
+  },
   context: ({ event, context }) => ({
     headers: event.headers,
     functionName: context.functionName,
@@ -27,11 +29,8 @@ const server = new ApolloServer({
 
 exports.graphqlHandler = server.createHandler({
   cors: {
-    origin: "*",
-    credentials: false
-  },
-  endpointURL: "/graphql"
-});
-
-
+    origin: '*',
+    credentials: true,
+  }
+})
 

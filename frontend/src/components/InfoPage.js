@@ -6,20 +6,15 @@ const InfoPage = () => {
   return <Container>
     <h3>Lahjoitukset</h3>
     <Container>
-      <h5>Kulut</h5>
-      <Container>
-        Palvelin → €<br />
-        Sivuston aktiiviseen huoltoon ja ylläpitoon käytetty aika → €€ <br />
-        Juomavalikoimaan tutustuminen (tietysti vain ammattimaisista syistä) → €€€
-      </Container>
-      <h5>Tuotot</h5>
-      <Container>
-        Mainokset → -<br />
-        Käyttömaksu → -<br />
-        Lahjoitukset → ?<br />
-      </Container>
-      <br />
-        Lahjoitukset ovat siis ainoa tapa pitää nettisivua yllä. Halutessaan lahjoittaa voi tästä <b>LINKKI</b> (1€ lahjoitus auttaa jo paljon!)
+      <p>Tämä nettisivu on täysin ilmainen, eikä sisällä mainoksia. </p>
+      <p>Lahjoitusten avulla voin maksaa <strike>perjantaikaljat</strike> palvelinkustannukset ja käyttää sivuston kehittämiseen ja ylläpitoon enemmän aikaa.</p>
+      <p><b>Tärkeintä kuitenkin on, että itse koet nettisivun hyödylliseksi.</b></p>
+      <p>Kannattaa myös vinkata sivua tutuille ;)</p>
+      <form action="https://www.paypal.com/donate" method="post" target="_blank">
+        <input type="hidden" name="hosted_button_id" value="MQK9WRMSCG734" />
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+        <img alt="" border="0" src="https://www.paypal.com/en_FI/i/scr/pixel.gif" width="1" height="1" />
+      </form>
     </Container>
     <br />
     <h3>Sivut</h3>
@@ -33,6 +28,7 @@ const InfoPage = () => {
       <p>Yleisesti sekä kauppakohtaisesti. Jos haluat nähdä lisää juomia samalla haulla, <b>paina juoman yläpuolella olevaa kultaista koiraa</b></p>
       <p><b>Juomat</b>-sivulta löydät kaikki juomat. Käytä hyväksi lukuisia etsintäkriteerejä</p>
       <p><b>Baarit</b>-sivu ei ole vielä valmis (tulossa pian)</p>
+      <p><b>Vertaa</b>-sivulla voit vertailla kahta juomaa keskenään</p>
       <p>
         <b>Annoslaskuri</b>-sivulla voit laskea kuinka suuren annosmäärän tiettyjen juomien ja määrien yhdistelmä tuottaa.<br />
         Voit myös laskea tuon annosmäärän vaikutuksen veresi alkoholin promillemäärään.
@@ -41,7 +37,7 @@ const InfoPage = () => {
       <p><b>Tilastot</b>-sivulta löydät muutaman perustilaston juomien kaupoista ja kategorioista</p>
     </Container>
     <h3>Lähdekoodi</h3>
-    <Container>Löytyy githubista: </Container>
+    <Container>Löytyy githubista</Container>
   </Container >
 }
 
