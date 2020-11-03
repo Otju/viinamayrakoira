@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { ApolloServer } = require('apollo-server-lambda')
+const { ApolloServer } = require('apollo-server')
 const mongoose = require('mongoose')
 const resolvers = require('./graphql/resolvers')
 const typeDefs = require('./graphql/typeDefs')
@@ -14,24 +14,9 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log('connected to MongoDB')
   })
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ event, context }) => ({
-    headers: event.headers,
-    functionName: context.functionName,
-    event,
-    context
-  })
+const server = new ApolloServer({ typeDefs, resolvers })
+
+server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
+  console.log(`Server ready at ${url}`)
 })
-
-exports.graphqlHandler = server.createHandler({
-  cors: {
-    origin: "*",
-    credentials: false
-  },
-  endpointURL: "/graphql"
-});
-
-
 
