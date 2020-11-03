@@ -5,7 +5,7 @@ const { performance } = require('perf_hooks')
 
 const updateAllDrinks = async (root, args) => {
 
-  if (process.env.NODE_ENV !== "development") {
+  if (process.env.NODE_ENV.replace(" ", "") !== "development") {
     return "Only allowed in development-mode"
   }
 
