@@ -16,9 +16,7 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  playground: {
-    endpoint: "/dev/graphql"
-  },
+  playground: false,
   context: ({ event, context }) => ({
     headers: event.headers,
     functionName: context.functionName,

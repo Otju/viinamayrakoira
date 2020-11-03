@@ -4,6 +4,11 @@ const roundTo = require('round-to')
 const { performance } = require('perf_hooks')
 
 const updateAllDrinks = async (root, args) => {
+
+  if (process.env.NODE_ENV !== "development") {
+    return "Only allowed in development-mode"
+  }
+
   const startTime = performance.now()
 
   const storeNames = {

@@ -1,6 +1,6 @@
 org: otjuso
 app: viinamayrakoira
-service: apollo-lambda
+service: apollo-lambda-backend
 provider:
   name: aws
   runtime: nodejs12.x

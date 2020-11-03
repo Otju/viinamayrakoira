@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/local.js"
+    "start": "set NODE_ENV=production && node ./src/index.js",
+    "dev": "set NODE_ENV=development && nodemon ./src/local.js",
+    "deploy": "serverless deploy --stage prod"
   },
   "author": "Otju",
   "license": "ISC",
