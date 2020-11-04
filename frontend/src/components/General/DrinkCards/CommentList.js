@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactStars from "react-rating-stars-component"
 import Chart from '../../StatisticsPage/Chart'
+import ListGroup from 'react-bootstrap/ListGroup'
 import { round } from '../../../utils'
 
-const CommentList = ({ reviews }) => {
-  if(!reviews || reviews.length===0){
+const CommentList = ({ reviews, drink }) => {
+  if (!reviews || reviews.length === 0) {
     return "Ei vielä arvosteluja"
   }
   let groupedReviews = []
@@ -19,19 +20,33 @@ const CommentList = ({ reviews }) => {
     groupedReviews = groupedReviews.map(item => item.group === taste ? { ...item, tasteCount: item.tasteCount + 1 } : item)
     groupedReviews = groupedReviews.map(item => item.group === PQR ? { ...item, PQRCount: item.PQRCount + 1 } : item)
   })
+  
   return <div>
-    <Chart rawData={groupedReviews} field={"tasteCount"} name="Maku ★" type="bar" defaultColor={"gold"} dontSort={true} showPercentage={true}/>
-    <Chart rawData={groupedReviews} field={"PQRCount"}  name="Hinta-laatu €" type="bar" defaultColor={"green"} dontSort={true} showPercentage={true}/>
+
+    <Chart rawData={groupedReviews} field={"tasteCount"}
+      name={<>Maku <div style={{ display: "flex", justifyContent: "center" }}>
+        <ReactStars size={25} isHalf={true} value={(drink.tasteAverage || 0) / 2} edit={false} />
+      </div></>}
+      type="bar" defaultColor={"gold"} dontSort={true} showPercentage={true} useAxis={true} />
+
+    <Chart rawData={groupedReviews} field={"PQRCount"}
+      name={<>Hinta-laatu
+      <div style={{ display: "flex", justifyContent: "center" }}>
+          <ReactStars char="€" size={30} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
+        </div></>}
+      type="bar" defaultColor={"green"} dontSort={true} showPercentage={true} useAxis={true} />
+
     <div>
-      <ul>
-        {reviews?.map(review => <li key={review.id}>
-          <h4>{review.username}</h4>
-          {review.comment}
-          <ReactStars size={25} isHalf={true} value={review.taste / 2} edit={false} />
-          <ReactStars size={30} isHalf={true} char="€" activeColor="green" value={review.priceQualityRatio / 2} edit={false} />
-        </li>
+      <ListGroup>
+        {reviews?.filter((item) => item.comment).map(review =>
+          <ListGroup.Item key={review.id}>
+            <h4>{review.username}</h4>
+            {review.comment}
+            <ReactStars size={25} isHalf={true} value={review.taste / 2} edit={false} />
+            <ReactStars size={30} isHalf={true} char="€" activeColor="green" value={review.priceQualityRatio / 2} edit={false} />
+          </ListGroup.Item>
         )}
-      </ul>
+      </ListGroup>
     </div>
   </div>
 }

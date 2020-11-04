@@ -1,8 +1,7 @@
 import React from 'react'
 import { capitalizeFirst, colors, useWindowDimensions, round } from '../../utils'
-import { VictoryPie, VictoryTooltip, VictoryBar, VictoryContainer } from "victory"
-
-const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defaultColor, dontSort, showPercentage }) => {
+import { VictoryPie, VictoryTooltip, VictoryBar, VictoryContainer, VictoryChart } from "victory"
+const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defaultColor, dontSort, showPercentage, useAxis }) => {
 
   const { customTreshold } = useWindowDimensions(800)
 
@@ -76,10 +75,13 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defa
       break
     case "bar":
       chart = <VictoryBar barRatio={1} {...{ labelComponent, style, events, data, containerComponent }} />
+      if (useAxis) {
+        chart = <VictoryChart domain={{ x: [0, 11] }}>{chart}</VictoryChart>
+      }
       break
     default:
       console.log("Missing chart type")
-      break;
+      break
   }
   return (
     <div style={{ width, display: "inline-block", border: "solid", borderColor: colors.lightGray, marginTop: "1rem", marginLeft: "1.25%", marginRight: "1.25%" }}>

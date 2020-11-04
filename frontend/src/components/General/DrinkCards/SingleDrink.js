@@ -67,7 +67,7 @@ const SingleDrink = ({ drink }) => {
       </Form>
     </div>
     <h3>Arvostelut</h3>
-    <CommentList reviews={reviews} />
+    <CommentList reviews={reviews} drink={drink}/>
   </div>
 }
 
