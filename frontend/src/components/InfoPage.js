@@ -4,12 +4,13 @@ import Container from 'react-bootstrap/Container'
 const InfoPage = () => {
 
   return <Container>
+    <br />
     <h3>Lahjoitukset</h3>
     <Container>
       <p>Tämä nettisivu on täysin ilmainen, eikä sisällä mainoksia. </p>
       <p>Lahjoitusten avulla voin maksaa <strike>perjantaikaljat</strike> palvelinkustannukset ja käyttää sivuston kehittämiseen ja ylläpitoon enemmän aikaa.</p>
-      <p><b>Tärkeintä kuitenkin on, että itse koet nettisivun hyödylliseksi.</b></p>
-      <p>Kannattaa myös vinkata sivua tutuille ;)</p>
+      <p><b>Tärkeintä kuitenkin on, että sivustosta on ihmisille hyötyä</b></p>
+      <p>Kannattaa siis myös vinkata tätä tutuille ;)</p>
       <form action="https://www.paypal.com/donate" method="post" target="_blank">
         <input type="hidden" name="hosted_button_id" value="MQK9WRMSCG734" />
         <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
@@ -36,10 +37,13 @@ const InfoPage = () => {
     </p>
       <p><b>Tilastot</b>-sivulta löydät muutaman perustilaston juomien kaupoista ja kategorioista</p>
     </Container>
-    <h3>Lähdekoodi</h3>
-    <Container>Löytyy githubista</Container>
   </Container >
 }
+
+/*
+    <h3>Lähdekoodi</h3>
+    <Container>Löytyy githubista</Container>
+*/
 
 
 export default InfoPage

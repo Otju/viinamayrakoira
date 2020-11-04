@@ -47,7 +47,7 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
                     <div className="drinkSticker" style={{ position: "absolute", top: "-4.5rem", left: "-3rem", width: "12rem", transform: "rotate(-10deg)" }}>
                         <img src={process.env.PUBLIC_URL + '/doggoColor.svg'} style={{ fill: "red" }} alt="viinamayrakoira.svg" />
                         {drink.sticker.split(" ").map((part, i) =>
-                            <div key={i} style={{ whiteSpace: "pre-wrap", position: "absolute", top: `${i + 2.3}rem`, textAlign: "center", width: "100%" }}><b>{part}</b></div>)}
+                            <div key={i} style={{ userSelect: "none", whiteSpace: "pre-wrap", position: "absolute", top: `${i + 2.3}rem`, textAlign: "center", width: "100%" }}><b>{part}</b></div>)}
                     </div>
                 </Hoverable>
                 : null}
