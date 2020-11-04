@@ -34,7 +34,7 @@ const SingleDrink = ({ drink }) => {
         data: { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount }
       })
 
-      setDrinkState({ ...drink, tasteAverage, priceQualityRatioAverage, reviewCount, commentCount  })
+      setDrinkState({ ...drink, tasteAverage, priceQualityRatioAverage, reviewCount, commentCount })
     }
   })
 
@@ -51,10 +51,10 @@ const SingleDrink = ({ drink }) => {
   }, [result])
 
   return <div>
-    <DrinkInfo drink={drinkState} showStoreButton={true}/>
+    <DrinkInfo drink={drinkState} showStoreButton={true} />
     <div>
       {drinkState.description}
-      <br/>
+      <br />
     </div>
     <h3>Arvostele</h3>
     <div style={{ border: "solid", borderColor: colors.lightGray, padding: "1rem", paddingLeft: "0.3rem" }}>
@@ -66,8 +66,8 @@ const SingleDrink = ({ drink }) => {
         <Form.Control type="submit" value="Lähetä"></Form.Control>
       </Form>
     </div>
-    {(reviews) ? <CommentList reviews={reviews} /> : "Ei kommentteja"}
-
+    <h3>Arvostelut</h3>
+    <CommentList reviews={reviews} />
   </div>
 }
 

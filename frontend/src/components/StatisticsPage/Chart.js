@@ -1,27 +1,38 @@
 import React from 'react'
-import { capitalizeFirst, colors, useWindowDimensions } from '../../utils'
+import { capitalizeFirst, colors, useWindowDimensions, round } from '../../utils'
 import { VictoryPie, VictoryTooltip, VictoryBar, VictoryContainer } from "victory"
 
-const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width }) => {
+const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defaultColor, dontSort, showPercentage }) => {
 
   const { customTreshold } = useWindowDimensions(800)
 
   unit = unit ?? ""
   width = customTreshold ? "90%" : "45%"
 
-  const data = rawData.concat().sort((a, b) => b[field] - a[field])
-    .map(item => {
-      const categoryObject = !item.groups ?
+  let data = rawData.concat()
+  if (!dontSort) {
+    data = data.sort((a, b) => b[field] - a[field])
+  }
+
+  const wholeLength = data.reduce((acc, cur) => acc + cur[field], 0)
+
+  data = data.map(item => {
+    let categoryObject
+    if (colorObjectArray) {
+      categoryObject = !item.groups ?
         colorObjectArray.find(category => category.name === item.group)
         : colorObjectArray.find(category => item.groups.group1 === category.name)
+    }
 
-      return {
-        x: item.group,
-        y: item[field],
-        label: `${capitalizeFirst(item.group).replace(/ /g, "\n")}\n${item[field]}${unit}`,
-        color: categoryObject && categoryObject.color ? categoryObject.color : "black"
-      }
-    })
+    const value = showPercentage ? round(item[field] / wholeLength) : item[field]
+    unit = showPercentage ? "%" : unit
+    return {
+      x: item.group,
+      y: value,
+      label: `${capitalizeFirst(item.group).replace(/ /g, "\n")}\n${value}${unit}`,
+      color: categoryObject && categoryObject.color ? categoryObject.color : defaultColor || "black"
+    }
+  })
 
   const labelComponent = <VictoryTooltip width={500} renderInPortal={true} />
   const style = {
