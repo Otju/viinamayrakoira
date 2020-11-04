@@ -8,13 +8,26 @@ import PortionCalculatorPage from './components/PortionCalculatorPage'
 import InfoPage from './components/InfoPage'
 import SingleDrinkPage from './components/SingleDrinkPage'
 import ComparisonPage from './components/ComparisonPage'
+import { stores } from './utils'
 
 
 const App = () => {
 
+  const storeStyles = stores.map(store => (
+    <style type="text/css" key={store.name}>
+      {`
+      .btn-${store.name} {
+         background-color: ${store.color};
+      }
+   `}
+    </style>
+  ))
+
+
 
   return (
     <div className="container" style={{ background: "#ede8e8" }}>
+      {storeStyles}
       <NavigationBar></NavigationBar>
       <Switch>
         <Route path="/best/:id?">
@@ -42,7 +55,7 @@ const App = () => {
           <ComparisonPage />
         </Route>
         <Route path="/">
-          <Redirect to="/best"/>
+          <Redirect to="/best" />
         </Route>
       </Switch>
     </div>
