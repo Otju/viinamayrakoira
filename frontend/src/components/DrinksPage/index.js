@@ -22,7 +22,6 @@ const DrinksPage = () => {
       >
         {drinkChunks.map((chunk, i) => <DrinkCardList drinks={chunk} key={i} />)}
       </InfiniteScroll>
-      <Spinner animation="border" />
     </>
   }
 

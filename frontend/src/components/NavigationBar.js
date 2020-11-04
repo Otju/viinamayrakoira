@@ -25,6 +25,7 @@ const NavigationBar = () => {
           <LinkContainer to="/statistics"><Nav.Link>Tilastot</Nav.Link></LinkContainer>
           <LinkContainer to="/moreinfo"><Nav.Link>Tietoa</Nav.Link></LinkContainer>
         </Nav>
+        <Navbar.Brand>Viinamayrakoira.fi</Navbar.Brand>
         <Navbar.Brand>
           < Hoverable handleClick={() => window.open("https://www.paypal.com/donate?hosted_button_id=UGDSAU363MVE8", "_blank")}>
             <div style={{ position: "relative" }}>
@@ -33,7 +34,6 @@ const NavigationBar = () => {
             </div>
           </Hoverable>
         </Navbar.Brand>
-        <Navbar.Brand>Viinamayrakoira.fi</Navbar.Brand>
       </Navbar.Collapse>
     </Navbar>
   )
