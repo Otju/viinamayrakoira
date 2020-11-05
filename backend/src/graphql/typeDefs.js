@@ -99,6 +99,17 @@ const typeDefs = gql`
     reviewCount: Int!,
     commentCount: Int!
   }
+
+  type User {
+    username: String!
+    email: String
+    dateCreated: String
+    reviews: [Review!]!
+  }
+
+  type Token {
+    value: String!
+  }
   
   type Query {
     allDrinks(
@@ -121,6 +132,14 @@ const typeDefs = gql`
   type Mutation {
     updateAllDrinks(drinks: [DrinkInput]): updateAllDrinksOutPut
     addReview(review: ReviewInput): addReviewOutPut
+    createUser(
+      username: String!
+      password: String!
+      email: String): User
+    login(
+      username: String!
+      password: String!
+    ): Token
   }
 `
 

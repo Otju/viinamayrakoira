@@ -23,7 +23,7 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defa
         : colorObjectArray.find(category => item.groups.group1 === category.name)
     }
 
-    const value = showPercentage ? round(item[field] / wholeLength) : item[field]
+    const value = showPercentage ? round(item[field] / wholeLength)*100 : item[field]
     unit = showPercentage ? "%" : unit
     return {
       x: item.group,

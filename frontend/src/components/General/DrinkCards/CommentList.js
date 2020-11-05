@@ -6,7 +6,7 @@ import { round } from '../../../utils'
 
 const CommentList = ({ reviews, drink }) => {
   if (!reviews || reviews.length === 0) {
-    return "Ei vielä arvosteluja"
+    return <><br/>Ei vielä arvosteluja</>
   }
   let groupedReviews = []
   for (let i = 1; i <= 10; i++) {
