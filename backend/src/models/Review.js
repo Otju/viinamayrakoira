@@ -20,7 +20,13 @@ const schema = new mongoose.Schema({
   },
   username: {
     type: String
-  }
+  },
+  userId: 
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      require: true
+    }
 })
 
 module.exports = mongoose.model("Review", schema)
