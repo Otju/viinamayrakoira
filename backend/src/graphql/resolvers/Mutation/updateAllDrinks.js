@@ -2,11 +2,12 @@ const Drink = require('../../../models/Drink')
 const Review = require('../../../models/Review')
 const roundTo = require('round-to')
 const { performance } = require('perf_hooks')
+const { ForbiddenError } = require("apollo-server-lambda")
 
 const updateAllDrinks = async (root, args) => {
 
   if (process.env.NODE_ENV.replace(" ", "") !== "development") {
-    return "Only allowed in development-mode"
+    throw new ForbiddenError("Only allowed in development-mode")
   }
 
   const startTime = performance.now()

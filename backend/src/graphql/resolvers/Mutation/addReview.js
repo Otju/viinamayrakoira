@@ -1,11 +1,13 @@
 const Review = require('../../../models/Review')
 const Drink = require('../../../models/Drink')
 
-const addReview = async (root, args) => {
+const addReview = async (root, args, context) => {
 
   if (!args.review || !args.review.taste || !args.review.priceQualityRatio) {
     return
   }
+
+  console.log(context.currentUser)
 
   const drink = await Drink.findById(args.review.drink).populate("reviews")
 

@@ -108,7 +108,7 @@ const typeDefs = gql`
   }
 
   type Token {
-    value: String!
+    token: String!
   }
   
   type Query {
