@@ -3,6 +3,10 @@ const Drink = require('../../../models/Drink')
 
 const addReview = async (root, args) => {
 
+  if (!args.review || !args.review.taste || !args.review.priceQualityRatio) {
+    return
+  }
+
   const drink = await Drink.findById(args.review.drink).populate("reviews")
 
   const review = await Review.create({ ...args.review })
