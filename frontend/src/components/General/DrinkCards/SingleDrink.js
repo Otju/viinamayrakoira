@@ -26,7 +26,7 @@ const SingleDrink = ({ drink }) => {
       {drinkState.description}
       <br />
     </div>
-    <ReportModal drink={drink}/>
+    <ReportModal drinkId={drink.id}/>
     <Tabs defaultActiveKey="reviews" transition={false}>
       <Tab eventKey="reviews" title="Kommentit">
         <CommentList reviews={reviews} drink={drink} />

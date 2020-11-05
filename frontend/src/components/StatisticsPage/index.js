@@ -17,7 +17,6 @@ const StatisticsPage = () => {
 
   const withOutUselessCategories = statistics.drinksPerCategory.filter(item => item.group !== "alkoholittomat" && item.group !== "ei tietoa")
 
-  console.log(statistics.drinksPerCategory)
   return <div>
     <h1>Tilastoja</h1>
     <h3>Juomia yhteensä: {statistics.drinkCount}</h3>

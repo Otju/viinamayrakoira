@@ -1,5 +1,6 @@
 import React from 'react'
 import Container from 'react-bootstrap/Container'
+import ReportForm from './General/ReportForm'
 
 const InfoPage = () => {
 
@@ -8,8 +9,8 @@ const InfoPage = () => {
     <h3>Lahjoitukset</h3>
     <Container>
       <p>Tämä nettisivu on täysin ilmainen, eikä sisällä mainoksia. </p>
-      <p>Lahjoitusten avulla voin maksaa <strike>perjantaikaljat</strike> palvelinkustannukset ja käyttää sivuston kehittämiseen ja ylläpitoon enemmän aikaa.</p>
-      <p><b>Tärkeintä kuitenkin on, että sivustosta on ihmisille hyötyä</b></p>
+      <p>Lahjoitusten avulla voin mm. maksaa palvelinkustannukset ja käyttää sivuston kehittämiseen ja ylläpitoon enemmän aikaa.</p>
+      <p><b>Tärkeintä kuitenkin on, että sivustosta on käyttäjille hyötyä</b></p>
       <p>Kannattaa siis myös vinkata tätä tutuille ;)</p>
       <form action="https://www.paypal.com/donate" method="post" target="_blank">
         <input type="hidden" name="hosted_button_id" value="MQK9WRMSCG734" />
@@ -37,6 +38,7 @@ const InfoPage = () => {
     </p>
       <p><b>Tilastot</b>-sivulta löydät muutaman perustilaston juomien kaupoista ja kategorioista</p>
     </Container>
+    <ReportForm />
   </Container >
 }
 
