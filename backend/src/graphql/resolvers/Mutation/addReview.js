@@ -13,13 +13,13 @@ const addReview = async (root, args, context) => {
 
   const currentUser = context.currentUser
 
-
   const drink = await Drink.findById(args.review.drink).populate("reviews")
 
   const newReview = { ...args.review, userId: currentUser._id }
 
   let review
   let reviews
+
   const oldReview = drink.reviews.find(review => review.userId.toString() === currentUser._id.toString())
   if (oldReview) {
     await Review.updateOne(newReview)

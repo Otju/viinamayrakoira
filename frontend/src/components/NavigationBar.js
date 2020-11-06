@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import { LinkContainer } from "react-router-bootstrap"
-import Hoverable from './General/Hoverable'
+import LoginForm from './General/LoginForm'
 
 const NavigationBar = () => {
   return (
@@ -25,7 +25,14 @@ const NavigationBar = () => {
           <LinkContainer to="/statistics"><Nav.Link>Tilastot</Nav.Link></LinkContainer>
           <LinkContainer to="/moreinfo"><Nav.Link>Tietoa</Nav.Link></LinkContainer>
         </Nav>
+        <LoginForm/>
         <Navbar.Brand>Viinamayrakoira.fi</Navbar.Brand>
+      </Navbar.Collapse>
+    </Navbar>
+  )
+}
+
+/*
         <Navbar.Brand>
           < Hoverable handleClick={() => window.open("https://www.paypal.com/donate?hosted_button_id=UGDSAU363MVE8", "_blank")}>
             <div style={{ position: "relative" }}>
@@ -34,9 +41,6 @@ const NavigationBar = () => {
             </div>
           </Hoverable>
         </Navbar.Brand>
-      </Navbar.Collapse>
-    </Navbar>
-  )
-}
+*/
 
 export default NavigationBar
