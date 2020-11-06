@@ -1,5 +1,6 @@
 require('dotenv').config()
 const { ApolloServer } = require('apollo-server-lambda')
+const serverOptions = require('./serverOptions')
 
 const server = new ApolloServer(serverOptions)
 
