@@ -3,10 +3,11 @@ import ReactStars from "react-rating-stars-component"
 import Chart from '../../StatisticsPage/Chart'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { round } from '../../../utils'
+import StarReview from './StarReview'
 
 const CommentList = ({ reviews, drink }) => {
   if (!reviews || reviews.length === 0) {
-    return <><br/>Ei vielä arvosteluja</>
+    return <><br />Ei vielä arvosteluja</>
   }
   let groupedReviews = []
   for (let i = 1; i <= 10; i++) {
@@ -20,19 +21,19 @@ const CommentList = ({ reviews, drink }) => {
     groupedReviews = groupedReviews.map(item => item.group === taste ? { ...item, tasteCount: item.tasteCount + 1 } : item)
     groupedReviews = groupedReviews.map(item => item.group === PQR ? { ...item, PQRCount: item.PQRCount + 1 } : item)
   })
-  
+
   return <div>
 
     <Chart rawData={groupedReviews} field={"tasteCount"}
       name={<>Maku <div style={{ display: "flex", justifyContent: "center" }}>
-        <ReactStars size={25} isHalf={true} value={(drink.tasteAverage || 0) / 2} edit={false} />
+        <StarReview size={25} value={drink.tasteAverage} />
       </div></>}
       type="bar" defaultColor={"gold"} dontSort={true} showPercentage={true} useAxis={true} />
 
     <Chart rawData={groupedReviews} field={"PQRCount"}
       name={<>Hinta-laatu
       <div style={{ display: "flex", justifyContent: "center" }}>
-          <ReactStars char="€" size={30} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
+      <StarReview size={30} value={drink.priceQualityRatioAverage} type="PQR" />
         </div></>}
       type="bar" defaultColor={"green"} dontSort={true} showPercentage={true} useAxis={true} />
 
@@ -42,8 +43,8 @@ const CommentList = ({ reviews, drink }) => {
           <ListGroup.Item key={review.id}>
             <h4>{review.username}</h4>
             {review.comment}
-            <ReactStars size={25} isHalf={true} value={review.taste / 2} edit={false} />
-            <ReactStars size={30} isHalf={true} char="€" activeColor="green" value={review.priceQualityRatio / 2} edit={false} />
+            <StarReview size={25} value={review.taste} />
+            <StarReview size={30} value={review.priceQualityRatio} type="PQR" />
           </ListGroup.Item>
         )}
       </ListGroup>

@@ -112,10 +112,10 @@ export const GET_REVIEWS = gql`
     getReviews(id: $id) {
        id
        drink
-       username
        taste
        priceQualityRatio
        comment
+       userId
     }
   }`
 
@@ -125,7 +125,6 @@ export const ADD_REVIEW = gql`
       review{
         id
         drink
-        username
         taste
         priceQualityRatio
         comment
@@ -164,7 +163,6 @@ export const ONE_DRINK = gql`
         reviews{
           drink
           id
-          username
           taste
           priceQualityRatio
           comment
@@ -177,6 +175,8 @@ export const LOGIN = gql`
   mutation login($username: String!, $password: String!) {
     login(username: $username, password: $password)  {
       token
+      username
+      id
     }
   }
 `

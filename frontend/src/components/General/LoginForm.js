@@ -7,7 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import Button from 'react-bootstrap/Button'
 import AlertBox from './AlertBox'
 import HoverableDropDownText from '../DrinksPage/SearchVariableMenu/HoverableDropDownText'
-import { useField } from './../../utils'
+import { useField, useUserInfo } from './../../utils'
 
 
 const LoginForm = () => {
@@ -16,13 +16,15 @@ const LoginForm = () => {
 
   const username = useField("text", "käyttäjänimi")
   const password = useField("password", "salasana")
+  const userInfo = useUserInfo()
+  const [shownUsername, setShownUserName] = useState(userInfo.username)
 
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('viinamayrakoira-user-token'))
 
   const [alert, setAlert] = useState(null)
 
   const [login, result] = useMutation(LOGIN, {
-    onError: (error) => {
+    onError: () => {
       setAlert({ message: "Väärä käyttäjänimi tai salasana", variant: "danger" })
     }
   })
@@ -36,8 +38,11 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (result.data) {
-      const token = result.data.login.token
+      const { token, username, id } = result.data.login
       localStorage.setItem('viinamayrakoira-user-token', token)
+      localStorage.setItem('viinamayrakoira-user-username', username)
+      localStorage.setItem('viinamayrakoira-user-id', id)
+      setShownUserName(username)
       setShow(false)
       setIsLoggedIn(true)
     }
@@ -51,7 +56,7 @@ const LoginForm = () => {
   return <>
     {isLoggedIn
       ? <Dropdown>
-        <Dropdown.Toggle variant="dark" id="dropdown-basic">Username</Dropdown.Toggle>
+        <Dropdown.Toggle variant="dark" id="dropdown-basic">{shownUsername}</Dropdown.Toggle>
         <Dropdown.Menu>
           <HoverableDropDownText handleClick={() => logout()}>Kirjaudu ulos</HoverableDropDownText>
         </Dropdown.Menu>

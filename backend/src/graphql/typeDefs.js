@@ -32,15 +32,14 @@ const typeDefs = gql`
     taste: Int
     priceQualityRatio: Int
     comment: String,
-    username: String
+    userId: String!
   }
 
   input ReviewInput {
     drink: String!
     taste: Int
     priceQualityRatio: Int
-    comment: String,
-    username: String
+    comment: String
   }
 
   input DrinkInput {
@@ -109,6 +108,8 @@ const typeDefs = gql`
 
   type Token {
     token: String!
+    username: String!
+    id: String!
   }
   
   type Query {

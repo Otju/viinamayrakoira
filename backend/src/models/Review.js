@@ -18,9 +18,6 @@ const schema = new mongoose.Schema({
   comment: {
     type: String
   },
-  username: {
-    type: String
-  },
   userId: 
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -29,17 +29,27 @@ export const useWindowDimensions = (treshold) => {
   return windowDimensions
 }
 
-export const useField = (type, name) => {
-  const [value, setValue] = useState('')
+export const useField = (type, name, defaultValue) => {
+  const [value, setValue] = useState(defaultValue ? defaultValue : '')
 
   const field = <Form.Group>
     <Form.Label>{capitalizeFirst(name)}</Form.Label>
-    <Form.Control type={type} value={value} onChange={(event) => setValue(event.target.value)} placeholder={name}></Form.Control>
-  </Form.Group>
+    {type === "textarea"
+      ? <Form.Control as="textarea" rows={4} value={value} onChange={(event) => setValue(event.target.value)} placeholder={name}></Form.Control>
+      : < Form.Control type={type} value={value} onChange={(event) => setValue(event.target.value)} placeholder={name}></Form.Control>
+    }
+  </Form.Group >
 
   return {
-    type,
     value,
-    field
+    field,
+    set: (newValue) => setValue(newValue)
   }
+}
+
+
+export const useUserInfo = () => {
+  const username = localStorage.getItem('viinamayrakoira-user-username')
+  const id = localStorage.getItem('viinamayrakoira-user-id')
+  return { id, username }
 }

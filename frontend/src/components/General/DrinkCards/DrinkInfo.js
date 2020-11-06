@@ -1,7 +1,7 @@
 import React from 'react'
 import { capitalizeFirst, stores } from '../../../utils'
-import ReactStars from "react-rating-stars-component"
 import Button from 'react-bootstrap/Button'
+import StarReview from './StarReview'
 
 const DrinkCard = ({ drink, showStoreButton }) => {
 
@@ -20,11 +20,11 @@ const DrinkCard = ({ drink, showStoreButton }) => {
       {drink.pricePerLitre}€/l<br />
       {drink.portionAmount} annosta<br />
       {drink.pricePerPortion} €/annos<br />
-      {capitalizeFirst(drink.producer)}<br />
+      {capitalizeFirst(drink.producer)}
       {stores.find(store => store.name === drink.store).displayName}
       {showStoreButton ? <Button style={{ marginLeft: "10px" }} variant="dark" onClick={() => window.open(drink.link, "_blank")}>→</Button> : null}<br />
-      <ReactStars size={25} isHalf={true} value={(drink.tasteAverage || 0) / 2} edit={false} />
-      <ReactStars char="€" size={30} activeColor="green" isHalf={true} value={(drink.priceQualityRatioAverage || 0) / 2} edit={false} />
+      <StarReview size={25} value={drink.tasteAverage} />
+      <StarReview size={30} value={drink.priceQualityRatioAverage} type="PQR"/>
       {reviewCount} {reviewCount === 1 ? "arvostelu" : "arvostelua"} <br />
       {commentCount} {commentCount === 1 ? "kommentti" : "kommenttia"}
     </div>
