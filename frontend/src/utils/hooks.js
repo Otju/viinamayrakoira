@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Form from 'react-bootstrap/Form'
+import { capitalizeFirst } from './index'
 
 const getWindowDimensions = (treshold) => {
   const { innerWidth: width, innerHeight: height } = window
@@ -25,4 +27,19 @@ export const useWindowDimensions = (treshold) => {
   }, [treshold])
 
   return windowDimensions
+}
+
+export const useField = (type, name) => {
+  const [value, setValue] = useState('')
+
+  const field = <Form.Group>
+    <Form.Label>{capitalizeFirst(name)}</Form.Label>
+    <Form.Control type={type} value={value} onChange={(event) => setValue(event.target.value)} placeholder={name}></Form.Control>
+  </Form.Group>
+
+  return {
+    type,
+    value,
+    field
+  }
 }

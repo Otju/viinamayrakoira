@@ -39,9 +39,14 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
         let size = getSize(name)
         const percentage = getPercentage(name)
 
-        if (productCode === "27938") {  //superAlko had a typo in their infos
+        if (productCode === "27938") {  
           size = 0.33
         }
+        if(productCode == "29149"){
+          size = 0.275
+        }
+
+        //fixes to SuperAlko typos
 
         const drinkInfo = {
           name,
