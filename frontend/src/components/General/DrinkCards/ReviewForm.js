@@ -21,7 +21,7 @@ const ReviewForm = ({ drink, setReviews, reviews, setDrinkState }) => {
     const oldReview = reviews?.find(review => review.userId === userInfo.id) || {}
     setTaste(oldReview.taste)
     setPriceQualityRatio(oldReview.priceQualityRatio)
-    comment.set(oldReview.comment)
+    comment.set(oldReview.comment || "")
       // eslint-disable-next-line
   }, [reviews])
 

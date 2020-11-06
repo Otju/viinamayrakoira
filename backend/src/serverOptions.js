@@ -19,12 +19,17 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 const serverOptions = {
   typeDefs,
   resolvers,
-  context: async ({ req }) => {
-    const auth = req ? req.headers.authorization : null
+  context: async ({ event, req }) => {
+    let auth
+    if (req) {
+      auth = req.headers.authorization
+    } else if (event) {
+      auth = event.headers.Authorization
+    }
     if (auth && auth.toLowerCase().startsWith('bearer ')) {
       const decodedToken = jwt.verify(auth.substring(7), JWT_SECRET)
       const MongoCurrentUser = await User.findById(decodedToken.id).populate('reviews')
-      const {passwordHash, __v, ...currentUser} = MongoCurrentUser.toObject() 
+      const { passwordHash, __v, ...currentUser } = MongoCurrentUser.toObject()
       return { currentUser }
     }
   }
