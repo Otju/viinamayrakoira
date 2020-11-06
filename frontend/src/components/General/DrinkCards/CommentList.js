@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactStars from "react-rating-stars-component"
 import Chart from '../../StatisticsPage/Chart'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { round } from '../../../utils'
