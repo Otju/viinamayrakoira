@@ -32,7 +32,7 @@ const typeDefs = gql`
     taste: Int
     priceQualityRatio: Int
     comment: String,
-    userId: String!
+    user: User!
   }
 
   input ReviewInput {
@@ -100,6 +100,7 @@ const typeDefs = gql`
   }
 
   type User {
+    id: ID
     username: String!
     email: String
     dateCreated: String

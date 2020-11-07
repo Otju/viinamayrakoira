@@ -27,7 +27,7 @@ const setAllDrinks = async () => {
     default:
       break
   }
-  if (onlyOneScraper !== undefined) {
+  if (onlyOneScraper) {
     const drinksForScaper = await scrapers[onlyOneScraper]()
     allDrinks.push(...drinksForScaper)
   } else {

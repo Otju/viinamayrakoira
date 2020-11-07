@@ -10,7 +10,7 @@ import { useField, useUserInfo } from './../../../utils'
 const ReviewForm = ({ drink, setReviews, reviews, setDrinkState }) => {
 
   const userInfo = useUserInfo()
-  const hasAlreadyReviewed = false
+  const [hasPreviousReview, setHasPreviousReview] = useState(false)
   const [taste, setTaste] = useState("")
   const [priceQualityRatio, setPriceQualityRatio] = useState("")
   const [validated, setValidated] = useState(false)
@@ -18,11 +18,14 @@ const ReviewForm = ({ drink, setReviews, reviews, setDrinkState }) => {
   const comment = useField("textarea", "kommentti")
 
   useEffect(() => {
-    const oldReview = reviews?.find(review => review.userId === userInfo.id) || {}
-    setTaste(oldReview.taste)
-    setPriceQualityRatio(oldReview.priceQualityRatio)
-    comment.set(oldReview.comment || "")
-      // eslint-disable-next-line
+    const oldReview = reviews?.find(review => review?.user?.id === userInfo.id) || {}
+    if (oldReview) {
+      setTaste(oldReview.taste)
+      setPriceQualityRatio(oldReview.priceQualityRatio)
+      comment.set(oldReview.comment || "")
+      setHasPreviousReview(true)
+    }
+    // eslint-disable-next-line
   }, [reviews])
 
 
@@ -63,22 +66,26 @@ const ReviewForm = ({ drink, setReviews, reviews, setDrinkState }) => {
   return <div style={{ marginTop: "2rem" }}>
     <h3>Arvostele</h3>
     <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} />
-    {hasAlreadyReviewed
-      ? "Olet jo arvioinut tämän juoman"
-      : <Form noValidate onSubmit={handleSubmit}>
-        <Form.Row>
-          <Col>
-            <StarReview setter={setTaste} isInvalid={!taste && validated} value={taste} showHeader/>
-          </Col>
-          <Col>
-            <StarReview type={"PQR"} setter={setPriceQualityRatio} isInvalid={!priceQualityRatio && validated} value={priceQualityRatio} showHeader/>
-          </Col>
-        </Form.Row>
-        {comment.field}
-        <br />
-        <Form.Control type="submit" value="Lähetä"></Form.Control>
-      </Form>
+    {userInfo.id
+      ? <>
+        {hasPreviousReview ? "Olet jos arvostellut tämän juoman" : null}
+        <Form noValidate onSubmit={handleSubmit} disabled>
+          <Form.Row>
+            <Col>
+              <StarReview setter={setTaste} isInvalid={!taste && validated} value={taste} showHeader />
+            </Col>
+            <Col>
+              <StarReview type={"PQR"} setter={setPriceQualityRatio} isInvalid={!priceQualityRatio && validated} value={priceQualityRatio} showHeader />
+            </Col>
+          </Form.Row>
+          {comment.field}
+          <br />
+          <Form.Control type="submit" value="Lähetä"></Form.Control>
+        </Form>
+      </>
+      : "Sinun täytyy kirjautua sisään"
     }
+
   </div>
 }
 

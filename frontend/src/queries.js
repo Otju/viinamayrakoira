@@ -115,7 +115,10 @@ export const GET_REVIEWS = gql`
        taste
        priceQualityRatio
        comment
-       userId
+       user{
+         id
+         username
+       }
     }
   }`
 
@@ -128,6 +131,9 @@ export const ADD_REVIEW = gql`
         taste
         priceQualityRatio
         comment
+        user{
+          id
+        }
       }
       tasteAverage
       priceQualityRatioAverage

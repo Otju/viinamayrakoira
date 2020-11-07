@@ -18,7 +18,7 @@ const schema = new mongoose.Schema({
   comment: {
     type: String
   },
-  userId: 
+  user: 
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

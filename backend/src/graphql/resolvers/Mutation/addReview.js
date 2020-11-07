@@ -15,19 +15,19 @@ const addReview = async (root, args, context) => {
 
   const drink = await Drink.findById(args.review.drink).populate("reviews")
 
-  const newReview = { ...args.review, userId: currentUser._id }
+  const newReview = { ...args.review, user: currentUser._id }
 
   let review
   let reviews
 
-  const oldReview = drink.reviews.find(review => review.userId.toString() === currentUser._id.toString())
+  const oldReview = drink.reviews.find(review => review.user.toString() === currentUser._id.toString())
   if (oldReview) {
     await Review.updateOne(newReview)
     review = { ...newReview, id: oldReview.id, _id: oldReview.id, drink: oldReview.drink }
     reviews = drink.reviews.map(item => item.id === review.id ? review : item)
   } else {
     review = await (await Review.create(newReview)).toObject()
-    review = { ...review, id: review._id, userId: currentUser._id }
+    review = { ...review, id: review._id, user: currentUser._id }
     reviews = drink.reviews.concat(review)
   }
 
@@ -48,7 +48,7 @@ const addReview = async (root, args, context) => {
 
   await drink.updateOne({ tasteAverage, priceQualityRatioAverage, reviewCount, commentCount, reviews: reviewIds })
 
-  return { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount, review }
+  return { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount, review: { ...review, user: { id: review.user } } }
 }
 
 module.exports = addReview
