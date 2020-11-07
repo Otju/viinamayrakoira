@@ -9,7 +9,7 @@ import AlertBox from '../AlertBox'
 import { useField, useUserInfo } from './../../../utils'
 import Comment from './Comment'
 
-const ReviewForm = ({ drink, reviews, refetchComments, setReviews }) => {
+const ReviewForm = ({ drink, reviews, refetchComments, setReviews, setDrinkState }) => {
 
   const userInfo = useUserInfo()
   const [oldReview, setOldReview] = useState(false)
@@ -48,6 +48,7 @@ const ReviewForm = ({ drink, reviews, refetchComments, setReviews }) => {
     update: (cache, response) => {
       const newReview = response.data.addReview.review
       const { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount } = response.data.addReview
+      const changeDrinkFields = { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount }
       cache.writeFragment({
         id: `Drink:${newReview.drink}`,
         fragment: gql`
@@ -57,8 +58,9 @@ const ReviewForm = ({ drink, reviews, refetchComments, setReviews }) => {
           reviewCount
           commentCount
         }`,
-        data: { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount }
+        data: changeDrinkFields
       })
+      setDrinkState(d => ({ ...d, ...changeDrinkFields }))
     }, onCompleted: () => {
       refetchComments()
     }
@@ -66,9 +68,10 @@ const ReviewForm = ({ drink, reviews, refetchComments, setReviews }) => {
 
   const [deleteReview] = useMutation(DELETE_REVIEW, {
     update: (cache, response) => {
-      const id = response.data.deleteReview.id
+      const { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount, id } = response.data.deleteReview
       cache.evict({ id: `Review:${id}` })
       setReviews(r => r.filter(review => review.id.toString() !== id.toString()))
+      setDrinkState(d => ({ ...d, tasteAverage, priceQualityRatioAverage, reviewCount, commentCount }))
     }
   })
 

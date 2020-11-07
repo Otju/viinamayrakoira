@@ -22,7 +22,8 @@ const addReview = async (root, args, context) => {
   const oldReview = otherReviews.find(review => review.user.toString() === currentUser._id.toString())
 
   if (oldReview) {
-    await Review.updateOne({ _id: newReview.id }, newReview)
+    const response = await Review.updateOne({ _id: oldReview.id }, { taste: newReview.taste, priceQualityRatio: newReview.priceQualityRatio, comment: newReview.comment })
+    console.log(response)
     review = { ...newReview, id: oldReview.id, _id: oldReview.id, drink: oldReview.drink }
     reviews = otherReviews.map(item => item.id === review.id ? review : item)
   } else {
