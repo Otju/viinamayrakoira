@@ -1,6 +1,6 @@
 const Review = require('../../../models/Review')
-const Drink = require('../../../models/Drink')
 const { UserInputError, AuthenticationError } = require("apollo-server")
+const updateDrinkFields = require("../utils")
 
 const addReview = async (root, args, context) => {
 
@@ -13,42 +13,27 @@ const addReview = async (root, args, context) => {
 
   const currentUser = context.currentUser
 
-  const drink = await Drink.findById(args.review.drink).populate("reviews")
-
   const newReview = { ...args.review, user: currentUser._id }
 
-  let review
-  let reviews
+  const otherReviews = await Review.find({ drink: newReview.drink })
 
-  const oldReview = drink.reviews.find(review => review.user.toString() === currentUser._id.toString())
+  let review
+
+  const oldReview = otherReviews.find(review => review.user.toString() === currentUser._id.toString())
+
   if (oldReview) {
-    await Review.updateOne(newReview)
+    await Review.updateOne({ _id: newReview.id }, newReview)
     review = { ...newReview, id: oldReview.id, _id: oldReview.id, drink: oldReview.drink }
-    reviews = drink.reviews.map(item => item.id === review.id ? review : item)
+    reviews = otherReviews.map(item => item.id === review.id ? review : item)
   } else {
     review = await (await Review.create(newReview)).toObject()
     review = { ...review, id: review._id, user: currentUser._id }
-    reviews = drink.reviews.concat(review)
+    reviews = otherReviews.concat(review)
   }
 
-  const average = (field) => {
-    const array = reviews.map(review => review[field])
-    const avg = (array.reduce((acc, cur) => acc + cur, 0)) / array.length
-    if (Number.isNaN(avg)) {
-      return 0
-    }
-    return avg
-  }
+  const updatedDrinkFields = await updateDrinkFields(newReview.drink, reviews)
 
-  const tasteAverage = average("taste")
-  const priceQualityRatioAverage = average("priceQualityRatio")
-  const reviewIds = [...reviews.map(review => review._id)]
-  const reviewCount = reviewIds.length
-  const commentCount = reviews.filter(review => review.comment).length
-
-  await drink.updateOne({ tasteAverage, priceQualityRatioAverage, reviewCount, commentCount, reviews: reviewIds })
-
-  return { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount, review: { ...review, user: { id: review.user } } }
+  return { ...updatedDrinkFields, review: { ...review, user: { id: review.user, username: currentUser.username } } }
 }
 
 module.exports = addReview

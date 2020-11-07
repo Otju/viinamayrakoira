@@ -63,12 +63,6 @@ const schema = new mongoose.Schema({
   priceQualityRatioAverage: {
     type: Number
   },
-  reviews: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Review'
-    }
-  ],
   searchTermString: {
     type: String
   },

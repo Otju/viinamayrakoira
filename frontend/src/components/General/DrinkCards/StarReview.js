@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import ReactStars from 'react-rating-stars-component'
 
-const StarReview = ({ type, setter, isInvalid, value, size, showHeader }) => {
+const StarReview = ({ type, setter, isInvalid, value, size, showHeader, disabled}) => {
 
   const [starsKey, setStarsKey] = useState(Math.random())
 
@@ -22,7 +22,7 @@ const StarReview = ({ type, setter, isInvalid, value, size, showHeader }) => {
 
   const inValidStyling = isInvalid ? { border: "solid", borderColor: "red", borderWidth: "1px", borderRadius: "5px" } : {}
 
-  const content = <ReactStars key={starsKey} char={char} size={size || 40} activeColor={activeColor} value={value / 2 || 0} isHalf={true} edit={Boolean(setter)} onChange={(newValue) => setter(newValue * 2)} />
+  const content = <ReactStars key={starsKey} char={char} size={size || 40} activeColor={activeColor} value={value / 2 || 0} isHalf={true} edit={Boolean(setter) && !disabled} onChange={(newValue) => setter(newValue * 2)} />
 
   return showHeader
     ? <div style={{ display: "inline-block", ...inValidStyling }}>

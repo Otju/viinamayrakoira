@@ -23,7 +23,6 @@ const typeDefs = gql`
     tasteAverage: Float
     commentCount: Int
     reviewCount: Int
-    reviews: [Review!]!
   }
 
   type Review {
@@ -99,6 +98,15 @@ const typeDefs = gql`
     commentCount: Int!
   }
 
+  type deleteReviewOutPut{
+    tasteAverage: Float!,
+    priceQualityRatioAverage: Float!,
+    reviewCount: Int!,
+    commentCount: Int!
+    id: ID!
+  }
+
+
   type User {
     id: ID
     username: String!
@@ -133,7 +141,8 @@ const typeDefs = gql`
 
   type Mutation {
     updateAllDrinks(drinks: [DrinkInput]): updateAllDrinksOutPut
-    addReview(review: ReviewInput): addReviewOutPut
+    addReview(review: ReviewInput): addReviewOutPut!
+    deleteReview(reviewId: ID!, drinkId: String!): deleteReviewOutPut!
     createUser(
       username: String!
       password: String!

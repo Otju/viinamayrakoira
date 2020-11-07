@@ -20,9 +20,9 @@ const DrinkCard = ({ drink, showStoreButton }) => {
       {drink.pricePerLitre}€/l<br />
       {drink.portionAmount} annosta<br />
       {drink.pricePerPortion} €/annos<br />
-      {capitalizeFirst(drink.producer)}
+      {<>{capitalizeFirst(drink.producer)}<br /></> || null}
       {stores.find(store => store.name === drink.store).displayName}
-      {showStoreButton ? <Button style={{ marginLeft: "10px" }} variant="dark" onClick={() => window.open(drink.link, "_blank")}>→</Button> : null}<br />
+      {showStoreButton ? <Button style={{ marginLeft: "10px" }} variant={drink.store} onClick={() => window.open(drink.link, "_blank")}>→</Button> : null}<br />
       <StarReview size={25} value={drink.tasteAverage} />
       <StarReview size={30} value={drink.priceQualityRatioAverage} type="PQR"/>
       {reviewCount} {reviewCount === 1 ? "arvostelu" : "arvostelua"} <br />

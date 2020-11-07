@@ -133,6 +133,7 @@ export const ADD_REVIEW = gql`
         comment
         user{
           id
+          username
         }
       }
       tasteAverage
@@ -142,6 +143,18 @@ export const ADD_REVIEW = gql`
     }
   }
 `
+
+
+export const DELETE_REVIEW = gql`
+  mutation deleteReview($reviewId: ID!, $drinkId: String!) {
+    deleteReview(reviewId: $reviewId, drinkId: $drinkId){
+      tasteAverage
+      priceQualityRatioAverage
+      reviewCount
+      commentCount
+      id
+    }
+  }`
 
 export const ONE_DRINK = gql`
   query oneDrink($id: String!){

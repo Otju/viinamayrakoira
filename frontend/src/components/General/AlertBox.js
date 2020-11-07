@@ -9,8 +9,8 @@ const AlertBox = ({ setAlert, alert, variant }) => {
     }, 2000)
     return () => clearTimeout(timer);
   })
-
-  return <div style={{ height: "4rem" }}>
+  //style={{ height: "4rem" }}
+  return <div >
     {alert
       ? <Alert variant={variant}>{alert}</Alert>
       : null}

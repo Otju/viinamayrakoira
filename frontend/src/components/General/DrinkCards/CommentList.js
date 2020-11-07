@@ -2,6 +2,7 @@ import React from 'react'
 import Chart from '../../StatisticsPage/Chart'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { round } from '../../../utils'
+import Comment from './Comment'
 import StarReview from './StarReview'
 
 const CommentList = ({ reviews, drink }) => {
@@ -21,6 +22,8 @@ const CommentList = ({ reviews, drink }) => {
     groupedReviews = groupedReviews.map(item => item.group === PQR ? { ...item, PQRCount: item.PQRCount + 1 } : item)
   })
 
+  const comments = reviews?.filter((item) => item.comment)
+
   return <div>
 
     <Chart rawData={groupedReviews} field={"tasteCount"}
@@ -32,20 +35,15 @@ const CommentList = ({ reviews, drink }) => {
     <Chart rawData={groupedReviews} field={"PQRCount"}
       name={<>Hinta-laatu
       <div style={{ display: "flex", justifyContent: "center" }}>
-      <StarReview size={30} value={drink.priceQualityRatioAverage} type="PQR" />
+          <StarReview size={30} value={drink.priceQualityRatioAverage} type="PQR" />
         </div></>}
       type="bar" defaultColor={"green"} dontSort={true} showPercentage={true} useAxis={true} />
 
     <div>
       <ListGroup>
-        {reviews?.filter((item) => item.comment).map(review =>
-          <ListGroup.Item key={review.id}>
-            <h4>{review.username}</h4>
-            {review.comment}
-            <StarReview size={25} value={review.taste} />
-            <StarReview size={30} value={review.priceQualityRatio} type="PQR" />
-          </ListGroup.Item>
-        )}
+        {comments.length > 0
+          ? comments.map(review => <Comment review={review} key={review.id} />)
+          : "Ei vielä kommentteja"}
       </ListGroup>
     </div>
   </div>

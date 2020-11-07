@@ -2,40 +2,52 @@ import React, { useState, useEffect } from 'react'
 import { useMutation, gql } from '@apollo/client'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import { ADD_REVIEW } from '../../../queries'
+import Button from 'react-bootstrap/Button'
+import { ADD_REVIEW, DELETE_REVIEW } from '../../../queries'
 import StarReview from './StarReview'
 import AlertBox from '../AlertBox'
 import { useField, useUserInfo } from './../../../utils'
+import Comment from './Comment'
 
-const ReviewForm = ({ drink, setReviews, reviews, setDrinkState }) => {
+const ReviewForm = ({ drink, reviews, refetchComments, setReviews }) => {
 
   const userInfo = useUserInfo()
-  const [hasPreviousReview, setHasPreviousReview] = useState(false)
+  const [oldReview, setOldReview] = useState(false)
+  const [edit, setEdit] = useState(false)
   const [taste, setTaste] = useState("")
   const [priceQualityRatio, setPriceQualityRatio] = useState("")
   const [validated, setValidated] = useState(false)
   const [alert, setAlert] = useState(null)
   const comment = useField("textarea", "kommentti")
 
+  const resetFields = () => {
+    setTaste(null)
+    setPriceQualityRatio(null)
+    comment.set("")
+    setValidated(false)
+  }
+
   useEffect(() => {
-    const oldReview = reviews?.find(review => review?.user?.id === userInfo.id) || {}
+    const oldReview = reviews?.find(review => review?.user?.id === userInfo.id)
     if (oldReview) {
       setTaste(oldReview.taste)
       setPriceQualityRatio(oldReview.priceQualityRatio)
       comment.set(oldReview.comment || "")
-      setHasPreviousReview(true)
+      setOldReview(oldReview)
+    } else {
+      setOldReview(false)
+      resetFields()
     }
+
     // eslint-disable-next-line
   }, [reviews])
+
 
 
   const [addReview] = useMutation(ADD_REVIEW, {
     update: (cache, response) => {
       const newReview = response.data.addReview.review
       const { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount } = response.data.addReview
-      setReviews(reviews.find(review => review.id === newReview.id)
-        ? reviews.map(review => review.id === newReview.id ? newReview : review)
-        : [newReview, ...reviews])
       cache.writeFragment({
         id: `Drink:${newReview.drink}`,
         fragment: gql`
@@ -47,10 +59,19 @@ const ReviewForm = ({ drink, setReviews, reviews, setDrinkState }) => {
         }`,
         data: { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount }
       })
-
-      setDrinkState({ ...drink, tasteAverage, priceQualityRatioAverage, reviewCount, commentCount })
+    }, onCompleted: () => {
+      refetchComments()
     }
   })
+
+  const [deleteReview] = useMutation(DELETE_REVIEW, {
+    update: (cache, response) => {
+      const id = response.data.deleteReview.id
+      cache.evict({ id: `Review:${id}` })
+      setReviews(r => r.filter(review => review.id.toString() !== id.toString()))
+    }
+  })
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     setValidated(true)
@@ -58,9 +79,14 @@ const ReviewForm = ({ drink, setReviews, reviews, setDrinkState }) => {
       const review = { drink: drink.id, taste, priceQualityRatio, comment: comment.value }
       addReview({ variables: { review } })
       setAlert({ message: "Kiitos arvostelusta!", variant: "success" })
+      setEdit(false)
     } else {
       setAlert({ message: "Täytä kaikki tarvittavat kentät", variant: "danger" })
     }
+  }
+
+  const handeDelete = () => {
+    deleteReview({ variables: { reviewId: oldReview?.id, drinkId: drink.id } })
   }
 
   return <div style={{ marginTop: "2rem" }}>
@@ -68,20 +94,29 @@ const ReviewForm = ({ drink, setReviews, reviews, setDrinkState }) => {
     <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} />
     {userInfo.id
       ? <>
-        {hasPreviousReview ? "Olet jos arvostellut tämän juoman" : null}
-        <Form noValidate onSubmit={handleSubmit} disabled>
-          <Form.Row>
-            <Col>
-              <StarReview setter={setTaste} isInvalid={!taste && validated} value={taste} showHeader />
-            </Col>
-            <Col>
-              <StarReview type={"PQR"} setter={setPriceQualityRatio} isInvalid={!priceQualityRatio && validated} value={priceQualityRatio} showHeader />
-            </Col>
-          </Form.Row>
-          {comment.field}
-          <br />
-          <Form.Control type="submit" value="Lähetä"></Form.Control>
-        </Form>
+        {oldReview && !edit
+          ? <div>
+            <Button variant="success" onClick={() => { setEdit(true) }}>Muokkaa arvostelua</Button>
+            <Button variant="danger" onClick={() => handeDelete()}>Poista arvostelu</Button>
+            <Comment review={oldReview} />
+          </div>
+          : <Form noValidate onSubmit={handleSubmit} >
+            <Form.Row>
+              <Col>
+                <StarReview setter={setTaste} isInvalid={!taste && validated} value={taste} showHeader />
+              </Col>
+              <Col>
+                <StarReview type={"PQR"} setter={setPriceQualityRatio} isInvalid={!priceQualityRatio && validated} value={priceQualityRatio} showHeader />
+              </Col>
+            </Form.Row>
+            {comment.field}
+            <br />
+            <Form.Row>
+              {edit && <Col><Button variant="danger" style={{ width: "100%" }} onClick={() => setEdit(false)}>Peruuta</Button></Col>}
+              <Col><Form.Control type="submit" variant="success" value="Lähetä"></Form.Control></Col>
+            </Form.Row>
+          </Form>
+        }
       </>
       : "Sinun täytyy kirjautua sisään"
     }

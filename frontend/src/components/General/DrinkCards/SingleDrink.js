@@ -12,7 +12,6 @@ const SingleDrink = ({ drink }) => {
 
   const result = useQuery(GET_REVIEWS, { variables: { id: drink.id } })
   const [reviews, setReviews] = useState(null)
-  const [drinkState, setDrinkState] = useState(drink)
 
   useEffect(() => {
     if (result && !result.loading) {
@@ -21,9 +20,9 @@ const SingleDrink = ({ drink }) => {
   }, [result])
 
   return <div>
-    <DrinkInfo drink={drinkState} showStoreButton={true} />
+    <DrinkInfo drink={drink} showStoreButton={true} />
     <div>
-      {drinkState.description}
+      {drink.description}
       <br />
     </div>
     <ReportModal drinkId={drink.id}/>
@@ -32,7 +31,7 @@ const SingleDrink = ({ drink }) => {
         <CommentList reviews={reviews} drink={drink} />
       </Tab>
       <Tab eventKey="review" title="Arvostele">
-        <ReviewForm {...{ drink, setReviews, reviews, setDrinkState }} />
+        <ReviewForm {...{ drink, reviews, setReviews}} refetchComments={result.refetch}/>
       </Tab>
     </Tabs>
   </div>

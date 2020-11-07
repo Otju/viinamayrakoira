@@ -1,5 +1,4 @@
 const Drink = require('../../../models/Drink')
-const Review = require('../../../models/Review')
 const roundTo = require('round-to')
 const { performance } = require('perf_hooks')
 const { ForbiddenError } = require("apollo-server-lambda")
@@ -72,7 +71,7 @@ const updateAllDrinks = async (root, args) => {
       if (allDrinkIds.includes(drink._id)) {
         drinksUpdate.push(drink)
       } else {
-        drinksNew.push({ ...drink, reviews: [] })
+        drinksNew.push({ ...drink })
       }
     })
 

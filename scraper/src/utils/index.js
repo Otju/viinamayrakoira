@@ -25,15 +25,15 @@ const getSize = (string) => {
 
   const multiplier = string.match(/\d+x/g) || string.match(/\d+-pack/g)
 
-  const sizeMatchL = string.match(/\d?\.?,?\d+(|\s+)l\s/g)
+  const sizeMatchL = string.match(/\d?\.?,?\d+(|\s+)l(\s|$)/g)
   if (sizeMatchL) {
     size = turnToNumber(sizeMatchL[0])
   }
-  const sizeMatchCl = string.match(/\d?\.?,?\d+(|\s+)cl\s/g)
+  const sizeMatchCl = string.match(/\d?\.?,?\d+(|\s+)cl(\s|$)/g)
   if (sizeMatchCl) {
     size = turnToNumber(sizeMatchCl[0]) / 100
   }
-  const sizeMatchMl = string.match(/\d?\.?,?\d+(|\s+)ml\s/g)
+  const sizeMatchMl = string.match(/\d?\.?,?\d+(|\s+)ml(\s|$)/g)
   if (sizeMatchMl) {
     size = turnToNumber(sizeMatchMl[0]) / 1000
   }
