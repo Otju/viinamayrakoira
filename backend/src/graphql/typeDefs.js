@@ -112,7 +112,6 @@ const typeDefs = gql`
     username: String!
     email: String
     dateCreated: String
-    reviews: [Review!]!
   }
 
   type Token {

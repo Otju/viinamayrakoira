@@ -29,21 +29,27 @@ export const useWindowDimensions = (treshold) => {
   return windowDimensions
 }
 
-export const useField = (type, name, defaultValue) => {
-  const [value, setValue] = useState(defaultValue ? defaultValue : '')
+export const useField = (type, name) => {
+  const [value, setValue] = useState('')
+  const [isInvalid, setInvalid] = useState(false)
 
-  const field = <Form.Group>
+  useEffect(() => {
+    setInvalid(false)
+  }, [value])
+
+  const field = <Form.Group >
     <Form.Label>{capitalizeFirst(name)}</Form.Label>
     {type === "textarea"
-      ? <Form.Control as="textarea" rows={4} value={value} onChange={(event) => setValue(event.target.value)} placeholder={name}></Form.Control>
-      : < Form.Control type={type} value={value} onChange={(event) => setValue(event.target.value)} placeholder={name}></Form.Control>
+      ? <Form.Control isInvalid={isInvalid} as="textarea" rows={4} value={value} onChange={(event) => setValue(event.target.value)} placeholder={name}></Form.Control>
+      : < Form.Control isInvalid={isInvalid} type={type} value={value} onChange={(event) => setValue(event.target.value)} placeholder={name}></Form.Control>
     }
   </Form.Group >
 
   return {
     value,
     field,
-    set: (newValue) => setValue(newValue)
+    set: (newValue) => setValue(newValue),
+    setInvalid
   }
 }
 

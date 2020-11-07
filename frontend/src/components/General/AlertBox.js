@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import Alert from 'react-bootstrap/Alert'
 
-const AlertBox = ({ setAlert, alert, variant }) => {
+const AlertBox = ({ setAlert, alert, variant, duration }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setAlert(null)
-    }, 2000)
+    }, duration || 3000)
     return () => clearTimeout(timer);
   })
   //style={{ height: "4rem" }}

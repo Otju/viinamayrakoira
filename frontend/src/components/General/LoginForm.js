@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useMutation, useApolloClient } from '@apollo/client'
-import { LOGIN } from '../../queries'
+import { CREATE_USER, LOGIN } from '../../queries'
 import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -12,8 +12,8 @@ import { useField, useUserInfo } from './../../utils'
 
 const LoginForm = () => {
   const [show, setShow] = useState(false)
+  const [isRegisterForm, setIsRegisterForm] = useState(false)
   const client = useApolloClient()
-
   const username = useField("text", "käyttäjänimi")
   const password = useField("password", "salasana")
   const userInfo = useUserInfo()
@@ -23,9 +23,26 @@ const LoginForm = () => {
 
   const [alert, setAlert] = useState(null)
 
-  const [login, result] = useMutation(LOGIN, {
+  const [login, loginResult] = useMutation(LOGIN, {
     onError: () => {
       setAlert({ message: "Väärä käyttäjänimi tai salasana", variant: "danger" })
+    }
+  })
+
+  const [createUser] = useMutation(CREATE_USER, {
+    onError: (error) => {
+      const message = error.message
+      if (message.includes("Käyttäjänimi")) {
+        username.setInvalid(true)
+      }
+      if (message.includes("Salasana")) {
+        password.setInvalid(true)
+      }
+      setAlert({ message, variant: "danger", duration: 5000 })
+    },
+    onCompleted: () => {
+      //setAlert({ message: "Rekisteröityminen onnistui, voit nyt kirjautua sisään", variant: "success", duration: 8000 })
+      login({ variables: { username: username.value, password: password.value } })
     }
   })
 
@@ -37,8 +54,8 @@ const LoginForm = () => {
   }
 
   useEffect(() => {
-    if (result.data) {
-      const { token, username, id } = result.data.login
+    if (loginResult.data) {
+      const { token, username, id } = loginResult.data.login
       localStorage.setItem('viinamayrakoira-user-token', token)
       localStorage.setItem('viinamayrakoira-user-username', username)
       localStorage.setItem('viinamayrakoira-user-id', id)
@@ -46,11 +63,15 @@ const LoginForm = () => {
       setShow(false)
       setIsLoggedIn(true)
     }
-  }, [result.data]) // eslint-disable-line
+  }, [loginResult.data]) // eslint-disable-line
 
   const submit = async (event) => {
     event.preventDefault()
-    login({ variables: { username: username.value, password: password.value } })
+    if (isRegisterForm) {
+      createUser({ variables: { username: username.value, password: password.value } })
+    } else {
+      login({ variables: { username: username.value, password: password.value } })
+    }
   }
 
   return <>
@@ -65,15 +86,18 @@ const LoginForm = () => {
         <Button variant="dark" onClick={() => setShow(true)}>Kirjaudu sisään</Button>
         <Modal size="lg" show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>Kirjaudu sisään</Modal.Title>
+            <Modal.Title>{isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={submit}>
               {username.field}
               {password.field}
-              <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} />
-              <Form.Control type="submit" value="Kirjaudu sisään"></Form.Control>
+              <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} duration={alert?.duration} />
+              <Form.Control type="submit" value={isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}></Form.Control>
             </Form>
+            <Button variant="link" onClick={() => setIsRegisterForm(v => !v)}>
+              {isRegisterForm ? "Oletko jo käyttäjä? Pääset kirjautu sisään tästä" : "Etkö ole vielä käyttäjä? Pääset rekisteröitymään tästä"}
+            </Button>
           </Modal.Body>
         </Modal >
       </>}
