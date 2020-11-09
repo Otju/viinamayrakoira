@@ -23,7 +23,7 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defa
         : colorObjectArray.find(category => item.groups.group1 === category.name)
     }
 
-    const value = showPercentage ? round(item[field] / wholeLength)*100 : item[field]
+    const value = showPercentage ? round(item[field] / wholeLength) * 100 : item[field]
     unit = showPercentage ? "%" : unit
     return {
       x: item.group,
@@ -76,7 +76,7 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defa
   case "bar":
     chart = <VictoryBar barRatio={1} {...{ labelComponent, style, events, data, containerComponent }} />
     if (useAxis) {
-      chart = <VictoryChart domain={{ x: [0, 11] }}>{chart}</VictoryChart>
+      chart = <VictoryChart domain={{ x: [0, 11], y: [0, 100] }}>{chart}</VictoryChart>
     }
     break
   default:
