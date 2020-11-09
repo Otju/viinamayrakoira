@@ -7,13 +7,13 @@ const capitalizeFirst = string => {
   if (!string) {
     return null
   }
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
 const getPercentage = (string) => {
   const rawPercentage = string.match(/(\d+)?,?\.?\d+(|\s+)%/g)
   if (rawPercentage) {
-    return percentage = turnToNumber(rawPercentage[0])
+    return turnToNumber(rawPercentage[0])
   }
   return null
 }

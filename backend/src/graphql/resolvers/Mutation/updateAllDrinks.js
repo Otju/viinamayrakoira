@@ -1,6 +1,6 @@
-const Drink = require('../../../models/Drink')
-const roundTo = require('round-to')
-const { performance } = require('perf_hooks')
+const Drink = require("../../../models/Drink")
+const roundTo = require("round-to")
+const { performance } = require("perf_hooks")
 const { ForbiddenError } = require("apollo-server-lambda")
 
 const updateAllDrinks = async (root, args) => {
@@ -78,7 +78,7 @@ const updateAllDrinks = async (root, args) => {
     console.log("SORTED", getTime())
 
     let didntChange = 0
-    await Promise.all(drinksUpdate.map(async (drink, i) => {
+    await Promise.all(drinksUpdate.map(async (drink) => {
       const fieldsToCheck = ["name", "producer", "ean", "productCode", "link", "price", "description", "percentage", "imageLink", "category", "size", "searchTermString"]
       const dontUpdateMatches = fieldsToCheck.map(field => ({ [field]: drink[field] }))
       let updatedDrink = await Drink.updateOne(

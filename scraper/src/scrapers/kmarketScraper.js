@@ -1,6 +1,5 @@
-const puppeteer = require('puppeteer')
-const { turnToNumber, getSize, getPercentage } = require('../utils')
-const roundTo = require('round-to')
+const puppeteer = require("puppeteer")
+const { turnToNumber, getSize, getPercentage } = require("../utils")
 
 const kmarketUrl = "https://www.k-ruoka.fi/kauppa/tuotehaku/juomat/"
 
@@ -8,17 +7,17 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
 
   async function autoScroll(page) {
     await page.evaluate(async () => {
-      await new Promise((resolve, reject) => {
-        var totalHeight = 0;
-        var distance = 100;
+      await new Promise((resolve) => {
+        var totalHeight = 0
+        var distance = 100
         var timer = setInterval(() => {
-          var scrollHeight = document.body.scrollHeight;
-          window.scrollBy(0, distance);
-          totalHeight += distance;
+          var scrollHeight = document.body.scrollHeight
+          window.scrollBy(0, distance)
+          totalHeight += distance
 
           if (totalHeight >= scrollHeight) {
-            clearInterval(timer);
-            resolve();
+            clearInterval(timer)
+            resolve()
           }
         }, 50)
       })
@@ -38,11 +37,11 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
     const items = document.querySelectorAll(".bundle-list-item")
     const results = []
     items.forEach((item) => {
-      const title = item.querySelector('.product-result-name').innerText
-      const link = item.querySelector('.click-area').getAttribute("href")
-      const imagelink = item.querySelector('.product-result-image > div > img').getAttribute("src")
-      const priceInt = item.querySelector('.price-integer-part').innerText
-      const priceDecimal = item.querySelector('.price-fractional-part').innerText
+      const title = item.querySelector(".product-result-name").innerText
+      const link = item.querySelector(".click-area").getAttribute("href")
+      const imagelink = item.querySelector(".product-result-image > div > img").getAttribute("src")
+      const priceInt = item.querySelector(".price-integer-part").innerText
+      const priceDecimal = item.querySelector(".price-fractional-part").innerText
       const price = `${priceInt}.${priceDecimal}`
       results.push({
         title,
@@ -51,7 +50,7 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
         price
       })
     })
-    return results;
+    return results
   })
 
   const rawDrinks = getDrinks
@@ -79,7 +78,7 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
     if (!category) {
       const isInName = (words) => {
         const inName = words.some(word => title.toLowerCase().includes(word))
-        return inName || inDesc
+        return inName
       }
       if (category === "Muut viinit") {
         if (isInName(["red", "punaviini"])) {

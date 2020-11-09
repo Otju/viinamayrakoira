@@ -1,7 +1,7 @@
-const User = require('../../../models/User')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-require('dotenv').config()
+const User = require("../../../models/User")
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const { UserInputError } = require("apollo-server-lambda")
 
 const login = async (root, args) => {

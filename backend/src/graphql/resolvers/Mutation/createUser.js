@@ -1,6 +1,6 @@
-const User = require('../../../models/User')
-const bcrypt = require('bcryptjs')
-const { UserInputError } = require('apollo-server');
+const User = require("../../../models/User")
+const bcrypt = require("bcryptjs")
+const { UserInputError } = require("apollo-server")
 const createUser = async (root, args) => {
 
   const { password, ...otherFields } = args
@@ -27,7 +27,7 @@ const createUser = async (root, args) => {
     throw new UserInputError("Sähköposti on pakollinen kenttä")
   }
 
-  if (!/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email)) {
+  if (!/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i.test(email)) {
     throw new UserInputError("Syötä oikea sähköposti")
   }
 

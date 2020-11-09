@@ -1,7 +1,7 @@
-const cheerio = require('cheerio');
-const got = require('got');
-const { turnToNumber, getPercentage } = require('../utils')
-const roundTo = require('round-to')
+const cheerio = require("cheerio")
+const got = require("got")
+const { turnToNumber, getPercentage } = require("../utils")
+const roundTo = require("round-to")
 
 const foodieUrl = "https://www.foodie.fi"
 
@@ -13,11 +13,11 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
 
     const response = await got(foodieUrl + "/products/" + categoryNumber + "/page/" + page)
     const $ = cheerio.load(response.body)
-    $('.js-link-item').each((i, item) => {
+    $(".js-link-item").each((i, item) => {
       const link = $(item).attr("href")
       links.push(link)
     })
-    const isNotLastPage = $('.js-load-more.btn.btn-default').attr("href")
+    const isNotLastPage = $(".js-load-more.btn.btn-default").attr("href")
     return isNotLastPage
   }
 
@@ -32,20 +32,20 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const productLink = foodieUrl + link
     const response = await got(productLink)
     const $ = cheerio.load(response.body)
-    const name = $('#product-name').text()
-    const producer = $('#product-subname').text()
-    const rawDeposit = turnToNumber($('.price-deposit').text().replace(/\s/g, "").slice(10))
+    const name = $("#product-name").text()
+    const producer = $("#product-subname").text()
+    const rawDeposit = turnToNumber($(".price-deposit").text().replace(/\s/g, "").slice(10))
     const deposit = !rawDeposit || rawDeposit < 0 || Number.isNaN(rawDeposit) ? 0 : rawDeposit
-    const ean = $('[itemprop=sku]').text()
-    const sizeRaw = $('.js-details').text()
-    const wholeNumberOfPrice = $('.whole-number ').text()
-    const decimalsOfPrice = $('.decimal').text()
+    const ean = $("[itemprop=sku]").text()
+    const sizeRaw = $(".js-details").text()
+    const wholeNumberOfPrice = $(".whole-number ").text()
+    const decimalsOfPrice = $(".decimal").text()
     const price = Number((`${wholeNumberOfPrice}.${decimalsOfPrice}`))
-    const description = $('div[id=info] [itemprop=description]').first().text()
-    const imageLink = $('img[class=product-image]').attr("src")
+    const description = $("div[id=info] [itemprop=description]").first().text()
+    const imageLink = $("img[class=product-image]").attr("src")
     
     let size
-    sizeRaw.replace(/ /g, '').replace(/^[a-zA-Z0-9.,]*$/g, '').split("\n").every(value => {
+    sizeRaw.replace(/ /g, "").replace(/^[a-zA-Z0-9.,]*$/g, "").split("\n").every(value => {
       if (!value) {
         return true
       }

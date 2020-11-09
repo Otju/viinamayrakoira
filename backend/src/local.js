@@ -1,5 +1,5 @@
-const { ApolloServer } = require('apollo-server')
-const serverOptions = require('./serverOptions')
+const { ApolloServer } = require("apollo-server")
+const serverOptions = require("./serverOptions")
 
 const server = new ApolloServer(serverOptions)
 

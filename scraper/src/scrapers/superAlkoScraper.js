@@ -1,6 +1,6 @@
-const cheerio = require('cheerio');
-const got = require('got');
-const { turnToNumber, getSize, getPercentage } = require('../utils')
+const cheerio = require("cheerio")
+const got = require("got")
+const { turnToNumber, getSize, getPercentage } = require("../utils")
 
 const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
 
@@ -9,7 +9,7 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
   const getCategoryLinks = async () => {
     const response = await got(url + "range-of-products/" + categoryNumber)
     const $ = cheerio.load(response.body)
-    const div = $('.s-12.l-9.right')
+    const div = $(".s-12.l-9.right")
     div.find("div > h4 > span >").each((i, item) => {
       const link = $(item).attr("href")
       categoryLinks.push(link)
@@ -22,7 +22,7 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
   await Promise.all(categoryLinks.map(async (link) => {
     const response = await got(url + link)
     const $ = cheerio.load(response.body)
-    $('.row, .row2').each((i, item) => {
+    $(".row, .row2").each((i, item) => {
       const rawImageLink = $(item).find(".cell.col1.image-stack > a > img").attr("src")
       const nameDiv = $(item).find(".cell.col2")
       const name = $(nameDiv).text()

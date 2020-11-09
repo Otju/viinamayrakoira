@@ -1,4 +1,4 @@
-const Review = require('../../../models/Review')
+const Review = require("../../../models/Review")
 const { UserInputError, AuthenticationError } = require("apollo-server")
 const updateDrinkFields = require("../utils")
 

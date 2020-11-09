@@ -1,31 +1,30 @@
-const axios = require('axios')
-const { request } = require('graphql-request')
-const scrapers = require('./scrapers')
+const { request } = require("graphql-request")
+const scrapers = require("./scrapers")
 
 const setAllDrinks = async () => {
   let allDrinks = []
   let onlyOneScraper
   switch (process.argv[2]) {
-    case "alko":
-      onlyOneScraper = 0
-      break
-    case "superAlko":
-      onlyOneScraper = 1
-      break
-    case "foodie":
-      onlyOneScraper = 2
-      break
-    case "kmarket":
-      onlyOneScraper = 3
-      break
-    case "eckeroLine":
-      onlyOneScraper = 4
-      break
-    case "tallink":
-      onlyOneScraper = 5
-      break
-    default:
-      break
+  case "alko":
+    onlyOneScraper = 0
+    break
+  case "superAlko":
+    onlyOneScraper = 1
+    break
+  case "foodie":
+    onlyOneScraper = 2
+    break
+  case "kmarket":
+    onlyOneScraper = 3
+    break
+  case "eckeroLine":
+    onlyOneScraper = 4
+    break
+  case "tallink":
+    onlyOneScraper = 5
+    break
+  default:
+    break
   }
   if (onlyOneScraper) {
     const drinksForScaper = await scrapers[onlyOneScraper]()

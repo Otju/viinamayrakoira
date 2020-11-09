@@ -1,4 +1,4 @@
-const Review = require('../../../models/Review')
+const Review = require("../../../models/Review")
 const { UserInputError, AuthenticationError } = require("apollo-server")
 const updateDrinkFields = require("../utils")
 
@@ -18,11 +18,12 @@ const addReview = async (root, args, context) => {
   const otherReviews = await Review.find({ drink: newReview.drink })
 
   let review
+  let reviews
 
   const oldReview = otherReviews.find(review => review.user.toString() === currentUser._id.toString())
 
   if (oldReview) {
-    const response = await Review.updateOne({ _id: oldReview.id }, { taste: newReview.taste, priceQualityRatio: newReview.priceQualityRatio, comment: newReview.comment })
+    await Review.updateOne({ _id: oldReview.id }, { taste: newReview.taste, priceQualityRatio: newReview.priceQualityRatio, comment: newReview.comment })
     review = { ...newReview, id: oldReview.id, _id: oldReview.id, drink: oldReview.drink }
     reviews = otherReviews.map(item => item.id === review.id ? review : item)
   } else {

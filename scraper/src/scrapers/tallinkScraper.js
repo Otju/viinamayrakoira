@@ -1,6 +1,5 @@
-const puppeteer = require('puppeteer')
-const { turnToNumber, getSize, getPercentage, capitalizeFirst } = require('../utils')
-const roundTo = require('round-to')
+const puppeteer = require("puppeteer")
+const { turnToNumber, getSize, getPercentage, capitalizeFirst } = require("../utils")
 
 const url = "https://shopping.tallink.com/fi/tal-hel-bq/category/juomat/"
 
@@ -22,11 +21,11 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
     const items = mainPart.querySelectorAll(".ng-scope.ng-isolate-scope")
     const results = []
     items.forEach((item) => {
-      const title = item.querySelector('.title.ng-binding').innerText
-      const link = item.querySelector('.hover-search-icon').getAttribute("href")
-      const producer = item.querySelector('.manufacturer').innerText
-      const imagelink = item.querySelector('.image > img').getAttribute("src")
-      const price = item.querySelector('.top-price').innerText
+      const title = item.querySelector(".title.ng-binding").innerText
+      const link = item.querySelector(".hover-search-icon").getAttribute("href")
+      const producer = item.querySelector(".manufacturer").innerText
+      const imagelink = item.querySelector(".image > img").getAttribute("src")
+      const price = item.querySelector(".top-price").innerText
       results.push({
         title,
         link,

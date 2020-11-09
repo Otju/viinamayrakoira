@@ -12,6 +12,7 @@
   "author": "Otju",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^7.13.0",
     "nodemon": "^2.0.4"
   },
   "dependencies": {

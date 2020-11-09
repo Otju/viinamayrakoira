@@ -1,7 +1,7 @@
 const fetch = require("node-fetch")
-const XLSX = require('xlsx')
-const roundTo = require('round-to')
-const { turnToNumber } = require('../utils')
+const XLSX = require("xlsx")
+const roundTo = require("round-to")
+const { turnToNumber } = require("../utils")
 
 
 const xlsxUrl = "https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xlsx"
@@ -12,8 +12,8 @@ const getAlko = async () => {
   const alkoData = await fetch(xlsxUrl)
     .then(res => res.buffer())
     .then(buffer => {
-      const workbook = XLSX.read(buffer, { type: 'buffer' });
-      const sheet = workbook.SheetNames[0];
+      const workbook = XLSX.read(buffer, { type: "buffer" })
+      const sheet = workbook.SheetNames[0]
       return XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { range: 3 })
     })
   alkoData.forEach(data => {
@@ -25,9 +25,9 @@ const getAlko = async () => {
     } if (type === "brandyt, Armanjakit ja Calvadosit") {
       type = "Brandyt Armanjakit ja Calvadosit"
     }
-   if (type === "kuohuviinit & samppanjat") {
-    type = "kuohuviinit ja samppanjat"
-  }
+    if (type === "kuohuviinit & samppanjat") {
+      type = "kuohuviinit ja samppanjat"
+    }
     if (type === "lahja- ja juomatarvikkeet") {
       return
     }

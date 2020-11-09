@@ -1,5 +1,5 @@
-const Drink = require('../../../models/Drink')
-const roundTo = require('round-to')
+const Drink = require("../../../models/Drink")
+const roundTo = require("round-to")
 
 const statistics = async () => {
 
@@ -34,8 +34,8 @@ const statistics = async () => {
 
   const drinksPerCategory = await getValuesAndGroup("$category")
   const drinksPerStore = await getValuesAndGroup("$store")
-  const drinksPerStoreAndCategory = await getValuesAndGroup({ group1: '$store', group2: '$category' })
-  drinkCount = drinksPerStore.reduce((acc, curr) => acc + curr.count, 0)
+  const drinksPerStoreAndCategory = await getValuesAndGroup({ group1: "$store", group2: "$category" })
+  const drinkCount = drinksPerStore.reduce((acc, curr) => acc + curr.count, 0)
   return { drinkCount, drinksPerCategory, drinksPerStore, drinksPerStoreAndCategory }
 }
 

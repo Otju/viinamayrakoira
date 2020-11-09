@@ -1,12 +1,10 @@
-const Drink = require('../../../models/Drink')
+const Drink = require("../../../models/Drink")
 
 const allDrinks = async (root, args) => {
   const sortByField = args.sortByField ? args.sortByField : "pricePerPortion"
   const sortDirection = args.sortByDescending ? -1 : 1
   let search = { isInSelection: true }
-  let searchText = undefined
   if (args.name) {
-    searchText = args.name
     let regex = "^"
     args.name.split(" ").forEach(part => regex += `(?=.*${part})`)
     regex += ".*$"

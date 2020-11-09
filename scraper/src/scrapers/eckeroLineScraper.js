@@ -1,7 +1,7 @@
-const cheerio = require('cheerio');
-const got = require('got');
-const { turnToNumber } = require('../utils')
-const roundTo = require('round-to')
+const cheerio = require("cheerio")
+const got = require("got")
+const { turnToNumber } = require("../utils")
+const roundTo = require("round-to")
 
 const eckeroLineUrl = "https://www.eckeroline.fi/shopping?cat="
 
@@ -14,7 +14,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const response = await got(firstPageLink)
     const $ = cheerio.load(response.body)
     const productAmounts = []
-    $('.toolbar-number').each((i, item) => { productAmounts.push(turnToNumber($(item).text())) })
+    $(".toolbar-number").each((i, item) => { productAmounts.push(turnToNumber($(item).text())) })
     let productAmount = Math.max(...productAmounts)
     for (let i = 2; i < 10; i++) {
       productAmount -= 48
@@ -52,10 +52,10 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       let $
       const response = await got(link)
       $ = cheerio.load(response.body)
-      const name = $('.base').text()
+      const name = $(".base").text()
       let productCode
       let description
-      $('.value').each((i, item) => {
+      $(".value").each((i, item) => {
         if (i === 1) {
           description = $(item).text()
         } else {
@@ -67,8 +67,8 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
         productCode = "37962"
       }
 
-      const sizeRaw = $('td[data-th=Pakkauskoko]').text()
-      let percentage = turnToNumber($('td[data-th=Alkoholi]').text())
+      const sizeRaw = $("td[data-th=Pakkauskoko]").text()
+      let percentage = turnToNumber($("td[data-th=Alkoholi]").text())
       const price = roundTo(turnToNumber($(".price").text()) - 0.01, 2)
 
       let unitDivider = 100
@@ -76,6 +76,8 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       if (sizeRaw.includes("ml")) {
         unitDivider = 1000
       }
+
+      let size
 
       if (sizeRaw.includes("x")) {
         const parts = sizeRaw.split(" ").map(part => turnToNumber(part))

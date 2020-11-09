@@ -1,13 +1,12 @@
-require('dotenv').config()
-const { ApolloServer } = require('apollo-server-lambda')
-const { context } = require('./serverOptions')
-const serverOptions = require('./serverOptions')
+require("dotenv").config()
+const { ApolloServer } = require("apollo-server-lambda")
+const serverOptions = require("./serverOptions")
 
 const server = new ApolloServer(serverOptions)
 
 exports.graphqlHandler = server.createHandler({
   cors: {
-    origin: '*',
+    origin: "*",
     credentials: true,
   }
 })

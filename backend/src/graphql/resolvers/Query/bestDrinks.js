@@ -1,5 +1,4 @@
-const Drink = require('../../../models/Drink')
-const Review = require('../../../models/Review')
+const Drink = require("../../../models/Drink")
 
 const bestDrinks = async (root, args) => {
   const search = args.store ? { store: args.store } : {}
