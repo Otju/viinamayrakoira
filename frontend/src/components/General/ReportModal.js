@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import ReportForm from './ReportForm'
+import React, { useState } from "react"
+import Modal from "react-bootstrap/Modal"
+import Button from "react-bootstrap/Button"
+import ReportForm from "./ReportForm"
 
 
 const ReportModal = ({ drinkId, defaultReportTypeIndex }) => {

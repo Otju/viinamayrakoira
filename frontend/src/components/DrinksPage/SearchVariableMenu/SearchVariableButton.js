@@ -1,8 +1,8 @@
-import React from 'react'
-import Alert from 'react-bootstrap/Alert'
-import { capitalizeFirst, searchTypes } from '../../../utils'
+import React from "react"
+import Alert from "react-bootstrap/Alert"
+import { capitalizeFirst, searchTypes } from "../../../utils"
 
-const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVariables, setSearchVariables }) => {
+const SearchVariableButton = ({ setFieldValue, searchCategory, value, searchVariables }) => {
 
   const handleSearchVariableDeletion = (searchCategory, valueToDelete, setFieldValue) => {
     const newSearchVariables = { ...searchVariables }

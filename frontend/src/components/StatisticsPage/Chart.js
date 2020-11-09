@@ -1,5 +1,5 @@
-import React from 'react'
-import { capitalizeFirst, colors, useWindowDimensions, round } from '../../utils'
+import React from "react"
+import { capitalizeFirst, colors, useWindowDimensions, round } from "../../utils"
 import { VictoryPie, VictoryTooltip, VictoryBar, VictoryContainer, VictoryChart } from "victory"
 const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defaultColor, dontSort, showPercentage, useAxis }) => {
 
@@ -52,7 +52,7 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defa
             target: "labels",
             mutation: () => ({ active: true })
           }
-        ];
+        ]
       },
       onMouseOut: () => {
         return [
@@ -63,25 +63,25 @@ const Chart = ({ rawData, field, colorObjectArray, name, type, unit, width, defa
             target: "labels",
             mutation: () => ({ active: false })
           }
-        ];
+        ]
       }
     }
   }]
   let chart
   const containerComponent = <VictoryContainer style={{ touchAction: "auto" }} />
   switch (type) {
-    case "pie":
-      chart = <VictoryPie {...{ labelComponent, style, events, data, containerComponent }} />
-      break
-    case "bar":
-      chart = <VictoryBar barRatio={1} {...{ labelComponent, style, events, data, containerComponent }} />
-      if (useAxis) {
-        chart = <VictoryChart domain={{ x: [0, 11] }}>{chart}</VictoryChart>
-      }
-      break
-    default:
-      console.log("Missing chart type")
-      break
+  case "pie":
+    chart = <VictoryPie {...{ labelComponent, style, events, data, containerComponent }} />
+    break
+  case "bar":
+    chart = <VictoryBar barRatio={1} {...{ labelComponent, style, events, data, containerComponent }} />
+    if (useAxis) {
+      chart = <VictoryChart domain={{ x: [0, 11] }}>{chart}</VictoryChart>
+    }
+    break
+  default:
+    console.log("Missing chart type")
+    break
   }
   return (
     <div style={{ width, display: "inline-block", border: "solid", borderColor: colors.lightGray, marginTop: "1rem", marginLeft: "1.25%", marginRight: "1.25%" }}>

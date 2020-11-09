@@ -32,12 +32,12 @@ export const stores = [
   {
     name: "superAlkoEesti",
     color: "#FF8800",
-    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/eestiflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
+    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + "/eestiflag.svg"} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
   },
   {
     name: "superAlkoLatvia",
     color: "#FF8800",
-    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + '/latviaflag.svg'} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
+    displayName: <>SuperAlko <img src={process.env.PUBLIC_URL + "/latviaflag.svg"} style={{ height: "1rem"}} alt="viinamayrakoira.svg" /></>
   }
 ]
 

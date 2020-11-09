@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import Form from 'react-bootstrap/Form'
-import ReactStars from 'react-rating-stars-component'
+import React, { useEffect, useState } from "react"
+import Form from "react-bootstrap/Form"
+import ReactStars from "react-rating-stars-component"
 
 const StarReview = ({ type, setter, isInvalid, value, size, showHeader, disabled}) => {
 

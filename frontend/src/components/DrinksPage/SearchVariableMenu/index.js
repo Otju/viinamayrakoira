@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import SearchVariableButton from './SearchVariableButton'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import MinMaxDropDown from './MinMaxDropDown'
-import SortBySettings from './SortBySettings'
-import CheckboxDropDown from './CheckboxDropDown'
-import { categories, stores, colors, searchTypes } from '../../../utils'
-import _ from 'lodash'
-import ToggleableAccordion from '../../General/ToggleableAccordion'
+import React, { useState, useEffect } from "react"
+import SearchVariableButton from "./SearchVariableButton"
+import Form from "react-bootstrap/Form"
+import Button from "react-bootstrap/Button"
+import MinMaxDropDown from "./MinMaxDropDown"
+import SortBySettings from "./SortBySettings"
+import CheckboxDropDown from "./CheckboxDropDown"
+import { categories, stores, colors, searchTypes } from "../../../utils"
+import _ from "lodash"
+import ToggleableAccordion from "../../General/ToggleableAccordion"
 
 const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVariables, expandable }) => {
 

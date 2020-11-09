@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import Spinner from 'react-bootstrap/Spinner'
+import React, { useState } from "react"
+import Spinner from "react-bootstrap/Spinner"
 import DrinkCardList from "../General/DrinkCards/DrinkCardList"
-import InfiniteScroll from 'react-infinite-scroll-component'
-import SearchVariableUnit from './SearchVariableUnit'
+import InfiniteScroll from "react-infinite-scroll-component"
+import SearchVariableUnit from "./SearchVariableUnit"
 
 
 const DrinksPage = () => {

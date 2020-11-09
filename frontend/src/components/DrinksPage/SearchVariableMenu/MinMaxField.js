@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import Dropdown from 'react-bootstrap/Dropdown'
-import Form from 'react-bootstrap/Form'
+import React, { useState, useEffect } from "react"
+import Dropdown from "react-bootstrap/Dropdown"
+import Form from "react-bootstrap/Form"
 
 const MinMaxField = ({ searchVariables, setFieldValue, item }) => {
 

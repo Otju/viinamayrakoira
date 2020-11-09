@@ -1,13 +1,13 @@
-import Dropdown from 'react-bootstrap/Dropdown'
-import React from 'react'
-import MinMaxField from './MinMaxField'
+import Dropdown from "react-bootstrap/Dropdown"
+import React from "react"
+import MinMaxField from "./MinMaxField"
 
 
 const MinMaxDropDown = ({ searchVariables, valuetypes, setFieldValue }) => {
 
   return (
     <Dropdown style={{ display: "inline-block", marginBottom: "0.5rem", marginTop: "0.5rem", marginRight: "0.5rem" }}>
-      <Dropdown.Toggle variant="dark" id="dropdown-basic">
+      <Dropdown.Toggle variant="dark">
         yli/alle
       </Dropdown.Toggle>
       <Dropdown.Menu>

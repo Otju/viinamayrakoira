@@ -1,7 +1,7 @@
-import Dropdown from 'react-bootstrap/Dropdown'
-import React from 'react'
-import Button from 'react-bootstrap/Button'
-import HoverableDropDownText from './HoverableDropDownText'
+import Dropdown from "react-bootstrap/Dropdown"
+import React from "react"
+import Button from "react-bootstrap/Button"
+import HoverableDropDownText from "./HoverableDropDownText"
 
 const SortBySettings = ({ valuetypes, searchVariables, setFieldValue }) => {
 
@@ -22,7 +22,7 @@ const SortBySettings = ({ valuetypes, searchVariables, setFieldValue }) => {
   return (
     <div style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
       <Dropdown style={{ display: "inline-block" }}>
-        <Dropdown.Toggle variant="dark" id="dropdown-basic">
+        <Dropdown.Toggle variant="dark">
           järjestys <b>{showName} {searchVariables.sortByField === "relevance" ? null : isDescending ? "↑" : "↓"}</b>
         </Dropdown.Toggle>
         <Dropdown.Menu>

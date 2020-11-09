@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useMutation, useApolloClient } from '@apollo/client'
-import { CREATE_USER, LOGIN } from '../../queries'
-import Form from 'react-bootstrap/Form'
-import Modal from 'react-bootstrap/Modal'
-import Dropdown from 'react-bootstrap/Dropdown'
-import Button from 'react-bootstrap/Button'
-import AlertBox from './AlertBox'
-import HoverableDropDownText from '../DrinksPage/SearchVariableMenu/HoverableDropDownText'
-import { useField, useUserInfo } from './../../utils'
+import React, { useState, useEffect } from "react"
+import { useMutation, useApolloClient } from "@apollo/client"
+import { CREATE_USER, LOGIN } from "../../queries"
+import Form from "react-bootstrap/Form"
+import Modal from "react-bootstrap/Modal"
+import Dropdown from "react-bootstrap/Dropdown"
+import Button from "react-bootstrap/Button"
+import AlertBox from "./AlertBox"
+import HoverableDropDownText from "../DrinksPage/SearchVariableMenu/HoverableDropDownText"
+import { useField, useUserInfo } from "./../../utils"
 
 
 const LoginForm = () => {
@@ -16,10 +16,11 @@ const LoginForm = () => {
   const client = useApolloClient()
   const username = useField("text", "käyttäjänimi")
   const password = useField("password", "salasana")
+  const email = useField("email", "sähköposti")
   const userInfo = useUserInfo()
   const [shownUsername, setShownUserName] = useState(userInfo.username)
 
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('viinamayrakoira-user-token'))
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("viinamayrakoira-user-token"))
 
   const [alert, setAlert] = useState(null)
 
@@ -37,6 +38,9 @@ const LoginForm = () => {
       }
       if (message.includes("Salasana")) {
         password.setInvalid(true)
+      }
+      if (message.includes("ähköposti")) {
+        email.setInvalid(true)
       }
       setAlert({ message, variant: "danger", duration: 5000 })
     },
@@ -56,9 +60,9 @@ const LoginForm = () => {
   useEffect(() => {
     if (loginResult.data) {
       const { token, username, id } = loginResult.data.login
-      localStorage.setItem('viinamayrakoira-user-token', token)
-      localStorage.setItem('viinamayrakoira-user-username', username)
-      localStorage.setItem('viinamayrakoira-user-id', id)
+      localStorage.setItem("viinamayrakoira-user-token", token)
+      localStorage.setItem("viinamayrakoira-user-username", username)
+      localStorage.setItem("viinamayrakoira-user-id", id)
       setShownUserName(username)
       setShow(false)
       setIsLoggedIn(true)
@@ -68,7 +72,7 @@ const LoginForm = () => {
   const submit = async (event) => {
     event.preventDefault()
     if (isRegisterForm) {
-      createUser({ variables: { username: username.value, password: password.value } })
+      createUser({ variables: { username: username.value, password: password.value, email: email.value } })
     } else {
       login({ variables: { username: username.value, password: password.value } })
     }
@@ -77,7 +81,7 @@ const LoginForm = () => {
   return <>
     {isLoggedIn
       ? <Dropdown>
-        <Dropdown.Toggle variant="dark" id="dropdown-basic">{shownUsername}</Dropdown.Toggle>
+        <Dropdown.Toggle variant="dark">{shownUsername}</Dropdown.Toggle>
         <Dropdown.Menu>
           <HoverableDropDownText handleClick={() => logout()}>Kirjaudu ulos</HoverableDropDownText>
         </Dropdown.Menu>
@@ -89,14 +93,15 @@ const LoginForm = () => {
             <Modal.Title>{isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form onSubmit={submit}>
+            <Form onSubmit={submit} noValidate>
               {username.field}
+              {isRegisterForm && email.field}
               {password.field}
               <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} duration={alert?.duration} />
               <Form.Control type="submit" value={isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}></Form.Control>
             </Form>
             <Button variant="link" onClick={() => setIsRegisterForm(v => !v)}>
-              {isRegisterForm ? "Oletko jo käyttäjä? Pääset kirjautu sisään tästä" : "Etkö ole vielä käyttäjä? Pääset rekisteröitymään tästä"}
+              {isRegisterForm ? "Oletko jo käyttäjä? Kirjautu sisään tästä" : "Etkö ole vielä käyttäjä? Rekisteröidy tästä"}
             </Button>
           </Modal.Body>
         </Modal >

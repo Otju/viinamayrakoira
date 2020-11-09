@@ -1,7 +1,7 @@
-import React from 'react'
-import { capitalizeFirst, stores } from '../../../utils'
-import Button from 'react-bootstrap/Button'
-import StarReview from './StarReview'
+import React from "react"
+import { capitalizeFirst, stores } from "../../../utils"
+import Button from "react-bootstrap/Button"
+import StarReview from "./StarReview"
 
 const DrinkCard = ({ drink, showStoreButton }) => {
 
@@ -9,11 +9,11 @@ const DrinkCard = ({ drink, showStoreButton }) => {
   const commentCount = drink.commentCount ?? 0
 
   return <>
-    <div style={{ display: 'inline-block', width: "50%" }}>
+    <div style={{ display: "inline-block", width: "50%" }}>
       <img src={drink.imageLink} alt={drink.imageLink}
         style={{ maxWidth: "100%", maxHeight: "18rem", width: "auto", height: "auto", mixBlendMode: "multiply", "marginTop": "-22rem" }} />
     </div>
-    <div style={{ display: 'inline-block', padding: "5%", width: "50%", height: "20rem", marginBottom: "auto", marginTop: "auto" }}>
+    <div style={{ display: "inline-block", padding: "5%", width: "50%", height: "20rem", marginBottom: "auto", marginTop: "auto" }}>
       {drink.price}€<br />
       {drink.percentage}%<br />
       {drink.size}l<br />

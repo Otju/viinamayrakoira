@@ -8,7 +8,7 @@ Cypress.Commands.add("hasDrink", (params, count) => {
     } else if (key === "minMax") {
       paramString = paramString.concat((` ${key}: [${value
         .map(item => `{${Object.entries(item)
-        .map(([keyIn, valueIn]) => `${keyIn}: ${typeof valueIn === "string" ? `"${valueIn}"` : valueIn}`).join(",")}}`)}]`))
+          .map(([keyIn, valueIn]) => `${keyIn}: ${typeof valueIn === "string" ? `"${valueIn}"` : valueIn}`).join(",")}}`)}]`))
     } else {
       paramString = paramString.concat(` ${key}: "${value}"`)
     }
@@ -26,7 +26,7 @@ Cypress.Commands.add("hasDrink", (params, count) => {
   cy.request(
     {
       method: "POST",
-      url: 'http://localhost:4000/',
+      url: "http://localhost:4000/",
       body: { query: query },
     }
   ).then((res) => {

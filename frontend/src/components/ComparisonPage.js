@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 //import { useLocation, useHistory } from "react-router-dom"
-import ComparisonDrinkCard from './General/DrinkCards/ComparisonDrinkCard'
+import ComparisonDrinkCard from "./General/DrinkCards/ComparisonDrinkCard"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"

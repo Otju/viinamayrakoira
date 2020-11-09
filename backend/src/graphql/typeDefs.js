@@ -145,7 +145,7 @@ const typeDefs = gql`
     createUser(
       username: String!
       password: String!
-      email: String): User
+      email: String!): User
     login(
       username: String!
       password: String!

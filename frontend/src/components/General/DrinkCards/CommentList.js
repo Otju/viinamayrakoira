@@ -1,9 +1,9 @@
-import React from 'react'
-import Chart from '../../StatisticsPage/Chart'
-import ListGroup from 'react-bootstrap/ListGroup'
-import { round } from '../../../utils'
-import Comment from './Comment'
-import StarReview from './StarReview'
+import React from "react"
+import Chart from "../../StatisticsPage/Chart"
+import ListGroup from "react-bootstrap/ListGroup"
+import { round } from "../../../utils"
+import Comment from "./Comment"
+import StarReview from "./StarReview"
 
 const CommentList = ({ reviews, drink }) => {
   if (!reviews || reviews.length === 0) {
@@ -34,7 +34,7 @@ const CommentList = ({ reviews, drink }) => {
 
     <Chart rawData={groupedReviews} field={"PQRCount"}
       name={<>Hinta-laatu
-      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <StarReview size={30} value={drink.priceQualityRatioAverage} type="PQR" />
         </div></>}
       type="bar" defaultColor={"green"} dontSort={true} showPercentage={true} useAxis={true} />

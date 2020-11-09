@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import Alert from 'react-bootstrap/Alert'
+import React, { useEffect } from "react"
+import Alert from "react-bootstrap/Alert"
 
 const AlertBox = ({ setAlert, alert, variant, duration }) => {
 
@@ -7,7 +7,7 @@ const AlertBox = ({ setAlert, alert, variant, duration }) => {
     const timer = setTimeout(() => {
       setAlert(null)
     }, duration || 3000)
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer)
   })
   //style={{ height: "4rem" }}
   return <div >

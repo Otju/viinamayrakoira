@@ -1,5 +1,5 @@
 import { stores, categories, searchTypes, colors } from "./constants"
-import { useWindowDimensions, useField, useUserInfo} from './hooks'
+import { useWindowDimensions, useField, useUserInfo} from "./hooks"
 
 export { stores, categories, searchTypes, colors, useWindowDimensions, useField, useUserInfo}
 
@@ -7,7 +7,7 @@ export const capitalizeFirst = inputString => {
   if (!inputString || typeof inputString !== "string") {
     return null
   }
-  return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+  return inputString.charAt(0).toUpperCase() + inputString.slice(1)
 }
 export const round = (value) => Math.round((value + 0.00001) * 100) / 100
 

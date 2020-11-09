@@ -1,7 +1,7 @@
-import React from 'react'
-import Dropdown from 'react-bootstrap/Dropdown'
-import HoverableDropDownText from './HoverableDropDownText'
-import { capitalizeFirst } from '../../../utils'
+import React from "react"
+import Dropdown from "react-bootstrap/Dropdown"
+import HoverableDropDownText from "./HoverableDropDownText"
+import { capitalizeFirst } from "../../../utils"
 
 const CheckboxDropDown = ({ searchVariables, setFieldValue, displayName, name, values }) => {
 
@@ -26,13 +26,13 @@ const CheckboxDropDown = ({ searchVariables, setFieldValue, displayName, name, v
 
   return (
     <Dropdown style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
-      <Dropdown.Toggle variant="dark" id="dropdown-basic">
+      <Dropdown.Toggle variant="dark">
         {displayName}
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <HoverableDropDownText handleClick={() => handleSelectAll()} selected={allSelected}>
           Valitse kaikki
-      </HoverableDropDownText>
+        </HoverableDropDownText>
         {values.map(item => {
           let selected = false
           if (searchVariables[name] && searchVariables[name].find(searchVar => searchVar === item.name)) {

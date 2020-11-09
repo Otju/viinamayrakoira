@@ -1,6 +1,6 @@
-import React from 'react'
-import Container from 'react-bootstrap/Container'
-import ReportForm from './General/ReportForm'
+import React from "react"
+import Container from "react-bootstrap/Container"
+import ReportForm from "./General/ReportForm"
 
 const InfoPage = () => {
 
@@ -35,7 +35,7 @@ const InfoPage = () => {
         <b>Annoslaskuri</b>-sivulla voit laskea kuinka suuren annosmäärän tiettyjen juomien ja määrien yhdistelmä tuottaa.<br />
         Voit myös laskea tuon annosmäärän vaikutuksen veresi alkoholin promillemäärään.
         Näät myös kuinka paljon nuo annokset alkoholia maksaisivat
-    </p>
+      </p>
       <p><b>Tilastot</b>-sivulta löydät muutaman perustilaston juomien kaupoista ja kategorioista</p>
     </Container>
     <ReportForm />

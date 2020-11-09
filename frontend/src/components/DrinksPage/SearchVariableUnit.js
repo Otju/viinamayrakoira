@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { useQuery } from '@apollo/client'
-import { ALL_DRINKS } from '../../queries'
-import SearchVariableMenu from './SearchVariableMenu'
-import { searchTypes } from '../../utils'
+import React, { useState, useEffect } from "react"
+import { useQuery } from "@apollo/client"
+import { ALL_DRINKS } from "../../queries"
+import SearchVariableMenu from "./SearchVariableMenu"
+import { searchTypes } from "../../utils"
 import { useLocation, useHistory } from "react-router-dom"
 import _ from "lodash"
 
@@ -46,7 +46,7 @@ const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked, dontSearc
 
   useEffect(() => {
     setSearchVariablesState(getQueryStrings())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [location])
 
 
@@ -109,7 +109,7 @@ const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked, dontSearc
     } else {
       setDrinks(null)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [searchVariables])
 
   useEffect(() => {
@@ -120,7 +120,7 @@ const SearchVariableUnit = ({ setDrinks, offset, setOffset, isChunked, dontSearc
         setDrinks(d => d ? d.concat(result.data.allDrinks) : result.data.allDrinks)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [result])
 
 

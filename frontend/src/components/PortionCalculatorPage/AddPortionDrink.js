@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
-import DrinkSearchBox from '../General/DrinkSearchBox'
-import MiniDrinkCard from '../General/DrinkCards/MiniDrinkCard'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
-import Dropdown from 'react-bootstrap/Dropdown'
-import Alert from 'react-bootstrap/Alert'
-import HoverableDropDownText from '../DrinksPage/SearchVariableMenu/HoverableDropDownText'
-import { round } from '../../utils'
+import DrinkSearchBox from "../General/DrinkSearchBox"
+import MiniDrinkCard from "../General/DrinkCards/MiniDrinkCard"
+import Form from "react-bootstrap/Form"
+import Button from "react-bootstrap/Button"
+import Modal from "react-bootstrap/Modal"
+import Dropdown from "react-bootstrap/Dropdown"
+import Alert from "react-bootstrap/Alert"
+import HoverableDropDownText from "../DrinksPage/SearchVariableMenu/HoverableDropDownText"
+import { round } from "../../utils"
 
 const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
 
@@ -43,7 +43,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
 
   const customDrink = {
     name: "Oma juoma",
-    imageLink: process.env.PUBLIC_URL + '/beer.svg',
+    imageLink: process.env.PUBLIC_URL + "/beer.svg",
     store: "alko"
   }
 
@@ -95,13 +95,13 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
 
   const handlePortionDrinkAdd = () => {
     setPortionDrinks([...portionDrinks,
-    {
-      name: drink.name,
-      imageLink: drink.imageLink,
-      amount: `${selectedAmount.name} (${amount} l)`,
-      portionAmount,
-      price
-    }])
+      {
+        name: drink.name,
+        imageLink: drink.imageLink,
+        amount: `${selectedAmount.name} (${amount} l)`,
+        portionAmount,
+        price
+      }])
     setAdditionNotification(
       <Alert variant="success">
         Lisätty:<br />
@@ -121,7 +121,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
   return <div>
     <Button variant="success" onClick={handleShow}>
       Lisää juoma
-      </Button>
+    </Button>
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Lisää juoma</Modal.Title>
@@ -146,7 +146,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
             <Dropdown style={{ display: "inline-block" }}>
               <Dropdown.Toggle variant="dark">
                 määrä
-        </Dropdown.Toggle>
+              </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.ItemText style={{ width: "max-content" }}>
                   <b>{selectedAmount.name} {selectedAmount.amount ? `(${selectedAmount.amount} l)` : null} </b>
@@ -184,7 +184,7 @@ const AddPortionDrink = ({ portionDrinks, setPortionDrinks }) => {
       <Modal.Footer>
         <Button variant="success" onClick={() => handlePortionDrinkAdd()}>
           Lisää
-          </Button>
+        </Button>
       </Modal.Footer>
     </Modal>
   </div>

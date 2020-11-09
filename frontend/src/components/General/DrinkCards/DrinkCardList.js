@@ -1,7 +1,7 @@
-import React from 'react'
-import DrinkCard from './DrinkCard'
-import CardGroup from 'react-bootstrap/CardGroup'
-import { groupByN, useWindowDimensions } from '../../../utils'
+import React from "react"
+import DrinkCard from "./DrinkCard"
+import CardGroup from "react-bootstrap/CardGroup"
+import { groupByN, useWindowDimensions } from "../../../utils"
 
 const DrinkCardList = ({ drinks, bestDrinksStore }) => {
 

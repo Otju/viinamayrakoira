@@ -1,6 +1,6 @@
-import Dropdown from 'react-bootstrap/Dropdown'
-import React from 'react'
-import Hoverable from '../../General/Hoverable'
+import Dropdown from "react-bootstrap/Dropdown"
+import React from "react"
+import Hoverable from "../../General/Hoverable"
 
 
 const HoverableDropDownText = ({ children, handleClick, selected }) => {

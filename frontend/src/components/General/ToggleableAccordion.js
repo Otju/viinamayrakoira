@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import Accordion from 'react-bootstrap/Accordion'
-import Button from 'react-bootstrap/Button'
-import { useAccordionToggle } from 'react-bootstrap/AccordionToggle'
+import React, { useState } from "react"
+import Accordion from "react-bootstrap/Accordion"
+import Button from "react-bootstrap/Button"
+import { useAccordionToggle } from "react-bootstrap/AccordionToggle"
 
 const CustomToggle = ({ eventKey }) => {
   const [selected, setSelected] = useState(false)

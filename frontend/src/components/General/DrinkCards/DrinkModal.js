@@ -1,7 +1,7 @@
-import React from 'react'
-import Modal from 'react-bootstrap/Modal'
+import React from "react"
+import Modal from "react-bootstrap/Modal"
 import { Link, useHistory } from "react-router-dom"
-import SingleDrink from './SingleDrink'
+import SingleDrink from "./SingleDrink"
 
 const DrinkModal = ({ drink, show, setShow, standalone }) => {
 

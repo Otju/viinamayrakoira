@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { capitalizeFirst } from "../../utils"
-import ListGroup from 'react-bootstrap/ListGroup'
+import ListGroup from "react-bootstrap/ListGroup"
 import Hoverable from "./Hoverable"
-import InfiniteScroll from 'react-infinite-scroll-component'
-import SearchVariableUnit from '../DrinksPage/SearchVariableUnit'
+import InfiniteScroll from "react-infinite-scroll-component"
+import SearchVariableUnit from "../DrinksPage/SearchVariableUnit"
 import { useHistory } from "react-router-dom"
 
 const DrinkSearchBox = ({ handleClick, keyPart }) => {
@@ -24,7 +24,7 @@ const DrinkSearchBox = ({ handleClick, keyPart }) => {
           hasMore={true}
           scrollableTarget="scrollDiv"
         >
-          {uniqueDrinks.map((drink, i) => {
+          {uniqueDrinks.map((drink) => {
             //const storeColor = stores.find(store => drink.store === store.name).color style={{ border: "solid", borderColor: storeColor, border }}
             return (
               <Hoverable link={handleClick ? null : `drinks/${drink.id}`} handleClick={() => { history.push(); handleClick(drink); setOffset(0) }} key={drink.id + keyPart}>

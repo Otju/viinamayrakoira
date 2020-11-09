@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import HoverableDropDownText from '../DrinksPage/SearchVariableMenu/HoverableDropDownText'
-import Dropdown from 'react-bootstrap/Dropdown'
-import Form from 'react-bootstrap/Form'
+import React, { useState, useEffect } from "react"
+import HoverableDropDownText from "../DrinksPage/SearchVariableMenu/HoverableDropDownText"
+import Dropdown from "react-bootstrap/Dropdown"
+import Form from "react-bootstrap/Form"
 
 
 const ReportForm = ({ drinkId, defaultReportTypeIndex }) => {

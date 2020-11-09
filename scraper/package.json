@@ -15,7 +15,7 @@
     "cheerio": "^1.0.0-rc.3",
     "graphql": "^15.3.0",
     "graphql-request": "^3.0.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "puppeteer": "^5.2.1",
     "read-excel-file": "^4.0.7",
     "round-to": "^4.1.0",

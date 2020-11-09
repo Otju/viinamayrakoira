@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import Form from 'react-bootstrap/Form'
-import { capitalizeFirst } from './index'
+import React, { useEffect, useState } from "react"
+import Form from "react-bootstrap/Form"
+import { capitalizeFirst } from "./index"
 
 const getWindowDimensions = (treshold) => {
   const { innerWidth: width, innerHeight: height } = window
@@ -22,15 +22,15 @@ export const useWindowDimensions = (treshold) => {
       setWindowDimensions(getWindowDimensions(treshold))
     }
 
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
   }, [treshold])
 
   return windowDimensions
 }
 
 export const useField = (type, name) => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState("")
   const [isInvalid, setInvalid] = useState(false)
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export const useField = (type, name) => {
 
 
 export const useUserInfo = () => {
-  const username = localStorage.getItem('viinamayrakoira-user-username')
-  const id = localStorage.getItem('viinamayrakoira-user-id')
+  const username = localStorage.getItem("viinamayrakoira-user-username")
+  const id = localStorage.getItem("viinamayrakoira-user-id")
   return { id, username }
 }

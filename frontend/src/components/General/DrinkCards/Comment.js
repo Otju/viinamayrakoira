@@ -1,6 +1,6 @@
-import React from 'react'
-import ListGroup from 'react-bootstrap/ListGroup'
-import StarReview from './StarReview'
+import React from "react"
+import ListGroup from "react-bootstrap/ListGroup"
+import StarReview from "./StarReview"
 
 const Comment = ({ review }) => {
 

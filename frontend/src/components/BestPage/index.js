@@ -1,6 +1,6 @@
-import React from 'react'
-import BestDrinks from './BestDrinks'
-import { stores } from '../../utils'
+import React from "react"
+import BestDrinks from "./BestDrinks"
+import { stores } from "../../utils"
 
 const BestPage = () => {
 

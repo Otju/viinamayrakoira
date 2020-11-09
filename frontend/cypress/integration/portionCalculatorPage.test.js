@@ -1,11 +1,11 @@
-describe('PortionCalculatorPage ', function () {
+describe("PortionCalculatorPage ", function () {
   beforeEach(function () {
-    cy.visit('http://localhost:3000/portioncalculator')
+    cy.visit("http://localhost:3000/portioncalculator")
   })
-  it('page can be opened', function () {
-    cy.contains('0 annosta')
+  it("page can be opened", function () {
+    cy.contains("0 annosta")
   })
-  it('adding own drink works', function () {
+  it("adding own drink works", function () {
     cy.get(".btn-success").click()
     cy.get("input").eq(1).clear().type(10)
     cy.get("input").eq(2).clear().type("0.5")
@@ -15,11 +15,11 @@ describe('PortionCalculatorPage ', function () {
     cy.contains("Oma määrä (0.5 l)")
     cy.contains("Oma juoma")
   })
-  it('searchin and adding 2 drinks works, and deleting works', function () {
+  it("searchin and adding 2 drinks works, and deleting works", function () {
     cy.get(".btn-success").click()
     cy.get("input").eq(0).type("original long drink{enter}")
-    cy.get("#scrollDiv").scrollTo('bottom')
-    cy.get('.list-group-item:contains("Original Long Drink Strong Long drink")').click()
+    cy.get("#scrollDiv").scrollTo("bottom")
+    cy.get(".list-group-item:contains(\"Original Long Drink Strong Long drink\")").click()
     cy.contains("Original Long Drink Strong Long drink")
     cy.contains("13.9€")
     cy.get(".dropdown-toggle").eq(4).click()
@@ -27,7 +27,7 @@ describe('PortionCalculatorPage ', function () {
     cy.get(".btn-success").eq(1).click()
 
     cy.get("input").eq(0).type("gambina{enter}")
-    cy.get('.list-group-item').click()
+    cy.get(".list-group-item").click()
     cy.contains("Gambina")
     cy.get(".dropdown-toggle").eq(4).click()
     cy.get(".dropdown-item-text").eq(4).click()
@@ -40,8 +40,8 @@ describe('PortionCalculatorPage ', function () {
     })
 
     cy.get(".btn-danger").eq(0).click()
-    cy.contains('Original Long Drink Strong tölkki').should('not.exist')
-    cy.contains('1.73 annosta').should('not.exist')
+    cy.contains("Original Long Drink Strong tölkki").should("not.exist")
+    cy.contains("1.73 annosta").should("not.exist")
 
     cy.contains("2.76 annosta")
     cy.contains("2.59€")

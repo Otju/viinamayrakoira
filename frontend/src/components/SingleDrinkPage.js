@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react"
 import { useParams } from "react-router-dom"
-import { ONE_DRINK } from '../queries'
-import { useQuery } from '@apollo/client'
-import DrinkModal from './General/DrinkCards/DrinkModal'
+import { ONE_DRINK } from "../queries"
+import { useQuery } from "@apollo/client"
+import DrinkModal from "./General/DrinkCards/DrinkModal"
 
 
 const SingleDrinkPage = () => {

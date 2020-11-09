@@ -1,14 +1,14 @@
-import React from 'react'
-import BestPage from './components/BestPage'
-import NavigationBar from './components/NavigationBar'
-import StatisticsPage from './components/StatisticsPage/'
+import React from "react"
+import BestPage from "./components/BestPage"
+import NavigationBar from "./components/NavigationBar"
+import StatisticsPage from "./components/StatisticsPage/"
 import { Switch, Route, Redirect } from "react-router-dom"
-import DrinksPage from './components/DrinksPage'
-import PortionCalculatorPage from './components/PortionCalculatorPage'
-import InfoPage from './components/InfoPage'
-import SingleDrinkPage from './components/SingleDrinkPage'
-import ComparisonPage from './components/ComparisonPage'
-import { stores } from './utils'
+import DrinksPage from "./components/DrinksPage"
+import PortionCalculatorPage from "./components/PortionCalculatorPage"
+import InfoPage from "./components/InfoPage"
+import SingleDrinkPage from "./components/SingleDrinkPage"
+import ComparisonPage from "./components/ComparisonPage"
+import { stores } from "./utils"
 
 
 const App = () => {
