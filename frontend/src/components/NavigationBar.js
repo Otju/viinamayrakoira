@@ -25,7 +25,7 @@ const NavigationBar = () => {
           <LinkContainer to="/statistics"><Nav.Link>Tilastot</Nav.Link></LinkContainer>
           <LinkContainer to="/moreinfo"><Nav.Link>Tietoa</Nav.Link></LinkContainer>
         </Nav>
-        <LoginForm/>
+        <Navbar.Brand><LoginForm/></Navbar.Brand>
         <Navbar.Brand>Viinamayrakoira.fi</Navbar.Brand>
       </Navbar.Collapse>
     </Navbar>
