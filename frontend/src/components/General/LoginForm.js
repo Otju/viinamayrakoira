@@ -33,10 +33,10 @@ const LoginForm = () => {
   const [createUser] = useMutation(CREATE_USER, {
     onError: (error) => {
       const message = error.message
-      if (message.includes("Käyttäjänimi")) {
+      if (message.includes("äyttäjäni")) {
         username.setInvalid(true)
       }
-      if (message.includes("Salasana")) {
+      if (message.includes("alasana")) {
         password.setInvalid(true)
       }
       if (message.includes("ähköposti")) {

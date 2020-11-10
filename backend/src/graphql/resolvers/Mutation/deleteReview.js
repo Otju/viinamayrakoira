@@ -1,6 +1,6 @@
 const Review = require("../../../models/Review")
 const { UserInputError, AuthenticationError } = require("apollo-server")
-const updateDrinkFields = require("../utils")
+const { updateDrinkFields } = require("../utils")
 
 const deleteReview = async (root, args, context) => {
 
@@ -22,11 +22,11 @@ const deleteReview = async (root, args, context) => {
     throw new AuthenticationError("Incorrect user (or review._id")
   }
 
-  const reviews = await Review.find({ drink: drinkId})
+  const reviews = await Review.find({ drink: drinkId })
 
   const updatedDrinkFields = await updateDrinkFields(drinkId, reviews)
 
-  return { ...updatedDrinkFields, id}
+  return { ...updatedDrinkFields, id }
 }
 
 module.exports = deleteReview

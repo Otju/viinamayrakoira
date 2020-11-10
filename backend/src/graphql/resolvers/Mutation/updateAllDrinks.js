@@ -2,6 +2,7 @@ const Drink = require("../../../models/Drink")
 const roundTo = require("round-to")
 const { performance } = require("perf_hooks")
 const { ForbiddenError } = require("apollo-server-lambda")
+const { updateAllDrinkFields } = require("../utils")
 
 const updateAllDrinks = async (root, args) => {
 
@@ -105,6 +106,10 @@ const updateAllDrinks = async (root, args) => {
       changed: drinksUpdate.length - didntChange,
       deactivated: allDrinkIds.length - drinksUpdate.length
     }
+
+    updateAllDrinkFields()
+
+    console.log("UPDATED REVIEW SCORES", getTime())
 
     console.log("DRINKS UPDATED", { ...returnValues, didntChange })
 

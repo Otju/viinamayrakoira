@@ -12,6 +12,12 @@ const schema = new mongoose.Schema({
     unique: true,
     minlength: 3
   },
+  usernameLowerCase: {
+    type: String,
+    required: true,
+    unique: true,
+    minlength: 3
+  },
   passwordHash: {
     type: String,
     required: true

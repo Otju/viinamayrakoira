@@ -6,7 +6,8 @@ const { UserInputError } = require("apollo-server-lambda")
 
 const login = async (root, args) => {
   const username = args.username
-  const user = await User.findOne({ username })
+  const usernameLowerCase = username.toLowerCase()
+  const user = await User.findOne({ usernameLowerCase })
 
   const credentialsRight = user && await bcrypt.compare(args.password, user.passwordHash)
 

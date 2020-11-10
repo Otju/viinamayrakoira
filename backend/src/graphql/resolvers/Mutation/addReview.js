@@ -1,6 +1,6 @@
 const Review = require("../../../models/Review")
 const { UserInputError, AuthenticationError } = require("apollo-server")
-const updateDrinkFields = require("../utils")
+const { updateDrinkFields } = require("../utils")
 
 const addReview = async (root, args, context) => {
 
