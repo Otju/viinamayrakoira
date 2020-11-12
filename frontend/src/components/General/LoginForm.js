@@ -10,7 +10,7 @@ import HoverableDropDownText from "../DrinksPage/SearchVariableMenu/HoverableDro
 import { useField, useUserInfo } from "./../../utils"
 
 
-const LoginForm = () => {
+const LoginForm = ({ isButton, closeNavBar }) => {
   const [show, setShow] = useState(false)
   const [isRegisterForm, setIsRegisterForm] = useState(false)
   const client = useApolloClient()
@@ -24,9 +24,23 @@ const LoginForm = () => {
 
   const [alert, setAlert] = useState(null)
 
+  const resetFields = () => {
+    username.set("")
+    password.set("")
+    email.set("")
+  }
+
   const [login, loginResult] = useMutation(LOGIN, {
     onError: () => {
       setAlert({ message: "Väärä käyttäjänimi tai salasana", variant: "danger" })
+    },
+    onCompleted: () => {
+      if (isRegisterForm) {
+        setAlert({ message: "Loit tilin ja kirjauduit sisään", variant: "success", global, duration: 7000 })
+      } else {
+        setAlert({ message: "Kirjauduit sisään", variant: "success", global })
+      }
+      //closeNavBar()
     }
   })
 
@@ -45,7 +59,6 @@ const LoginForm = () => {
       setAlert({ message, variant: "danger", duration: 5000 })
     },
     onCompleted: () => {
-      //setAlert({ message: "Rekisteröityminen onnistui, voit nyt kirjautua sisään", variant: "success", duration: 8000 })
       login({ variables: { username: username.value, password: password.value } })
     }
   })
@@ -55,6 +68,8 @@ const LoginForm = () => {
     localStorage.clear()
     client.resetStore()
     setIsLoggedIn(false)
+    setAlert({ message: "Kirjauduit ulos", variant: "warning", global })
+    //closeNavBar()
   }
 
   useEffect(() => {
@@ -66,6 +81,7 @@ const LoginForm = () => {
       setShownUserName(username)
       setShow(false)
       setIsLoggedIn(true)
+      resetFields()
     }
   }, [loginResult.data]) // eslint-disable-line
 
@@ -78,7 +94,30 @@ const LoginForm = () => {
     }
   }
 
+  const content = <>
+    <Form onSubmit={submit} noValidate>
+      {username.field}
+      {isRegisterForm && email.field}
+      {password.field}
+      <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} duration={alert?.duration} global={alert?.global} />
+      <Form.Control type="submit" value={isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}></Form.Control>
+    </Form>
+    <Button variant="link" onClick={() => setIsRegisterForm(v => !v)}>
+      {isRegisterForm ? "Oletko jo käyttäjä? Kirjautu sisään tästä" : "Etkö ole vielä käyttäjä? Rekisteröidy tästä"}
+    </Button>
+  </>
+
+  const title = isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"
+
+  if (!isButton) {
+    return <>
+      <h4>{title}</h4>
+      {content}
+    </>
+  }
+
   return <>
+    {alert && alert.message && alert.global ? <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} duration={alert?.duration} global /> : null}
     {isLoggedIn
       ? <Dropdown>
         <Dropdown.Toggle variant="dark">{shownUsername}</Dropdown.Toggle>
@@ -90,19 +129,10 @@ const LoginForm = () => {
         <Button variant="dark" onClick={() => setShow(true)}>Kirjaudu sisään</Button>
         <Modal size="lg" show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>{isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}</Modal.Title>
+            <Modal.Title>{title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form onSubmit={submit} noValidate>
-              {username.field}
-              {isRegisterForm && email.field}
-              {password.field}
-              <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} duration={alert?.duration} />
-              <Form.Control type="submit" value={isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}></Form.Control>
-            </Form>
-            <Button variant="link" onClick={() => setIsRegisterForm(v => !v)}>
-              {isRegisterForm ? "Oletko jo käyttäjä? Kirjautu sisään tästä" : "Etkö ole vielä käyttäjä? Rekisteröidy tästä"}
-            </Button>
+            {content}
           </Modal.Body>
         </Modal >
       </>}

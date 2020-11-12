@@ -179,13 +179,6 @@ export const ONE_DRINK = gql`
         percentageIsGuess
         priceQualityRatioAverage
         tasteAverage
-        reviews{
-          drink
-          id
-          taste
-          priceQualityRatio
-          comment
-        }
     }
   }
 `

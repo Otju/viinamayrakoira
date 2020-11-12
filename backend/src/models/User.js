@@ -1,10 +1,5 @@
 const mongoose = require("mongoose")
 
-const validateEmail = (email) => {
-  const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-  return regex.test(email)
-}
-
 const schema = new mongoose.Schema({
   username: {
     type: String,
@@ -24,7 +19,6 @@ const schema = new mongoose.Schema({
   },
   email: {
     type: String,
-    validate: [validateEmail, "invalid email"]
   },
   dateCreated: {
     type: Date

@@ -49,7 +49,7 @@ export const useField = (type, name) => {
     value,
     field,
     set: (newValue) => setValue(newValue),
-    setInvalid
+    setInvalid,
   }
 }
 

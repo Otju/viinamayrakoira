@@ -20,7 +20,7 @@ const createUser = async (root, args) => {
     throw new UserInputError("Käyttäjänimi on liian pitkä (max 20 merkkiä)")
   }
 
-  if (!username || username.length <= 3) {
+  if (!username || username.length < 3) {
     throw new UserInputError("Käyttäjänimi on liian lyhyt (min 3 merkkiä)")
   }
 
@@ -44,7 +44,7 @@ const createUser = async (root, args) => {
     throw new UserInputError("Sähköposti on jo käytössä")
   }
 
-  if (!password || password.length <= 6) {
+  if (!password || password.length < 6) {
     throw new UserInputError("Salasana on liian lyhyt (min 6 merkkiä)")
   }
 
