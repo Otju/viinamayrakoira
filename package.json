@@ -1,0 +1,12 @@
+{
+  "name": "viinamarakoira",
+  "workspaces": [
+    "backend",
+    "frontend",
+    "scraper"
+  ],
+  "scripts": {
+    "front": "cd ./frontend && npm start",
+    "back": "cd ./backend && npm run dev"
+  }
+}
