@@ -31,7 +31,9 @@ const typeDefs = gql`
     taste: Int
     priceQualityRatio: Int
     comment: String,
-    user: User!
+    user: User!,
+    usersThatLiked: [ID!],
+    likes: Int
   }
 
   input ReviewInput {
@@ -123,6 +125,7 @@ const typeDefs = gql`
   type likeOutput {
     id: ID!
     likes: Int!
+    unLiked: Boolean
   }
   
   type Query {

@@ -13,19 +13,23 @@ const likeReview = async (root, args, context) => {
     throw new AuthenticationError("User not logged in")
   }
 
+  const currentUserId = context.currentUser._id
+
   const review = await Review.findById(id, { usersThatLiked: 1, likes: 1 })
 
-  let { usersThatLiked, likes } = review
+  let { usersThatLiked } = review
 
-  if (usersThatLiked.find(userId => userId.toString() === id.toString() )) {
-    usersThatLiked = usersThatLiked.filter(userId => userId.toString() !== id.toString())
-    likes-- //usersThatLiked.length
+  let unLiked = false
+  if (usersThatLiked.find(userId => userId.toString() === currentUserId.toString())) {
+    usersThatLiked = usersThatLiked.filter(userId => userId.toString() !== currentUserId.toString())
+    unLiked = true
   } else {
-    usersThatLiked = usersThatLiked.concat(id)
-    likes++
+    usersThatLiked = usersThatLiked.concat(currentUserId)
   }
 
-  await review.update({ usersThatLiked, likes })
+  const likes = usersThatLiked.length
+
+  await review.updateOne({ usersThatLiked, likes, unLiked })
 
   return { id, likes }
 }

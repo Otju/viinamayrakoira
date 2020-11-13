@@ -115,6 +115,8 @@ export const GET_REVIEWS = gql`
        taste
        priceQualityRatio
        comment
+       likes
+       usersThatLiked
        user{
          id
          username
@@ -201,4 +203,13 @@ export const CREATE_USER = gql`
   }
 `
 
+export const LIKE = gql`
+  mutation likeReview($id: ID!) {
+    likeReview(id: $id)  {
+      id
+      likes
+      unLiked
+    }
+  }
+`
 

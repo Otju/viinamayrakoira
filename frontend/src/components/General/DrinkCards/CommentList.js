@@ -42,7 +42,7 @@ const CommentList = ({ reviews, drink }) => {
     <div>
       <ListGroup>
         {comments.length > 0
-          ? comments.map(review => <Comment review={review} key={review.id} />)
+          ? comments.sort((a, b) => b.likes - a.likes).map(review => <Comment review={review} key={review.id} />)
           : "Ei vielä kommentteja"}
       </ListGroup>
     </div>
