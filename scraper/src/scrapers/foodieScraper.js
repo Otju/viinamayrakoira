@@ -1,7 +1,6 @@
 const cheerio = require("cheerio")
 const got = require("got")
-const { turnToNumber, getPercentage } = require("../utils")
-const roundTo = require("round-to")
+const { getPercentage, getSize } = require("../utils")
 
 const foodieUrl = "https://www.foodie.fi"
 
@@ -34,17 +33,19 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const $ = cheerio.load(response.body)
     const name = $("#product-name").text()
     const producer = $("#product-subname").text()
-    const rawDeposit = turnToNumber($(".price-deposit").text().replace(/\s/g, "").slice(10))
-    const deposit = !rawDeposit || rawDeposit < 0 || Number.isNaN(rawDeposit) ? 0 : rawDeposit
+    //const rawDeposit = turnToNumber($(".price-deposit").text().replace(/\s/g, "").slice(10))
+    //const deposit = !rawDeposit || rawDeposit < 0 || Number.isNaN(rawDeposit) ? 0 : rawDeposit
     const ean = $("[itemprop=sku]").text()
-    const sizeRaw = $(".js-details").text()
+    // const sizeRaw = $(".js-details").text()
     const wholeNumberOfPrice = $(".whole-number ").text()
     const decimalsOfPrice = $(".decimal").text()
     const price = Number((`${wholeNumberOfPrice}.${decimalsOfPrice}`))
     const description = $("div[id=info] [itemprop=description]").first().text()
     const imageLink = $("img[class=product-image]").attr("src")
-    
-    let size
+
+    const size = getSize(name)
+
+    /*
     sizeRaw.replace(/ /g, "").replace(/^[a-zA-Z0-9.,]*$/g, "").split("\n").every(value => {
       if (!value) {
         return true
@@ -67,9 +68,10 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       }
       return true
     })
+    */
 
     const percentage = getPercentage(name)
-    
+
     if (category === "Muut viinit") {
       const isInNameOrDescription = (words) => {
         const inName = words.some(word => name.toLowerCase().includes(word))

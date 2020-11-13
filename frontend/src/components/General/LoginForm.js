@@ -10,7 +10,7 @@ import HoverableDropDownText from "../DrinksPage/SearchVariableMenu/HoverableDro
 import { useField, useUserInfo } from "./../../utils"
 
 
-const LoginForm = ({ isButton, closeNavBar }) => {
+const LoginForm = ({ isButton }) => {
   const [show, setShow] = useState(false)
   const [isRegisterForm, setIsRegisterForm] = useState(false)
   const client = useApolloClient()
