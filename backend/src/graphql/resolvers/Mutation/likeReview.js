@@ -29,9 +29,9 @@ const likeReview = async (root, args, context) => {
 
   const likes = usersThatLiked.length
 
-  await review.updateOne({ usersThatLiked, likes, unLiked })
+  await review.updateOne({ usersThatLiked, likes })
 
-  return { id, likes }
+  return { id, likes, unLiked }
 }
 
 module.exports = likeReview

@@ -20,7 +20,7 @@ const uri = process.env.NODE_ENV === "development" ? "http://localhost:4000/" : 
 const httpLink = new HttpLink({ uri })
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({ typePolicies: { Review: { fields: { usersThatLiked: { merge: false } } } } }),
   link: authLink.concat(httpLink)
 })
 

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Chart from "../../StatisticsPage/Chart"
 import ListGroup from "react-bootstrap/ListGroup"
 import { round } from "../../../utils"
@@ -6,6 +6,16 @@ import Comment from "./Comment"
 import StarReview from "./StarReview"
 
 const CommentList = ({ reviews, drink }) => {
+
+  const [notSorted, setNotSorted] = useState(true)
+  const [comments, setComments] = useState([])
+
+  useEffect(() => {
+    if ((!comments || comments.length === 0) && reviews && reviews.length > 0) {
+      setComments(reviews?.filter((item) => item.comment))
+    }
+  }, [reviews])
+
   if (!reviews || reviews.length === 0) {
     return <><br />Ei vielä arvosteluja</>
   }
@@ -22,7 +32,12 @@ const CommentList = ({ reviews, drink }) => {
     groupedReviews = groupedReviews.map(item => item.group === PQR ? { ...item, PQRCount: item.PQRCount + 1 } : item)
   })
 
-  const comments = reviews?.filter((item) => item.comment)
+  if (notSorted) {
+    if (comments && comments.length > 0) {
+      setComments(comments.sort((a, b) => b.likes - a.likes))
+      setNotSorted(false)
+    }
+  }
 
   return <div>
 
@@ -41,8 +56,8 @@ const CommentList = ({ reviews, drink }) => {
 
     <div>
       <ListGroup>
-        {comments.length > 0
-          ? comments.sort((a, b) => b.likes - a.likes).map(review => <Comment review={review} key={review.id} />)
+        {comments && comments.length > 0
+          ? comments.map(review => <Comment review={review} key={review.id} />)
           : "Ei vielä kommentteja"}
       </ListGroup>
     </div>
