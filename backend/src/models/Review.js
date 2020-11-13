@@ -19,12 +19,24 @@ const schema = new mongoose.Schema({
     type: String,
     maxlength: 1000
   },
-  user: 
+  user:
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    require: true
+  },
+  likes:
+  {
+    type: Number,
+    default: 0,
+    require: true
+  },
+  usersThatLiked: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      require: true
     }
+  ]
 })
 
 module.exports = mongoose.model("Review", schema)

@@ -119,6 +119,11 @@ const typeDefs = gql`
     username: String!
     id: String!
   }
+
+  type likeOutput {
+    id: ID!
+    likes: Int!
+  }
   
   type Query {
     allDrinks(
@@ -138,10 +143,13 @@ const typeDefs = gql`
     getReviews(id: String): [Review!]!
   }
 
+  
+
   type Mutation {
     updateAllDrinks(drinks: [DrinkInput]): updateAllDrinksOutPut
     addReview(review: ReviewInput): addReviewOutPut!
     deleteReview(reviewId: ID!, drinkId: String!): deleteReviewOutPut!
+    likeReview(id: ID!): likeOutput!
     createUser(
       username: String!
       password: String!
