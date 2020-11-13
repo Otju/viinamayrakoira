@@ -9,6 +9,7 @@ import InfoPage from "./components/InfoPage"
 import SingleDrinkPage from "./components/SingleDrinkPage"
 import ComparisonPage from "./components/ComparisonPage"
 import { stores } from "./utils"
+import Footer from "./components/Footer"
 
 
 const App = () => {
@@ -25,41 +26,44 @@ const App = () => {
 
 
 
-  return (
-    <div className="container" style={{ background: "#ede8e8" }}>
-      {storeStyles}
-      <NavigationBar></NavigationBar>
-      <Switch>
-        <Route path="/best/:id?">
-          <BestPage />
-        </Route>
-        <Route path="/statistics">
-          <StatisticsPage />
-        </Route>
-        <Route path="/bars">
-          <h1>Baarit</h1>
-        </Route>
-        <Route path="/moreinfo">
-          <InfoPage />
-        </Route>
-        <Route path="/portioncalculator/:id?">
-          <PortionCalculatorPage />
-        </Route>
-        <Route path="/drinks">
-          <DrinksPage />
-        </Route>
-        <Route path="/drink/:id">
-          <SingleDrinkPage />
-        </Route>
-        <Route path="/compare">
-          <ComparisonPage />
-        </Route>
-        <Route path="/">
-          <Redirect to="/best" />
-        </Route>
-      </Switch>
+  return <>
+    <NavigationBar></NavigationBar>
+    <div style={{ background: "#ede8e8", minHeight: "90vh"}}>
+      <div className="container">
+        {storeStyles}
+        <Switch>
+          <Route path="/best/:id?">
+            <BestPage />
+          </Route>
+          <Route path="/statistics">
+            <StatisticsPage />
+          </Route>
+          <Route path="/bars">
+            <h1>Baarit</h1>
+          </Route>
+          <Route path="/moreinfo">
+            <InfoPage />
+          </Route>
+          <Route path="/portioncalculator/:id?">
+            <PortionCalculatorPage />
+          </Route>
+          <Route path="/drinks">
+            <DrinksPage />
+          </Route>
+          <Route path="/drink/:id">
+            <SingleDrinkPage />
+          </Route>
+          <Route path="/compare">
+            <ComparisonPage />
+          </Route>
+          <Route path="/">
+            <Redirect to="/best" />
+          </Route>
+        </Switch>
+      </div>
     </div>
-  )
+    <Footer />
+  </>
 }
 
 export default App
