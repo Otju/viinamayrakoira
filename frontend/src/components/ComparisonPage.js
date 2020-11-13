@@ -21,7 +21,7 @@ const ComparisonPage = () => {
   }, [drinks])
   */
 
-  return <div>
+  return <div style={{paddingTop: "1rem"}}>
     <Container><Row>
       <Col lg={5} sm={12}><ComparisonDrinkCard index={0} drinks={drinks} setDrinks={setDrinks} /></Col>
       <Col lg={2} sm={12} style={{ display: "flex", alignItems: "center", textAlign: "center" }}>{drinks.length === 2 ? <h1 style={{ display: "block", width: "100%" }}>VS</h1> : null}</Col>

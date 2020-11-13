@@ -13,7 +13,7 @@ const NavigationBar = () => {
 
   const handleClose = () => setExpanded(expanded ? false : "expanded")
 
-  return <div style={{background: colors.darkGray}}>
+  return <div style={{ background: colors.darkGray }}>
     <div className="container">
       <Navbar expand="lg" bg="dark" variant="dark" expanded={expanded} onSelect={() => { if (expanded) { setExpanded(false) } }}>
         <LinkContainer to="/best">
@@ -33,7 +33,7 @@ const NavigationBar = () => {
             <LinkContainer to="/moreinfo"><Nav.Link>Tietoa</Nav.Link></LinkContainer>
           </Nav>
           <Navbar.Brand><LoginForm isButton closeNavBar={handleClose} /></Navbar.Brand>
-          <Navbar.Brand>Viinamayrakoira.fi</Navbar.Brand>
+
         </Navbar.Collapse>
       </Navbar>
     </div>
@@ -41,14 +41,7 @@ const NavigationBar = () => {
 }
 
 /*
-        <Navbar.Brand>
-          < Hoverable handleClick={() => window.open("https://www.paypal.com/donate?hosted_button_id=UGDSAU363MVE8", "_blank")}>
-            <div style={{ position: "relative" }}>
-              <input type="image" style={{ height: "4rem" }} src={process.env.PUBLIC_URL + '/doggoColor.svg'} name="submit" alt="Donate" />
-              <div style={{ userSelect: "none", textAlign: "center", color: "black", position: "absolute", fontSize: "14px", top: "1.6rem", right: "2.2rem" }}><b>Lahjoita</b></div>
-            </div>
-          </Hoverable>
-        </Navbar.Brand>
+<Navbar.Brand>Viinamayrakoira.fi</Navbar.Brand>
 */
 
 export default NavigationBar

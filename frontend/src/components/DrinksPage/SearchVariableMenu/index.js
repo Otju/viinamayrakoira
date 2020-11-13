@@ -53,7 +53,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVa
     </div>
   </>
 
-  return <div style={{ border: "solid", color: colors.darkGray, padding: "1rem" }}>
+  return <div style={{ border: "solid", borderTop: "none", color: colors.darkGray, padding: "1rem" }}>
     <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Control type="text" placeholder="Haku" value={name} onBlur={handleSubmit} onChange={(event) => setName(event.target.value)} />
