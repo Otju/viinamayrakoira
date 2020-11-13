@@ -45,6 +45,9 @@ const ReviewForm = ({ drink, reviews, refetchComments, setReviews, setDrinkState
 
 
   const [addReview] = useMutation(ADD_REVIEW, {
+    onError: (error) => {
+      setAlert({ message: error.message, variant: "danger" })
+    },
     update: (cache, response) => {
       const newReview = response.data.addReview.review
       const { tasteAverage, priceQualityRatioAverage, reviewCount, commentCount } = response.data.addReview
@@ -62,6 +65,8 @@ const ReviewForm = ({ drink, reviews, refetchComments, setReviews, setDrinkState
       })
       setDrinkState(d => ({ ...d, ...changeDrinkFields }))
     }, onCompleted: () => {
+      setAlert({ message: "Kiitos arvostelusta!", variant: "success" })
+      setEdit(false)
       refetchComments()
     }
   })
@@ -81,8 +86,6 @@ const ReviewForm = ({ drink, reviews, refetchComments, setReviews, setDrinkState
     if (priceQualityRatio && taste) {
       const review = { drink: drink.id, taste, priceQualityRatio, comment: comment.value }
       addReview({ variables: { review } })
-      setAlert({ message: "Kiitos arvostelusta!", variant: "success" })
-      setEdit(false)
     } else {
       setAlert({ message: "Täytä kaikki tarvittavat kentät", variant: "danger" })
     }
@@ -116,14 +119,14 @@ const ReviewForm = ({ drink, reviews, refetchComments, setReviews, setDrinkState
             <br />
             <Form.Row>
               {edit && <Col><Button variant="danger" style={{ width: "100%" }} onClick={() => setEdit(false)}>Peruuta</Button></Col>}
-              <Col><Form.Control type="submit" variant="success" value="Lähetä"></Form.Control></Col>
+              <Col><Button type="submit" variant="success" style={{ width: "100%" }}>Lähetä</Button></Col>
             </Form.Row>
           </Form>
         }
       </>
       : <>
-      <p>Sinun täytyy kirjautua sisään arvostellaksesi juoman</p>
-      <p>Pääset kirjautumaan sisään tai rekisteröimään uuden tilin sivun ylävalikon kohdasta "Kirjaudu sisään"</p>
+        <p>Sinun täytyy kirjautua sisään arvostellaksesi juoman</p>
+        <p>Pääset kirjautumaan sisään tai rekisteröimään uuden tilin sivun ylävalikon kohdasta <i>Kirjaudu sisään</i></p>
       </>
     }
 

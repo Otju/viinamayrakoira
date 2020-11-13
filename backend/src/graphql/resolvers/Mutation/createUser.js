@@ -24,6 +24,10 @@ const createUser = async (root, args) => {
     throw new UserInputError("Käyttäjänimi on liian lyhyt (min 3 merkkiä)")
   }
 
+  if (!username || username.length > 20) {
+    throw new UserInputError("Käyttäjänimi on liian pitkä (max 20 merkkiä)")
+  }
+
   if (!/(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/.test(username)) {
     throw new UserInputError("Käytä vain sallittuja merkkejä käyttäjänimessä (A-Z, 0-9, _ ja .)")
   }

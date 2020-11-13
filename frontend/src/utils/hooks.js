@@ -40,9 +40,9 @@ export const useField = (type, name) => {
   }, [value])
 
   let content
-  if (type === " textarea") {
+  if (type === "textarea") {
     content = <Form.Control isInvalid={isInvalid} as="textarea"
-      rows={4} value={value} onChange={(event) => setValue(event.target.value)}
+      rows={8} value={value} onChange={(event) => setValue(event.target.value)}
       placeholder={name}>
     </Form.Control>
   } else if (type === "password") {

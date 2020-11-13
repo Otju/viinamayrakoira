@@ -16,7 +16,8 @@ const schema = new mongoose.Schema({
     max: 10
   },
   comment: {
-    type: String
+    type: String,
+    maxlength: 1000
   },
   user: 
     {

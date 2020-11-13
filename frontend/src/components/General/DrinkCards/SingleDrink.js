@@ -15,7 +15,7 @@ const SingleDrink = ({ drink }) => {
   const [drinkState, setDrinkState] = useState(drink)
 
   useEffect(() => {
-    if (result && !result.loading) {
+    if (result && !result.loading && result.data) {
       setReviews(result.data.getReviews)
     }
   }, [result])

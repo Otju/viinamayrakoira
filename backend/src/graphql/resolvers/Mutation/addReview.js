@@ -5,10 +5,14 @@ const { updateDrinkFields } = require("../utils")
 const addReview = async (root, args, context) => {
 
   if (!args.review || !args.review.taste || !args.review.priceQualityRatio) {
-    throw new UserInputError("Missing taste and/or priceQualityRatio")
+    throw new UserInputError("Täytä kaikki tarvittavat kentät")
   }
   if (!context.currentUser) {
-    throw new AuthenticationError("User not logged in")
+    throw new AuthenticationError("Käyttäjä ei ole kirjautunut sisään")
+  }
+  const comment = args.review.comment
+  if (comment && comment.length>1000) {
+    throw new UserInputError("Kommentti on liian pitkä (max 1000 merkkiä)")
   }
 
   const currentUser = context.currentUser
