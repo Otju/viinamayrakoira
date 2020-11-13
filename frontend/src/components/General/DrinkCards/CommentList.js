@@ -14,7 +14,7 @@ const CommentList = ({ reviews, drink }) => {
     if ((!comments || comments.length === 0) && reviews && reviews.length > 0) {
       setComments(reviews?.filter((item) => item.comment))
     }
-  }, [reviews])
+  }, [reviews]) //eslint-disable-line
 
   if (!reviews || reviews.length === 0) {
     return <><br />Ei vielä arvosteluja</>
