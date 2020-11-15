@@ -117,7 +117,7 @@ const updateAllDrinks = async (root, args) => {
 
     console.log("UPDATED REVIEW SCORES", getTime())
 
-    console.log("DRINKS UPDATED", response)
+    console.log("DRINKS UPDATED", response.length)
 
     //return returnValues
   } catch (error) {
