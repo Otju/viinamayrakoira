@@ -94,6 +94,10 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     if (percentage <= 1) {
       category = "Alkoholittomat"
     }
+
+    if (ean === "6420613935003") { //faulty info
+      return
+    }
     const drinkInfo = {
       name,
       producer,

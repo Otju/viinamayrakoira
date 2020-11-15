@@ -54,7 +54,7 @@ const ReportForm = ({ drinkId, defaultReportTypeIndex }) => {
       </Dropdown.Menu>
     </Dropdown >
     <br />
-    <Form onSubmit={handleSubmit} data-netlify="true">
+    <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Label>Otsikko</Form.Label>
         <Form.Control type="text" value={subject} onChange={(event) => setSubject(event.target.value)} placeholder="Otsikko"></Form.Control>
