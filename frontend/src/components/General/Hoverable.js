@@ -12,7 +12,7 @@ const Hoverable = ({ children, handleClick, zIndex, link }) => {
     }
   }
 
-  return <div style={{ filter: isHover ? "brightness(80%)" : "brightness(100%)", position: "relative", zIndex, height: "inherit" }} onClick={() => handleClick()}
+  return <div style={{ filter: isHover ? "brightness(80%)" : "brightness(100%)", position: "relative", zIndex, height: "inherit", cursor: "pointer" }} onClick={() => handleClick()}
     onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
     {children}
   </div>

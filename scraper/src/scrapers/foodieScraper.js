@@ -70,6 +70,8 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     })
     */
 
+    //ADD PARTLY BACK
+
     const percentage = getPercentage(name)
 
     if (category === "Muut viinit") {

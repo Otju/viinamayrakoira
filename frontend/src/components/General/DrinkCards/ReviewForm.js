@@ -126,7 +126,7 @@ const ReviewForm = ({ drink, reviews, refetchComments, setReviews, setDrinkState
       </>
       : <>
         <p>Sinun täytyy kirjautua sisään arvostellaksesi juoman</p>
-        <p>Pääset kirjautumaan sisään tai rekisteröimään uuden tilin sivun ylävalikon kohdasta <i>Kirjaudu sisään</i></p>
+        <p>Pääset kirjautumaan sisään tai rekisteröimään uuden tilin ylävalikon kohdasta <i>Kirjaudu sisään</i></p>
       </>
     }
 
