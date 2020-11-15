@@ -1,7 +1,6 @@
 import React from "react"
 import ListGroup from "react-bootstrap/ListGroup"
 import StarReview from "./StarReview"
-import Hoverable from '../Hoverable'
 import LikeButton from "./LikeButton"
 
 
