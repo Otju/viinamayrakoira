@@ -59,6 +59,7 @@ const updateAllDrinks = async (root, args) => {
 
     const getTime = () => roundTo(performance.now() - startTime, 0) / 1000
 
+    /*
     let allDrinkIds = await Drink.find({}).select("_id")
     allDrinkIds = allDrinkIds.map(idObj => idObj.id)
 
@@ -99,21 +100,26 @@ const updateAllDrinks = async (root, args) => {
 
     await Drink.insertMany(drinksNew)
 
-    console.log("INSERTED NEW", getTime())
-
     const returnValues = {
       new: drinksNew.length,
       changed: drinksUpdate.length - didntChange,
       deactivated: allDrinkIds.length - drinksUpdate.length
     }
+    */
+
+    await Drink.deleteMany({})
+
+    const response = await Drink.insertMany(drinksToSave)
+
+    console.log("INSERTED NEW", getTime())
 
     updateAllDrinkFields()
 
     console.log("UPDATED REVIEW SCORES", getTime())
 
-    console.log("DRINKS UPDATED", { ...returnValues, didntChange })
+    console.log("DRINKS UPDATED", response)
 
-    return returnValues
+    //return returnValues
   } catch (error) {
     console.log(error.message)
     return (error.message)

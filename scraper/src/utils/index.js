@@ -18,7 +18,7 @@ const getPercentage = (string) => {
   return null
 }
 
-const getSize = (string) => {
+const getSize = (string, price) => {
 
   let size
   string = string.toLowerCase()
@@ -38,8 +38,11 @@ const getSize = (string) => {
     size = turnToNumber(sizeMatchMl[0]) / 1000
   }
 
-  if (multiplier) {
-    size = size * turnToNumber(multiplier[0])
+  if (multiplier && multiplier[0]) {
+    const multiplierNumber = turnToNumber(multiplier[0])
+    if (!price || multiplierNumber * 0.6 < price) {
+      size = size * multiplierNumber
+    }
   }
 
   return size

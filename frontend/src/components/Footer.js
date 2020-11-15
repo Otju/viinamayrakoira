@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row"
 
 const Footer = () => {
 
-  return <footer style={{ background: colors.darkGray, marginTop: 0 }}>
+  return <footer style={{ background: colors.darkGray, marginTop: 0, paddingTop: "1rem" }}>
     <Container>
       <Row>
         <Col>
@@ -19,7 +19,7 @@ const Footer = () => {
         </Col>
         <Col>
           <Row>
-            <div style={{ display: "flex", justifyContent: "center", width: "100%"}}>
+            <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
               <h4 style={{ color: "white", textAlign: "center", width: "100%" }}>Lahjoita</h4>
             </div>
           </Row>

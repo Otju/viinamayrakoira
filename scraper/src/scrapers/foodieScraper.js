@@ -43,7 +43,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const description = $("div[id=info] [itemprop=description]").first().text()
     const imageLink = $("img[class=product-image]").attr("src")
 
-    const size = getSize(name)
+    const size = getSize(name, price)
 
     /*
     sizeRaw.replace(/ /g, "").replace(/^[a-zA-Z0-9.,]*$/g, "").split("\n").every(value => {
