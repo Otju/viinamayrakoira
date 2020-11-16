@@ -43,7 +43,7 @@ const App = () => {
           Tallink & Silja Linen tai Superalkon (Viro ja Latvia) nettisivuilta</p>
           <p><i>Parhaat</i>-sivulta löydät parhaat juomat annoshinnan ja arvostelujen perusteella,
           mutta kannattaa käydä <i>Juomat</i>-sivulla, jossa näät kaikki juomat
-          ja voit helposti löytää sinulle sopivat käyttämällä moninaisia hakuvaihtoehtoja</p>
+          ja voit helposti löytää sinulle sopivat käyttämällä monia hakuvaihtoehtoja</p>
         </Alert>
         <Switch>
           <Route path="/best/:id?">
