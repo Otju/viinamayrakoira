@@ -65,7 +65,9 @@ const LoginForm = ({ isButton }) => {
 
   const logout = () => {
     //if (window.confirm("Haluatko varmasti kirjautua ulos?")) {}
-    localStorage.clear()
+    localStorage.removeItem("viinamayrakoira-user-token")
+    localStorage.removeItem("viinamayrakoira-user-username")
+    localStorage.removeItem("viinamayrakoira-user-id")
     client.resetStore()
     setIsLoggedIn(false)
     setAlert({ message: "Kirjauduit ulos", variant: "warning", global })

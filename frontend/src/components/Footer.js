@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row"
 
 const Footer = () => {
 
-  return <footer style={{ background: colors.darkGray, marginTop: 0, paddingTop: "1rem" }}>
+  return <footer style={{ background: colors.darkGray, marginTop: 0, paddingTop: "1rem", paddingBottom: "1rem" }}>
     <Container>
       <Row>
         <Col>
