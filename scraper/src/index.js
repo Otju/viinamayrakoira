@@ -1,5 +1,6 @@
 const { request } = require("graphql-request")
 const scrapers = require("./scrapers")
+const fs = require("fs")
 
 const setAllDrinks = async () => {
   let allDrinks = []
@@ -42,13 +43,19 @@ const setAllDrinks = async () => {
     }
 `
 
+  const faultyDrinks = []
+
+  const addFaultyDrink = (error, drink) => {
+    faultyDrinks.push({ error, drink })
+  }
+
   allDrinks = allDrinks.map(drink => {
     const requiredFields = ["name", "price", "size", "store", "link", "category", "percentage"]
     let hasRequiredFields = true
     requiredFields.forEach(field => {
       if (!drink[field]) {
-        if (field !== "percentage" && (!(drink.name.includes("alk")) || drink.category!=="alkoholittomat" || !(drink.name.includes("non-alc")))) {
-          console.log(`${drink.link}} is missing field "${field}"`)
+        if (field !== "percentage" && (!(drink.name.includes("alk")) || drink.category !== "alkoholittomat" || !(drink.name.includes("non-alc")))) {
+          addFaultyDrink(`MISSING FIELD "${field}`, drink)
         }
         hasRequiredFields = false
       } else if (field === "percentage") {
@@ -56,12 +63,13 @@ const setAllDrinks = async () => {
         const category = drink.category
         if (percentage >= 100 || (["Oluet", "Siiderit"].includes(category) && percentage > 15)
           || (["Punaviinit", "Roseviinit", "Valkoviinit", "Kuohuviinit ja Samppanjat", "Muut viinit", "Hanapakkaukset", "Juomasekoitukset ja lonkerot"].includes(category) && percentage > 25)) {
-          console.log(`${drink.link} FAULTY PERCENTAGE(${percentage})`)
+          addFaultyDrink("FAULTY PERCENTAGE", drink)
+          hasRequiredFields = false
         }
       }
     })
     if (!drink.ean && !drink.productCode) {
-      console.log(`${drink.link} is missing field EAN and ProductCode`)
+      addFaultyDrink("MISSING EAN AND PRODUCTCODE", drink)
       hasRequiredFields = false
     }
     if (!hasRequiredFields) {
@@ -75,11 +83,12 @@ const setAllDrinks = async () => {
   }
 
   try {
-    const response = await request("http://localhost:4000/", query, variables)
-    console.log(response)
-    console.log(`Changed ${response.updateAllDrinks.changed} drinks`)
-    console.log(`Added ${response.updateAllDrinks.new} new drinks`)
-    console.log(`${response.updateAllDrinks.deactivated} drinks are deactivated`)
+    fs.writeFile("faultyDrinks.json", faultyDrinks.map(item => JSON.stringify(item)).join(","), (error) => {
+      if (error) throw error
+      console.log(`${faultyDrinks.length} FAULTY DRINKS`)
+    })
+    await request("http://localhost:4000/", query, variables)
+    console.log(`ADDED ${allDrinks.length}`)
   }
   catch (error) {
     console.log("ERROR:", error.message.slice(0, 500))

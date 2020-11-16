@@ -1,0 +1,389 @@
+[
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Hartwall Aura 4,5% 8-pac",
+      "ean": "6413605007772",
+      "link": "https://www.k-ruoka.fi/kauppa/tuote/aura-olut-45-033l-tlk-8-pack-6413605007772",
+      "price": 15.2,
+      "percentage": 4.5,
+      "imageLink": "https://public.keskofiles.com/f/k-ruoka/product/6413605007772?&auto=format&fm=jpg&fit=fillmax&cs=srgb",
+      "category": "Oluet",
+      "size": null,
+      "store": "kmarket"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "ETKO Plis Pilsner 4,8",
+      "ean": "6430070520704",
+      "link": "https://www.k-ruoka.fi/kauppa/tuote/etko-pils--48--033-l-tlk-6430070520704",
+      "price": 3.99,
+      "percentage": 4.8,
+      "imageLink": "https://public.keskofiles.com/f/k-ruoka/product/6430070520704?&auto=format&fm=jpg&fit=fillmax&cs=srgb",
+      "category": "Oluet",
+      "store": "kmarket"
+    }
+  },
+  {
+    "error": "FAULTY PERCENTAGE",
+    "drink": {
+      "name": "Tres Sombreros Blanco Tequila 100% Puro Agave 38% 70cl",
+      "productCode": "27557",
+      "link": "https://m.viinarannasta.ee/range-of-products/6/10/27557",
+      "price": 29.5,
+      "percentage": 100,
+      "imageLink": "https://www.viinarannasta.ee/images-shop/1596535769-tressombrerostequilablanco70-2020.jpg",
+      "category": "ginit ja maustetut viinat",
+      "size": 0.7,
+      "store": "superAlkoEesti"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Rekorderlig Wild berries 4,5% 33clx24",
+      "productCode": "28749",
+      "link": "https://www.superalko.lv/range-of-products/2/4/28749",
+      "price": 27.99,
+      "percentage": 4.5,
+      "imageLink": "https://www.superalko.lv/images-shop/1597655111-7311100062106.jpg",
+      "category": "Siiderit",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "MIX Strong degv,dzērvene 14%",
+      "productCode": "28252",
+      "link": "https://www.superalko.lv/range-of-products/3/5/28252",
+      "price": 1.59,
+      "percentage": 14,
+      "imageLink": "https://www.superalko.lv/images-shop/1581512090-4770047233803.jpg",
+      "category": "Juomasekoitukset ja lonkerot",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "False Bay Whole Bunch Cin. Mour.12,5% 75",
+      "productCode": "28690",
+      "link": "https://www.superalko.lv/range-of-products/15/19/28690",
+      "price": 4.99,
+      "percentage": 12.5,
+      "imageLink": "https://www.superalko.lv/images-shop/1597240408-6009650000082.jpg",
+      "category": "Roseeviinit",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "G. Bertrand Cotes Des Roses Rose 13% 75c",
+      "productCode": "28891",
+      "link": "https://www.superalko.lv/range-of-products/15/19/28891",
+      "price": 8.99,
+      "percentage": 13,
+      "imageLink": "https://www.superalko.lv/images-shop/1600107335-3514120107107.jpg",
+      "category": "Roseeviinit",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Nau Mai Sauv. Bl. Marlb. Blush 12,5% 75c",
+      "productCode": "28862",
+      "link": "https://www.superalko.lv/range-of-products/15/19/28862",
+      "price": 6.99,
+      "percentage": 12.5,
+      "imageLink": "https://www.superalko.lv/images-shop/1599477234-3263280120630.jpg",
+      "category": "Roseeviinit",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "EICHBAUM Pilsener 4.8% 33clx24",
+      "productCode": "28063",
+      "link": "https://www.superalko.lv/range-of-products/1/81/28063",
+      "price": 9.99,
+      "percentage": 4.8,
+      "imageLink": "https://www.superalko.lv/images-shop/1565680780-tray_24x0,33l_eb_pilsener.jpg",
+      "category": "Oluet",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Germania Pilsener 4.8% 33clx24",
+      "productCode": "28064",
+      "link": "https://www.superalko.lv/range-of-products/1/81/28064",
+      "price": 8.99,
+      "percentage": 4.8,
+      "imageLink": "https://www.superalko.lv/images-shop/1565682373-germaniapilsener.jpg",
+      "category": "Oluet",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Aldaris Gaišais 5% 33cl*24",
+      "productCode": "28293",
+      "link": "https://www.superalko.lv/range-of-products/1/98/28293",
+      "price": 9.99,
+      "percentage": 5,
+      "imageLink": "https://www.superalko.lv/images-shop/1581674337-4750049000306.jpg",
+      "category": "Oluet",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "G. Bertrand Cotes Des Roses Blanc 13% 75",
+      "productCode": "28890",
+      "link": "https://www.superalko.lv/range-of-products/14/44/28890",
+      "price": 8.99,
+      "percentage": 13,
+      "imageLink": "https://www.superalko.lv/images-shop/1600107234-3514123112436.jpg",
+      "category": "Valkoviinit",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Vite Mia Vino Bia. IGP Sitsiilia 13% 75c",
+      "productCode": "27981",
+      "link": "https://www.superalko.lv/range-of-products/14/45/27981",
+      "price": 6.99,
+      "percentage": 13,
+      "imageLink": "https://www.superalko.lv/images-shop/1539840647-vitemiavinobiancositsiiliaean8003625027515.png",
+      "category": "Valkoviinit",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Marques Gran Carrera  Airen 11% 300clBIB",
+      "productCode": "27622",
+      "link": "https://www.superalko.lv/range-of-products/14/46/27622",
+      "price": 8.99,
+      "percentage": 11,
+      "imageLink": "https://www.superalko.lv/images-shop/1562320942-bib_marquez_de_gran_carrera_airen_17_06_2019.jpg",
+      "category": "Valkoviinit",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Reviseur Single Estate Cognac VSOP 40% 70cl+klaasid GB",
+      "productCode": "29501",
+      "link": "https://m.viinarannasta.ee/range-of-products/7/11/29501",
+      "price": 49.99,
+      "percentage": 40,
+      "imageLink": "https://www.viinarannasta.ee/images-shop/1604649490-reviseurvsop70-klaasidgb.jpg",
+      "category": "Konjakit",
+      "store": "superAlkoEesti"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Castelli Prosecco Romeo & Juliet 11% 75c",
+      "productCode": "28754",
+      "link": "https://www.superalko.lv/range-of-products/12/16/28754",
+      "price": 5.59,
+      "percentage": 11,
+      "imageLink": "https://www.superalko.lv/images-shop/1597662160-8008900007541.jpg",
+      "category": "Kuohuviinit ja Samppanjat",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Moutard Cremant de Bourg. Br. Nat.12% 75",
+      "productCode": "28921",
+      "link": "https://www.superalko.lv/range-of-products/12/16/28921",
+      "price": 13.99,
+      "percentage": 0.12,
+      "imageLink": "https://www.superalko.lv/images-shop/1600338553-3440747520220.jpg",
+      "category": "Kuohuviinit ja Samppanjat",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Riga Black Balsam Cherry 30% 50cl+2gl",
+      "productCode": "28247",
+      "link": "https://www.superalko.lv/range-of-products/10/14/28247",
+      "price": 14.99,
+      "percentage": 30,
+      "imageLink": "https://www.superalko.lv/images-shop/1580375970-4750021008566.jpg",
+      "category": "Liköörit ja Katkerot",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Riga Black Balsam Currant 30% 50cl+2gl",
+      "productCode": "28246",
+      "link": "https://www.superalko.lv/range-of-products/10/14/28246",
+      "price": 14.99,
+      "percentage": 30,
+      "imageLink": "https://www.superalko.lv/images-shop/1580375671-4750021537219.jpg",
+      "category": "Liköörit ja Katkerot",
+      "store": "superAlkoLatvia"
+    }
+  },
+  {
+    "error": "MISSING EAN AND PRODUCTCODE",
+    "drink": {
+      "name": "Remy Martin VSOP 6-pack",
+      "productCode": "",
+      "description": "Meripihkanruskea, täyteläinen, melko iäkäs, lämmin, kuivatun aprikoosinen, ananaksinen, hennon taatelinen, tamminen, kevyen yrttinen, runsas.",
+      "link": "https://www.eckeroline.fi/shopping/remy-martin-vsop-6-pack",
+      "price": 335.39,
+      "percentage": 40,
+      "imageLink": "https://www.eckeroline.fi/media/catalog/product/cache/b857b88ff242b87a499c5e46c902ed49/r/e/remy_martin_vsop_10235_1.png",
+      "category": "Konjakit",
+      "size": 6,
+      "store": "eckeroLine",
+      "percentageIsGuess": false
+    }
+  },
+  {
+    "error": "MISSING EAN AND PRODUCTCODE",
+    "drink": {
+      "name": "Brooklyn East India Pale Ale 24-pack",
+      "productCode": "",
+      "description": "Ale. Kullankeltainen, keskitäyteläinen, voimakkaasti humaloitu, mallaskeksinen, sitruksinen, aprikoosinen, kukkainen, runsas.",
+      "link": "https://www.eckeroline.fi/shopping/brooklyn-east-india-pale-ale-24-pack",
+      "price": 46.9,
+      "percentage": 6.9,
+      "imageLink": "https://www.eckeroline.fi/media/catalog/product/cache/b857b88ff242b87a499c5e46c902ed49/b/r/brooklyn_east_india_pale_ale_24pack.png",
+      "category": "Oluet",
+      "size": 8.52,
+      "store": "eckeroLine",
+      "percentageIsGuess": false
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Albert Bichot Petit Chablis",
+      "productCode": "25267",
+      "description": "Vegaaninen viini",
+      "link": "https://www.eckeroline.fi/shopping/albert-bichot-petit-chablis",
+      "price": 17.89,
+      "percentage": 11.5,
+      "imageLink": "https://www.eckeroline.fi/media/catalog/product/cache/b857b88ff242b87a499c5e46c902ed49/a/l/albert_bichot_petit_chablis_75cl.png",
+      "category": "Valkoviinit",
+      "size": null,
+      "store": "eckeroLine",
+      "percentageIsGuess": true
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Tuoppi Kotikalja mallasjuomauute 3x35g",
+      "producer": "Tuoppi",
+      "ean": "6421000050002",
+      "link": "https://www.foodie.fi/entry/1041/kotikalja-mallasjuomauute-3x35g/6421000050002",
+      "price": 1.79,
+      "description": "Kotikaljapakkaus kotikaljan valmistuskeen. Pakkaus sisältää uutteen ja hiivan, lisätään vain sokeri ja vesi.",
+      "percentage": null,
+      "imageLink": "https://cdn.s-cloud.fi/v1/h220w180/product/ean/6421000050002_kuva1.jpg",
+      "category": "Alkoholittomat",
+      "store": "foodie"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Hailuodon Panimo Pilsneri 3/4 litraa, alc. 5,1% vol. luomulut",
+      "producer": "Hailuodon panimo",
+      "ean": "6430066990221",
+      "link": "https://www.foodie.fi/entry/1041/hailuotolainen-luomuolut-pilsneri-i/6430066990221",
+      "price": 8.8,
+      "description": "Hailuodon Panimon Pilsneri on luomua, vaalea, pastöroimaton, lisäaineeton ja suodattamaton täysmallasolut. Humaloinnissa on käytetty sekä perinteisiä että moderneja saksalaisia lajikkeita. Pantu decoction mashing -menetelmällä eli keittomäskäämällä, joka on perinteinen tapa panna pilsner-olutta.",
+      "percentage": 5.1,
+      "imageLink": "https://cdn.s-cloud.fi/v1/h220w180/product/ean/6430066990221_kuva1.jpg",
+      "category": "Oluet",
+      "store": "foodie"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Celia Luomu Gluteeniton Lager 4,5%",
+      "producer": "Celia Organic",
+      "ean": "8594007310573",
+      "link": "https://www.foodie.fi/entry/1041/olut-luomu-gton-0-5l-pl/8594007310573",
+      "price": 3.58,
+      "description": "Kullankeltainen, keskiasteisesti humaloitu, kevyt, sitruksinen, kevyen appelsiininen\nGrilliruoka, sushi, pizza ja pasta, mausteiset makkarat\nTarjoillaan viilennettynä, 7-8 asteisena",
+      "percentage": 4.5,
+      "imageLink": "https://cdn.s-cloud.fi/v1/h220w180/product/ean/8594007310573_kuva1.jpg",
+      "category": "Oluet",
+      "store": "foodie"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Vaahtopää Vehnäolut 5,5%",
+      "producer": "",
+      "ean": "6430067600341",
+      "link": "https://www.foodie.fi/entry/1041/vaahtopaa-vehnaolut-5-5-/6430067600341",
+      "price": 5.25,
+      "description": "",
+      "percentage": 5.5,
+      "imageLink": "https://cdn.s-cloud.fi/v1/h220w180/product/ean/6430067600341_kuva1.jpg",
+      "category": "Oluet",
+      "store": "foodie"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Hailuodon Panimo Laakeri 3/4 litraa, alc. 4,3% vol. luomuolut",
+      "producer": "Hailuodon panimo",
+      "ean": "6430066990016",
+      "link": "https://www.foodie.fi/entry/1041/hailuotolainen-luomuolut-laakeri-ii/6430066990016",
+      "price": 8.5,
+      "description": "Luomu Laakeri on mieto ja maukas, raikas kullankeltainen lager. Klassinen baijerilainen helles-tyylinen olut. Humaloitu uuden sukupolven aromihumaloilla, jotka antavat oluelle miedon katkeruuden ja erinomaisen humalan aromin. Olut jokaiseen makuun.",
+      "percentage": 4.3,
+      "imageLink": "https://cdn.s-cloud.fi/v1/h220w180/product/ean/6430066990016_kuva1.jpg",
+      "category": "Oluet",
+      "store": "foodie"
+    }
+  },
+  {
+    "error": "MISSING FIELD \"size",
+    "drink": {
+      "name": "Hailuodon Panimo Vehnäolut 3/4 litraa, alc. 4,7% vol. luomuolut",
+      "producer": "Hailuodon panimo",
+      "ean": "6430066990078",
+      "link": "https://www.foodie.fi/entry/1041/hailuotolainen-luomuolut-vehnaolut/6430066990078",
+      "price": 8.5,
+      "description": "Luomu Vehnänen on miedosti katkeroitu saksalaistyylinen vehnäolut, jossa on korkea hiilihappoisuus ja verraten maltainen makeus. Hiivakanta antaa oluelle monitahoisen makumaailman, josta löytyy banaania ja neilikkaa. Raikkaan ja uniikin juomakokemuksen täydentää mieto ja maukas Saphir-humalointi.",
+      "percentage": 4.7,
+      "imageLink": "https://cdn.s-cloud.fi/v1/h220w180/product/ean/6430066990078_kuva1.jpg",
+      "category": "Oluet",
+      "store": "foodie"
+    }
+  }
+]
