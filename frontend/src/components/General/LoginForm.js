@@ -14,9 +14,14 @@ const LoginForm = ({ isButton }) => {
   const [show, setShow] = useState(false)
   const [isRegisterForm, setIsRegisterForm] = useState(false)
   const client = useApolloClient()
-  const username = useField("text", "käyttäjänimi")
-  const password = useField("password", "salasana")
-  const email = useField("email", "sähköposti")
+  const username = useField("text", "käyttäjänimi", null, isRegisterForm && "3-15 merkkiä (a-zA-Z0-9_.)")
+  const email = useField("email", "sähköposti", null,
+  "Sähköpostia ei jaeta kellekkään. Viestiä lähetetään vain käyttäjän erikseen hyväksymissä tilanteissa (esim. salasanan uusiminen)."
+  )
+  const password = useField("password", "salasana", null,
+    isRegisterForm && <>6-50 merkkiä. Ei kannata käyttää samaa salasanaa monella sivustolla.
+    Helpointa ja turvallisinta on käyttää <a href="https://www.lastpass.com/" target="_blank" rel="noopener noreferrer">salasanamanageria</a>.</>
+  )
   const userInfo = useUserInfo()
   const [shownUsername, setShownUserName] = useState(userInfo.username)
 

@@ -153,6 +153,7 @@ const typeDefs = gql`
     addReview(review: ReviewInput): addReviewOutPut!
     deleteReview(reviewId: ID!, drinkId: String!): deleteReviewOutPut!
     likeReview(id: ID!): likeOutput!
+    report(subject: String!, content: String!): String
     createUser(
       username: String!
       password: String!

@@ -213,3 +213,9 @@ export const LIKE = gql`
   }
 `
 
+export const REPORT = gql`
+  mutation report($content: String!, $subject: String!) {
+    report(content: $content, subject: $subject)
+  }
+`
+

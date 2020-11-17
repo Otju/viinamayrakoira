@@ -30,7 +30,7 @@ export const useWindowDimensions = (treshold) => {
   return windowDimensions
 }
 
-export const useField = (type, name) => {
+export const useField = (type, name, placeholder, extraInfo) => {
   const [value, setValue] = useState("")
   const [isInvalid, setInvalid] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -43,7 +43,7 @@ export const useField = (type, name) => {
   if (type === "textarea") {
     content = <Form.Control isInvalid={isInvalid} as="textarea"
       rows={8} value={value} onChange={(event) => setValue(event.target.value)}
-      placeholder={name}>
+      placeholder={placeholder || name}>
     </Form.Control>
   } else if (type === "password") {
     const button = <Button variant="dark" onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>👁</Button>
@@ -52,22 +52,23 @@ export const useField = (type, name) => {
         {showPassword ?
           < Form.Control isInvalid={isInvalid} type="text"
             value={value} onChange={(event) => setValue(event.target.value)}
-            placeholder={name}></Form.Control>
+            placeholder={placeholder || name}></Form.Control>
           : < Form.Control isInvalid={isInvalid} type="password"
             value={value} onChange={(event) => setValue(event.target.value)}
-            placeholder={name}></Form.Control>}
+            placeholder={placeholder || name}></Form.Control>}
         {button}
       </div>
     </>
   } else {
     content = < Form.Control isInvalid={isInvalid} type={type}
       value={value} onChange={(event) => setValue(event.target.value)}
-      placeholder={name}></Form.Control>
+      placeholder={placeholder || name}></Form.Control>
   }
 
   const field = <Form.Group>
     <Form.Label>{capitalizeFirst(name)}</Form.Label>
     {content}
+    {extraInfo && <Form.Text className="text-muted">{extraInfo}</Form.Text>}
   </Form.Group >
 
   return {

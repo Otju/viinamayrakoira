@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react"
 import HoverableDropDownText from "../DrinksPage/SearchVariableMenu/HoverableDropDownText"
 import Dropdown from "react-bootstrap/Dropdown"
 import Form from "react-bootstrap/Form"
+import { useField } from "../../utils"
+import { useMutation } from "@apollo/client"
+import { REPORT } from "../../queries"
+import AlertBox from "./AlertBox"
 
 
 const ReportForm = ({ drinkId, defaultReportTypeIndex }) => {
@@ -31,14 +35,33 @@ const ReportForm = ({ drinkId, defaultReportTypeIndex }) => {
   ]
   const index = defaultReportTypeIndex || 0
   const [reportType, setReportType] = useState(reportTypes[index])
-  const [subject, setSubject] = useState("")
-  const [body, setBody] = useState("")
+
+  const subject = useField("text", "Otsikko")
+  const content = useField("textarea", "sisältö", `${reportType.placeholder}\n\nJos haluat vastauksen viestiisi, niin kirjoita viestiin myös sähköpostiosoitteesi`, reportType.extraInfo)
+  const [alert, setAlert] = useState("")
 
   useEffect(() => {
-    setSubject(reportType.subject)
-  }, [reportType])
+    subject.set(reportType.subject)
+  }, [reportType]) //eslint-disable-line
+
+  const [report] = useMutation(REPORT, {
+    onError: (error) => {
+      setAlert({ message: error.message, variant: "danger" })
+    },
+    onCompleted: () => {
+      setAlert({ message: "Viesti on lähetetty eteenpäin kehittäjälle. Kiitos!", variant: "success", duration: 5000 })
+      setReportType(reportTypes[0])
+      content.set("")
+    }
+  })
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    report({ variables: { content: content.value, subject: subject.value } })
+  }
 
   return <div>
+    <p>Valitse viestin tyyppi</p>
     <Dropdown >
       <Dropdown.Toggle variant="dark">
         Viestin tyyppi: {reportType.name}
@@ -50,19 +73,15 @@ const ReportForm = ({ drinkId, defaultReportTypeIndex }) => {
       </Dropdown.Menu>
     </Dropdown >
     <br />
-    <Form method="post" name="reportForm">
-      <input type="hidden" value="reportForm" name="form-name"/>
-      <Form.Group>
-        <Form.Label>Otsikko</Form.Label>
-        <Form.Control name="title" type="text" value={subject} onChange={(event) => setSubject(event.target.value)} placeholder="Otsikko"></Form.Control>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Sisältö</Form.Label>
-        <Form.Control name="message" as="textarea" rows={10} value={body} onChange={(event) => setBody(event.target.value)} placeholder={reportType.placeholder}></Form.Control>
-        <Form.Text className="text-muted">{reportType.extraInfo}</Form.Text>
-      </Form.Group>
+    <Form onSubmit={handleSubmit}>
+      {subject.field}
+      {content.field}
       <Form.Control type="submit" value="Lähetä viesti"></Form.Control>
     </Form>
+    <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} duration={alert?.duration} />
+    <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
+      <b>Voit myös lähettää viestiä suoraan osoitteeseen <a href="mailto:contact@viinamayrakoira.fi" target="_blank" rel="noopener noreferrer">contact@viinamayrakoira.fi</a></b>
+    </div>
   </div>
 }
 

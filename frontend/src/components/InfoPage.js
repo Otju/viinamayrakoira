@@ -37,8 +37,9 @@ const InfoPage = () => {
         Näät myös kuinka paljon nuo annokset alkoholia maksaisivat
       </p>
       <p><b>Tilastot</b>-sivulta löydät muutaman perustilaston juomien kaupoista ja kategorioista</p>
-    </Container>
-    <ReportForm />
+    </Container><br/>
+    <h3>Lähetä viestiä kehittäjälle</h3><br/>
+    <ReportForm defaultReportTypeIndex={2} />
   </Container >
 }
 

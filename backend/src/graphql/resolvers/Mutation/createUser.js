@@ -52,6 +52,10 @@ const createUser = async (root, args) => {
     throw new UserInputError("Salasana on liian lyhyt (min 6 merkkiä)")
   }
 
+  if (password.length > 50) {
+    throw new UserInputError("Salasana on liian pitkä (max 50 merkkiä)")
+  }
+
   return user.save()
 }
 
