@@ -39,7 +39,7 @@ const ReportForm = ({ drinkId, defaultReportTypeIndex }) => {
   }, [reportType])
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    
   }
 
   return <div>
