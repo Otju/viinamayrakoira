@@ -54,8 +54,8 @@ const ReportForm = ({ drinkId, defaultReportTypeIndex }) => {
       </Dropdown.Menu>
     </Dropdown >
     <br />
-    <Form onSubmit={handleSubmit} name="reportForm">
-      <input type="hidden" value="reportForm" />
+    <Form method="post" name="reportForm">
+      <input type="hidden" value="reportForm" name="form-name"/>
       <Form.Group>
         <Form.Label>Otsikko</Form.Label>
         <Form.Control name="title" type="text" value={subject} onChange={(event) => setSubject(event.target.value)} placeholder="Otsikko"></Form.Control>
