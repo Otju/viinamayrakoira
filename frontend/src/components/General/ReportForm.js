@@ -38,10 +38,6 @@ const ReportForm = ({ drinkId, defaultReportTypeIndex }) => {
     setSubject(reportType.subject)
   }, [reportType])
 
-  const handleSubmit = (event) => {
-    
-  }
-
   return <div>
     <Dropdown >
       <Dropdown.Toggle variant="dark">
