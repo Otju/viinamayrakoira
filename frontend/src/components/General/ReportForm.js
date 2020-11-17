@@ -54,14 +54,15 @@ const ReportForm = ({ drinkId, defaultReportTypeIndex }) => {
       </Dropdown.Menu>
     </Dropdown >
     <br />
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} name="reportForm">
+      <input type="hidden" value="reportForm" />
       <Form.Group>
         <Form.Label>Otsikko</Form.Label>
-        <Form.Control type="text" value={subject} onChange={(event) => setSubject(event.target.value)} placeholder="Otsikko"></Form.Control>
+        <Form.Control name="title" type="text" value={subject} onChange={(event) => setSubject(event.target.value)} placeholder="Otsikko"></Form.Control>
       </Form.Group>
       <Form.Group>
         <Form.Label>Sisältö</Form.Label>
-        <Form.Control as="textarea" rows={10} value={body} onChange={(event) => setBody(event.target.value)} placeholder={reportType.placeholder}></Form.Control>
+        <Form.Control name="message" as="textarea" rows={10} value={body} onChange={(event) => setBody(event.target.value)} placeholder={reportType.placeholder}></Form.Control>
         <Form.Text className="text-muted">{reportType.extraInfo}</Form.Text>
       </Form.Group>
       <Form.Control type="submit" value="Lähetä viesti"></Form.Control>
