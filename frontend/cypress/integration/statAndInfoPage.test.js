@@ -4,7 +4,7 @@ it("StatististicsPage opens ", function () {
   cy.contains("Keskimääräinen annoshinta kaupoittain")
 })
 
-it("StatististicsPage opens ", function () {
+it("Infopage opens ", function () {
   cy.visit("http://localhost:3000/moreinfo")
   cy.contains("Lahjoitukset")
   cy.contains("Sivut")

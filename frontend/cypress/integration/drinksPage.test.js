@@ -8,6 +8,11 @@ describe("Drinkpage ", function () {
   it("defaultpage contains right drinks", function () {
     cy.hasDrink({ sortByField: "pricePerPortion" }, 30)
   })
+  it.only("can open DrinkCard", function () {
+    cy.get(".card-body").eq(0).click()
+    cy.hasDrink({ sortByField: "pricePerPortion" }, 1, ".modal-content")
+
+  })
   it("endless scroll works", function () {
     cy.scrollTo("bottom")
     cy.hasDrink({ sortByField: "pricePerPortion" }, 60)

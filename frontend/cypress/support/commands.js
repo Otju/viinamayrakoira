@@ -1,4 +1,4 @@
-Cypress.Commands.add("hasDrink", (params, count) => {
+Cypress.Commands.add("hasDrink", (params, count, element) => {
 
   let paramString = ""
 
@@ -17,6 +17,7 @@ Cypress.Commands.add("hasDrink", (params, count) => {
   const query = `query {
     allDrinks(first: ${count || 1}, ${paramString}) 
       {
+        name
         price
         pricePerPortion
         percentage
@@ -32,10 +33,11 @@ Cypress.Commands.add("hasDrink", (params, count) => {
   ).then((res) => {
     const drinks = res.body.data.allDrinks
     drinks.forEach(drink => {
-      //cy.contains(drink.name) cypress doesn't find names correctly, even though they're there
-      cy.contains(drink.percentage)
-      cy.contains(drink.price)
-      cy.contains(drink.pricePerPortion)
+      const elementToFind = element || "body"
+      cy.get(elementToFind).contains(drink.name) //cypress doesn't find names correctly, even though they're there
+      cy.get(elementToFind).contains(drink.percentage)
+      cy.get(elementToFind).contains(drink.price)
+      cy.get(elementToFind).contains(drink.pricePerPortion)
     })
   })
 })

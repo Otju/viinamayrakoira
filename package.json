@@ -9,6 +9,7 @@
     "front": "cd ./frontend && npm start",
     "back": "cd ./backend && npm run dev",
     "scrape": "cd ./scraper && npm start",
-    "deploy": "cd ./backend && npm run deploy"
+    "deploy": "cd ./backend && npm run deploy",
+    "test": "cd ./frontend && npm run cypress"
   }
 }
