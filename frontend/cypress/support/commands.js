@@ -10,7 +10,7 @@ Cypress.Commands.add("hasDrink", (params, count, element) => {
         .map(item => `{${Object.entries(item)
           .map(([keyIn, valueIn]) => `${keyIn}: ${typeof valueIn === "string" ? `"${valueIn}"` : valueIn}`).join(",")}}`)}]`))
     } else {
-      paramString = paramString.concat(` ${key}: "${value}"`)
+      paramString = paramString.concat(` ${key}: ${typeof value === "number" ? value : `"${value}"`}`)
     }
   })
 

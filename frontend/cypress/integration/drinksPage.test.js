@@ -8,7 +8,7 @@ describe("Drinkpage ", function () {
   it("defaultpage contains right drinks", function () {
     cy.hasDrink({ sortByField: "pricePerPortion" }, 29)
   })
-  it("can open DrinkCard", function () {
+  it("can open DrinkModal", function () {
     cy.get(".card-body").eq(0).click()
     cy.hasDrink({ sortByField: "pricePerPortion" }, 1, ".modal-content")
     cy.contains("Kommentit")
