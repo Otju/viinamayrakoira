@@ -40,29 +40,26 @@ export const useField = (type, name, placeholder, extraInfo) => {
   }, [value])
 
   let content
+  const props = {
+    value,
+    onChange: (event) => setValue(event.target.value),
+    placeholder: placeholder || name,
+    id: name
+  }
   if (type === "textarea") {
-    content = <Form.Control isInvalid={isInvalid} as="textarea"
-      rows={8} value={value} onChange={(event) => setValue(event.target.value)}
-      placeholder={placeholder || name}>
-    </Form.Control>
+    content = <Form.Control isInvalid={isInvalid} as="textarea" rows={8} {...{ ...props }}></Form.Control>
   } else if (type === "password") {
     const button = <Button variant="dark" onMouseDown={() => setShowPassword(true)} onMouseUp={() => setShowPassword(false)}>👁</Button>
     content = <>
       <div style={{ display: "flex" }}>
         {showPassword ?
-          < Form.Control isInvalid={isInvalid} type="text"
-            value={value} onChange={(event) => setValue(event.target.value)}
-            placeholder={placeholder || name}></Form.Control>
-          : < Form.Control isInvalid={isInvalid} type="password"
-            value={value} onChange={(event) => setValue(event.target.value)}
-            placeholder={placeholder || name}></Form.Control>}
+          < Form.Control isInvalid={isInvalid} type="text" {...{ ...props }}></Form.Control>
+          : < Form.Control isInvalid={isInvalid} type="password" {...{ ...props }}></Form.Control>}
         {button}
       </div>
     </>
   } else {
-    content = < Form.Control isInvalid={isInvalid} type={type}
-      value={value} onChange={(event) => setValue(event.target.value)}
-      placeholder={placeholder || name}></Form.Control>
+    content = < Form.Control isInvalid={isInvalid} type={type} {...{ ...props }}></Form.Control>
   }
 
   const field = <Form.Group>

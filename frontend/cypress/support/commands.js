@@ -28,7 +28,7 @@ Cypress.Commands.add("hasDrink", (params, count, element) => {
     {
       method: "POST",
       url: "http://localhost:4000/",
-      body: { query: query },
+      body: { query },
     }
   ).then((res) => {
     const drinks = res.body.data.allDrinks
@@ -39,5 +39,25 @@ Cypress.Commands.add("hasDrink", (params, count, element) => {
       cy.get(elementToFind).contains(drink.price)
       cy.get(elementToFind).contains(drink.pricePerPortion)
     })
+  })
+})
+
+Cypress.Commands.add("deleteUser", (username, expectDeletetion) => {
+
+  const query = `mutation { 
+    deleteUser(username: "${username}")
+  }`
+
+  cy.request(
+    {
+      method: "POST",
+      url: "http://localhost:4000/",
+      body: { query },
+    }
+  ).then((res) => {
+    const message = res.body.data.deleteUser
+    if (expectDeletetion) {
+      cy.expect(message).to.equal(`removed user ${username}`)
+    }
   })
 })

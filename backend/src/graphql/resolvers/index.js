@@ -1,5 +1,6 @@
-const Query = require("./Query")
-const Mutation = require("./Mutation")
+const requireDir = require("require-dir")
+const Query = requireDir("./Query")
+const Mutation = requireDir("./Mutation")
 
 const resolvers = { Query, Mutation }
 

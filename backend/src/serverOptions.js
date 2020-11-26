@@ -8,7 +8,7 @@ const User = require("./models/User")
 mongoose.set("useFindAndModify", false)
 mongoose.set("useCreateIndex", true)
 
-const isTest = process.argv[2] === "test"  
+const isTest = process.argv[2] === "test"
 if (isTest) {
   console.log("Running in test mode")
 }

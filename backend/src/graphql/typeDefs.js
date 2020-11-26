@@ -151,6 +151,7 @@ const typeDefs = gql`
   type Mutation {
     updateAllDrinks(drinks: [DrinkInput]): updateAllDrinksOutPut
     addReview(review: ReviewInput): addReviewOutPut!
+    deleteUser(id: ID, username: String): String
     deleteReview(reviewId: ID!, drinkId: String!): deleteReviewOutPut!
     likeReview(id: ID!): likeOutput!
     report(subject: String!, content: String!): String

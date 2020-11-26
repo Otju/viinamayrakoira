@@ -14,7 +14,7 @@ const LoginForm = ({ isButton }) => {
   const [show, setShow] = useState(false)
   const [isRegisterForm, setIsRegisterForm] = useState(false)
   const client = useApolloClient()
-  const username = useField("text", "käyttäjänimi", null, isRegisterForm && "3-15 merkkiä (a-zA-Z0-9_.)")
+  const username = useField("text", "käyttäjänimi", null, isRegisterForm && "3-20 merkkiä (a-zA-Z0-9_.)")
   const email = useField("email", "sähköposti", null,
   "Sähköpostia ei jaeta kellekkään. Viestiä lähetetään vain käyttäjän erikseen hyväksymissä tilanteissa (esim. salasanan uusiminen)."
   )
@@ -110,7 +110,7 @@ const LoginForm = ({ isButton }) => {
       <Form.Control type="submit" value={isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}></Form.Control>
     </Form>
     <Button variant="link" id="registerFormLink" onClick={() => setIsRegisterForm(v => !v)}>
-      {isRegisterForm ? "Oletko jo käyttäjä? Kirjautu sisään tästä" : "Etkö ole vielä käyttäjä? Rekisteröidy tästä"}
+      {isRegisterForm ? "Oletko jo käyttäjä? Kirjaudu sisään tästä" : "Etkö ole vielä käyttäjä? Rekisteröidy tästä"}
     </Button>
   </>
 

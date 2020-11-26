@@ -17,7 +17,7 @@ const SingleDrinkPage = () => {
   }
   drink = result.data.oneDrink
 
-  return <div class="container" style={{ background: "white", paddingBottom: "2rem" }}>
+  return <div className="container" style={{ background: "white", paddingBottom: "2rem" }}>
     <h2>{drink.name}</h2>
     <SingleDrink drink={drink} />
   </div>
