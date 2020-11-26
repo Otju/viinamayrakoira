@@ -109,7 +109,7 @@ const LoginForm = ({ isButton }) => {
       <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} duration={alert?.duration} global={alert?.global} />
       <Form.Control type="submit" value={isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}></Form.Control>
     </Form>
-    <Button variant="link" onClick={() => setIsRegisterForm(v => !v)}>
+    <Button variant="link" id="registerFormLink" onClick={() => setIsRegisterForm(v => !v)}>
       {isRegisterForm ? "Oletko jo käyttäjä? Kirjautu sisään tästä" : "Etkö ole vielä käyttäjä? Rekisteröidy tästä"}
     </Button>
   </>
@@ -133,7 +133,7 @@ const LoginForm = ({ isButton }) => {
         </Dropdown.Menu>
       </Dropdown >
       : <>
-        <Button variant="dark" onClick={() => setShow(true)}>Kirjaudu sisään</Button>
+        <Button variant="dark" id="loginButton" onClick={() => setShow(true)}>Kirjaudu sisään</Button>
         <Modal size="lg" show={show} onHide={() => setShow(false)}>
           <Modal.Header closeButton>
             <Modal.Title>{title}</Modal.Title>

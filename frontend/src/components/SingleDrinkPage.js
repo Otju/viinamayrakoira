@@ -2,7 +2,7 @@ import React from "react"
 import { useParams } from "react-router-dom"
 import { ONE_DRINK } from "../queries"
 import { useQuery } from "@apollo/client"
-import DrinkModal from "./General/DrinkCards/DrinkModal"
+import SingleDrink from "./General/DrinkCards/SingleDrink"
 
 
 const SingleDrinkPage = () => {
@@ -17,7 +17,10 @@ const SingleDrinkPage = () => {
   }
   drink = result.data.oneDrink
 
-  return <DrinkModal show={true} drink={drink} standalone={true} />
+  return <div class="container" style={{ background: "white", paddingBottom: "2rem" }}>
+    <h2>{drink.name}</h2>
+    <SingleDrink drink={drink} />
+  </div>
 }
 
 export default SingleDrinkPage

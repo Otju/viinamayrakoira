@@ -8,7 +8,13 @@ const User = require("./models/User")
 mongoose.set("useFindAndModify", false)
 mongoose.set("useCreateIndex", true)
 
-const mongoUrl = process.env.MONGODB_URI
+const isTest = process.argv[2] === "test"  
+if (isTest) {
+  console.log("Running in test mode")
+}
+
+
+const mongoUrl = isTest ? process.env.TEST_MONGODB_URI : process.env.MONGODB_URI
 const JWT_SECRET = process.env.JWT_SECRET
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
