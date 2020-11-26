@@ -1,9 +1,10 @@
 const User = require("../../../models/User")
+const Review = require("../../../models/Review")
 const { ApolloError, UserInputError } = require("apollo-server")
 const deleteUser = async (root, args) => {
 
   const username = args.username
-  const id = args.id
+  let id = args.id
 
   const isTest = process.argv[2] === "test"
 
@@ -15,17 +16,17 @@ const deleteUser = async (root, args) => {
     throw new UserInputError("Missing both username and id")
   }
 
-  let response
-  if (id) {
-    response = await User.deleteOne(id)
-
-  } else {
-    response = await User.deleteOne({ username })
+  if (!id) {
+    const data = await User.find({ username })
+    id = data[0]._id
   }
+  const response = await User.deleteOne({ _id: id })
 
   if (response.deletedCount !== 1) {
     throw new ApolloError("Couldn't find user to delete")
   }
+
+  await Review.deleteMany({ user: id })
 
   return `removed user ${id || username}`
 }

@@ -5,9 +5,6 @@ describe("BestPage ", function () {
   it("best page can be opened", function () {
     cy.contains("Parhaat juomat")
   })
-  it("best page contains cheapest drink (Africana)", function () {
-    cy.contains("Africana")
-  })
   it("drinkSticker clicking works", function () {
     cy.wait(2000)
     cy.get(".drinkSticker").eq(3).click()

@@ -40,7 +40,7 @@ const App = () => {
         <Alert variant="dark" show={!hasVisited} dismissible onClose={() => handleClose()}>
           <Alert.Heading>Tervetuloa!</Alert.Heading>
           <p>Tältä nettisivulta löydät kaikki alkoholijuomat Alkon, S-ryhmän, K-marketin, Eckerö Linen,
-          Tallink & Silja Linen tai Superalkon (Viro ja Latvia) nettisivuilta</p>
+          Tallink & Silja Linen ja Superalkon (Viro ja Latvia) nettisivuilta</p>
           <p><i>Parhaat</i>-sivulta löydät parhaat juomat annoshinnan ja arvostelujen perusteella,
           mutta kannattaa käydä <i>Juomat</i>-sivulla, jossa näät kaikki juomat
           ja voit helposti löytää sinulle sopivat käyttämällä monia hakuvaihtoehtoja</p>
