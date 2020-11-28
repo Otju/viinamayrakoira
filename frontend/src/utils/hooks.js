@@ -30,7 +30,7 @@ export const useWindowDimensions = (treshold) => {
   return windowDimensions
 }
 
-export const useField = (type, name, placeholder, extraInfo) => {
+export const useField = (type, name, placeholder, extraInfo, minMax) => {
   const [value, setValue] = useState("")
   const [isInvalid, setInvalid] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -59,7 +59,7 @@ export const useField = (type, name, placeholder, extraInfo) => {
       </div>
     </>
   } else {
-    content = < Form.Control isInvalid={isInvalid} type={type} {...{ ...props }}></Form.Control>
+    content = < Form.Control min={minMax?.min} max={minMax?.max} isInvalid={isInvalid} type={type} {...{ ...props }}></Form.Control>
   }
 
   const field = <Form.Group>
