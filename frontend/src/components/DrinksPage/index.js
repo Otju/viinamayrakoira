@@ -11,9 +11,12 @@ const DrinksPage = () => {
 
   let content
 
-  if (!drinkChunks || drinkChunks[0].length === 0) {
+  if (!drinkChunks) {
     content = <Spinner animation="border" />
-  } else {
+  } else if (drinkChunks[0].length === 0) {
+    content = <h5>Haullasi ei löytynyt tuloksia</h5>
+  }
+  else {
     content = <>
       <InfiniteScroll
         dataLength={drinkChunks.length}
@@ -26,7 +29,7 @@ const DrinksPage = () => {
   }
 
   return <div>
-    <SearchVariableUnit offset={offset} setOffset={setOffset} setDrinks={setDrinkChunks} isChunked={true}/>
+    <SearchVariableUnit offset={offset} setOffset={setOffset} setDrinks={setDrinkChunks} isChunked={true} />
     {content}
   </div>
 }

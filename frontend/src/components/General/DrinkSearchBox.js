@@ -13,7 +13,10 @@ const DrinkSearchBox = ({ handleClick, keyPart }) => {
   const history = useHistory()
 
   let content
-  if (drinks && drinks.length !== 0) {
+  if (!drinks) {
+  } else if (drinks.length === 0) {
+    content = <div style={{ textAlign: "center" }}>Haullasi ei löytynyt tuloksia</div>
+  } else {
     const uniqueIds = [...(new Set(drinks.map(d => d.id)))]
     const uniqueDrinks = uniqueIds.map(id => drinks.find(drink => drink.id === id)) //Very bad solution
     content =
