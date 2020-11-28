@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
-import { capitalizeFirst, stores, categories } from "../../../utils"
-import Hoverable from "../Hoverable"
+import { capitalizeFirst, stores, categories } from "../../utils"
+import Hoverable from "./Hoverable"
 import DrinkModal from "./DrinkModal"
 import DrinkInfo from "./DrinkInfo"
 

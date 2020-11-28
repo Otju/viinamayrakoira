@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import Hoverable from '../Hoverable'
+import Hoverable from './Hoverable'
 import { useMutation, gql } from "@apollo/client"
-import { LIKE } from "../../../queries"
-import { useUserInfo } from "../../../utils"
+import { LIKE } from "../../queries"
+import { useUserInfo } from "../../utils"
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"
 import Tooltip from "react-bootstrap/Tooltip"
 

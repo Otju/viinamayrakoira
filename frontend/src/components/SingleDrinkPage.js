@@ -2,7 +2,7 @@ import React from "react"
 import { useParams } from "react-router-dom"
 import { ONE_DRINK } from "../queries"
 import { useQuery } from "@apollo/client"
-import SingleDrink from "./General/DrinkCards/SingleDrink"
+import SingleDrink from "./General/SingleDrink"
 
 
 const SingleDrinkPage = () => {

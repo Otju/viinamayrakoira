@@ -1,25 +1,13 @@
 import React from "react"
-//import { ONE_DRINK } from '../../../queries'
-//import { useQuery } from '@apollo/client'
 import DrinkCard from "./DrinkCard"
-import DrinkSearchBox from "../DrinkSearchBox"
-import { round, searchTypes } from "../../../utils"
+import DrinkSearchBox from "./DrinkSearchBox"
+import { round, searchTypes } from "../../utils"
 import Button from "react-bootstrap/Button"
 import ListGroup from "react-bootstrap/ListGroup"
 
 const ComparisonDrinkCard = ({ drinks, index, setDrinks }) => {
 
   const drink = drinks[index]
-  /*
-        const result = useQuery(ONE_DRINK, { variables: { id: drinkId }, skip: (drink || !drinkId) })
-    
-        useEffect(() => {
-            if (result && !result.loading && result.data) {
-                setDrinks(d => d.map((item, i) => index === i ? result.data.oneDrinks : item))
-            }
-        }, [result, setDrinks, index])
-    
-        */
 
   if (drink) {
     let fieldsThatAreBetter = []

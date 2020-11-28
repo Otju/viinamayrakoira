@@ -1,5 +1,5 @@
 import React from "react"
-import { capitalizeFirst, stores } from "../../../utils"
+import { capitalizeFirst, stores } from "../../utils"
 import Button from "react-bootstrap/Button"
 import StarReview from "./StarReview"
 

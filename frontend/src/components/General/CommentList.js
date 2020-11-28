@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
-import Chart from "../../StatisticsPage/Chart"
+import Chart from "../StatisticsPage/Chart"
 import ListGroup from "react-bootstrap/ListGroup"
-import { round } from "../../../utils"
+import { round } from "../../utils"
 import Comment from "./Comment"
 import StarReview from "./StarReview"
 

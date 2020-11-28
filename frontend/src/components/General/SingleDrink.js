@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import CommentList from "./CommentList"
 import { useQuery } from "@apollo/client"
-import { GET_REVIEWS } from "../../../queries"
+import { GET_REVIEWS } from "../../queries"
 import DrinkInfo from "./DrinkInfo"
 import ReviewForm from "./ReviewForm"
-import ReportModal from "../ReportModal"
+import ReportModal from "./ReportModal"
 import Tabs from "react-bootstrap/Tabs"
 import Tab from "react-bootstrap/Tab"
 

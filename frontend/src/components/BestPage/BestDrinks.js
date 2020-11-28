@@ -2,7 +2,7 @@ import React from "react"
 import { useQuery } from "@apollo/client"
 import { BEST_DRINKS } from "../../queries"
 import Spinner from "react-bootstrap/Spinner"
-import DrinkCardList from "../General/DrinkCards/DrinkCardList"
+import DrinkCardList from "../General/DrinkCardList"
 import { colors } from "../../utils"
 
 const BestDrinks = ({ store, displayName }) => {

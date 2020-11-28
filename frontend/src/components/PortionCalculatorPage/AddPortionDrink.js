@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import DrinkSearchBox from "../General/DrinkSearchBox"
-import MiniDrinkCard from "../General/DrinkCards/MiniDrinkCard"
+import MiniDrinkCard from "../General/MiniDrinkCard"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"

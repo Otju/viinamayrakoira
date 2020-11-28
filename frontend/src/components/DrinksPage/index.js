@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Spinner from "react-bootstrap/Spinner"
-import DrinkCardList from "../General/DrinkCards/DrinkCardList"
+import DrinkCardList from "../General/DrinkCardList"
 import InfiniteScroll from "react-infinite-scroll-component"
 import SearchVariableUnit from "./SearchVariableUnit"
 

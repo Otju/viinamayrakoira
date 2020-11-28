@@ -3,10 +3,10 @@ import { useMutation, gql } from "@apollo/client"
 import Form from "react-bootstrap/Form"
 import Col from "react-bootstrap/Col"
 import Button from "react-bootstrap/Button"
-import { ADD_REVIEW, DELETE_REVIEW } from "../../../queries"
+import { ADD_REVIEW, DELETE_REVIEW } from "../../queries"
 import StarReview from "./StarReview"
-import AlertBox from "../AlertBox"
-import { useField, useUserInfo } from "./../../../utils"
+import AlertBox from "./AlertBox"
+import { useField, useUserInfo } from "../../utils"
 import Comment from "./Comment"
 
 const ReviewForm = ({ drink, reviews, refetchComments, setReviews, setDrinkState }) => {
