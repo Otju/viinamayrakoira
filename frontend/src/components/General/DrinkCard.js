@@ -9,7 +9,6 @@ import DrinkInfo from "./DrinkInfo"
 const DrinkCard = ({ drink, position, hasRightMargin }) => {
 
   const storeColor = stores.find(store => drink.store === store.name).color
-  const textColor = stores.find(store => drink.store === store.name).textColor || "black"
 
   const [show, setShow] = useState(false)
   const handleShow = () => setShow(true)
@@ -63,7 +62,7 @@ const DrinkCard = ({ drink, position, hasRightMargin }) => {
         </Hoverable>
       </div>
       <div style={{ position: "absolute", bottom: "1.5rem", left: "2rem" }}>
-        <Hoverable zIndex="5" handleClick={() => window.open(drink.link, "_blank")}><Button style={{ color: textColor }} variant={drink.store}>Kauppaan →</Button></Hoverable>
+        <Hoverable zIndex="5" handleClick={() => window.open(drink.link, "_blank")}><Button variant={drink.store}>Kauppaan →</Button></Hoverable>
       </div>
       <DrinkModal {...{ setShow, show, drink }} />
     </Card >

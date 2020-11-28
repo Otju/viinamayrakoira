@@ -22,6 +22,7 @@ const App = () => {
       {`
       .btn-${store.name} {
          background-color: ${store.color};
+         color: ${store.textColor || "black"}
       }
    `}
     </style>
