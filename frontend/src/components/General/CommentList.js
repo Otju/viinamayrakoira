@@ -56,9 +56,10 @@ const CommentList = ({ reviews, drink }) => {
 
     <div>
       <ListGroup>
-        {comments && comments.length > 0
-          ? comments.map(review => <Comment review={review} key={review.id} />)
-          : "Ei vielä kommentteja"}
+        {comments?.map(review => <Comment review={review} key={review.id} />)}
+      </ListGroup>
+      <ListGroup>
+        {reviews?.filter((item) => !item.comment).map(review => <Comment review={review} key={review.id} noLike/>)}
       </ListGroup>
     </div>
   </div>

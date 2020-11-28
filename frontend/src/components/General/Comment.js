@@ -5,14 +5,14 @@ import LikeButton from "./LikeButton"
 
 
 
-const Comment = ({ review }) => {
+const Comment = ({ review, noLike }) => {
 
   return < ListGroup.Item >
     <h4>{review.user.username}</h4>
     {review.comment}
     <StarReview size={25} value={review.taste} />
     <StarReview size={30} value={review.priceQualityRatio} type="PQR" />
-    <LikeButton review={review} />
+    {!noLike && <LikeButton review={review} />}
   </ListGroup.Item >
 }
 
