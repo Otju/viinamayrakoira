@@ -3,6 +3,7 @@ import { colors } from "../utils"
 import Container from "react-bootstrap/Container"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
+import ReportModal from "./General/ReportModal"
 
 const Footer = () => {
 
@@ -10,7 +11,9 @@ const Footer = () => {
     <Container>
       <Row>
         <Col>
-          <img src={process.env.PUBLIC_URL + "/doggo.svg"} style={{ height: "5rem" }} alt="viinamayrakoira.svg" />
+          <div style={{ display: "flex", justifyContent: "center", width: "100%", alignItems: "center", height: "100%" }}>
+            <ReportModal defaultReportTypeIndex={1} />
+          </div>
         </Col>
         <Col>
           <div style={{ display: "flex", justifyContent: "center", width: "100%", alignItems: "center", height: "100%" }}>

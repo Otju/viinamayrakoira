@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import AddPortionDrink from "./AddPortionDrink"
 import Table from "react-bootstrap/Table"
 import Button from "react-bootstrap/Button"
-import { round, useField, colors} from "../../utils"
+import { round, useField} from "../../utils"
 import Form from "react-bootstrap/Form"
 import Col from "react-bootstrap/Col"
 
@@ -47,7 +47,7 @@ const PortionCalculatorPage = () => {
       <h2>{price}€</h2>
       <AddPortionDrink setPortionDrinks={setPortionDrinks} portionDrinks={portionDrinks} />
       <div style={{padding: "1rem 0 1rem 0"}}>
-        <h5>Tiedot promillejen laskemiseen</h5>
+        <h5>Promillejen laskeminen</h5>
         <i>Promillelaskurin tulokset ovat vain arvioita</i>
         <Form>
           {genderValues.map(genderItem =>
