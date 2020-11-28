@@ -8,6 +8,7 @@ import CheckboxDropDown from "./CheckboxDropDown"
 import { categories, stores, colors, searchTypes } from "../../../utils"
 import _ from "lodash"
 import ToggleableAccordion from "../../General/ToggleableAccordion"
+import QuickSearches from "./QuickSearches"
 
 const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVariables, expandable }) => {
 
@@ -51,6 +52,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVa
         return null
       })}
     </div>
+    <QuickSearches setSearchVariables={setSearchVariables} searchVariables={searchVariables}/>
   </>
 
   return <div style={{ border: "solid", borderTop: "none", color: colors.darkGray, padding: "1rem" }}>

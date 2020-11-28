@@ -16,7 +16,7 @@ const LoginForm = ({ isButton }) => {
   const client = useApolloClient()
   const username = useField("text", "käyttäjänimi", null, isRegisterForm && "3-20 merkkiä (a-zA-Z0-9_.)")
   const email = useField("email", "sähköposti", null,
-  "Sähköpostia ei jaeta kellekkään. Viestiä lähetetään vain käyttäjän erikseen hyväksymissä tilanteissa (esim. salasanan uusiminen)."
+    "Sähköpostia ei jaeta kellekkään. Viestiä lähetetään vain käyttäjän erikseen hyväksymissä tilanteissa (esim. salasanan uusiminen)."
   )
   const password = useField("password", "salasana", null,
     isRegisterForm && <>6-50 merkkiä. Ei kannata käyttää samaa salasanaa monella sivustolla.
@@ -107,7 +107,14 @@ const LoginForm = ({ isButton }) => {
       {isRegisterForm && email.field}
       {password.field}
       <AlertBox alert={alert?.message} setAlert={setAlert} variant={alert?.variant} duration={alert?.duration} global={alert?.global} />
-      <Form.Control type="submit" value={isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}></Form.Control>
+      <Form.Group>
+        <Form.Control type="submit" value={isRegisterForm ? "Rekisteröidy" : "Kirjaudu sisään"}></Form.Control>
+        <Form.Text className="text-muted">
+          {isRegisterForm && "Rekisteröidyttyäsi sinut kirjataan automaattisesti sisään. "}
+          Pysyt kirjautuneena sisään (vaikka lähtisit sivulta) kunnes kirjaudut ulos.
+        </Form.Text>
+      </Form.Group >
+
     </Form>
     <Button variant="link" id="registerFormLink" onClick={() => setIsRegisterForm(v => !v)}>
       {isRegisterForm ? "Oletko jo käyttäjä? Kirjaudu sisään tästä" : "Etkö ole vielä käyttäjä? Rekisteröidy tästä"}
