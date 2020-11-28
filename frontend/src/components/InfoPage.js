@@ -33,7 +33,7 @@ const InfoPage = () => {
       <p><b>Vertaa</b>-sivulla voit vertailla kahta juomaa keskenään</p>
       <p>
         <b>Annoslaskuri</b>-sivulla voit laskea kuinka suuren annosmäärän tiettyjen juomien ja määrien yhdistelmä tuottaa.<br />
-        Voit myös laskea tuon annosmäärän vaikutuksen veresi alkoholin promillemäärään.
+        Voit myös aiheuttaa alkoholin aiheuttaman promillemäärän.
         Näät myös kuinka paljon nuo annokset alkoholia maksaisivat
       </p>
       <p><b>Tilastot</b>-sivulta löydät muutaman perustilaston juomien kaupoista ja kategorioista</p>

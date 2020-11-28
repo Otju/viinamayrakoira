@@ -31,8 +31,31 @@ const QuickSearches = ({ setSearchVariables, searchVariables, emptySearchVariabl
       searches: {
         store: ["superAlkoEesti", "tallink", "eckeroLine"],
       }
+    },
+    {
+      name: "Miedot (alle 10%)",
+      searches: {
+        maxpercentage: "10",
+        minpercentage: ""
+      }
+    },
+    {
+      name: "18v (Alle 22%)",
+      searches: {
+        maxpercentage: "22",
+        minpercentage: ""
+      }
+    },
+    {
+      name: "Vahvat (yli 22%)",
+      searches: {
+        minpercentage: "22",
+        maxpercentage: ""
+      }
     }
   ]
+
+  console.log(searchVariables)
 
   searches = searches.map(search => ({
     ...search,
@@ -40,17 +63,22 @@ const QuickSearches = ({ setSearchVariables, searchVariables, emptySearchVariabl
   })
   )
 
+  const dividers = [1, 3]
+
   return <div style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
     <Dropdown style={{ display: "inline-block" }}>
       <Dropdown.Toggle ><b>Pikahaku</b></Dropdown.Toggle>
       <Dropdown.Menu>
-        {searches.map(item => (
-          <HoverableDropDownText key={item.name} selected={item.selected} handleClick={() => setSearchVariables({
-            ...searchVariables,
-            ...(item.selected ? Object.fromEntries(Object.keys(item.searches).map(key => ([key, emptySearchVariables[key]]))) : item.searches)
-          })}>
-            {item.name}
-          </HoverableDropDownText>
+        {searches.map((item, i) => (
+          <div key={item.name}>
+            <HoverableDropDownText selected={item.selected} handleClick={() => setSearchVariables({
+              ...searchVariables,
+              ...(item.selected ? Object.fromEntries(Object.keys(item.searches).map(key => ([key, emptySearchVariables[key]]))) : item.searches)
+            })}>
+              {item.name}
+            </HoverableDropDownText>
+            {dividers.find(item => item === i) && <Dropdown.Divider />}
+          </div>
         ))}
       </Dropdown.Menu>
     </Dropdown >
