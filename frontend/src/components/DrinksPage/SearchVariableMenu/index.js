@@ -52,7 +52,7 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVa
         return null
       })}
     </div>
-    <QuickSearches setSearchVariables={setSearchVariables} searchVariables={searchVariables}/>
+    <QuickSearches setSearchVariables={setSearchVariables} searchVariables={searchVariables} emptySearchVariables={emptySearchVariables}/>
   </>
 
   return <div style={{ border: "solid", borderTop: "none", color: colors.darkGray, padding: "1rem" }}>
