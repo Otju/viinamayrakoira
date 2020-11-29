@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button"
 import MinMaxDropDown from "./MinMaxDropDown"
 import SortBySettings from "./SortBySettings"
 import CheckboxDropDown from "./CheckboxDropDown"
-import { categories, stores, colors, searchTypes } from "../../../utils"
+import { categories, stores, colors, searchTypes, useWindowDimensions } from "../../../utils"
 import _ from "lodash"
 import ToggleableAccordion from "../../General/ToggleableAccordion"
 import QuickSearches from "./QuickSearches"
@@ -17,6 +17,8 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVa
   const setFieldValue = (searchCategory, value) => {
     setSearchVariables({ ...searchVariables, [searchCategory]: value })
   }
+
+  const { mobile } = useWindowDimensions(800)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -37,22 +39,25 @@ const SearchVariableMenu = ({ searchVariables, setSearchVariables, emptySearchVa
     {!_.isEqual(searchVariables, emptySearchVariables) ?
       <Button variant="danger" onClick={() => setSearchVariables(emptySearchVariables)}>nollaa haku</Button> : null
     }
-    <div>
-      {Object.entries(searchVariables).map(([key, values]) => {
-        if (values) {
-          values = !Array.isArray(values) ? [values] : values
-          if (values.length > 0) {
-            return values.map(value => <SearchVariableButton searchCategory={key}
-              setFieldValue={setFieldValue}
-              searchVariables={searchVariables}
-              setSearchVariables={setSearchVariables}
-              key={value} value={value} />)
-          }
-        }
-        return null
-      })}
-    </div>
-    <QuickSearches setSearchVariables={setSearchVariables} searchVariables={searchVariables} emptySearchVariables={emptySearchVariables}/>
+    <div><QuickSearches setSearchVariables={setSearchVariables} searchVariables={searchVariables} emptySearchVariables={emptySearchVariables} /></div>
+    {
+      mobile ? null
+        : <div>
+          {Object.entries(searchVariables).map(([key, values]) => {
+            if (values) {
+              values = !Array.isArray(values) ? [values] : values
+              if (values.length > 0) {
+                return values.map(value => <SearchVariableButton searchCategory={key}
+                  setFieldValue={setFieldValue}
+                  searchVariables={searchVariables}
+                  setSearchVariables={setSearchVariables}
+                  key={value} value={value} />)
+              }
+            }
+            return null
+          })}
+        </div>
+    }
   </>
 
   return <div style={{ border: "solid", borderTop: "none", color: colors.darkGray, padding: "1rem" }}>

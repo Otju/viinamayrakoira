@@ -55,8 +55,6 @@ const QuickSearches = ({ setSearchVariables, searchVariables, emptySearchVariabl
     }
   ]
 
-  console.log(searchVariables)
-
   searches = searches.map(search => ({
     ...search,
     selected: Object.entries(search.searches).every(([key, value]) => _.isEqual(searchVariables[key], value))
