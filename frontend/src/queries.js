@@ -108,7 +108,7 @@ query {
 `
 
 export const GET_REVIEWS = gql`
-  query getReviews($id: String!) {
+  query getReviews($id: String) {
     getReviews(id: $id) {
        id
        drink

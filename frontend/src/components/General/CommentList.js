@@ -40,7 +40,6 @@ const CommentList = ({ reviews, drink }) => {
   }
 
   return <div>
-
     <Chart rawData={groupedReviews} field={"tasteCount"}
       name={<>Maku <div style={{ display: "flex", justifyContent: "center" }}>
         <StarReview size={25} value={drink.tasteAverage} />

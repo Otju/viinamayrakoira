@@ -15,8 +15,12 @@ const deleteReview = async (root, args, context) => {
     throw new AuthenticationError("User not logged in")
   }
 
-  const response = await Review.deleteOne({ _id: id, user: context.currentUser._id })
-
+  let response
+  if (context.currentUser.role !== "admin") {
+    response = await Review.deleteOne({ _id: id, user: context.currentUser._id })
+  } else {
+    response = await Review.deleteOne({ _id: id })
+  }
 
   if (response.deletedCount === 0) {
     throw new AuthenticationError("Incorrect user (or review._id")

@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import BestPage from "./components/BestPage"
 import NavigationBar from "./components/NavigationBar"
 import StatisticsPage from "./components/StatisticsPage/"
+import AdminPage from "./components/AdminPage"
 import { Switch, Route, Redirect } from "react-router-dom"
 import DrinksPage from "./components/DrinksPage"
 import PortionCalculatorPage from "./components/PortionCalculatorPage"
@@ -71,6 +72,9 @@ const App = () => {
           </Route>
           <Route path="/compare">
             <ComparisonPage />
+          </Route>
+          <Route path="/admin">
+            <AdminPage />
           </Route>
           <Route path="/">
             <Redirect to="/best" />
