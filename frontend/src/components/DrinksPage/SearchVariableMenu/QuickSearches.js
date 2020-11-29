@@ -63,7 +63,7 @@ const QuickSearches = ({ setSearchVariables, searchVariables, emptySearchVariabl
 
   const dividers = [1, 3]
 
-  return <div style={{ display: "inline-block", marginTop: "0.5rem", marginRight: "0.5rem" }}>
+  return <div style={{ marginTop: "0.5rem" }}>
     <Dropdown style={{ display: "inline-block" }}>
       <Dropdown.Toggle ><b>Pikahaku</b></Dropdown.Toggle>
       <Dropdown.Menu>
