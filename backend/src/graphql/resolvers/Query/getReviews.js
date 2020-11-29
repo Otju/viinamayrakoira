@@ -1,7 +1,10 @@
 const Review = require("../../../models/Review")
 
 const getReviews = async (root, args) => {
-  return await Review.find({ drink: args.id }).sort("comment").populate("user")
+
+  const drink = args.id
+
+  return await Review.find(drink ? { drink } : {}).sort("comment").populate("user")
 }
 
 module.exports = getReviews
