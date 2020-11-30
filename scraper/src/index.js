@@ -36,7 +36,8 @@ const setAllDrinks = async () => {
       const drinksForScaper = await retry(async () => {
         return await scraper()
       }, {
-        retries: 3
+        retries: 3,
+        onRetry: (error) => console.log(`one scraper crashed error: ${error}, retrying...`)
       })
       allDrinks.push(...drinksForScaper)
     }))

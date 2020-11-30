@@ -24,6 +24,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
         break
       }
     }
+
     return pageLinks
   }
   const pageLinks = await getPageLinks()
@@ -36,6 +37,9 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       const link = $(item).attr("href")
       let imageLink
       imageLink = $(item).find(".product-image-photo").attr("src")
+      if (link.includes("baileys-saltedcaramel")) {
+        return
+      }
       links.push({
         link,
         imageLink
@@ -91,7 +95,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
         size = 1
       }
 
-      if(name==="Vina Sol Torres"){
+      if (name === "Vina Sol Torres") {
         size = 0.75
       }
 
@@ -186,7 +190,7 @@ const categories = [
   },
   {
     name: "Ginit ja maustetut viinat",
-    code: [81,83, 84]
+    code: [81, 83, 84]
   },
   {
     name: "Rommit",

@@ -42,7 +42,7 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
   if (result) {
     rawDrinks.push(...result)
   } else {
-    console.log("NO RESULT FOR A SINGLE DRINK", categoryUrl)
+    //console.log("NO RESULT FOR A SINGLE DRINK", categoryUrl)
   }
 
   rawDrinks.forEach((rawDrink, i) => {
@@ -114,7 +114,7 @@ const categories = [
   },
   {
     name: "Kuohuviinit ja Samppanjat",
-    url: "samppanja-ja-kuohuviini"
+    url: "miedot-alkoholit/samppanja-ja-kuohuviini"
   },
   {
     name: "Siiderit",
@@ -126,7 +126,7 @@ const categories = [
   },
   {
     name: "Juomasekoitukset ja lonkerot",
-    url: "cocktailit-ja-juomasekoitukset"
+    url: "miedot-alkoholit/cocktailit-ja-juomasekoitukset"
   },
   {
     name: "VIINIT",

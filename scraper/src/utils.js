@@ -13,7 +13,13 @@ const capitalizeFirst = string => {
 const getPercentage = (string) => {
   const rawPercentage = string.match(/(\d+)?,?\.?\d+(|\s+)%/g)
   if (rawPercentage) {
-    return turnToNumber(rawPercentage[0])
+    let percentage = turnToNumber(rawPercentage[0])
+
+    if ((percentage > 100 || percentage < 0) && rawPercentage[1]) {
+      percentage = turnToNumber(rawPercentage[1])
+    }
+
+    return percentage
   }
   return null
 }
@@ -23,19 +29,23 @@ const getSize = (string, price) => {
   let size
   string = string.toLowerCase()
 
-  const multiplier = string.match(/\d+x/g) || string.match(/\d+-pack/g)
+  const multiplier = string.match(/\d+(x|\*)/g) || string.match(/x\d+/g) || string.match(/\d+-pack/g)
 
-  const sizeMatchL = string.match(/\d?\.?,?\d+(|\s+)l(\s|$)/g)
-  if (sizeMatchL) {
-    size = turnToNumber(sizeMatchL[0])
-  }
-  const sizeMatchCl = string.match(/\d?\.?,?\d+(|\s+)cl(\s|$)/g)
-  if (sizeMatchCl) {
-    size = turnToNumber(sizeMatchCl[0]) / 100
-  }
-  const sizeMatchMl = string.match(/\d?\.?,?\d+(|\s+)ml(\s|$)/g)
-  if (sizeMatchMl) {
-    size = turnToNumber(sizeMatchMl[0]) / 1000
+  const sizeMatch = string.match(/\d?\.?,?\d+(|\s+)(l|cl|ml)(\s|.{0,3})/g)
+
+  if (sizeMatch && sizeMatch[0]) {
+    size = turnToNumber(sizeMatch[0].split("l")[0])
+
+    if (sizeMatch.includes("cl")) {
+      size = size / 100
+    } else if (sizeMatch.includes("ml")) {
+      size = size / 1000
+    }
+
+  } else {
+    if (string.includes("75")) {
+      size = 0.75
+    }
   }
 
   if (multiplier && multiplier[0]) {
