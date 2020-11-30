@@ -1,6 +1,7 @@
 const { request } = require("graphql-request")
 const scrapers = require("./scrapers")
 const fs = require("fs")
+const retry = require("async-retry")
 
 const setAllDrinks = async () => {
   let allDrinks = []
@@ -27,12 +28,16 @@ const setAllDrinks = async () => {
   default:
     break
   }
-  if (onlyOneScraper) {
+  if (onlyOneScraper || onlyOneScraper === 0) {
     const drinksForScaper = await scrapers[onlyOneScraper]()
     allDrinks.push(...drinksForScaper)
   } else {
     await Promise.all(scrapers.map(async (scraper) => {
-      const drinksForScaper = await scraper()
+      const drinksForScaper = await retry(async () => {
+        return await scraper()
+      }, {
+        retries: 3
+      })
       allDrinks.push(...drinksForScaper)
     }))
   }
