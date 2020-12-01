@@ -19,9 +19,9 @@ const App = () => {
   const [hasVisited, setHasVisited] = useState(localStorage.getItem("viinamayrakoira-has-visited") || localStorage.getItem("viinamayrakoira-user-token"))
 
   if (process.env.REACT_APP_MAINTANANCE) {
-    return <div style={{ display: "flex", justifyContent: "center", width: "100%", alignItems: "center", height: "100%", textAlign: "center" }}>
+    return <div style={{ display: "flex", justifyContent: "center", width: "100%", alignContent: "center", height: "100%", textAlign: "center" }}>
       <div style={{ filter: "brightness(0%)" }}>
-        <img src={process.env.PUBLIC_URL + "/doggo.svg"} style={{ height: "20rem" }} alt="viinamayrakoira.svg" />
+        <img src={process.env.PUBLIC_URL + "/doggo.svg"} style={{ height: "10rem" }} alt="viinamayrakoira.svg" />
       </div>
       <p><h2>Pahoittelut, mutta sivu on hetken pois päältä huollon ajaksi :(</h2></p>
       <p><h3>Tule pian uudestaan!</h3></p>
