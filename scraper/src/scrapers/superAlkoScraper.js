@@ -36,7 +36,7 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
         const productCode = rawLinkParts[rawLinkParts.length - 1]
         const price = turnToNumber(rawPrice)
 
-        let size = getSize(name)
+        let size = getSize(name) || getSize(link)
         const percentage = getPercentage(name)
 
         if (productCode === "27938") {  

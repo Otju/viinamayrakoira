@@ -15,7 +15,7 @@ const getPercentage = (string) => {
   if (rawPercentage) {
     let percentage = turnToNumber(rawPercentage[0])
 
-    if ((percentage > 100 || percentage < 0) && rawPercentage[1]) {
+    if ((percentage >= 100 || percentage < 0) && rawPercentage[1]) {
       percentage = turnToNumber(rawPercentage[1])
     }
 
@@ -29,12 +29,25 @@ const getSize = (string, price) => {
   let size
   string = string.toLowerCase()
 
-  const multiplier = string.match(/\d+(x|\*)/g) || string.match(/x\d+/g) || string.match(/\d+-pack/g)
+  let multiplier = string.match(/\d+(x|\*)\d/g) || string.match(/x\d+/g) || string.match(/\d+-pac/g)
 
-  const sizeMatch = string.match(/\d?\.?,?\d+(|\s+)(l|cl|ml)(\s|.{0,3})/g)
+  if (multiplier && multiplier[0]) {
+    multiplier = multiplier[0]
+    if (multiplier.match(/\d+(x|\*)\d/g)) {
+      multiplier = multiplier.slice(0, -1)
+    }
+  }
+
+  let sizeMatch = string.match(/\d?\.?,?\d+(|\s+)-?(l|cl|ml)(\s|-|x|\+|$)/g)
 
   if (sizeMatch && sizeMatch[0]) {
-    size = turnToNumber(sizeMatch[0].split("l")[0])
+
+    sizeMatch = sizeMatch[0]
+
+    if (sizeMatch.includes("-")) {
+      sizeMatch = sizeMatch.replace("0", "0.")
+    }
+    size = turnToNumber(sizeMatch.split("l")[0])
 
     if (sizeMatch.includes("cl")) {
       size = size / 100
@@ -48,8 +61,8 @@ const getSize = (string, price) => {
     }
   }
 
-  if (multiplier && multiplier[0]) {
-    const multiplierNumber = turnToNumber(multiplier[0])
+  if (multiplier) {
+    const multiplierNumber = turnToNumber(multiplier)
     if (!price || multiplierNumber * 0.6 < price) {
       size = size * multiplierNumber
     }

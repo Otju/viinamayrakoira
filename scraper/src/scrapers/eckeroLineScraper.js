@@ -62,7 +62,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       $(".value").each((i, item) => {
         if (i === 1) {
           description = $(item).text()
-        } else {
+        } else if ($(item).text().length > 0) {
           productCode = $(item).text()
         }
       })

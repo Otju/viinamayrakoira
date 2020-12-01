@@ -59,7 +59,7 @@ const getDrinkInfos = async (categoryUrlName, categoryName) => {
 
     const title = rawDrink.title
     const percentage = getPercentage(title)
-    let size = getSize(title)
+    let size = getSize(title) || getSize(rawDrink.link)
     if (!size) {
       if (title.includes("0,5")) {
         size = 0.5

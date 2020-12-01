@@ -43,10 +43,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
     const description = $("div[id=info] [itemprop=description]").first().text()
     const imageLink = $("img[class=product-image]").attr("src")
 
-    const sizeFromTitle = getSize(name, price)
-    const sizeFromDetails = getSize(sizeRaw)
-
-    const size = sizeFromTitle || sizeFromDetails
+    let size = getSize(name, price) || getSize(sizeRaw) || getSize(productLink)
 
     const percentage = getPercentage(name)
 
@@ -75,6 +72,9 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
 
     if (ean === "6420613935003") { //faulty info
       return
+    }
+    if (ean === "8594007310573") {
+      size = 0.5
     }
     const drinkInfo = {
       name,
