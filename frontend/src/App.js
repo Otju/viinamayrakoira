@@ -23,7 +23,8 @@ const App = () => {
       <div style={{ filter: "brightness(0%)" }}>
         <img src={process.env.PUBLIC_URL + "/doggo.svg"} style={{ height: "20rem" }} alt="viinamayrakoira.svg" />
       </div>
-      <h2>Pahoittelut, sivu on hetken pois päältä huollon ajaksi :(. Tule pian uudestaan!</h2>
+      <p><h2>Pahoittelut, mutta sivu on hetken pois päältä huollon ajaksi :(</h2></p>
+      <p><h3>Tule pian uudestaan!</h3></p>
     </div>
   }
 
