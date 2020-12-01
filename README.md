@@ -21,4 +21,4 @@ Repository consists of
  - Scraper made with Node.js
 
 ## Credits
-The project was made/is maintained by me, [Otju](https://github.com/Otju)
+Made/maintained by me, [Otju](https://github.com/Otju)
