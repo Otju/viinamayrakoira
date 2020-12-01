@@ -18,6 +18,8 @@ const App = () => {
 
   const [hasVisited, setHasVisited] = useState(localStorage.getItem("viinamayrakoira-has-visited") || localStorage.getItem("viinamayrakoira-user-token"))
 
+  console.log(process.env.NODE_ENV)
+
   if (process.env.NODE_ENV === "MAINTANANCE") {
     return <div style={{ display: "flex", justifyContent: "center", width: "100%", alignItems: "center", height: "100%", textAlign: "center" }}>
       <img src={process.env.PUBLIC_URL + "/doggo.svg"} style={{ height: "10rem" }} alt="viinamayrakoira.svg" />
