@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
 import ReportModal from "./General/ReportModal"
+import Button from "react-bootstrap/esm/Button"
 
 const Footer = () => {
 
@@ -21,24 +22,13 @@ const Footer = () => {
           </div>
         </Col>
         <Col>
-          <Row>
-            <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-              <h4 style={{ color: "white", textAlign: "center", width: "100%" }}>Lahjoita</h4>
-            </div>
-          </Row>
-          <Row>
-            <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-              <form action="https://www.paypal.com/donate" method="post" target="_blank">
-                <input type="hidden" name="hosted_button_id" value="MQK9WRMSCG734" />
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                <img alt="" border="0" src="https://www.paypal.com/en_FI/i/scr/pixel.gif" width="1" height="1" />
-              </form>
-            </div>
-          </Row>
+          <div style={{ display: "flex", justifyContent: "center", width: "100%", alignItems: "center", height: "100%" }}>
+            <a href="https://www.buymeacoffee.com/Otju" target="_blank" rel="noopener noreferrer"><Button variant="success">Lahjoita</Button></a>
+          </div>
         </Col>
       </Row>
     </Container>
-  </footer>
+  </footer >
 }
 
 export default Footer
