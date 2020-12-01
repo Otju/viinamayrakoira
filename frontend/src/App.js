@@ -18,9 +18,7 @@ const App = () => {
 
   const [hasVisited, setHasVisited] = useState(localStorage.getItem("viinamayrakoira-has-visited") || localStorage.getItem("viinamayrakoira-user-token"))
 
-  console.log(process.env.NODE_ENV)
-
-  if (process.env.NODE_ENV === "MAINTANANCE") {
+  if (process.env.MAINTANANCE) {
     return <div style={{ display: "flex", justifyContent: "center", width: "100%", alignItems: "center", height: "100%", textAlign: "center" }}>
       <img src={process.env.PUBLIC_URL + "/doggo.svg"} style={{ height: "10rem" }} alt="viinamayrakoira.svg" />
       <h2>Pahoittelut, sivu on hetken pois päältä huollon ajaksi :(. Tule pian uudestaan!</h2>
