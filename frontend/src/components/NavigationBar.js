@@ -40,8 +40,4 @@ const NavigationBar = () => {
   </div>
 }
 
-/*
-<Navbar.Brand>Viinamayrakoira.fi</Navbar.Brand>
-*/
-
 export default NavigationBar

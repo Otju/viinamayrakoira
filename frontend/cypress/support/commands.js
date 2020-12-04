@@ -34,7 +34,7 @@ Cypress.Commands.add("hasDrink", (params, count, element) => {
     const drinks = res.body.data.allDrinks
     drinks.forEach(drink => {
       const elementToFind = element || "body"
-      cy.get(elementToFind).contains(drink.name) //cypress doesn't find names correctly, even though they're there
+      cy.get(elementToFind).contains(drink.name) //cypress doesn't always find names correctly, even though they're there
       cy.get(elementToFind).contains(drink.percentage)
       cy.get(elementToFind).contains(drink.price)
       cy.get(elementToFind).contains(drink.pricePerPortion)

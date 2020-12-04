@@ -40,10 +40,5 @@ const InfoPage = () => {
   </Container >
 }
 
-/*
-    <h3>Lähdekoodi</h3>
-    <Container>Löytyy githubista</Container>
-*/
-
 
 export default InfoPage

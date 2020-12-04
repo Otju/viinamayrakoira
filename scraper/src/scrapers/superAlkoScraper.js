@@ -45,7 +45,6 @@ const getDrinkInfos = async (categoryNumber, categoryName, url, country) => {
         if(productCode == "29149"){
           size = 0.275
         }
-
         //fixes to SuperAlko typos
 
         const drinkInfo = {

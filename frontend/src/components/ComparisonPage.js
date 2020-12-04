@@ -1,25 +1,12 @@
 import React, { useState } from "react"
-//import { useLocation, useHistory } from "react-router-dom"
 import ComparisonDrinkCard from "./General/ComparisonDrinkCard"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 
 const ComparisonPage = () => {
-  //const location = useLocation()
-  //const drinkParams = new URLSearchParams(location.search).get("drinks")
-  //const drinkIds = drinkParams ? drinkParams.split(",") : [null, null]
-  //const history = useHistory()
 
   const [drinks, setDrinks] = useState([null, null])
-
-  /*
-  useEffect(() => {
-    if (drinks[0] !== null && drinks[1] !== null) {
-      history.push(`/compare?drinks=${drinks.map(drink => drink ? drink.id : "undefined").join(",")}`)
-    }
-  }, [drinks])
-  */
 
   return <div style={{paddingTop: "1rem"}}>
     <Container><Row>

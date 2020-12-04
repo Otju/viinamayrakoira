@@ -18,7 +18,7 @@ const DrinkSearchBox = ({ handleClick, keyPart }) => {
     content = <div style={{ textAlign: "center" }}>Haullasi ei löytynyt tuloksia</div>
   } else {
     const uniqueIds = [...(new Set(drinks.map(d => d.id)))]
-    const uniqueDrinks = uniqueIds.map(id => drinks.find(drink => drink.id === id)) //Very bad solution
+    const uniqueDrinks = uniqueIds.map(id => drinks.find(drink => drink.id === id)) //InfiniteScroll-component otherwise gives error about having duplicate drinks
     content =
       <ListGroup>
         <InfiniteScroll
@@ -28,7 +28,6 @@ const DrinkSearchBox = ({ handleClick, keyPart }) => {
           scrollableTarget="scrollDiv"
         >
           {uniqueDrinks.map((drink) => {
-            //const storeColor = stores.find(store => drink.store === store.name).color style={{ border: "solid", borderColor: storeColor, border }}
             return (
               <Hoverable link={handleClick ? null : `drinks/${drink.id}`} handleClick={() => { history.push(); handleClick(drink); setOffset(0) }} key={drink.id + keyPart}>
                 <ListGroup.Item>

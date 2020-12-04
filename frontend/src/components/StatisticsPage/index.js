@@ -25,8 +25,6 @@ const StatisticsPage = () => {
     <Chart rawData={withOutUselessCategories} field={"avgPricePerPortion"} colorObjectArray={categories} name="Keskimääräinen annoshinta kategorioittain" type="bar" unit="€/annos"></Chart>
     <Chart rawData={statistics.drinksPerStore} field={"avgPricePerPortion"} colorObjectArray={stores} name="Keskimääräinen annoshinta kaupoittain" type="bar" unit="€/annos"></Chart>
   </div>
-
-  //<Chart rawData={withConnectedGroups} field={"avgPricePerPortion"} colorObjectArray={stores} name="Keskimääräinen annoshinta kaupoittain/kategorioittain" type="bar" unit="€/annos" width={"62rem"}></Chart>
 }
 
 export default StatisticsPage

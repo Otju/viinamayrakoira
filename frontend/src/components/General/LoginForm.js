@@ -45,7 +45,6 @@ const LoginForm = ({ isButton }) => {
       } else {
         setAlert({ message: "Kirjauduit sisään", variant: "success", global })
       }
-      //closeNavBar()
     }
   })
 
@@ -76,7 +75,6 @@ const LoginForm = ({ isButton }) => {
     client.resetStore()
     setIsLoggedIn(false)
     setAlert({ message: "Kirjauduit ulos", variant: "warning", global })
-    //closeNavBar()
   }
 
   useEffect(() => {

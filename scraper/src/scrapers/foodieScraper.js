@@ -70,7 +70,7 @@ const getDrinkInfos = async (categoryNumber, categoryName) => {
       category = "Alkoholittomat"
     }
 
-    if (ean === "6420613935003") { //faulty info
+    if (ean === "6420613935003") {
       return
     }
     if (ean === "8594007310573") {

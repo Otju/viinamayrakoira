@@ -23,7 +23,6 @@ const CommentList = ({ reviews, drink }) => {
   for (let i = 1; i <= 10; i++) {
     const name = round(i / 2).toString()
     groupedReviews.push({ group: name, tasteCount: 0, PQRCount: 0, name })
-    //color: `hsl(120,100%,${25+(i/2*10)}%)`
   }
   reviews.forEach(review => {
     const taste = round(review.taste / 2).toString()
