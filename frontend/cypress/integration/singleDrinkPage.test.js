@@ -103,7 +103,7 @@ describe("singleDrinkPage and user management", function () {
       cy.reload()
       cy.get("a[data-rb-event-key='review']").click()
 
-      cy.get(".btn-success").click()
+      cy.get(".btn-success").eq(0).click()
       cy.contains("Täytä kaikki tarvittavat kentät")
       cy.contains("×")
 
@@ -111,23 +111,23 @@ describe("singleDrinkPage and user management", function () {
       cy.get(".react-stars").eq(2).click()
       cy.get(".react-stars").eq(3).click()
 
-      cy.get(".btn-success").click()
+      cy.get(".btn-success").eq(0).click()
 
       cy.contains("Kiitos arvostelusta")
 
-      cy.get(".btn-success").click()
+      cy.get(".btn-success").eq(0).click()
 
       cy.contains("Muokkaa arvostelua")
       cy.contains("Poista arvostelu")
       cy.wait(100)
-      cy.get(".btn-success").click()
+      cy.get(".btn-success").eq(0).click()
       const string = "s".repeat(1001)
       cy.get("#kommentti").type(string, { delay: 0 })
-      cy.get(".btn-success").click()
+      cy.get(".btn-success").eq(0).click()
       cy.contains("Kommentti on liian pitkä (max 1000 merkkiä)")
 
       cy.get("#kommentti").type("{backspace}")
-      cy.get(".btn-success").click()
+      cy.get(".btn-success").eq(0).click()
 
       cy.contains("Kiitos arvostelusta!")
       cy.contains(string.slice(0, -1))
