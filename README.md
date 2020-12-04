@@ -21,6 +21,8 @@ Repository consists of
  - Frontend made with React
  - Backend made with Node.js that uses GrapqhL and MongoDB
  - Scraper made with Node.js
+ 
+Has a lot of (often useless) commits. This is because the project was made as an university course project, and the instructions were to make many commits for timekeeping purposes.
 
 ## Credits
 Made/maintained by me, [Otju](https://github.com/Otju)
