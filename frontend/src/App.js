@@ -57,7 +57,6 @@ const App = () => {
           <p><i>Parhaat</i>-sivulta löydät parhaat juomat annoshinnan ja arvostelujen perusteella,
           mutta kannattaa käydä <i>Juomat</i>-sivulla, jossa näät kaikki juomat
           ja voit helposti löytää sinulle sopivat käyttämällä monia hakuvaihtoehtoja</p>
-          <b>Ja juothan vastuullisesti :)</b>
         </Alert>
         <Switch>
           <Route path="/best/:id?">
