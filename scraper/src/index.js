@@ -93,7 +93,7 @@ const setAllDrinks = async () => {
       if (error) throw error
       console.log(`${faultyDrinks.length} FAULTY DRINKS`)
     })
-    await request("http://localhost:4000/", query, variables)
+    await request("http://backend:4000", query, variables)
     console.log(`ADDED ${allDrinks.length}`)
   }
   catch (error) {

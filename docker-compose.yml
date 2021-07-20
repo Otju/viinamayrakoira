@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  backend:
+    image: otju/viinamayrakoira_backend
+    command: npm run docker
+    ports:
+      - 4000:4000
+    volumes:
+      - ./backend/.env:/usr/src/app/.env
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+
+  scraper:
+    image: otju/viinamayrakoira_scraper
+    command: npm start
+    volumes:
+      - ./scraper/faultyDrinks.json:/usr/src/app/faultyDrinks.json
+      - /usr/src/app/node_modules

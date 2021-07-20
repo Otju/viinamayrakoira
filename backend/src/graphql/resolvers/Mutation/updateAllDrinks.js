@@ -1,16 +1,15 @@
-const Drink = require("../../../models/Drink")
-const roundTo = require("round-to")
-const { performance } = require("perf_hooks")
-const { ForbiddenError } = require("apollo-server-lambda")
-const { updateAllDrinkFields } = require("../utils")
+const Drink = require("../../../models/Drink");
+const roundTo = require("round-to");
+const { performance } = require("perf_hooks");
+const { ForbiddenError } = require("apollo-server-lambda");
+const { updateAllDrinkFields } = require("../utils");
 
 const updateAllDrinks = async (root, args) => {
-
   if (process.env.NODE_ENV.replace(" ", "") !== "development") {
-    throw new ForbiddenError("Only allowed in development-mode")
+    throw new ForbiddenError("Only allowed in development-mode");
   }
 
-  const startTime = performance.now()
+  const startTime = performance.now();
 
   const storeNames = {
     alko: "Alko",
@@ -19,21 +18,22 @@ const updateAllDrinks = async (root, args) => {
     eckeroLine: "Eckerö Line",
     tallink: "Tallink & Silja Line",
     superAlkoEesti: "Super Eesti Viro",
-    superAlkoLatvia: "Super Latvia"
-  }
+    superAlkoLatvia: "Super Latvia",
+  };
 
   try {
-    const drinksToSave = []
-    let duplicateIDCount = 0
-    args.drinks.forEach(drink => {
-      const idNumber = drink.productCode ? drink.productCode : drink.ean
+    const drinksToSave = [];
+    let duplicateIDCount = 0;
+    args.drinks.forEach((drink) => {
+      const idNumber = drink.productCode ? drink.productCode : drink.ean;
       if (drink.percentage === 0) {
-        return
+        return;
       }
-      const portionAmount = (drink.size * ((drink.percentage) / (100))) / 0.015201419
-      const id = idNumber + drink.store
-      if (drinksToSave.find(drink => drink._id === id)) {
-        duplicateIDCount++
+      const portionAmount =
+        (drink.size * (drink.percentage / 100)) / 0.015201419;
+      const id = idNumber + drink.store;
+      if (drinksToSave.find((drink) => drink._id === id)) {
+        duplicateIDCount++;
       } else {
         drinksToSave.push({
           _id: id,
@@ -43,21 +43,31 @@ const updateAllDrinks = async (root, args) => {
           ...drink,
           category: drink.category.toLowerCase(),
           isInSelection: true,
-          searchTermString: ["name", "producer", "store", "category"].map(field => drink[field]).join(" ")
-            + [
+          searchTermString:
+            ["name", "producer", "store", "category"]
+              .map((field) => drink[field])
+              .join(" ") +
+            [
               { value: drink.percentage, unit: "%" },
               { value: drink.price, unit: "€" },
               { value: drink.size, unit: "l" },
               { value: drink.size * 100, unit: "cl" },
-              { value: drink.size * 1000, unit: "ml" }
-            ].map(item => `${item.value}${item.unit} ${item.value.toString().replace(".", ",")}${item.unit}`).join(" ")
-            + storeNames[drink.store]
-        })
+              { value: drink.size * 1000, unit: "ml" },
+            ]
+              .map(
+                (item) =>
+                  `${item.value}${item.unit} ${item.value
+                    .toString()
+                    .replace(".", ",")}${item.unit}`
+              )
+              .join(" ") +
+            storeNames[drink.store],
+        });
       }
-    })
-    console.log(`Didn't add ${duplicateIDCount} items with duplicate id`)
+    });
+    console.log(`Didn't add ${duplicateIDCount} items with duplicate id`);
 
-    const getTime = () => roundTo(performance.now() - startTime, 0) / 1000
+    const getTime = () => roundTo(performance.now() - startTime, 0) / 1000;
 
     /*
     let allDrinkIds = await Drink.find({}).select("_id")
@@ -107,22 +117,21 @@ const updateAllDrinks = async (root, args) => {
     }
     */
 
-    await Drink.deleteMany({})
+    await Drink.deleteMany({});
 
-    const response = await Drink.insertMany(drinksToSave)
+    const response = await Drink.insertMany(drinksToSave);
 
-    console.log("INSERTED NEW", getTime())
+    console.log("INSERTED NEW", getTime());
 
-    updateAllDrinkFields()
+    updateAllDrinkFields();
 
-    console.log("UPDATED REVIEW SCORES", getTime())
+    console.log("UPDATED REVIEW SCORES", getTime());
 
-    console.log("DRINKS UPDATED", response.length)
-    
+    console.log("DRINKS UPDATED", response.length);
   } catch (error) {
-    console.log(error.message)
-    return (error.message)
+    console.log(error.message);
+    return error.message;
   }
-}
+};
 
-module.exports = updateAllDrinks
+module.exports = updateAllDrinks;

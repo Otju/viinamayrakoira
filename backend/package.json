@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV=production && node ./src/index.js",
     "dev": "set NODE_ENV=development && nodemon ./src/local.js",
+    "docker": "node ./src/local.js",
     "deploy": "serverless deploy --stage prod"
   },
   "author": "Otju",

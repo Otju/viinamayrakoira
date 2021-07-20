@@ -9,7 +9,7 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
 
   const pageLink = `${url}${categoryUrl}?page=${pageNumber || 1}&countPerPage=120`
 
-  const browser = await puppeteer.launch({ headless: true })
+  const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"] })
   const page = await browser.newPage()
   await page.goto(pageLink, { timeout: 0 })
 
