@@ -1,3 +1,4 @@
+require("dotenv").config()
 const { request } = require("graphql-request")
 const scrapers = require("./scrapers")
 const fs = require("fs")
@@ -32,20 +33,25 @@ const setAllDrinks = async () => {
     const drinksForScaper = await scrapers[onlyOneScraper]()
     allDrinks.push(...drinksForScaper)
   } else {
-    await Promise.all(scrapers.map(async (scraper) => {
-      const drinksForScaper = await retry(async () => {
-        return await scraper()
-      }, {
-        retries: 3,
-        onRetry: (error) => console.log(`one scraper crashed error: ${error}, retrying...`)
+    await Promise.all(
+      scrapers.map(async (scraper) => {
+        const drinksForScaper = await retry(
+          async () => {
+            return await scraper()
+          },
+          {
+            retries: 3,
+            onRetry: (error) => console.log(`one scraper crashed error: ${error}, retrying...`),
+          }
+        )
+        allDrinks.push(...drinksForScaper)
       })
-      allDrinks.push(...drinksForScaper)
-    }))
+    )
   }
 
   const query = `
-    mutation updateAllDrinks ($drinks: [DrinkInput]) {
-      updateAllDrinks(drinks: $drinks) { changed, new, deactivated }
+    mutation updateAllDrinks ($drinks: [DrinkInput], $secret: String!) {
+      updateAllDrinks(drinks: $drinks, secret: $secret) { changed, new, deactivated }
     }
 `
 
@@ -55,48 +61,71 @@ const setAllDrinks = async () => {
     faultyDrinks.push({ error, drink })
   }
 
-  allDrinks = allDrinks.map(drink => {
-    const requiredFields = ["name", "price", "size", "store", "link", "category", "percentage"]
-    let hasRequiredFields = true
-    requiredFields.forEach(field => {
-      if (!drink[field]) {
-        if (field !== "percentage" && (!(drink.name.includes("alk")) || drink.category !== "alkoholittomat" || !(drink.name.includes("non-alc")))) {
-          addFaultyDrink(`MISSING FIELD "${field}`, drink)
-        }
-        hasRequiredFields = false
-      } else if (field === "percentage") {
-        const percentage = drink[field]
-        const category = drink.category
-        if (percentage >= 100 || (["Oluet", "Siiderit"].includes(category) && percentage > 15)
-          || (["Punaviinit", "Roseviinit", "Valkoviinit", "Kuohuviinit ja Samppanjat", "Muut viinit", "Hanapakkaukset", "Juomasekoitukset ja lonkerot"].includes(category) && percentage > 25)) {
-          addFaultyDrink("FAULTY PERCENTAGE", drink)
+  allDrinks = allDrinks
+    .map((drink) => {
+      const requiredFields = ["name", "price", "size", "store", "link", "category", "percentage"]
+      let hasRequiredFields = true
+      requiredFields.forEach((field) => {
+        if (!drink[field]) {
+          if (
+            field !== "percentage" &&
+            (!drink.name.includes("alk") ||
+              drink.category !== "alkoholittomat" ||
+              !drink.name.includes("non-alc"))
+          ) {
+            addFaultyDrink(`MISSING FIELD "${field}`, drink)
+          }
           hasRequiredFields = false
+        } else if (field === "percentage") {
+          const percentage = drink[field]
+          const category = drink.category
+          if (
+            percentage >= 100 ||
+            (["Oluet", "Siiderit"].includes(category) && percentage > 15) ||
+            ([
+              "Punaviinit",
+              "Roseviinit",
+              "Valkoviinit",
+              "Kuohuviinit ja Samppanjat",
+              "Muut viinit",
+              "Hanapakkaukset",
+              "Juomasekoitukset ja lonkerot",
+            ].includes(category) &&
+              percentage > 25)
+          ) {
+            addFaultyDrink("FAULTY PERCENTAGE", drink)
+            hasRequiredFields = false
+          }
         }
+      })
+      if (!drink.ean && !drink.productCode) {
+        addFaultyDrink("MISSING EAN AND PRODUCTCODE", drink)
+        hasRequiredFields = false
       }
+      if (!hasRequiredFields) {
+        return null
+      }
+      return drink
     })
-    if (!drink.ean && !drink.productCode) {
-      addFaultyDrink("MISSING EAN AND PRODUCTCODE", drink)
-      hasRequiredFields = false
-    }
-    if (!hasRequiredFields) {
-      return null
-    }
-    return drink
-  }).filter(Boolean)
+    .filter(Boolean)
 
   const variables = {
-    drinks: allDrinks
+    drinks: allDrinks,
+    secret: process.env.SECRET,
   }
 
   try {
-    fs.writeFile("faultyDrinks.json", faultyDrinks.map(item => JSON.stringify(item)).join(","), (error) => {
-      if (error) throw error
-      console.log(`${faultyDrinks.length} FAULTY DRINKS`)
-    })
-    await request("http://backend:4000", query, variables)
+    fs.writeFile(
+      "faultyDrinks.json",
+      faultyDrinks.map((item) => JSON.stringify(item)).join(","),
+      (error) => {
+        if (error) throw error
+        console.log(`${faultyDrinks.length} FAULTY DRINKS`)
+      }
+    )
+    await request(process.env.BACKEND_URL || "http://localhost:4000", query, variables)
     console.log(`ADDED ${allDrinks.length}`)
-  }
-  catch (error) {
+  } catch (error) {
     console.log("ERROR:", error.message.slice(0, 500))
   }
 }

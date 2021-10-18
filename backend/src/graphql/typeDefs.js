@@ -30,9 +30,9 @@ const typeDefs = gql`
     drink: String!
     taste: Int
     priceQualityRatio: Int
-    comment: String,
-    user: User!,
-    usersThatLiked: [ID!],
+    comment: String
+    user: User!
+    usersThatLiked: [ID!]
     likes: Int
   }
 
@@ -59,14 +59,14 @@ const typeDefs = gql`
     store: String!
   }
 
-  type groups{
-    group1: String!,
+  type groups {
+    group1: String!
     group2: String!
   }
 
   type groupStats {
-    group: String,
-    groups: groups,
+    group: String
+    groups: groups
     count: Int!
     avgPrice: Float!
     avgPricePerPortion: Float!
@@ -81,22 +81,22 @@ const typeDefs = gql`
   }
 
   input minMax {
-    name: String!,
-    min: Int,
+    name: String!
+    min: Int
     max: Int
   }
 
-  type updateAllDrinksOutPut{
-    changed: Int,
-    new: Int,
+  type updateAllDrinksOutPut {
+    changed: Int
+    new: Int
     deactivated: Int
   }
 
-  type ReviewOutPut{
+  type ReviewOutPut {
     review: Review!
-    tasteAverage: Float!,
-    priceQualityRatioAverage: Float!,
-    reviewCount: Int!,
+    tasteAverage: Float!
+    priceQualityRatioAverage: Float!
+    reviewCount: Int!
     commentCount: Int!
     id: ID!
   }
@@ -119,18 +119,18 @@ const typeDefs = gql`
     likes: Int!
     unLiked: Boolean
   }
-  
+
   type Query {
     allDrinks(
-      first: Int!, 
-      offset: Int,
-      store: [String!],
-      name: String,
-      minMax: [minMax!],
+      first: Int!
+      offset: Int
+      store: [String!]
+      name: String
+      minMax: [minMax!]
       category: [String!]
-      sortByField: String,
+      sortByField: String
       sortByDescending: Boolean
-      ): [Drink!]!
+    ): [Drink!]!
 
     bestDrinks(store: String): [Drink!]!
     statistics: statisticsOutPut!
@@ -138,23 +138,15 @@ const typeDefs = gql`
     getReviews(id: String): [Review!]!
   }
 
-  
-
   type Mutation {
-    updateAllDrinks(drinks: [DrinkInput]): updateAllDrinksOutPut
+    updateAllDrinks(drinks: [DrinkInput], secret: String!): updateAllDrinksOutPut
     addReview(review: ReviewInput): ReviewOutPut!
     deleteUser(id: ID, username: String): String
     deleteReview(reviewId: ID!, drinkId: String!): ReviewOutPut!
     likeReview(id: ID!): likeOutput!
     report(subject: String!, content: String!): String
-    createUser(
-      username: String!
-      password: String!
-      email: String!): User
-    login(
-      username: String!
-      password: String!
-    ): Token
+    createUser(username: String!, password: String!, email: String!): User
+    login(username: String!, password: String!): Token
   }
 `
 

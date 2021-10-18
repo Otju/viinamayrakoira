@@ -1,15 +1,20 @@
 const puppeteer = require("puppeteer")
-const { turnToNumber, getSize, getPercentage, capitalizeFirst } = require("../utils")
+const {
+  turnToNumber,
+  getSize,
+  getPercentage,
+  capitalizeFirst,
+  puppeteerSettings,
+} = require("../utils")
 
 const url = "https://shopping.tallink.com/fi/tal-hel-bq/category/juomat/"
 
 const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
-
   const drinkInfos = []
 
   const pageLink = `${url}${categoryUrl}?page=${pageNumber || 1}&countPerPage=120`
 
-  const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"] })
+  const browser = await puppeteer.launch(puppeteerSettings)
   const page = await browser.newPage()
   await page.goto(pageLink, { timeout: 0 })
 
@@ -31,7 +36,7 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
         link,
         imagelink,
         price,
-        producer
+        producer,
       })
     })
     return results
@@ -46,7 +51,6 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
   }
 
   rawDrinks.forEach((rawDrink, i) => {
-
     if (!rawDrink.title || !rawDrink.link || !rawDrink.imagelink || !rawDrink.price) {
       console.log(`MISSING for ${i} ${categoryUrl} `)
       return
@@ -60,24 +64,21 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
 
     const percentage = getPercentage(title)
     const size = getSize(title)
-    
+
     let category = categoryName
 
     if (category === "VIINIT") {
       const isInName = (words) => {
-        const inName = words.some(word => title.toLowerCase().includes(word))
+        const inName = words.some((word) => title.toLowerCase().includes(word))
         return inName
       }
       if (isInName(["red", "punaviini"])) {
         category = "Punaviinit"
-      }
-      else if (isInName(["kuoh"])) {
+      } else if (isInName(["kuoh"])) {
         category = "Kuohuviinit ja Samppanjat"
-      }
-      else if (isInName(["valko", "white"])) {
+      } else if (isInName(["valko", "white"])) {
         category = "Valkoviinit"
-      }
-      else if (isInName(["rosé", "rose"])) {
+      } else if (isInName(["rosé", "rose"])) {
         category = "Roseeviinit"
       } else {
         category = "Muut viinit"
@@ -99,7 +100,7 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
       category,
       size,
       producer: capitalizeFirst(rawDrink.producer.toLowerCase()),
-      store: "tallink"
+      store: "tallink",
     }
     drinkInfos.push(drinkInfo)
   })
@@ -110,77 +111,77 @@ const getDrinkInfos = async (categoryUrl, categoryName, pageNumber) => {
 const categories = [
   {
     name: "Oluet",
-    url: "miedot-alkoholit/oluet"
+    url: "miedot-alkoholit/oluet",
   },
   {
     name: "Kuohuviinit ja Samppanjat",
-    url: "miedot-alkoholit/samppanja-ja-kuohuviini"
+    url: "miedot-alkoholit/samppanja-ja-kuohuviini",
   },
   {
     name: "Siiderit",
-    url: "miedot-alkoholit/siiderit"
+    url: "miedot-alkoholit/siiderit",
   },
   {
     name: "Juomasekoitukset ja lonkerot",
-    url: "miedot-alkoholit/long-drink"
+    url: "miedot-alkoholit/long-drink",
   },
   {
     name: "Juomasekoitukset ja lonkerot",
-    url: "miedot-alkoholit/cocktailit-ja-juomasekoitukset"
+    url: "miedot-alkoholit/cocktailit-ja-juomasekoitukset",
   },
   {
     name: "VIINIT",
     url: "miedot-alkoholit/viinit",
-    pages: [1, 2, 3]
+    pages: [1, 2, 3],
   },
   {
     name: "Muut viinit",
-    url: "miedot-alkoholit/vermutit"
+    url: "miedot-alkoholit/vermutit",
   },
   {
     name: "Liköörit ja Katkerot",
-    url: "vahvat-alkoholit/vahvat-likoeoerit"
+    url: "vahvat-alkoholit/vahvat-likoeoerit",
   },
   {
     name: "Liköörit ja Katkerot",
-    url: "miedot-alkoholit/likoeoerit"
+    url: "miedot-alkoholit/likoeoerit",
   },
   {
     name: "Konjakit",
-    url: "vahvat-alkoholit/konjakki"
+    url: "vahvat-alkoholit/konjakki",
   },
   {
     name: "Brandyt Armanjakit ja Calvadosit",
-    url: "vahvat-alkoholit/brandy"
+    url: "vahvat-alkoholit/brandy",
   },
   {
     name: "Brandyt Armanjakit ja Calvadosit",
-    url: "vahvat-alkoholit/calvados"
+    url: "vahvat-alkoholit/calvados",
   },
   {
     name: "Viskit",
-    url: "vahvat-alkoholit/viskit"
+    url: "vahvat-alkoholit/viskit",
   },
   {
     name: "Vodkat ja Viinat",
-    url: "vahvat-alkoholit/vodka"
+    url: "vahvat-alkoholit/vodka",
   },
   {
     name: "Ginit ja maustetut viinat",
-    url: "vahvat-alkoholit/gini"
+    url: "vahvat-alkoholit/gini",
   },
   {
     name: "Ginit ja maustetut viinat",
-    url: "vahvat-alkoholit/muut-vahvat-alkoholit"
+    url: "vahvat-alkoholit/muut-vahvat-alkoholit",
   },
   {
     name: "Ginit ja maustetut viinat",
-    url: "vahvat-alkoholit/tequila"
+    url: "vahvat-alkoholit/tequila",
   },
   {
     name: "Rommit",
-    url: "vahvat-alkoholit/rommi"
-  }
+    url: "vahvat-alkoholit/rommi",
+  },
 ]
 const getTallink = async () => {
   const infos = []

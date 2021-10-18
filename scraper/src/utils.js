@@ -1,9 +1,7 @@
 const turnToNumber = (stringToChange) =>
-  stringToChange ?
-    parseFloat(stringToChange.replace(",", ".").replace(/[^0-9.]/g, ""))
-    : undefined
+  stringToChange ? parseFloat(stringToChange.replace(",", ".").replace(/[^0-9.]/g, "")) : undefined
 
-const capitalizeFirst = string => {
+const capitalizeFirst = (string) => {
   if (!string) {
     return null
   }
@@ -25,7 +23,6 @@ const getPercentage = (string) => {
 }
 
 const getSize = (string, price) => {
-
   let size
   string = string.toLowerCase()
 
@@ -41,7 +38,6 @@ const getSize = (string, price) => {
   let sizeMatch = string.match(/\d?\.?,?\d+(|\s+)-?(l|cl|ml)(\s|-|x|\+|$)/g)
 
   if (sizeMatch && sizeMatch[0]) {
-
     sizeMatch = sizeMatch[0]
 
     if (sizeMatch.includes("-")) {
@@ -54,7 +50,6 @@ const getSize = (string, price) => {
     } else if (sizeMatch.includes("ml")) {
       size = size / 1000
     }
-
   } else {
     if (string.includes("75")) {
       size = 0.75
@@ -71,4 +66,10 @@ const getSize = (string, price) => {
   return size
 }
 
-module.exports = { turnToNumber, capitalizeFirst, getSize, getPercentage }
+const puppeteerSettings = {
+  headless: true,
+  executablePath: process.env.ISLINUX ? "/usr/bin/chromium-browser" : null,
+  args: ["--no-sandbox", "--disable-setuid-sandbox"],
+}
+
+module.exports = { turnToNumber, capitalizeFirst, getSize, getPercentage, puppeteerSettings }

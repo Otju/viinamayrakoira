@@ -1,15 +1,15 @@
-const Drink = require("../../../models/Drink");
-const roundTo = require("round-to");
-const { performance } = require("perf_hooks");
-const { ForbiddenError } = require("apollo-server-lambda");
-const { updateAllDrinkFields } = require("../utils");
+const Drink = require("../../../models/Drink")
+const roundTo = require("round-to")
+const { performance } = require("perf_hooks")
+const { ForbiddenError } = require("apollo-server-lambda")
+const { updateAllDrinkFields } = require("../utils")
 
 const updateAllDrinks = async (root, args) => {
-  if (process.env.NODE_ENV.replace(" ", "") !== "development") {
-    throw new ForbiddenError("Only allowed in development-mode");
+  if (!args.secret || args.secret !== process.env.SECRET) {
+    throw new ForbiddenError("Only allowed in development-mode")
   }
 
-  const startTime = performance.now();
+  const startTime = performance.now()
 
   const storeNames = {
     alko: "Alko",
@@ -19,21 +19,20 @@ const updateAllDrinks = async (root, args) => {
     tallink: "Tallink & Silja Line",
     superAlkoEesti: "Super Eesti Viro",
     superAlkoLatvia: "Super Latvia",
-  };
+  }
 
   try {
-    const drinksToSave = [];
-    let duplicateIDCount = 0;
+    const drinksToSave = []
+    let duplicateIDCount = 0
     args.drinks.forEach((drink) => {
-      const idNumber = drink.productCode ? drink.productCode : drink.ean;
+      const idNumber = drink.productCode ? drink.productCode : drink.ean
       if (drink.percentage === 0) {
-        return;
+        return
       }
-      const portionAmount =
-        (drink.size * (drink.percentage / 100)) / 0.015201419;
-      const id = idNumber + drink.store;
+      const portionAmount = (drink.size * (drink.percentage / 100)) / 0.015201419
+      const id = idNumber + drink.store
       if (drinksToSave.find((drink) => drink._id === id)) {
-        duplicateIDCount++;
+        duplicateIDCount++
       } else {
         drinksToSave.push({
           _id: id,
@@ -44,9 +43,7 @@ const updateAllDrinks = async (root, args) => {
           category: drink.category.toLowerCase(),
           isInSelection: true,
           searchTermString:
-            ["name", "producer", "store", "category"]
-              .map((field) => drink[field])
-              .join(" ") +
+            ["name", "producer", "store", "category"].map((field) => drink[field]).join(" ") +
             [
               { value: drink.percentage, unit: "%" },
               { value: drink.price, unit: "€" },
@@ -56,82 +53,32 @@ const updateAllDrinks = async (root, args) => {
             ]
               .map(
                 (item) =>
-                  `${item.value}${item.unit} ${item.value
-                    .toString()
-                    .replace(".", ",")}${item.unit}`
+                  `${item.value}${item.unit} ${item.value.toString().replace(".", ",")}${item.unit}`
               )
               .join(" ") +
             storeNames[drink.store],
-        });
-      }
-    });
-    console.log(`Didn't add ${duplicateIDCount} items with duplicate id`);
-
-    const getTime = () => roundTo(performance.now() - startTime, 0) / 1000;
-
-    /*
-    let allDrinkIds = await Drink.find({}).select("_id")
-    allDrinkIds = allDrinkIds.map(idObj => idObj.id)
-
-    await Drink.updateMany({}, { isInSelection: false })
-    const drinksNew = []
-    const drinksUpdate = []
-
-    console.log("SET TO FALSE", getTime())
-
-    drinksToSave.forEach(drink => {
-      if (allDrinkIds.includes(drink._id)) {
-        drinksUpdate.push(drink)
-      } else {
-        drinksNew.push({ ...drink })
+        })
       }
     })
+    console.log(`Didn't add ${duplicateIDCount} items with duplicate id`)
 
-    console.log("SORTED", getTime())
+    const getTime = () => roundTo(performance.now() - startTime, 0) / 1000
 
-    let didntChange = 0
-    await Promise.all(drinksUpdate.map(async (drink) => {
-      const fieldsToCheck = ["name", "producer", "ean", "productCode", "link", "price", "description", "percentage", "imageLink", "category", "size", "searchTermString"]
-      const dontUpdateMatches = fieldsToCheck.map(field => ({ [field]: drink[field] }))
-      let updatedDrink = await Drink.updateOne(
-        {
-          _id: drink._id,
-          $nor: [{ $and: dontUpdateMatches }]    //Slow as shit :C
-        }, drink
-      )
-      if (updatedDrink.n === 0) {
-        updatedDrink = await Drink.updateOne({ _id: drink._id }, { isInSelection: true })
-        didntChange++
-      }
-      return updatedDrink
-    }))
+    await Drink.deleteMany({})
 
-    console.log("UPDATED EXISTING", getTime())
+    const response = await Drink.insertMany(drinksToSave)
 
-    await Drink.insertMany(drinksNew)
+    console.log("INSERTED NEW", getTime())
 
-    const returnValues = {
-      new: drinksNew.length,
-      changed: drinksUpdate.length - didntChange,
-      deactivated: allDrinkIds.length - drinksUpdate.length
-    }
-    */
+    updateAllDrinkFields()
 
-    await Drink.deleteMany({});
+    console.log("UPDATED REVIEW SCORES", getTime())
 
-    const response = await Drink.insertMany(drinksToSave);
-
-    console.log("INSERTED NEW", getTime());
-
-    updateAllDrinkFields();
-
-    console.log("UPDATED REVIEW SCORES", getTime());
-
-    console.log("DRINKS UPDATED", response.length);
+    console.log("DRINKS UPDATED", response.length)
   } catch (error) {
-    console.log(error.message);
-    return error.message;
+    console.log(error.message)
+    return error.message
   }
-};
+}
 
-module.exports = updateAllDrinks;
+module.exports = updateAllDrinks
