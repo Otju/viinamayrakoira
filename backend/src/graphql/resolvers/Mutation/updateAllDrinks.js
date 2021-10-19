@@ -79,6 +79,9 @@ const updateAllDrinks = async (root, args) => {
     console.log(error.message)
     return error.message
   }
+  if (process.env.SCRAPERMODE) {
+    process.exit()
+  }
 }
 
 module.exports = updateAllDrinks

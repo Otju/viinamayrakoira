@@ -1,7 +1,5 @@
 {
-  "onfirstTimeInit": ["cd ./scraper & npm install & cd .. & cd ./backend & npm install"],
-  "onUpdate": ["cd ./scraper & npm install & cd .. & cd ./backend & npm install"],
-  "onRun": [
-    "concurrently 'cd viinamayrakoira/backend/ & npm run dev' 'cd viinamayrakoira/scraper/ & npm start'"
-  ]
+  "onfirstTimeInit": "cd ./scraper && npm install && cd .. && cd ./backend && npm install",
+  "onUpdate": "cd ./scraper && npm install && cd .. && cd ./backend && npm install",
+  "onRun": "concurrently \"cd backend/ & npm run scrape\" \"cd scraper/ & npm start\""
 }

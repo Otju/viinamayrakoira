@@ -3,26 +3,28 @@ const XLSX = require("xlsx")
 const roundTo = require("round-to")
 const { turnToNumber } = require("../utils")
 
-
-const xlsxUrl = "https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xlsx"
+const xlsxUrl =
+  "https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xlsx"
 
 const getAlko = async () => {
   console.log("Getting drinks from Alko")
   const allDrinks = []
   const alkoData = await fetch(xlsxUrl)
-    .then(res => res.buffer())
-    .then(buffer => {
+    .then((res) => res.buffer())
+    .then((buffer) => {
       const workbook = XLSX.read(buffer, { type: "buffer" })
       const sheet = workbook.SheetNames[0]
       return XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { range: 3 })
     })
-  alkoData.forEach(data => {
+  alkoData.forEach((data) => {
     let type = data.Tyyppi
     if (type === "Jälkiruokaviinit, väkevöidyt ja muut viinit") {
       type = "Muut viinit"
-    } if (type === "juomasekoitukset") {
+    }
+    if (type === "juomasekoitukset") {
       type = "Juomasekoitukset ja lonkerot"
-    } if (type === "brandyt, Armanjakit ja Calvadosit") {
+    }
+    if (type === "brandyt, Armanjakit ja Calvadosit") {
       type = "Brandyt Armanjakit ja Calvadosit"
     }
     if (type === "kuohuviinit & samppanjat") {
@@ -35,7 +37,6 @@ const getAlko = async () => {
       type = "Ei tietoa"
     }
 
-
     const drinkInfo = {
       name: data.Nimi,
       producer: data.Valmistaja,
@@ -45,10 +46,12 @@ const getAlko = async () => {
       price: turnToNumber(data.Hinta),
       description: data.Luonnehdinta,
       percentage: turnToNumber(data["Alkoholi-%"]),
-      imageLink: `https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${data.Numero}/${data.Nimi.replace(/ /g, "-")}`,
+      imageLink: `https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
+        data.Numero
+      }/${data.Nimi.replace(/ /g, "-")}`,
       category: type,
-      size: roundTo((data.Hinta) / data.Litrahinta, 2),
-      store: "alko"
+      size: roundTo(data.Hinta / data.Litrahinta, 2),
+      store: "alko",
     }
     allDrinks.push(drinkInfo)
   })
