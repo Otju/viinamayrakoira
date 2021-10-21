@@ -68,8 +68,8 @@ const getSize = (string, price) => {
 
 const puppeteerSettings = {
   headless: true,
-  executablePath: process.env.ISLINUX ? "/usr/bin/chromium-browser" : null,
-  args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  executablePath: '/usr/bin/chromium-browser',	
+  args: ["--no-sandbox", "--disable-setuid-sandbox"]
 }
 
 module.exports = { turnToNumber, capitalizeFirst, getSize, getPercentage, puppeteerSettings }
