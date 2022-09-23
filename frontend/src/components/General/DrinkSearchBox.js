@@ -7,19 +7,17 @@ import SearchVariableUnit from "../DrinksPage/SearchVariableUnit"
 import { useHistory } from "react-router-dom"
 
 const DrinkSearchBox = ({ handleClick, keyPart }) => {
-
   const [offset, setOffset] = useState(0)
   const [drinks, setDrinks] = useState([])
   const history = useHistory()
 
   let content
-  if (!drinks) {
-  } else if (drinks.length === 0) {
+  if (!drinks || drinks.length === 0) {
     content = <div style={{ textAlign: "center" }}>Haullasi ei löytynyt tuloksia</div>
   } else {
-    const uniqueIds = [...(new Set(drinks.map(d => d.id)))]
-    const uniqueDrinks = uniqueIds.map(id => drinks.find(drink => drink.id === id)) //InfiniteScroll-component otherwise gives error about having duplicate drinks
-    content =
+    const uniqueIds = [...new Set(drinks.map((d) => d.id))]
+    const uniqueDrinks = uniqueIds.map((id) => drinks.find((drink) => drink.id === id)) //InfiniteScroll-component otherwise gives error about having duplicate drinks
+    content = (
       <ListGroup>
         <InfiniteScroll
           dataLength={uniqueDrinks.length}
@@ -29,13 +27,40 @@ const DrinkSearchBox = ({ handleClick, keyPart }) => {
         >
           {uniqueDrinks.map((drink) => {
             return (
-              <Hoverable link={handleClick ? null : `drinks/${drink.id}`} handleClick={() => { history.push(); handleClick(drink); setOffset(0) }} key={drink.id + keyPart}>
+              <Hoverable
+                link={handleClick ? null : `drinks/${drink.id}`}
+                handleClick={() => {
+                  history.push()
+                  handleClick(drink)
+                  setOffset(0)
+                }}
+                key={drink.id + keyPart}
+              >
                 <ListGroup.Item>
                   <div style={{ width: "40%", display: "inline-block" }}>
-                    <img src={drink.imageLink} alt={drink.name} style={{ maxHeight: "6rem", mixBlendMode: "multiply", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                    <img
+                      src={drink.imageLink}
+                      alt={drink.name}
+                      style={{
+                        maxHeight: "6rem",
+                        mixBlendMode: "multiply",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        display: "block",
+                      }}
+                    />
                   </div>
                   <div style={{ display: "inline-block", width: "60%" }}>
-                    <div style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{drink.name}</div>
+                    <div
+                      style={{
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {drink.name}
+                    </div>
                     {drink.price}€<br />
                     {drink.size}l<br />
                     {capitalizeFirst(drink.store)}
@@ -44,14 +69,33 @@ const DrinkSearchBox = ({ handleClick, keyPart }) => {
               </Hoverable>
             )
           })}
-        </InfiniteScroll >
-      </ListGroup >
+        </InfiniteScroll>
+      </ListGroup>
+    )
   }
 
-  return <div id="scrollDiv" style={{ marginLeft: "auto", marginRight: "auto", border: "solid", maxHeight: "28rem", overflowY: "scroll" }}>
-    <SearchVariableUnit offset={offset} setOffset={setOffset} setDrinks={setDrinks} dontSearchEmpty={true} drinksPerPage={10} expandable={true} />
-    {content}
-  </div>
+  return (
+    <div
+      id="scrollDiv"
+      style={{
+        marginLeft: "auto",
+        marginRight: "auto",
+        border: "solid",
+        maxHeight: "28rem",
+        overflowY: "scroll",
+      }}
+    >
+      <SearchVariableUnit
+        offset={offset}
+        setOffset={setOffset}
+        setDrinks={setDrinks}
+        dontSearchEmpty={true}
+        drinksPerPage={10}
+        expandable={true}
+      />
+      {content}
+    </div>
+  )
 }
 
 export default DrinkSearchBox

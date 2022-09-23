@@ -6,20 +6,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV=production && node ./src/index.js",
-    "dev": "set NODE_ENV=development && nodemon ./src/local.js",
-    "scrape": "set SCRAPERMODE=true && node ./src/local.js",
-    "docker": "node ./src/local.js",
-    "deploy": "serverless deploy --stage prod"
+    "dev": "set NODE_ENV=development && nodemon ./src/index.js",
+    "scrape": "set SCRAPERMODE=true && node ./src/index.js"
   },
   "author": "Otju",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^7.15.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.20"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.0",
-    "apollo-server": "^2.19.0",
+    "apollo-server": "^2.26.0",
     "apollo-server-lambda": "^2.19.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",

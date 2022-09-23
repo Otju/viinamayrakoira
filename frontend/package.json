@@ -10,7 +10,7 @@
     "apollo-link-context": "^1.0.20",
     "bootstrap": "^4.5.3",
     "graphql": "^15.4.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.14.0",

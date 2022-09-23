@@ -11,17 +11,22 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       authorization: token ? `bearer ${token}` : null,
-    }
+    },
   }
 })
 
-const uri = process.env.NODE_ENV === "development" ? "http://localhost:4000/" : "https://ehdkr0eakj.execute-api.eu-central-1.amazonaws.com/prod/graphql"
+const uri =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:4000/"
+    : "https://viinamayrakoira-6aqx6txa5a-ew.a.run.app"
 
 const httpLink = new HttpLink({ uri })
 
 const client = new ApolloClient({
-  cache: new InMemoryCache({ typePolicies: { Review: { fields: { usersThatLiked: { merge: false } } } } }),
-  link: authLink.concat(httpLink)
+  cache: new InMemoryCache({
+    typePolicies: { Review: { fields: { usersThatLiked: { merge: false } } } },
+  }),
+  link: authLink.concat(httpLink),
 })
 
 ReactDOM.render(

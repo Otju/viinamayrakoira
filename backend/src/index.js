@@ -1,13 +1,8 @@
-require("dotenv").config()
-const { ApolloServer } = require("apollo-server-lambda")
+const { ApolloServer } = require("apollo-server")
 const serverOptions = require("./serverOptions")
 
 const server = new ApolloServer(serverOptions)
 
-exports.graphqlHandler = server.createHandler({
-  cors: {
-    origin: "*",
-    credentials: true,
-  }
+server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
+  console.log(`Server ready at ${url}`)
 })
-
