@@ -1,6 +1,5 @@
 import React from "react"
 import Container from "react-bootstrap/Container"
-import ReportForm from "./General/ReportForm"
 
 const InfoPage = () => {
   return (
@@ -38,9 +37,6 @@ const InfoPage = () => {
         </p>
       </Container>
       <br />
-      <h3>Lähetä viestiä kehittäjälle</h3>
-      <br />
-      <ReportForm defaultReportTypeIndex={2} />
     </Container>
   )
 }

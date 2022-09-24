@@ -4,12 +4,10 @@ import { useQuery } from "@apollo/client"
 import { GET_REVIEWS } from "../../queries"
 import DrinkInfo from "./DrinkInfo"
 import ReviewForm from "./ReviewForm"
-import ReportModal from "./ReportModal"
 import Tabs from "react-bootstrap/Tabs"
 import Tab from "react-bootstrap/Tab"
 
 const SingleDrink = ({ drink }) => {
-
   const result = useQuery(GET_REVIEWS, { variables: { id: drink.id } })
   const [reviews, setReviews] = useState(null)
   const [drinkState, setDrinkState] = useState(drink)
@@ -20,22 +18,26 @@ const SingleDrink = ({ drink }) => {
     }
   }, [result])
 
-  return <div>
-    <DrinkInfo drink={drinkState} showStoreButton={true} />
+  return (
     <div>
-      {drinkState.description}
-      <br />
+      <DrinkInfo drink={drinkState} showStoreButton={true} />
+      <div style={{ padding: "20px 0px 20px" }}>
+        {drinkState.description}
+        <br />
+      </div>
+      <Tabs defaultActiveKey="reviews" transition={false}>
+        <Tab eventKey="reviews" title="Kommentit">
+          <CommentList reviews={reviews} drink={drinkState} />
+        </Tab>
+        <Tab eventKey="review" title="Arvostele">
+          <ReviewForm
+            {...{ drink, setReviews, reviews, setDrinkState }}
+            refetchComments={result.refetch}
+          />
+        </Tab>
+      </Tabs>
     </div>
-    <ReportModal drinkId={drink.id} />
-    <Tabs defaultActiveKey="reviews" transition={false}>
-      <Tab eventKey="reviews" title="Kommentit">
-        <CommentList reviews={reviews} drink={drinkState} />
-      </Tab>
-      <Tab eventKey="review" title="Arvostele">
-        <ReviewForm {...{ drink, setReviews, reviews, setDrinkState }} refetchComments={result.refetch} />
-      </Tab>
-    </Tabs>
-  </div>
+  )
 }
 
 export default SingleDrink

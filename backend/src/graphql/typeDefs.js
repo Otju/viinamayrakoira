@@ -144,7 +144,6 @@ const typeDefs = gql`
     deleteUser(id: ID, username: String): String
     deleteReview(reviewId: ID!, drinkId: String!): ReviewOutPut!
     likeReview(id: ID!): likeOutput!
-    report(subject: String!, content: String!): String
     createUser(username: String!, password: String!, email: String!): User
     login(username: String!, password: String!): Token
   }
