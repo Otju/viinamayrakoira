@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 require("dotenv").config()
 const { request } = require("graphql-request")
 const scrapers = require("./scrapers")
@@ -8,26 +9,26 @@ const setAllDrinks = async () => {
   let allDrinks = []
   let onlyOneScraper
   switch (process.argv[2]) {
-  case "alko":
-    onlyOneScraper = 0
-    break
-  case "superAlko":
-    onlyOneScraper = 1
-    break
-  case "foodie":
-    onlyOneScraper = 2
-    break
-  case "kmarket":
-    onlyOneScraper = 3
-    break
-  case "eckeroLine":
-    onlyOneScraper = 4
-    break
-  case "tallink":
-    onlyOneScraper = 5
-    break
-  default:
-    break
+    case "alko":
+      onlyOneScraper = 0
+      break
+    case "superAlko":
+      onlyOneScraper = 1
+      break
+    case "foodie":
+      onlyOneScraper = 2
+      break
+    case "kmarket":
+      onlyOneScraper = 3
+      break
+    case "eckeroLine":
+      onlyOneScraper = 4
+      break
+    case "tallink":
+      onlyOneScraper = 5
+      break
+    default:
+      break
   }
   if (onlyOneScraper || onlyOneScraper === 0) {
     const drinksForScaper = await scrapers[onlyOneScraper]()
@@ -60,24 +61,32 @@ const setAllDrinks = async () => {
   const addFaultyDrink = (error, drink) => {
     faultyDrinks.push({ error, drink })
   }
-
+  console.log("ENNEN FILTER", allDrinks.length)
   allDrinks = allDrinks
     .map((drink) => {
       const requiredFields = ["name", "price", "size", "store", "link", "category", "percentage"]
       let hasRequiredFields = true
+      let missingField = "SOMETHIG MISSING"
       requiredFields.forEach((field) => {
         if (!drink[field]) {
-          if (
-            field !== "percentage" &&
-            (!drink.name.includes("alk") ||
-              drink.category !== "alkoholittomat" ||
-              !drink.name.includes("non-alc"))
+          if (field !== "percentage") {
+            missingField = `MISSING FIELD "${field}`
+            hasRequiredFields = false
+          } else if (
+            !(
+              drink.name.includes("alk") ||
+              drink.name.includes("0%") ||
+              drink.name.toLowerCase().includes("alcohol free") ||
+              drink.category.toLowerCase() === "alkoholittomat" ||
+              drink.name.includes("non-alc") ||
+              drink.description.toLowerCase().includes("alkoholit")
+            )
           ) {
-            addFaultyDrink(`MISSING FIELD "${field}`, drink)
+            missingField = "FAULTY 0% DRINK"
+            hasRequiredFields = false
           }
-          hasRequiredFields = false
-        } else if (field === "percentage") {
-          const percentage = drink[field]
+        } else if (drink[field] === "percentage") {
+          const percentage = drink.percentage
           const category = drink.category
           if (
             percentage >= 100 ||
@@ -93,21 +102,23 @@ const setAllDrinks = async () => {
             ].includes(category) &&
               percentage > 25)
           ) {
-            addFaultyDrink("FAULTY PERCENTAGE", drink)
+            missingField = "FAULTY PERCENTAGE"
+            console.log(percentage)
             hasRequiredFields = false
           }
         }
       })
       if (!drink.ean && !drink.productCode) {
-        addFaultyDrink("MISSING EAN AND PRODUCTCODE", drink)
+        missingField = "MISSING EAN AND PRODUCTCODE"
         hasRequiredFields = false
       }
       if (!hasRequiredFields) {
+        addFaultyDrink(missingField, drink)
         return null
       }
       return drink
     })
-    .filter(Boolean)
+    .filter((drink) => drink)
 
   const variables = {
     drinks: allDrinks,
@@ -117,16 +128,17 @@ const setAllDrinks = async () => {
   try {
     fs.writeFile(
       "faultyDrinks.json",
-      faultyDrinks.map((item) => JSON.stringify(item)).join(","),
+      `[${faultyDrinks.map((item) => JSON.stringify(item)).join(",")}]`,
       (error) => {
         if (error) throw error
         console.log(`${faultyDrinks.length} FAULTY DRINKS`)
       }
     )
-    await request(process.env.BACKEND_URL || "http://localhost:4000", query, variables)
+    console.log("JÄLKEEN FILTER", allDrinks.length)
+    await request("http://localhost:4000", query, variables)
     console.log(`ADDED ${allDrinks.length}`)
   } catch (error) {
-    console.log("ERROR:", error.message.slice(0, 500))
+    console.log("ERROR:", error.message.slice(0, 5000))
   }
 }
 setAllDrinks()

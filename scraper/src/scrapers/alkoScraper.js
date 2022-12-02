@@ -16,6 +16,7 @@ const getAlko = async () => {
       const sheet = workbook.SheetNames[0]
       return XLSX.utils.sheet_to_json(workbook.Sheets[sheet], { range: 3 })
     })
+    .catch((e) => console.log(e))
   alkoData.forEach((data) => {
     let type = data.Tyyppi
     if (type === "Jälkiruokaviinit, väkevöidyt ja muut viinit") {

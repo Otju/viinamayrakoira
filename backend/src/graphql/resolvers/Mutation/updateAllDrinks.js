@@ -70,7 +70,7 @@ const updateAllDrinks = async (root, args) => {
 
     console.log("INSERTED NEW", getTime())
 
-    updateAllDrinkFields()
+    await updateAllDrinkFields()
 
     console.log("UPDATED REVIEW SCORES", getTime())
 

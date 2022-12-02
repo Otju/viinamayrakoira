@@ -1,5 +1,13 @@
+/* eslint-disable indent */
 const turnToNumber = (stringToChange) =>
-  stringToChange ? parseFloat(stringToChange.replace(",", ".").replace(/[^0-9.]/g, "")) : undefined
+  stringToChange
+    ? parseFloat(
+        stringToChange
+          .replace(",", ".")
+          .replace(/[^0-9.]/g, "")
+          .replace(/^[.]+|[.]+$/g, "")
+      )
+    : undefined
 
 const capitalizeFirst = (string) => {
   if (!string) {
@@ -24,6 +32,9 @@ const getPercentage = (string) => {
 
 const getSize = (string, price) => {
   let size
+  if (!string) {
+    return null
+  }
   string = string.toLowerCase()
 
   let multiplier = string.match(/\d+(x|\*)\d/g) || string.match(/x\d+/g) || string.match(/\d+-pac/g)
@@ -67,9 +78,9 @@ const getSize = (string, price) => {
 }
 
 const puppeteerSettings = {
-  headless: true,
-  executablePath: '/usr/bin/chromium-browser',	
-  args: ["--no-sandbox", "--disable-setuid-sandbox"]
+  headless: false,
+  //executablePath: "/usr/bin/chromium-browser",
+  args: ["--no-sandbox", "--disable-setuid-sandbox"],
 }
 
 module.exports = { turnToNumber, capitalizeFirst, getSize, getPercentage, puppeteerSettings }
