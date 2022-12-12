@@ -30,12 +30,40 @@ const getPercentage = (string) => {
   return null
 }
 
+const getMoreAccurateCategory = ({ category, percentage, name, description }) => {
+  const isInNameOrDescription = (words) => {
+    const inName = words.some((word) => name && name.toLowerCase().includes(word))
+    const inDesc = words.some((word) => description && description.toLowerCase().includes(word))
+    return inName || inDesc
+  }
+
+  let newCategory = category
+  if (category === "Muut viinit") {
+    if (isInNameOrDescription(["red", "punaviini"])) {
+      newCategory = "Punaviinit"
+    }
+    if (isInNameOrDescription(["kuoh"])) {
+      newCategory = "Kuohuviinit ja Samppanjat"
+    }
+    if (isInNameOrDescription(["valko", "white"])) {
+      newCategory = "Valkoviinit"
+    }
+    if (isInNameOrDescription(["rosé", "rose"])) {
+      newCategory = "Roseeviinit"
+    }
+  }
+  if (percentage <= 1) {
+    newCategory = "Alkoholittomat"
+  }
+  return newCategory
+}
+
 const getSize = (string, price) => {
   let size
   if (!string) {
     return null
   }
-  string = string.toLowerCase()
+  string = string.toLowerCase().replace("O,5", "0,5")
 
   let multiplier = string.match(/\d+(x|\*)\d/g) || string.match(/x\d+/g) || string.match(/\d+-pac/g)
 
@@ -79,8 +107,14 @@ const getSize = (string, price) => {
 
 const puppeteerSettings = {
   headless: false,
-  //executablePath: "/usr/bin/chromium-browser",
   args: ["--no-sandbox", "--disable-setuid-sandbox"],
 }
 
-module.exports = { turnToNumber, capitalizeFirst, getSize, getPercentage, puppeteerSettings }
+module.exports = {
+  turnToNumber,
+  capitalizeFirst,
+  getSize,
+  getPercentage,
+  puppeteerSettings,
+  getMoreAccurateCategory,
+}

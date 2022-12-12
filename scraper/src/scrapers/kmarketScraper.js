@@ -1,78 +1,147 @@
 const puppeteer = require("puppeteer")
-const fetch = require("node-fetch")
-const { puppeteerSettings } = require("../utils")
+const { puppeteerSettings, getPercentage, getMoreAccurateCategory, getSize } = require("../utils")
+const fs = require("fs")
 
-const kmarketUrl = "https://www.k-ruoka.fi/kauppa/tuotehaku/juomat/"
-
+const isGettedFromFile = true
 const getKmarket = async () => {
-  const infos = []
-  const pageLink = kmarketUrl
-  const browser = await puppeteer.launch(puppeteerSettings)
-  const page = await browser.newPage()
-  await page.goto(pageLink, { timeout: 0 })
-  page.on("console", async (msg) => {
-    const msgArgs = msg.args()
-    for (let i = 0; i < msgArgs.length; ++i) {
-      console.log(await msgArgs[i].jsonValue())
+  console.log("Getting drinks from K-Market")
+  const rawData = isGettedFromFile
+    ? JSON.parse(fs.readFileSync("./data/rawKMarketDrinks.json"))
+    : await getRawKMarketData()
+  const info = rawData.map(
+    ({ ean, localizedName, description, mobilescan, productAttributes, categoryName }) => {
+      const measurements = productAttributes.measurements
+      const name = localizedName.finnish
+      const price = mobilescan.pricing.normal.price
+      const link = `https://www.k-ruoka.fi/kauppa/tuote/${productAttributes.urlSlug}`
+      const imageLink = productAttributes.imageUrl
+      const producer = productAttributes.brand
+      const percentage = getPercentage(name)
+      const category = getMoreAccurateCategory({
+        category: categoryName,
+        percentage,
+        name,
+        description,
+      })
+      const store = "kmarket"
+      const size = measurements.contentUnit
+        ? getSize(`${measurements.contentSize}${measurements.contentUnit}`)
+        : measurements.contentSize
+
+      return {
+        name,
+        producer,
+        ean,
+        link,
+        price,
+        description,
+        percentage,
+        imageLink,
+        category,
+        size,
+        store,
+      }
     }
-  })
-  const val = await page.evaluate(() => {
-    const url = "oluet"
-    const limit = 5
-    let offset = 0
-    let remaining = 1
-    const results = []
-    while (remaining > 0) {
-      const newResults = fetch(
-        `https://www.k-ruoka.fi/kr-api/v2/product-search/?offset=${offset}&language=fi&categoryPath=juomat%2F${url}&storeId=N106&limit=${limit} `,
-        {
-          method: "POST",
-          headers: {
-            "x-k-build-number": 11627,
-          },
-        }
-      ).then((res) => res.json())
-      remaining = newResults.totalHits - offset - limit
-      offset += limit
-      results.push(newResults)
-      console.log("RESULTS:", newResults)
-    }
-    return results
-  })
-  console.log(val)
-  return infos
+  )
+  console.log("Got drinks from K-Market")
+  return info
 }
 
-/*
-{
-  result: [
+const getRawKMarketData = async () => {
+  const rawDrinks = []
+  const kMarketCategories = [
     {
-      type: 'product',
-      id: '6430064710197',
-      ean: '6430064710197',
-      baseEan: '6430064710197',
-      localizedName: [Object],
-      store: [Object],
-      availability: [Object],
-      isAvailable: false,
-      mobilescan: [Object],
-      restriction: [Object],
-      category: [Object],
-      section: '5220',
-      productAttributes: [Object],
-      images: [Array],
-      kind: 'v3',
-      adInfo: [Object]
-    }
-  ],
-  totalHits: 778,
-  categoryPath: 'juomat/oluet',
-  language: 'fi',
-  localizedCategoryName: { finnish: 'Oluet', swedish: 'Öl' },
-  storeId: 'N106',
-  type: 'product-search',
-  suggestions: { searchTerms: [] }
+      name: "Oluet",
+      code: "oluet",
+    },
+    {
+      name: "Siiderit",
+      code: "siiderit",
+    },
+    {
+      name: "Juomasekoitukset ja lonkerot",
+      code: "lonkerot",
+    },
+    {
+      name: "Juomasekoitukset ja lonkerot",
+      code: "juomasekoitukset",
+    },
+    {
+      name: "Muut viinit",
+      code: "viinit",
+    },
+    {
+      name: "Muut viinit",
+      code: "kausijuomat",
+    },
+  ]
+  for (const category of kMarketCategories) {
+    const drinksFromCategory = await getDrinksFromCategory(category)
+    rawDrinks.push(...drinksFromCategory)
+  }
+  fs.writeFileSync("./data/rawKMarketDrinks.json", JSON.stringify(rawDrinks))
+  return rawDrinks
 }
-*/
+
+const getDrinksFromCategory = async (category) => {
+  const kmarketUrl = "https://www.k-ruoka.fi"
+  const drinksFromCategory = []
+  let offset = 0
+  let remaining = 99999
+  while (remaining > 0) {
+    const browser = await puppeteer.launch(puppeteerSettings)
+    const page = await browser.newPage()
+    await page.goto(kmarketUrl, { timeout: 0 })
+    page.on("console", async (msg) => {
+      const msgArgs = msg.args()
+      for (let i = 0; i < msgArgs.length; ++i) {
+        console.log(await msgArgs[i].jsonValue())
+      }
+    })
+    const info = await page.evaluate(
+      async (offset, category) => {
+        const categoryName = category.name
+        const limit = 150
+        let newOffset
+        let newRemaining
+        const results = []
+        const response = await fetch(
+          `/kr-api/v2/product-search/?offset=${offset}&language=fi&categoryPath=juomat%2F${category.code}&storeId=N106&limit=${limit}`,
+          {
+            method: "POST",
+            headers: {
+              "x-k-build-number": 11627,
+            },
+          }
+        )
+        const text = await response.text()
+        try {
+          const info = JSON.parse(text)
+          newOffset = offset + limit
+          newRemaining = info.totalHits - offset - limit
+          const drinks = info.result
+          results.push(...drinks.map((drink) => ({ ...drink, categoryName })))
+        } catch (e) {
+          if (text.includes("Just a moment...")) {
+            console.log("Blocked by CloudFlare")
+          } else {
+            console.log(text)
+          }
+        }
+        return { results, newOffset, newRemaining }
+      },
+      offset,
+      category
+    )
+    drinksFromCategory.push(...info.results)
+    offset = info.newOffset
+    remaining = info.newRemaining
+    let pages = await browser.pages()
+    await Promise.all(pages.map((page) => page.close()))
+    await browser.close()
+    await new Promise((r) => setTimeout(r, 10 * 1000))
+  }
+  return drinksFromCategory
+}
 
 module.exports = getKmarket

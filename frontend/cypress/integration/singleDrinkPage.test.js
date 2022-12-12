@@ -18,9 +18,7 @@ describe("singleDrinkPage and user management", function () {
   }
 
   describe("user management", function () {
-
     it("can't register with incorrect info, but can with correct", function () {
-
       const fieldIsInvalid = (field, not) => {
         cy.get(field).should(`${not ? "not." : ""}have.class`, "is-invalid")
       }
@@ -106,7 +104,6 @@ describe("singleDrinkPage and user management", function () {
       cy.get(".btn-success").eq(0).click()
       cy.contains("Täytä kaikki tarvittavat kentät")
       cy.contains("×")
-
 
       cy.get(".react-stars").eq(2).click()
       cy.get(".react-stars").eq(3).click()

@@ -1,6 +1,6 @@
 const cheerio = require("cheerio")
 const got = require("got")
-const { getPercentage, getSize } = require("../utils")
+const { getPercentage, getSize, getMoreAccurateCategory } = require("../utils")
 const { turnToNumber } = require("../utils")
 
 const mainUrl = "https://www.s-kaupat.fi"
@@ -70,31 +70,8 @@ const getDrinkInfos = async (category, categoryName) => {
       const imageLink = `https://cdn.s-cloud.fi/v1/w384_q75/product/ean/${ean}_kuva1.jpg`
       const size = getSize(name, price) || (price - deposit) / pricePerLitre
       const percentage = getPercentage(name) || 0
+      category = getMoreAccurateCategory({ category, percentage, name, description })
 
-      if (category === "Muut viinit") {
-        const isInNameOrDescription = (words) => {
-          const inName = words.some((word) => name && name.toLowerCase().includes(word))
-          const inDesc = words.some(
-            (word) => description && description.toLowerCase().includes(word)
-          )
-          return inName || inDesc
-        }
-        if (isInNameOrDescription(["red", "punaviini"])) {
-          category = "Punaviinit"
-        }
-        if (isInNameOrDescription(["kuoh"])) {
-          category = "Kuohuviinit ja Samppanjat"
-        }
-        if (isInNameOrDescription(["valko", "white"])) {
-          category = "Valkoviinit"
-        }
-        if (isInNameOrDescription(["rosé", "rose"])) {
-          category = "Roseeviinit"
-        }
-      }
-      if (percentage <= 1) {
-        category = "Alkoholittomat"
-      }
       const drinkInfo = {
         name,
         producer,
