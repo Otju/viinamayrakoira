@@ -3,7 +3,6 @@ import { colors } from "../utils"
 import Container from "react-bootstrap/Container"
 import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row"
-import Button from "react-bootstrap/esm/Button"
 
 const Footer = () => {
   return (
@@ -25,38 +24,9 @@ const Footer = () => {
                 width: "100%",
                 alignItems: "center",
                 height: "100%",
-                color: "white",
               }}
             >
-              contact@viinamayrakoira.fi
-            </div>
-          </Col>
-          <Col>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                width: "100%",
-                alignItems: "center",
-                height: "100%",
-              }}
-            >
-              <h2 style={{ color: "white", textAlign: "center" }}>Viinamayrakoira.fi</h2>
-            </div>
-          </Col>
-          <Col>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                width: "100%",
-                alignItems: "center",
-                height: "100%",
-              }}
-            >
-              <a href="https://www.buymeacoffee.com/Otju" target="_blank" rel="noopener noreferrer">
-                <Button variant="success">Lahjoita</Button>
-              </a>
+              <h2 style={{ color: "white", textAlign: "center" }}>Viinamäyräkoira</h2>
             </div>
           </Col>
         </Row>
