@@ -58,12 +58,11 @@ const getMoreAccurateCategory = ({ category, percentage, name, description }) =>
   return newCategory
 }
 
-const getSize = (string, price) => {
-  let size
-  if (!string) {
+const getSize = (sizeToGetStringFrom, price) => {
+  if (!sizeToGetStringFrom) {
     return null
   }
-  string = string.toLowerCase().replace("O,5", "0,5")
+  const string = sizeToGetStringFrom.toLowerCase().replace("o,5", "0,5")
 
   let multiplier = string.match(/\d+(x|\*)\d/g) || string.match(/x\d+/g) || string.match(/\d+-pac/g)
 
@@ -106,7 +105,7 @@ const getSize = (string, price) => {
 }
 
 const puppeteerSettings = {
-  headless: false,
+  headless: true,
   args: ["--no-sandbox", "--disable-setuid-sandbox"],
 }
 

@@ -11,7 +11,7 @@ describe("BestPage ", function () {
     cy.hasDrink({ sortByField: "pricePerPortion", store: "alko" }, 30)
   })
   describe("Contains all correct drinks", function () {
-    const stores = [null, "alko", "foodie", "kmarket"]
+    const stores = [null, "alko", "skaupat", "kruoka"]
     const sortCategories = ["pricePerPortion"] //, "taste", "priceQualityRatio"] dont really work yet because of lack of reviews
 
     stores.forEach((store) => {

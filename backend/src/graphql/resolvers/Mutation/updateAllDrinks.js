@@ -13,8 +13,8 @@ const updateAllDrinks = async (root, args) => {
 
   const storeNames = {
     alko: "Alko",
-    foodie: "Smarket S-market S-ryhmä",
-    kmarket: "Kmarket K-market K-ryhmä Kesko K-Kaupat K-Kauppa",
+    skaupat: "Smarket S-market S-ryhmä",
+    kruoka: "Kmarket K-market K-ryhmä Kesko K-Kaupat K-Kauppa K-ruoka K-ruokakauppa",
   }
 
   try {

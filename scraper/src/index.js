@@ -30,23 +30,26 @@ const setAllDrinks = async () => {
       const requiredFields = ["name", "price", "size", "store", "link", "category", "percentage"]
       let hasRequiredFields = true
       let missingField = "SOMETHIG MISSING"
-      requiredFields.forEach((field) => {
+      for (const field of requiredFields) {
         if (!drink[field]) {
           if (field !== "percentage") {
             missingField = `MISSING FIELD "${field}`
             hasRequiredFields = false
+            break
           } else if (
             !(
-              drink.name.includes("alk") ||
-              drink.name.includes("0%") ||
+              drink.name.toLowerCase().includes("alk") ||
+              drink.name.toLowerCase().includes("0%") ||
+              drink.name.toLowerCase().includes("0 %") ||
               drink.name.toLowerCase().includes("alcohol free") ||
               drink.category.toLowerCase() === "alkoholittomat" ||
-              drink.name.includes("non-alc") ||
-              drink.description.toLowerCase().includes("alkoholit")
+              drink.name.toLowerCase().includes("non-alc") ||
+              (drink.description && drink.description.toLowerCase().includes("alkoholit"))
             )
           ) {
             missingField = "FAULTY 0% DRINK"
             hasRequiredFields = false
+            break
           } else {
             drink.percentage = 0
           }
@@ -70,9 +73,10 @@ const setAllDrinks = async () => {
           if (percentageTooHigh || percentageTooHighForBeer || percentageTooHighForWine) {
             missingField = "FAULTY PERCENTAGE"
             hasRequiredFields = false
+            break
           }
         }
-      })
+      }
       if (!drink.ean && !drink.productCode) {
         missingField = "MISSING EAN AND PRODUCTCODE"
         hasRequiredFields = false

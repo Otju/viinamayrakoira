@@ -6,14 +6,14 @@ export const stores = [
     displayName: "Alko",
   },
   {
-    name: "foodie",
+    name: "skaupat",
     color: "#00A651",
-    displayName: "S-ryhmä",
+    displayName: "S-Kaupat",
   },
   {
-    name: "kmarket",
+    name: "kruoka",
     color: "#ff5500",
-    displayName: "K-Kaupat",
+    displayName: "K-Ruoka",
   },
 ]
 

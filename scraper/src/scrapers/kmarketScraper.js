@@ -1,8 +1,10 @@
-const puppeteer = require("puppeteer")
+const puppeteer = require("puppeteer-extra")
+const StealthPlugin = require("puppeteer-extra-plugin-stealth")
+puppeteer.use(StealthPlugin())
 const { puppeteerSettings, getPercentage, getMoreAccurateCategory, getSize } = require("../utils")
 const fs = require("fs")
 
-const isGettedFromFile = true
+const isGettedFromFile = false
 const getKmarket = async () => {
   console.log("Getting drinks from K-Market")
   const rawData = isGettedFromFile
@@ -14,7 +16,7 @@ const getKmarket = async () => {
       const name = localizedName.finnish
       const price = mobilescan.pricing.normal.price
       const link = `https://www.k-ruoka.fi/kauppa/tuote/${productAttributes.urlSlug}`
-      const imageLink = productAttributes.imageUrl
+      const imageLink = productAttributes.image ? productAttributes.image.url : undefined
       const producer = productAttributes.brand
       const percentage = getPercentage(name)
       const category = getMoreAccurateCategory({
@@ -23,7 +25,7 @@ const getKmarket = async () => {
         name,
         description,
       })
-      const store = "kmarket"
+      const store = "kruoka"
       const size = measurements.contentUnit
         ? getSize(`${measurements.contentSize}${measurements.contentUnit}`)
         : measurements.contentSize
@@ -75,29 +77,29 @@ const getRawKMarketData = async () => {
       code: "kausijuomat",
     },
   ]
+  const browser = await puppeteer.launch(puppeteerSettings)
+  const page = await browser.newPage()
+  await page.goto("https://www.k-ruoka.fi", { timeout: 0 })
+  page.on("console", async (msg) => {
+    const msgArgs = msg.args()
+    for (let i = 0; i < msgArgs.length; ++i) {
+      console.log(await msgArgs[i].jsonValue())
+    }
+  })
   for (const category of kMarketCategories) {
-    const drinksFromCategory = await getDrinksFromCategory(category)
+    const drinksFromCategory = await getDrinksFromCategory(category, page)
     rawDrinks.push(...drinksFromCategory)
   }
+  await browser.close()
   fs.writeFileSync("./data/rawKMarketDrinks.json", JSON.stringify(rawDrinks))
   return rawDrinks
 }
 
-const getDrinksFromCategory = async (category) => {
-  const kmarketUrl = "https://www.k-ruoka.fi"
+const getDrinksFromCategory = async (category, page) => {
   const drinksFromCategory = []
   let offset = 0
   let remaining = 99999
   while (remaining > 0) {
-    const browser = await puppeteer.launch(puppeteerSettings)
-    const page = await browser.newPage()
-    await page.goto(kmarketUrl, { timeout: 0 })
-    page.on("console", async (msg) => {
-      const msgArgs = msg.args()
-      for (let i = 0; i < msgArgs.length; ++i) {
-        console.log(await msgArgs[i].jsonValue())
-      }
-    })
     const info = await page.evaluate(
       async (offset, category) => {
         const categoryName = category.name
@@ -136,10 +138,6 @@ const getDrinksFromCategory = async (category) => {
     drinksFromCategory.push(...info.results)
     offset = info.newOffset
     remaining = info.newRemaining
-    let pages = await browser.pages()
-    await Promise.all(pages.map((page) => page.close()))
-    await browser.close()
-    await new Promise((r) => setTimeout(r, 10 * 1000))
   }
   return drinksFromCategory
 }
