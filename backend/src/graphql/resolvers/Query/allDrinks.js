@@ -4,12 +4,6 @@ const allDrinks = async (root, args) => {
   const sortByField = args.sortByField ? args.sortByField : "pricePerPortion"
   const sortDirection = args.sortByDescending ? -1 : 1
   let search = { isInSelection: true }
-  if (args.name) {
-    let regex = "^"
-    args.name.split(" ").forEach(part => regex += `(?=.*${part})`)
-    regex += ".*$"
-    search.searchTermString = { $regex: regex, $options: ["i", "x"] }
-  }
   if (args.store && args.store.length !== 0) {
     search.store = { $in: args.store }
   }
@@ -17,7 +11,7 @@ const allDrinks = async (root, args) => {
     search.category = { $in: args.category }
   }
   if (args.minMax && args.minMax.length !== 0) {
-    args.minMax.forEach(value => {
+    args.minMax.forEach((value) => {
       search[value.name] = {}
       if (value.min) {
         search[value.name].$gt = value.min
@@ -27,9 +21,31 @@ const allDrinks = async (root, args) => {
       }
     })
   }
-  let drinks
-  drinks = await Drink.find(search).skip(args.offset).limit(args.first).sort({ [sortByField]: sortDirection })
-  return drinks
+  if (args.name) {
+    const drinks = await Drink.aggregate([
+      {
+        $search: {
+          index: "drinks_index",
+          text: {
+            query: args.name,
+            path: {
+              wildcard: "*",
+            },
+          },
+        },
+      },
+      { $match: search },
+      { $skip: args.offset },
+      { $limit: args.first },
+      { $sort: { [sortByField]: sortDirection } },
+    ])
+    return drinks.map((drink) => ({ ...drink, id: drink._id }))
+  } else {
+    return await Drink.find(search)
+      .skip(args.offset)
+      .limit(args.first)
+      .sort({ [sortByField]: sortDirection })
+  }
 }
 
 module.exports = allDrinks
