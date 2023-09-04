@@ -23,6 +23,16 @@ Repository consists of
 - Backend made with Node.js that uses GraphQl and MongoDB
 - Scraper made with Node.js
 
+## Publishing backend to Google Cloud Run
+
+```
+docker build . -t viinamayrakoira-backend
+docker tag viinamayrakoira-backend europe-west1-docker.pkg.dev/gold-order-310812/viinamayrakoira/backend
+docker push europe-west1-docker.pkg.dev/gold-order-310812/viinamayrakoira/backend
+```
+
+The you need to select "Edit and Deploy new revision" -> Deploy from the Google Cloud Run console
+
 ## Credits
 
 Made by me, [Otju](https://github.com/Otju)
